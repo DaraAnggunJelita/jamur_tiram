@@ -5,7 +5,7 @@
      ============================================================ --}}
 
 <!-- ======================== DESKTOP SIDEBAR ======================== -->
-<aside class="hidden md:flex md:flex-col md:fixed md:inset-y-0 md:left-0 md:w-64 lg:w-72 z-40 shadow-2xl shadow-slate-950/40 border-r border-[#0d2a1b]/40">
+<aside class="hidden md:flex md:flex-col md:fixed md:inset-y-0 md:left-0 md:w-64 lg:w-72 z-40 shadow-2xl shadow-black/40 border-r border-[#C9B896]/10">
     <div class="flex flex-col h-full overflow-hidden">
         @include('layouts.sidebar-content')
     </div>
@@ -18,7 +18,7 @@
      aria-modal="true"
      x-cloak>
 
-    <!-- Backdrop -->
+    <!-- Backdrop (Menggunakan warna pekat organik dengan efek blur halus) -->
     <div x-show="sidebarOpen"
          x-transition:enter="transition-opacity ease-linear duration-200"
          x-transition:enter-start="opacity-0"
@@ -26,7 +26,7 @@
          x-transition:leave="transition-opacity ease-linear duration-200"
          x-transition:leave-start="opacity-100"
          x-transition:leave-end="opacity-0"
-         class="fixed inset-0 bg-slate-950/75 backdrop-blur-xs"
+         class="fixed inset-0 bg-[#26201B]/80 backdrop-blur-xs"
          @click="sidebarOpen = false">
     </div>
 
@@ -39,15 +39,15 @@
              x-transition:leave="transition ease-in-out duration-300 transform"
              x-transition:leave-start="translate-x-0"
              x-transition:leave-end="-translate-x-full"
-             class="relative flex-1 flex flex-col w-full h-full bg-[#04130b] shadow-2xl shadow-slate-950/60">
+             class="relative flex-1 flex flex-col w-full h-full bg-[#26201B] shadow-2xl shadow-black/60 border-r border-[#C9B896]/10">
 
-            <!-- Close button -->
-            <div class="absolute top-4 right-4 z-50">
+            <!-- Close button (Tombol tutup bergaya rustic modern) -->
+            <div class="absolute top-5 right-4 z-50">
                 <button type="button"
                         @click="sidebarOpen = false"
-                        class="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 transition duration-150">
+                        class="w-9 h-9 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-[#C9B896] hover:text-white hover:bg-white/10 transition duration-150 cursor-pointer">
                     <span class="sr-only">Tutup sidebar</span>
-                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>

@@ -1,27 +1,28 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="font-extrabold text-2xl text-slate-800 leading-tight">
+        <div class="flex items-center justify-between font-sans">
+            <h2 class="font-black text-2xl text-[#26201B] leading-tight font-heading tracking-tight">
                 {{ __('Atur Perkiraan Panen') }}
             </h2>
             <a href="{{ route('jadwal-panen.index') }}"
-               class="inline-flex items-center px-4 py-2 border border-slate-350 hover:bg-slate-100 text-slate-700 text-xs font-bold uppercase rounded-xl transition duration-150 shadow-sm">
+               class="inline-flex items-center px-4 py-2 border border-[#C9B896] bg-white hover:bg-[#F6F1E6] text-[#6B4E36] text-xs font-black uppercase tracking-widest rounded-xl transition duration-150 shadow-2xs cursor-pointer">
                 Kembali
             </a>
         </div>
     </x-slot>
 
-    <div class="py-10 bg-slate-50 min-h-screen">
+    <div class="py-10 bg-[#F6F1E6] min-h-screen text-[#26201B]">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white rounded-2xl border border-slate-200/60 p-6 sm:p-8 shadow-sm">
-                
-                <div class="flex items-center space-x-2.5 pb-4 mb-6 border-b border-slate-100">
-                    <div class="w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center text-emerald-600">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <div class="bg-[#FBF8F1] rounded-2xl border border-[#C9B896]/40 p-6 sm:p-8 shadow-xs">
+
+                {{-- Header Section Form --}}
+                <div class="flex items-center space-x-2.5 pb-4 mb-6 border-b border-[#C9B896]/20">
+                    <div class="w-8 h-8 bg-[#7C9169]/15 rounded-lg flex items-center justify-center text-[#4F6146] text-lg">
+                        📅
                     </div>
                     <div>
-                        <h3 class="text-base font-extrabold text-slate-800">Atur Jadwal Estimasi</h3>
-                        <p class="text-xs text-slate-500">Prediksikan tanggal pemetikan jamur tiram berikutnya.</p>
+                        <h3 class="text-base font-black text-[#26201B] font-heading">Atur Jadwal Estimasi</h3>
+                        <p class="text-xs text-[#8E6E4E] font-medium">Prediksikan tanggal pemetikan jamur tiram berikutnya.</p>
                     </div>
                 </div>
 
@@ -30,33 +31,34 @@
 
                     {{-- Tanggal Perkiraan Panen --}}
                     <div>
-                        <label for="tanggal_estimasi" class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Tanggal Perkiraan Panen</label>
+                        <label for="tanggal_estimasi" class="block text-xs font-black text-[#6B4E36] uppercase tracking-widest mb-1.5">Tanggal Perkiraan Panen</label>
                         <input type="date" id="tanggal_estimasi" name="tanggal_estimasi"
                                min="{{ date('Y-m-d') }}" value="{{ old('tanggal_estimasi') }}" required
-                               class="block w-full rounded-xl border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 text-sm py-2.5 @error('tanggal_estimasi') border-rose-300 focus:border-rose-550 focus:ring-rose-550 @enderror">
+                               class="block w-full rounded-xl border-[#C9B896]/60 bg-white font-mono-data shadow-2xs focus:border-[#4F6146] focus:ring-0 text-sm py-2.5 text-[#26201B] placeholder-[#C9B896] @error('tanggal_estimasi') border-[#A0653D] focus:border-[#A0653D] @enderror">
                         @error('tanggal_estimasi')
-                            <p class="text-rose-600 text-xs font-semibold mt-1">{{ $message }}</p>
+                            <p class="text-[#A0653D] text-xs font-bold mt-1 font-sans">{{ $message }}</p>
                         @enderror
                     </div>
 
                     {{-- Catatan Blok / Kumbung --}}
                     <div>
-                        <label for="catatan" class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Catatan Blok / Kumbung</label>
+                        <label for="catatan" class="block text-xs font-black text-[#6B4E36] uppercase tracking-widest mb-1.5">Catatan Blok / Kumbung</label>
                         <textarea id="catatan" name="catatan" rows="4"
                                   placeholder="Misal: Kumbung A blok 2 siap panen raya..."
-                                  class="block w-full rounded-xl border-slate-300 shadow-sm focus:border-emerald-500 focus:ring-emerald-500 text-sm py-2.5 @error('catatan') border-rose-300 focus:border-rose-550 focus:ring-rose-550 @enderror">{{ old('catatan') }}</textarea>
+                                  class="block w-full rounded-xl border-[#C9B896]/60 bg-white shadow-2xs focus:border-[#4F6146] focus:ring-0 text-sm py-2.5 text-[#26201B] placeholder-[#C9B896]/70 @error('catatan') border-[#A0653D] focus:border-[#A0653D] @enderror">{{ old('catatan') }}</textarea>
                         @error('catatan')
-                            <p class="text-rose-600 text-xs font-semibold mt-1">{{ $message }}</p>
+                            <p class="text-[#A0653D] text-xs font-bold mt-1 font-sans">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div class="pt-4 border-t border-slate-100 flex justify-end gap-3">
+                    {{-- Aksi Tombol Batal & Simpan --}}
+                    <div class="pt-4 border-t border-[#C9B896]/20 flex justify-end gap-3">
                         <a href="{{ route('jadwal-panen.index') }}"
-                           class="px-5 py-2.5 text-sm font-bold text-slate-500 hover:text-slate-700 transition">
+                           class="px-5 py-2.5 text-sm font-black text-[#8E6E4E] hover:text-[#26201B] transition cursor-pointer">
                             Batal
                         </a>
                         <button type="submit"
-                                class="py-2.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-extrabold rounded-xl transition duration-150 shadow-sm transform hover:-translate-y-0.5">
+                                class="py-2.5 px-6 bg-[#4F6146] hover:bg-[#37452F] text-white text-sm font-black uppercase tracking-widest rounded-xl transition duration-150 shadow-md shadow-[#4F6146]/10 transform hover:-translate-y-0.5 cursor-pointer">
                             Simpan Jadwal
                         </button>
                     </div>

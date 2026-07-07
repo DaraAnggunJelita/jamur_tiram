@@ -3,7 +3,7 @@
 
     // Mapping judul halaman berdasarkan route aktif
     $pageTitle = 'Dashboard';
-    if (request()->routeIs('admin.dashboard'))       $pageTitle = 'Antrian Validasi Pasokan';
+    if (request()->routeIs('admin.dashboard'))           $pageTitle = 'Antrian Validasi Pasokan';
     elseif (request()->routeIs('admin.users.*'))      $pageTitle = 'Manajemen Akun Pengguna';
     elseif (request()->routeIs('admin.catalogs.create')) $pageTitle = 'Tambah Produk Katalog';
     elseif (request()->routeIs('admin.catalogs.edit'))   $pageTitle = 'Edit Produk Katalog';
@@ -28,14 +28,12 @@
     };
 @endphp
 
-<header class="bg-white/80 backdrop-blur-md border-b border-slate-200/60 sticky top-0 z-30 h-16 flex items-center justify-between px-4 sm:px-6 shrink-0 shadow-sm">
+<header class="bg-[#FBF8F1]/80 backdrop-blur-md border-b border-[#C9B896]/40 sticky top-0 z-30 h-16 flex items-center justify-between px-4 sm:px-6 shrink-0 shadow-xs font-sans text-[#26201B]">
 
-    <!-- ====== KIRI: Hamburger + Breadcrumbs ====== -->
     <div class="flex items-center gap-4 min-w-0">
 
-        <!-- Hamburger (hanya mobile) -->
         <button type="button"
-                class="md:hidden -ml-1 flex items-center justify-center w-9 h-9 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 focus:outline-none transition duration-150"
+                class="md:hidden -ml-1 flex items-center justify-center w-9 h-9 rounded-xl text-[#8E6E4E] hover:text-[#26201B] hover:bg-[#E6DAC2]/40 focus:outline-none transition duration-150 cursor-pointer"
                 @click="sidebarOpen = true">
             <span class="sr-only">Buka sidebar</span>
             <svg class="w-5 h-5" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -43,72 +41,64 @@
             </svg>
         </button>
 
-        <!-- Logo singkat untuk mobile (tidak ada sidebar fixed) -->
         <div class="flex items-center gap-2 md:hidden">
-            <div class="w-7 h-7 bg-gradient-to-tr from-emerald-600 to-teal-400 rounded-lg flex items-center justify-center shadow-sm">
-                <span class="text-white font-black text-[10px] font-heading">H</span>
+            <div class="w-7 h-7 bg-gradient-to-tr from-[#37452F] to-[#4F6146] rounded-lg flex items-center justify-center shadow-xs">
+                <span class="text-white font-black text-[10px] font-heading">K</span>
             </div>
-            <span class="font-extrabold text-slate-900 text-xs tracking-tight leading-tight">KUPS Harapan Asri</span>
+            <span class="font-black text-[#26201B] text-xs tracking-tight leading-tight font-heading">KUPS Harapan Asri</span>
         </div>
 
-        <!-- Breadcrumbs (hanya desktop) -->
-        <nav class="hidden md:flex items-center gap-1.5 text-xs font-semibold min-w-0" aria-label="Breadcrumb">
-            <span class="text-slate-400 truncate">{{ $roleLabel }}</span>
-            <svg class="w-3.5 h-3.5 text-slate-300 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+        <nav class="hidden md:flex items-center gap-1.5 text-xs font-bold min-w-0" aria-label="Breadcrumb">
+            <span class="text-[#8E6E4E] truncate font-heading">{{ $roleLabel }}</span>
+            <svg class="w-3.5 h-3.5 text-[#C9B896] shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
             </svg>
-            <span class="text-slate-800 font-extrabold truncate">{{ $pageTitle }}</span>
+            <span class="text-[#26201B] font-black truncate font-heading text-sm">{{ $pageTitle }}</span>
         </nav>
 
     </div>
 
-    <!-- ====== KANAN: Status + Dropdown Profil ====== -->
     <div class="flex items-center gap-3 shrink-0">
 
-        <!-- Indikator Sistem Online (tersembunyi di mobile) -->
-        <div class="hidden sm:flex items-center gap-1.5 bg-emerald-50 border border-emerald-200/60 px-3 py-1.5 rounded-full">
+        <div class="hidden sm:flex items-center gap-1.5 bg-[#7C9169]/10 border border-[#7C9169]/30 px-3 py-1.5 rounded-full">
             <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4F6146] opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#4F6146]"></span>
             </span>
-            <span class="text-[9px] text-emerald-800 font-black tracking-widest uppercase">Sistem Online</span>
+            <span class="text-[9px] text-[#37452F] font-black tracking-widest uppercase font-mono-data">Sistem Online</span>
         </div>
 
-        <!-- Dropdown Menu Profil -->
         <x-dropdown align="right" width="48">
             <x-slot name="trigger">
-                <button class="inline-flex items-center gap-2 px-3 py-1.5 border border-slate-200 text-xs font-bold rounded-xl text-slate-600 bg-white hover:bg-slate-50 hover:text-slate-800 focus:outline-none transition duration-150 shadow-sm">
-                    <!-- Avatar inisial -->
-                    <div class="w-6 h-6 rounded-lg font-black text-[9px] flex items-center justify-center uppercase
-                                {{ $user->role === 'admin'  ? 'bg-rose-100 text-rose-700'    :
-                                   ($user->role === 'ketua' ? 'bg-blue-100 text-blue-700'    :
-                                   'bg-emerald-100 text-emerald-700') }}">
+                <button class="inline-flex items-center gap-2 px-3 py-1.5 border border-[#C9B896]/50 text-xs font-bold rounded-xl text-[#362C24] bg-white hover:bg-[#F6F1E6] hover:text-[#26201B] focus:outline-none transition duration-150 shadow-2xs cursor-pointer">
+                    <div class="w-6 h-6 rounded-lg font-black text-[9px] flex items-center justify-center uppercase font-mono-data
+                                {{ $user->role === 'admin'  ? 'bg-[#A0653D]/20 text-[#A0653D]'    :
+                                   ($user->role === 'ketua' ? 'bg-[#C9B896]/30 text-[#6B4E36]'    :
+                                   'bg-[#4F6146]/20 text-[#37452F]') }}">
                         {{ strtoupper(substr($user->name, 0, 2)) }}
                     </div>
-                    <!-- Nama (hanya di sm+) -->
-                    <span class="hidden sm:inline max-w-[120px] truncate">{{ $user->name }}</span>
-                    <!-- Role badge -->
-                    <span class="text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase border hidden sm:inline-block
-                                 {{ $user->role === 'admin'  ? 'bg-rose-50 text-rose-700 border-rose-200'     :
-                                    ($user->role === 'ketua' ? 'bg-blue-50 text-blue-700 border-blue-200'     :
-                                    'bg-emerald-50 text-emerald-700 border-emerald-200') }}">
+                    <span class="hidden sm:inline max-w-[120px] truncate font-bold font-heading text-[#26201B]">{{ $user->name }}</span>
+                    <span class="text-[8px] font-black px-1.5 py-0.5 rounded-md uppercase border hidden sm:inline-block font-mono-data
+                                 {{ $user->role === 'admin'  ? 'bg-[#A0653D]/10 text-[#A0653D] border-[#A0653D]/20'     :
+                                    ($user->role === 'ketua' ? 'bg-[#C9B896]/20 text-[#6B4E36] border-[#C9B896]/40'     :
+                                    'bg-[#7C9169]/15 text-[#37452F] border-[#7C9169]/30') }}">
                         {{ $user->role }}
                     </span>
-                    <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <svg class="w-3.5 h-3.5 text-[#8E6E4E] shrink-0" fill="currentColor" viewBox="0 0 20 20">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                     </svg>
                 </button>
             </x-slot>
 
             <x-slot name="content">
-                <x-dropdown-link :href="route('profile.edit')" class="font-semibold text-sm text-slate-700">
+                <x-dropdown-link :href="route('profile.edit')" class="font-bold text-sm text-[#362C24] hover:text-[#4F6146] hover:bg-[#F6F1E6]">
                     Profil Akun
                 </x-dropdown-link>
 
                 <form method="POST" action="{{ route('logout') }}" class="m-0">
                     @csrf
                     <x-dropdown-link :href="route('logout')"
-                                     class="font-semibold text-sm text-red-600 hover:bg-red-50"
+                                     class="font-black text-sm text-[#A0653D] hover:bg-[#A0653D]/10"
                                      onclick="event.preventDefault(); this.closest('form').submit();">
                         Keluar Sistem
                     </x-dropdown-link>
