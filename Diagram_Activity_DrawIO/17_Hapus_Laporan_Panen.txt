@@ -1,0 +1,20 @@
+@startuml
+|Petugas Harian|
+start
+:Mengakses menu Laporan Panen;
+|Sistem|
+:Menampilkan daftar riwayat panen;
+|Petugas Harian|
+:Pilih laporan & Klik Hapus;
+|Sistem|
+:Menampilkan dialog konfirmasi hapus;
+|Petugas Harian|
+:Klik Ya / Setuju;
+|Sistem|
+:Menghapus laporan dari database;
+:Mengkalkulasi ulang total untuk Ketua;
+:Mengembalikan ke halaman laporan;
+|Petugas Harian|
+:Melihat laporan terhapus;
+stop
+@enduml

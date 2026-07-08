@@ -1,16 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between font-sans">
-            <h2 class="font-black text-2xl text-[#26201B] leading-tight font-heading tracking-tight">
-                {{ __('Edit Akun Pengguna KUPS') }}
-            </h2>
-            <a href="{{ route('admin.users.index') }}"
-               class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#E6DAC2]/40 text-[#6B4E36] hover:bg-[#E6DAC2]/80 text-xs font-black uppercase tracking-widest rounded-xl border border-[#C9B896]/60 transition duration-150 text-center">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Kembali
-            </a>
+            <div class="flex items-center gap-3">
+                <button onclick="history.back()"
+                    class="inline-flex items-center justify-center w-9 h-9 rounded-xl border border-[#C9B896]/60 bg-[#FBF8F1] hover:bg-[#E6DAC2]/60 text-[#6B4E36] transition duration-150 shadow-xs cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                </button>
+                <h2 class="font-black text-2xl text-[#26201B] leading-tight font-heading tracking-tight">
+                    {{ __('Edit Akun Pengguna KUPS') }}
+                </h2>
+            </div>
         </div>
     </x-slot>
 

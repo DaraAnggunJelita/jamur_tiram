@@ -1,0 +1,19 @@
+@startuml
+|Petugas Harian|
+start
+:Mengakses menu Jadwal Panen;
+|Sistem|
+:Menampilkan daftar jadwal panen;
+|Petugas Harian|
+:Pilih jadwal & Klik Hapus;
+|Sistem|
+:Menampilkan dialog konfirmasi hapus;
+|Petugas Harian|
+:Klik Ya / Setuju;
+|Sistem|
+:Menghapus jadwal dari database;
+:Mengembalikan ke halaman jadwal panen;
+|Petugas Harian|
+:Melihat jadwal terhapus;
+stop
+@enduml

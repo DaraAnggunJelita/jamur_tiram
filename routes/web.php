@@ -84,6 +84,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/jadwal-panen', [JadwalPanenController::class, 'index'])->name('jadwal-panen.index');
     Route::get('/jadwal-panen/create', [JadwalPanenController::class, 'create'])->name('jadwal-panen.create');
     Route::post('/jadwal-panen', [JadwalPanenController::class, 'store'])->name('jadwal-panen.store');
+    Route::get('/jadwal-panen/{id}/edit', [JadwalPanenController::class, 'edit'])->name('jadwal-panen.edit');
+    Route::put('/jadwal-panen/{id}', [JadwalPanenController::class, 'update'])->name('jadwal-panen.update');
+    Route::delete('/jadwal-panen/{id}', [JadwalPanenController::class, 'destroy'])->name('jadwal-panen.destroy');
 
 
 /*

@@ -24,16 +24,18 @@
             }
         </style>
     </head>
-    <body class="font-sans text-slate-900 antialiased bg-emerald-50">
-        <div class="min-h-screen flex flex-col justify-center items-center px-4 py-10 sm:px-6 bg-gradient-to-br from-emerald-50 via-emerald-100 to-white">
+    <body class="font-sans text-[#26201B] antialiased bg-[#F6F1E6]">
+        <div class="min-h-screen flex flex-col justify-center items-center px-4 py-10 sm:px-6 bg-gradient-to-br from-[#F6F1E6] via-[#FBF8F1] to-[#F6F1E6]">
             <div class="text-center">
                 <a href="/" class="inline-flex items-center gap-3">
-                    <x-application-logo class="w-20 h-20 fill-current text-emerald-600" />
-                    <span class="text-xl font-black text-slate-900">{{ config('app.name', 'KUPS Harapan Asri') }}</span>
+                    <div class="w-12 h-12 bg-gradient-to-tr from-[#37452F] via-[#4F6146] to-[#7C9169] rounded-xl flex items-center justify-center shadow-lg">
+                        <span class="text-white font-black text-xl font-heading">K</span>
+                    </div>
+                    <span class="text-xl font-black text-[#26201B] font-heading">{{ config('app.name', 'KUPS Harapan Asri') }}</span>
                 </a>
             </div>
 
-            <div class="w-full sm:max-w-md mt-8 px-6 py-8 bg-white shadow-xl rounded-3xl border border-slate-200 ring-1 ring-emerald-100/70">
+            <div class="w-full sm:max-w-md mt-8 px-6 py-8 bg-[#FBF8F1] shadow-xl rounded-3xl border border-[#C9B896]/40">
                 {{ $slot }}
             </div>
         </div>

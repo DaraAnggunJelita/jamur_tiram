@@ -1,0 +1,20 @@
+@startuml
+|Pengguna|
+start
+:Mengakses sistem;
+|Sistem|
+:Menampilkan menu login;
+repeat
+  |Pengguna|
+  :Tampilan form login;
+  :Input email dan password;
+  |Sistem|
+repeat while (Validasi Data?) is (Gagal) not (Berhasil)
+
+|Sistem|
+:Mengecek Hak Akses (Role);
+:Menampilkan halaman dashboard;
+|Pengguna|
+:Tampilan dashboard;
+stop
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+|Petugas Harian|
+start
+:Mengakses menu Jadwal Panen;
+|Sistem|
+:Menampilkan daftar jadwal panen;
+|Petugas Harian|
+:Pilih jadwal & Klik Edit;
+|Sistem|
+:Menampilkan form dengan data lama;
+repeat
+  |Petugas Harian|
+  :Ubah Tanggal atau Catatan;
+  |Sistem|
+repeat while (Validasi Input?) is (Gagal) not (Berhasil)
+
+|Sistem|
+:Memperbarui jadwal di database;
+:Mengembalikan ke halaman jadwal panen;
+|Petugas Harian|
+:Melihat jadwal berhasil diubah;
+stop
+@enduml

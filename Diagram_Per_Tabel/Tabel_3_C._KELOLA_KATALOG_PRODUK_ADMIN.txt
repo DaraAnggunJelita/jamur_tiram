@@ -1,0 +1,68 @@
+@startuml
+|Admin|
+start
+:Mengakses menu Katalog Produk;
+|Sistem|
+:Menampilkan halaman katalog;
+|Admin|
+:Klik Tambah Produk;
+|Sistem|
+:Menampilkan form tambah produk;
+repeat
+  |Admin|
+  :Input Nama, Harga, Deskripsi, & Foto;
+  |Sistem|
+repeat while (Validasi Input?) is (Gagal) not (Berhasil)
+
+|Sistem|
+:Menyimpan produk ke database;
+:Mengembalikan ke halaman katalog;
+|Admin|
+:Melihat produk berhasil ditambahkan;
+stop
+@enduml
+
+@startuml
+|Admin|
+start
+:Mengakses menu Katalog Produk;
+|Sistem|
+:Menampilkan halaman katalog;
+|Admin|
+:Pilih produk & Klik Edit;
+|Sistem|
+:Menampilkan form edit dengan data lama;
+repeat
+  |Admin|
+  :Ubah Deskripsi, Harga, atau Foto;
+  |Sistem|
+repeat while (Validasi Input?) is (Gagal) not (Berhasil)
+
+|Sistem|
+:Memperbarui produk di database;
+:Mengembalikan ke halaman katalog;
+|Admin|
+:Melihat produk berhasil diubah;
+stop
+@enduml
+
+@startuml
+|Admin|
+start
+:Mengakses menu Katalog Produk;
+|Sistem|
+:Menampilkan halaman katalog;
+|Admin|
+:Pilih produk & Klik Hapus;
+|Sistem|
+:Menampilkan dialog konfirmasi hapus;
+|Admin|
+:Klik Ya / Setuju;
+|Sistem|
+:Menghapus produk dan foto dari database;
+:Mengembalikan ke halaman katalog;
+|Admin|
+:Melihat produk terhapus;
+stop
+@enduml
+

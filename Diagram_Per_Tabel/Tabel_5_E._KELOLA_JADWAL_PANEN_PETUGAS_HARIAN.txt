@@ -1,0 +1,68 @@
+@startuml
+|Petugas Harian|
+start
+:Mengakses menu Jadwal Panen;
+|Sistem|
+:Menampilkan daftar jadwal panen;
+|Petugas Harian|
+:Klik Tambah Jadwal;
+|Sistem|
+:Menampilkan form jadwal;
+repeat
+  |Petugas Harian|
+  :Input Tanggal & Catatan Khusus;
+  |Sistem|
+repeat while (Validasi Input?) is (Gagal) not (Berhasil)
+
+|Sistem|
+:Menyimpan jadwal ke database;
+:Mengembalikan ke halaman jadwal panen;
+|Petugas Harian|
+:Melihat jadwal berhasil ditambahkan;
+stop
+@enduml
+
+@startuml
+|Petugas Harian|
+start
+:Mengakses menu Jadwal Panen;
+|Sistem|
+:Menampilkan daftar jadwal panen;
+|Petugas Harian|
+:Pilih jadwal & Klik Edit;
+|Sistem|
+:Menampilkan form dengan data lama;
+repeat
+  |Petugas Harian|
+  :Ubah Tanggal atau Catatan;
+  |Sistem|
+repeat while (Validasi Input?) is (Gagal) not (Berhasil)
+
+|Sistem|
+:Memperbarui jadwal di database;
+:Mengembalikan ke halaman jadwal panen;
+|Petugas Harian|
+:Melihat jadwal berhasil diubah;
+stop
+@enduml
+
+@startuml
+|Petugas Harian|
+start
+:Mengakses menu Jadwal Panen;
+|Sistem|
+:Menampilkan daftar jadwal panen;
+|Petugas Harian|
+:Pilih jadwal & Klik Hapus;
+|Sistem|
+:Menampilkan dialog konfirmasi hapus;
+|Petugas Harian|
+:Klik Ya / Setuju;
+|Sistem|
+:Menghapus jadwal dari database;
+:Mengembalikan ke halaman jadwal panen;
+|Petugas Harian|
+:Melihat jadwal terhapus;
+stop
+@enduml
+

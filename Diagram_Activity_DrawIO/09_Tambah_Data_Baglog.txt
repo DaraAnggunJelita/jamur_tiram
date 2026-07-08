@@ -1,0 +1,23 @@
+@startuml
+|Petugas Harian|
+start
+:Mengakses menu Data Baglog;
+|Sistem|
+:Menampilkan riwayat data baglog;
+|Petugas Harian|
+:Klik Tambah Data Baglog;
+|Sistem|
+:Menampilkan form input baglog;
+repeat
+  |Petugas Harian|
+  :Input Suhu, Kelembaban, & Status;
+  |Sistem|
+repeat while (Validasi Input?) is (Gagal) not (Berhasil)
+
+|Sistem|
+:Menyimpan riwayat baglog ke database;
+:Mengembalikan ke halaman baglog;
+|Petugas Harian|
+:Melihat riwayat baglog bertambah;
+stop
+@enduml

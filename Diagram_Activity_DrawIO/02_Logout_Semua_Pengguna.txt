@@ -1,0 +1,12 @@
+@startuml
+|Pengguna|
+start
+:Berada di halaman dashboard;
+:Klik Profil & Klik Logout;
+|Sistem|
+:Menghapus sesi login (Destroy Session);
+:Mengalihkan ke Halaman Landing Page;
+|Pengguna|
+:Tampilan halaman Landing Page (Tamu);
+stop
+@enduml
