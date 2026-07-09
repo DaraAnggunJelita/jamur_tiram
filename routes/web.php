@@ -59,6 +59,17 @@ Route::middleware(['auth', 'role:ketua'])->prefix('ketua')->name('ketua.')->grou
     Route::get('/reports/print', [KetuaDashboardController::class, 'printable'])->name('reports.print');
     Route::get('/reports/export-pdf', [KetuaDashboardController::class, 'exportPdf'])->name('reports.export.pdf');
     Route::get('/reports/export-excel', [KetuaDashboardController::class, 'exportExcel'])->name('reports.export.excel');
+    
+    // Manajemen Katalog Produk oleh Ketua KUPS
+    Route::resource('catalogs', CatalogController::class)->except(['show']);
+
+    // RUTE TRACEABILITY KETUA KUPS
+    Route::get('/traceability', [KetuaDashboardController::class, 'traceabilityIndex'])->name('traceability.index');
+    Route::get('/traceability/{id}', [KetuaDashboardController::class, 'lacakBatch'])->name('traceability.detail');
+    
+    // RUTE VERIFIKASI DATA PETUGAS (Ketua)
+    Route::get('/verifikasi', [KetuaDashboardController::class, 'verifikasiIndex'])->name('verifikasi.index');
+    Route::post('/verifikasi/{id}', [KetuaDashboardController::class, 'validateReport'])->name('verifikasi.process');
 });
 
 /*
@@ -70,15 +81,32 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
     Route::post('/production-reports/{report}/validate', [AdminDashboardController::class, 'validateReport'])->name('reports.validate');
     Route::resource('users', UserController::class)->except(['show']);
-
-    Route::resource('catalogs', CatalogController::class)->except(['show']);
 });
 
-// RUTE BARU UNTUK BAGLOG
+    // RUTE BARU UNTUK BIBIT
+    Route::resource('bibit', \App\Http\Controllers\BibitController::class)->only(['index', 'create', 'store']);
+
+    // RUTE BARU UNTUK BAGLOG
     Route::get('/baglog', [BaglogController::class, 'index'])->name('baglog.index');
     Route::get('/baglog/create', [BaglogController::class, 'create'])->name('baglog.create');
     Route::post('/baglog', [BaglogController::class, 'store'])->name('baglog.store');
     Route::post('/baglog/{id}/validate', [BaglogController::class, 'validateBaglog'])->name('baglog.validate');
+
+    // RUTE BARU UNTUK MODUL HULU & TENGAH
+    Route::resource('sterilisasi', \App\Http\Controllers\SterilisasiController::class)->only(['index', 'create', 'store']);
+    Route::resource('inokulasi', \App\Http\Controllers\InokulasiController::class)->only(['index', 'create', 'store']);
+    Route::resource('monitoring', \App\Http\Controllers\MonitoringKumbungController::class)->only(['index', 'create', 'store']);
+
+    // RUTE RENDANG JAMUR (Khusus panen yang buruk/layu)
+    Route::get('/alokasi-rendang', function() {
+        $panenBuruk = \App\Models\ProductionReport::where('status_distribusi', 'Pengolahan Kuliner Rendang')
+                        ->orderBy('tanggal', 'desc')->get();
+        return view('petugas.rendang.index', compact('panenBuruk'));
+    })->name('rendang.index');
+
+    // RUTE SETTINGS EWS ADMIN
+    Route::get('/admin/ews-settings', [\App\Http\Controllers\Admin\EwsSettingController::class, 'index'])->name('admin.ews.settings');
+    Route::post('/admin/ews-settings', [\App\Http\Controllers\Admin\EwsSettingController::class, 'update'])->name('admin.ews.settings.update');
 
     // RUTE BARU UNTUK JADWAL PANEN
     Route::get('/jadwal-panen', [JadwalPanenController::class, 'index'])->name('jadwal-panen.index');

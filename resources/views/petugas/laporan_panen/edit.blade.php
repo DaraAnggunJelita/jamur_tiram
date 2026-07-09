@@ -60,16 +60,31 @@
                         @enderror
                     </div>
 
-                    {{-- Kondisi Jamur --}}
+                    {{-- Inokulasi Batch --}}
                     <div>
-                        <label for="kondisi" class="block text-xs font-black text-[#6B4E36] uppercase tracking-widest font-heading mb-1.5">Kondisi Hasil Panen</label>
-                        <select id="kondisi" name="kondisi"
-                            class="block w-full rounded-xl border-[#C9B896]/60 bg-white shadow-2xs focus:border-[#4F6146] focus:ring-[#4F6146] text-sm py-2.5 text-[#362C24] font-medium @error('kondisi') border-[#A0653D] @enderror" required>
-                            <option value="Bagus" {{ old('kondisi', $report->kondisi) === 'Bagus' ? 'selected' : '' }}>🟢 Bagus — Segar & Berkualitas</option>
-                            <option value="Cukup" {{ old('kondisi', $report->kondisi) === 'Cukup' ? 'selected' : '' }}>🟡 Cukup — Sedikit Layu / Kecil</option>
-                            <option value="Rusak" {{ old('kondisi', $report->kondisi) === 'Rusak' ? 'selected' : '' }}>🔴 Rusak — Layu / Busuk</option>
+                        <label for="inokulasi_id" class="block text-xs font-black text-[#6B4E36] uppercase tracking-widest font-heading mb-1.5">Batch Inokulasi</label>
+                        <select id="inokulasi_id" name="inokulasi_id"
+                            class="block w-full rounded-xl border-[#C9B896]/60 bg-white shadow-2xs focus:border-[#4F6146] focus:ring-[#4F6146] text-sm py-2.5 text-[#362C24] font-medium @error('inokulasi_id') border-[#A0653D] @enderror" required>
+                            <option value="">-- Pilih Batch Inokulasi --</option>
+                            @foreach($inokulasis as $ino)
+                                <option value="{{ $ino->id }}" {{ old('inokulasi_id', $report->inokulasi_id) == $ino->id ? 'selected' : '' }}>Inokulasi #{{ $ino->id }} - {{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }}</option>
+                            @endforeach
                         </select>
-                        @error('kondisi')
+                        @error('inokulasi_id')
+                            <p class="text-[#A0653D] text-xs font-bold mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    {{-- Kualitas Jamur --}}
+                    <div>
+                        <label for="kualitas_panen" class="block text-xs font-black text-[#6B4E36] uppercase tracking-widest font-heading mb-1.5">Klasifikasi Kualitas Panen</label>
+                        <select id="kualitas_panen" name="kualitas_panen"
+                            class="block w-full rounded-xl border-[#C9B896]/60 bg-white shadow-2xs focus:border-[#4F6146] focus:ring-[#4F6146] text-sm py-2.5 text-[#362C24] font-medium @error('kualitas_panen') border-[#A0653D] @enderror" required>
+                            <option value="Kualitas Bagus" {{ old('kualitas_panen', $report->kualitas_panen) === 'Kualitas Bagus' ? 'selected' : '' }}>Kualitas Bagus (Jamur Segar, Putih, Besar)</option>
+                            <option value="Kualitas Cukup" {{ old('kualitas_panen', $report->kualitas_panen) === 'Kualitas Cukup' ? 'selected' : '' }}>Kualitas Cukup (Ukuran Sedang, Warna Agak Kusam)</option>
+                            <option value="Kualitas Buruk/Layu" {{ old('kualitas_panen', $report->kualitas_panen) === 'Kualitas Buruk/Layu' ? 'selected' : '' }}>Kualitas Buruk/Layu (Jamur Patah, Kekuningan/Layu)</option>
+                        </select>
+                        @error('kualitas_panen')
                             <p class="text-[#A0653D] text-xs font-bold mt-1">{{ $message }}</p>
                         @enderror
                     </div>

@@ -2,33 +2,36 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProductionReport extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
+        'inokulasi_id',
         'user_id',
         'tanggal',
         'jumlah_panen',
-        'kondisi',
+        'kualitas_panen',
+        'status_distribusi',
         'status_validasi',
         'catatan',
-        'validated_by'
+        'validated_by',
     ];
 
-    /**
-     * Relasi ke User (Petugas yang menginput laporan)
-     */
-    public function user(): BelongsTo
+    public function inokulasi()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(Inokulasi::class);
     }
 
-    /**
-     * Relasi ke User Admin (Admin yang memvalidasi laporan)
-     */
-    public function validator(): BelongsTo
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function validator()
     {
         return $this->belongsTo(User::class, 'validated_by');
     }

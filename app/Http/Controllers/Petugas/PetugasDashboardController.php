@@ -21,6 +21,11 @@ class PetugasDashboardController extends Controller
             ->orderBy('tanggal', 'desc')
             ->get();
 
-        return view('petugas.dashboard', compact('recentReports'));
+        // Mengambil data Peringatan Aktif (is_read = false) untuk dikirim ke Dashboard
+        $peringatanAktif = \App\Models\Peringatan::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('petugas.dashboard', compact('recentReports', 'peringatanAktif'));
     }
 }

@@ -15,14 +15,14 @@
                 <div class="bg-[#FBF8F1] border border-[#C9B896]/40 rounded-2xl p-6 shadow-xs overflow-hidden">
                     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-4 border-b border-[#C9B896]/20">
                         <div>
-                            <h3 class="text-xl font-black text-[#26201B] font-heading tracking-tight">Riwayat Pengecekan Baglog</h3>
-                            <p class="text-xs text-[#8E6E4E] font-medium mt-0.5">Daftar pemantauan kondisi pertumbuhan jamur tiram.</p>
+                            <h3 class="text-xl font-black text-[#26201B] font-heading tracking-tight">Riwayat Pembuatan Baglog</h3>
+                            <p class="text-xs text-[#8E6E4E] font-medium mt-0.5">Daftar batch pembuatan baglog baru.</p>
                         </div>
                         @if(auth()->user()->role === 'petugas')
                             <a href="{{ route('baglog.create') }}"
                                 class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#4F6146] hover:bg-[#37452F] text-white text-xs font-black uppercase tracking-widest rounded-xl transition duration-150 shadow-md shadow-[#4F6146]/10 transform hover:-translate-y-0.5 self-start sm:self-center cursor-pointer">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                                Log Kondisi Kumbung
+                                Tambah Batch Baglog
                             </a>
                         @endif
                     </div>
@@ -32,10 +32,10 @@
                         <table class="w-full text-left text-sm border-collapse">
                             <thead>
                                 <tr class="border-b border-[#C9B896]/40 text-[#6B4E36] text-xs font-black uppercase tracking-widest">
-                                    <th class="py-3 px-4 font-heading">Tanggal</th>
+                                    <th class="py-3 px-4 font-heading">Tgl Pembuatan</th>
+                                    <th class="py-3 px-4 font-heading">Kode Batch</th>
                                     <th class="py-3 px-4 font-heading">Petugas</th>
-                                    <th class="py-3 px-4 font-heading">Baglog Aktif</th>
-                                    <th class="py-3 px-4 font-heading">Kondisi Kumbung</th>
+                                    <th class="py-3 px-4 font-heading">Jumlah Baglog</th>
                                     <th class="py-3 px-4 text-center font-heading">Status</th>
                                     @if(auth()->user()->role === 'admin')
                                         <th class="py-3 px-4 text-right font-heading">Aksi</th>
@@ -45,10 +45,10 @@
                             <tbody class="divide-y divide-[#C9B896]/20 text-[#362C24]">
                                 @forelse($baglogs as $log)
                                 <tr class="hover:bg-[#F6F1E6]/40 transition duration-150">
-                                    <td class="py-3.5 px-4 font-black text-[#26201B] font-mono-data text-xs">{{ \Carbon\Carbon::parse($log->tanggal)->format('d M Y') }}</td>
+                                    <td class="py-3.5 px-4 font-black text-[#26201B] font-mono-data text-xs">{{ \Carbon\Carbon::parse($log->tanggal_pembuatan)->format('d M Y') }}</td>
+                                    <td class="py-3.5 px-4 font-black text-[#4F6146]">{{ $log->kode_batch }}</td>
                                     <td class="py-3.5 px-4 font-medium">{{ $log->user->name }}</td>
-                                    <td class="py-3.5 px-4 font-mono-data text-[#4F6146] font-black text-xs">{{ number_format($log->jumlah_baglog_aktif) }} Pcs</td>
-                                    <td class="py-3.5 px-4 truncate max-w-[200px] font-medium">{{ $log->kondisi_kumbung }}</td>
+                                    <td class="py-3.5 px-4 font-mono-data text-[#4F6146] font-black text-xs">{{ number_format($log->jumlah_baglog) }} Pcs</td>
                                     <td class="py-3.5 px-4 text-center">
                                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black border uppercase tracking-wider font-mono-data
                                             {{ $log->status_validasi === 'valid'
@@ -75,7 +75,58 @@
                                 @empty
                                 <tr>
                                     <td colspan="{{ auth()->user()->role === 'admin' ? 6 : 5 }}" class="py-12 text-center text-[#8E6E4E] font-medium font-heading italic">
-                                        Belum ada log pengecekan baglog yang diinput di kumbung.
+                                        Belum ada log batch pembuatan baglog.
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                {{-- Card Riwayat Sterilisasi --}}
+                <div class="bg-[#FBF8F1] border border-[#C9B896]/40 rounded-2xl p-6 shadow-xs overflow-hidden mt-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-4 border-b border-[#C9B896]/20">
+                        <div>
+                            <h3 class="text-xl font-black text-[#26201B] font-heading tracking-tight">Riwayat Sterilisasi Baglog</h3>
+                            <p class="text-xs text-[#8E6E4E] font-medium mt-0.5">Daftar proses pengukusan / sterilisasi pada batch baglog.</p>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm border-collapse">
+                            <thead>
+                                <tr class="border-b border-[#C9B896]/40 text-[#6B4E36] text-xs font-black uppercase tracking-widest">
+                                    <th class="py-3 px-4 font-heading">Tgl Sterilisasi</th>
+                                    <th class="py-3 px-4 font-heading">Batch Baglog</th>
+                                    <th class="py-3 px-4 font-heading">Petugas</th>
+                                    <th class="py-3 px-4 font-heading">Durasi & Info Tambahan</th>
+                                    <th class="py-3 px-4 font-heading text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-[#C9B896]/20 text-[#362C24]">
+                                @forelse($sterilisasis as $sterilisasi)
+                                <tr class="hover:bg-[#F6F1E6]/40 transition duration-150">
+                                    <td class="py-3.5 px-4 font-black text-[#26201B] font-mono-data text-xs">{{ \Carbon\Carbon::parse($sterilisasi->tanggal)->format('d M Y') }}</td>
+                                    <td class="py-3.5 px-4 font-black text-[#4F6146]">{{ $sterilisasi->baglog->kode_batch }}</td>
+                                    <td class="py-3.5 px-4 font-medium">{{ $sterilisasi->user->name }}</td>
+                                    <td class="py-3.5 px-4">
+                                        <div class="font-mono-data font-black text-[#4F6146] text-xs">{{ $sterilisasi->durasi_pengukusan }} Jam</div>
+                                        <div class="text-[10px] text-[#8E6E4E] mt-1 font-bold">Air: {{ $sterilisasi->kondisi_air }} | Api: {{ $sterilisasi->kestabilan_api }}</div>
+                                    </td>
+                                    <td class="py-3.5 px-4 text-center">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black border uppercase tracking-wider font-mono-data
+                                            {{ $sterilisasi->status_sterilisasi === 'aman'
+                                                ? 'bg-[#7C9169]/15 text-[#37452F] border-[#7C9169]/30'
+                                                : 'bg-[#A0653D]/10 text-[#A0653D] border-[#A0653D]/20 animate-pulse' }}">
+                                            {{ $sterilisasi->status_sterilisasi }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="5" class="py-12 text-center text-[#8E6E4E] font-medium font-heading italic">
+                                        Belum ada riwayat sterilisasi.
                                     </td>
                                 </tr>
                                 @endforelse

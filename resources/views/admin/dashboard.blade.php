@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
@@ -39,7 +39,7 @@
                 <!-- Card Antrian Tertunda -->
                 <div class="bg-[#FBF8F1] rounded-2xl border border-[#C9B896]/60 p-6 flex items-center space-x-4 hover:shadow-xl hover:shadow-[#6B4E36]/5 hover:border-[#8E6E4E] transition duration-300">
                     <div class="w-12 h-12 rounded-xl bg-[#A0653D] text-white flex items-center justify-center shadow-lg shadow-[#A0653D]/20 text-lg">
-                        ⏳
+                        <svg class='w-6 h-6 inline-block' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'/></svg>
                     </div>
                     <div>
                         <p class="text-[10px] text-[#A0653D] font-black uppercase tracking-widest">Antrian Tertunda</p>
@@ -50,7 +50,7 @@
                 <!-- Card Total Berat Tunggu -->
                 <div class="bg-[#FBF8F1] rounded-2xl border border-[#C9B896]/60 p-6 flex items-center space-x-4 hover:shadow-xl hover:shadow-[#4F6146]/5 hover:border-[#4F6146] transition duration-300">
                     <div class="w-12 h-12 rounded-xl bg-[#4F6146] text-white flex items-center justify-center shadow-lg shadow-[#4F6146]/20 text-lg">
-                        ⚖️
+                        <svg class='w-6 h-6 inline-block' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3'/></svg>
                     </div>
                     <div>
                         <p class="text-[10px] text-[#4F6146] font-black uppercase tracking-widest">Total Berat Tunggu</p>
@@ -99,9 +99,9 @@
                                                     {{ number_format($report->jumlah_panen, 1) }} Kg
                                                 </span>
                                                 <span class="px-2.5 py-1 text-[10px] font-black rounded-lg border shadow-2xs uppercase tracking-wider
-                                                    {{ $report->kondisi === 'Bagus' ? 'bg-[#7C9169]/15 text-[#37452F] border-[#7C9169]/30' :
-                                                       ($report->kondisi === 'Cukup' ? 'bg-[#C9B896]/20 text-[#6B4E36] border-[#C9B896]/40' : 'bg-[#A0653D]/10 text-[#A0653D] border-[#A0653D]/20') }}">
-                                                    Kondisi: {{ $report->kondisi }}
+                                                    {{ $report->kualitas_panen === 'Kualitas Bagus' ? 'bg-[#7C9169]/15 text-[#37452F] border-[#7C9169]/30' :
+                                                       ($report->kualitas_panen === 'Kualitas Cukup' ? 'bg-[#C9B896]/20 text-[#6B4E36] border-[#C9B896]/40' : 'bg-[#A0653D]/10 text-[#A0653D] border-[#A0653D]/20') }}">
+                                                    Kondisi: {{ $report->kualitas_panen }}
                                                 </span>
                                             </div>
                                             <div>
@@ -139,7 +139,7 @@
                             @empty
                                 <div class="text-center py-20 bg-[#F6F1E6]/30 rounded-xl border border-dashed border-[#C9B896]/60">
                                     <div class="w-12 h-12 bg-[#7C9169]/10 rounded-xl border border-[#7C9169]/20 text-[#4F6146] flex items-center justify-center mx-auto mb-3 text-xl">
-                                        🍄
+                                        <svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4'/></svg>
                                     </div>
                                     <p class="text-sm font-black text-[#26201B] font-heading">Antrian Kosong</p>
                                     <p class="text-xs text-[#8E6E4E] mt-1 max-w-xs mx-auto font-medium">Seluruh laporan dari petugas kumbung telah divalidasi ke sistem utama.</p>
@@ -154,7 +154,7 @@
                     <div class="p-6">
                         <div class="pb-4 mb-5 border-b border-[#C9B896]/30 flex items-center space-x-2">
                             <div class="w-7 h-7 bg-[#E6DAC2]/50 border border-[#C9B896]/30 rounded-lg flex items-center justify-center text-[#6B4E36] font-bold text-xs">
-                                📜
+                                <svg class='w-6 h-6 inline-block' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'/></svg>
                             </div>
                             <h3 class="text-xs font-black text-[#26201B] uppercase tracking-widest font-heading">Log Riwayat Audit</h3>
                         </div>
@@ -173,7 +173,7 @@
                                     </div>
                                     <div>
                                         <p class="text-sm font-black text-[#26201B] leading-tight font-heading">{{ $report->user->name }}</p>
-                                        <p class="text-xs text-[#6B4E36] mt-0.5 font-bold font-mono-data">{{ number_format($report->jumlah_panen, 1) }} Kg <span class="text-[10px] font-sans text-[#8E6E4E]">({{ $report->kondisi }})</span></p>
+                                        <p class="text-xs text-[#6B4E36] mt-0.5 font-bold font-mono-data">{{ number_format($report->jumlah_panen, 1) }} Kg <span class="text-[10px] font-sans text-[#8E6E4E]">({{ $report->kualitas_panen }})</span></p>
                                     </div>
                                     <div class="pt-2 border-t border-[#C9B896]/20 flex items-center space-x-1 text-[10px] text-[#8E6E4E] font-bold">
                                         <span class="truncate">Validator: {{ $report->validator->name ?? 'Admin' }}</span>
@@ -181,7 +181,7 @@
                                 </div>
                             @empty
                                 <div class="text-center py-16 text-[#8E6E4E]">
-                                    <p class="text-2xl block mb-1">📦</p>
+                                    <p class="text-2xl block mb-1"><svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4'/></svg></p>
                                     <p class="text-xs font-bold text-[#6B4E36] font-heading">Belum ada riwayat terekam.</p>
                                 </div>
                             @endforelse
@@ -193,3 +193,4 @@
         </div>
     </div>
 </x-app-layout>
+

@@ -23,14 +23,16 @@ class KetuaDashboardController extends Controller
     public function index(): View
     {
         // 1. Ringkasan Data Produksi (hanya laporan yang sudah divalidasi 'valid')
-        $totalProduksi     = ProductionReport::where('status_validasi', 'valid')->sum('jumlah_panen');
+        $totalProduksi     = ProductionReport::where('status_validasi', 'valid')->where('kualitas_panen', '!=', 'Kualitas Buruk/Layu')->sum('jumlah_panen');
+        $totalPanenGagal   = ProductionReport::where('status_validasi', 'valid')->where('kualitas_panen', 'Kualitas Buruk/Layu')->sum('jumlah_panen');
         $totalLaporanValid = ProductionReport::where('status_validasi', 'valid')->count();
         $rataRataPanen     = ProductionReport::where('status_validasi', 'valid')->avg('jumlah_panen') ?? 0;
 
         // 2. Data Grafik: Total panen per bulan untuk 12 bulan terakhir
         $chartData = ProductionReport::select(
                 DB::raw("DATE_FORMAT(tanggal, '%M %Y') as bulan"),
-                DB::raw("SUM(jumlah_panen) as total_panen")
+                DB::raw("SUM(CASE WHEN kualitas_panen != 'Kualitas Buruk/Layu' THEN jumlah_panen ELSE 0 END) as total_berhasil"),
+                DB::raw("SUM(CASE WHEN kualitas_panen = 'Kualitas Buruk/Layu' THEN jumlah_panen ELSE 0 END) as total_gagal")
             )
             ->where('status_validasi', 'valid')
             ->groupBy('bulan')
@@ -40,7 +42,8 @@ class KetuaDashboardController extends Controller
 
         // 3. Format label dan nilai untuk Chart.js
         $chartLabels = $chartData->pluck('bulan')->toArray();
-        $chartValues = $chartData->pluck('total_panen')->toArray();
+        $chartValuesBerhasil = $chartData->pluck('total_berhasil')->toArray();
+        $chartValuesGagal = $chartData->pluck('total_gagal')->toArray();
 
         // 4. Log laporan terbaru (semua status)
         $recentReports = ProductionReport::with('user')
@@ -50,10 +53,12 @@ class KetuaDashboardController extends Controller
 
         return view('ketua.dashboard', compact(
             'totalProduksi',
+            'totalPanenGagal',
             'totalLaporanValid',
             'rataRataPanen',
             'chartLabels',
-            'chartValues',
+            'chartValuesBerhasil',
+            'chartValuesGagal',
             'recentReports'
         ));
     }
@@ -152,7 +157,7 @@ class KetuaDashboardController extends Controller
             $sheet->setCellValue('B' . $row, $tanggal);
             $sheet->setCellValue('C' . $row, $petugas);
             $sheet->setCellValue('D' . $row, (float) $r->jumlah_panen);
-            $sheet->setCellValue('E' . $row, $r->kondisi);
+            $sheet->setCellValue('E' . $row, $r->kualitas_panen);
             $sheet->setCellValue('F' . $row, 'Valid ✓');
 
             $sheet->getStyle('A' . $row . ':F' . $row)->applyFromArray([
@@ -236,5 +241,91 @@ class KetuaDashboardController extends Controller
             ->get();
 
         return view('ketua.reports.printable', compact('reports'));
+    }
+
+    /**
+     * TRACEABILITY: Melacak riwayat hulu-hilir suatu batch baglog
+     */
+    public function lacakBatch($baglog_id)
+    {
+        // 1. Ambil data Baglog dan sumber Bibitnya
+        $baglog = \App\Models\Baglog::with('bibit', 'user')->findOrFail($baglog_id);
+
+        // 2. Ambil data Sterilisasi yang terkait dengan baglog ini
+        $sterilisasi = \App\Models\Sterilisasi::where('baglog_id', $baglog_id)->with('user')->first();
+
+        $inokulasi = null;
+        $monitoring = null;
+        $panen = null;
+
+        if ($sterilisasi) {
+            // 3. Ambil Inokulasi dari sterilisasi tersebut
+            $inokulasi = \App\Models\Inokulasi::where('sterilisasi_id', $sterilisasi->id)->with('user')->first();
+            
+            if ($inokulasi) {
+                // 4. Ambil Riwayat Monitoring (Bisa lebih dari 1, kita ambil listnya)
+                $monitoring = \App\Models\MonitoringKumbung::where('inokulasi_id', $inokulasi->id)->with('user')->orderBy('tanggal', 'desc')->get();
+                
+                // 5. Ambil Laporan Panen dari batch inokulasi ini
+                $panen = \App\Models\ProductionReport::where('inokulasi_id', $inokulasi->id)->with('user')->get();
+            }
+        }
+
+        // 6. Return ke view investigasi (Traceability)
+        return view('ketua.traceability.detail', compact(
+            'baglog', 
+            'sterilisasi', 
+            'inokulasi', 
+            'monitoring', 
+            'panen'
+        ));
+    }
+
+    /**
+     * TRACEABILITY: Halaman Index pencarian batch
+     */
+    public function traceabilityIndex()
+    {
+        $baglogs = \App\Models\Baglog::with('bibit', 'user')->orderBy('tanggal_pembuatan', 'desc')->get();
+        return view('ketua.traceability.index', compact('baglogs'));
+    }
+
+    /**
+     * VERIFIKASI: Halaman Index laporan panen pending
+     */
+    public function verifikasiIndex()
+    {
+        $reports = \App\Models\ProductionReport::with('user', 'inokulasi.sterilisasi.baglog')
+            ->orderBy('status_validasi', 'asc') // Munculkan pending terlebih dahulu
+            ->orderBy('tanggal', 'desc')
+            ->get();
+            
+        return view('ketua.verifikasi.index', compact('reports'));
+    }
+
+    /**
+     * VERIFIKASI: Proses terima / tolak laporan
+     */
+    public function validateReport(\Illuminate\Http\Request $request, $id)
+    {
+        $report = \App\Models\ProductionReport::findOrFail($id);
+        
+        $request->validate([
+            'status_validasi' => 'required|in:valid,invalid',
+            'catatan' => 'nullable|string'
+        ]);
+
+        $report->status_validasi = $request->status_validasi;
+        $report->validated_by = auth()->id();
+        
+        // Append atau Replace catatan
+        if ($request->catatan) {
+            $report->catatan = ($report->catatan ? $report->catatan . "\n[Ketua]: " : "[Ketua]: ") . $request->catatan;
+        }
+
+        $report->save();
+
+        return redirect()->route('ketua.verifikasi.index')
+            ->with('success', 'Status validasi laporan panen berhasil diperbarui!');
     }
 }

@@ -25,7 +25,7 @@
                     <td class="px-4 py-2">{{ optional($r->tanggal)->format('Y-m-d') ?: $r->tanggal }}</td>
                     <td class="px-4 py-2">{{ optional($r->user)->name ?: '-' }}</td>
                     <td class="px-4 py-2">{{ number_format($r->jumlah_panen,1) }}</td>
-                    <td class="px-4 py-2">{{ $r->kondisi }}</td>
+                    <td class="px-4 py-2">{{ $r->kualitas_panen }}</td>
                     <td class="px-4 py-2">{{ $r->status_validasi }}</td>
                 </tr>
             @empty

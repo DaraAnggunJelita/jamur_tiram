@@ -1,12 +1,13 @@
 <a href="{{ route('admin.catalogs.index') }}"
    class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 group cursor-pointer
           {{ request()->routeIs('admin.catalogs.*')
-             ? 'bg-[#4F6146] text-[#FBF8F1] shadow-md shadow-black/30'
-             : 'text-[#C9B896]/60 hover:bg-white/5 hover:text-white' }}">
-    <svg class="w-[18px] h-[18px] shrink-0 transition-colors duration-200 {{ request()->routeIs('admin.catalogs.*') ? 'text-[#FBF8F1]' : 'text-[#C9B896]/40 group-hover:text-[#7C9169]' }}"
+             ? 'bg-gradient-to-r from-[#E6D5B8] to-[#DDA15E] text-[#253B29] shadow-md shadow-black/20 font-bold'
+             : 'text-[#E6D5B8]/70 hover:bg-white/10 hover:text-[#F6F1E6]' }}">
+    <svg class="w-[18px] h-[18px] shrink-0 transition-colors duration-200 {{ request()->routeIs('admin.catalogs.*') ? 'text-[#253B29]' : 'text-[#E6D5B8]/50 group-hover:text-white' }}"
          fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
               d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
     </svg>
     <span>Katalog Produk</span>
 </a>
+

@@ -27,7 +27,8 @@ class ProductionReportController extends Controller
      */
     public function create(): View
     {
-        return view('petugas.laporan_panen.create');
+        $inokulasis = \App\Models\Inokulasi::all();
+        return view('petugas.laporan_panen.create', compact('inokulasis'));
     }
 
     /**
@@ -36,19 +37,33 @@ class ProductionReportController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'inokulasi_id' => 'required|exists:inokulasis,id',
             'tanggal'      => 'required|date|before_or_equal:today',
             'jumlah_panen' => 'required|numeric|min:0.1',
-            'kondisi'      => 'required|string|max:50',
+            'kualitas_panen' => 'required|string|max:50',
             'catatan'      => 'nullable|string',
         ]);
 
+        // LOGIKA OTOMATIS DISTRIBUSI PASCAPANEN
+        $status_distribusi = 'Belum Didistribusikan';
+        
+        if ($request->kualitas_panen === 'Kualitas Bagus') {
+            $status_distribusi = 'Siap Jual Segar';
+        } elseif ($request->kualitas_panen === 'Kualitas Cukup') {
+            $status_distribusi = 'Siap Jual Grosir';
+        } elseif ($request->kualitas_panen === 'Kualitas Buruk/Layu') {
+            $status_distribusi = 'Pengolahan Kuliner Rendang';
+        }
+
         ProductionReport::create([
-            'user_id'         => auth()->id(),
-            'tanggal'         => $request->tanggal,
-            'jumlah_panen'    => $request->jumlah_panen,
-            'kondisi'         => $request->kondisi,
-            'catatan'         => $request->catatan,
-            'status_validasi' => 'pending', // Menunggu persetujuan Admin
+            'inokulasi_id'      => $request->inokulasi_id,
+            'user_id'           => auth()->id(),
+            'tanggal'           => $request->tanggal,
+            'jumlah_panen'      => $request->jumlah_panen,
+            'kualitas_panen'    => $request->kualitas_panen,
+            'status_distribusi' => $status_distribusi,
+            'catatan'           => $request->catatan,
+            'status_validasi'   => 'pending',
         ]);
 
         return redirect()->route('petugas.laporan-panen.index')
@@ -71,7 +86,8 @@ class ProductionReportController extends Controller
                 ->with('error', 'Laporan yang sudah divalidasi tidak dapat diedit.');
         }
 
-        return view('petugas.laporan_panen.edit', compact('report'));
+        $inokulasis = \App\Models\Inokulasi::all();
+        return view('petugas.laporan_panen.edit', compact('report', 'inokulasis'));
     }
 
     /**
@@ -91,17 +107,29 @@ class ProductionReportController extends Controller
         }
 
         $request->validate([
+            'inokulasi_id' => 'required|exists:inokulasis,id',
             'tanggal'      => 'required|date|before_or_equal:today',
             'jumlah_panen' => 'required|numeric|min:0.1',
-            'kondisi'      => 'required|string|max:50',
+            'kualitas_panen' => 'required|string|max:50',
             'catatan'      => 'nullable|string',
         ]);
 
+        $status_distribusi = 'Belum Didistribusikan';
+        if ($request->kualitas_panen === 'Kualitas Bagus') {
+            $status_distribusi = 'Siap Jual Segar';
+        } elseif ($request->kualitas_panen === 'Kualitas Cukup') {
+            $status_distribusi = 'Siap Jual Grosir';
+        } elseif ($request->kualitas_panen === 'Kualitas Buruk/Layu') {
+            $status_distribusi = 'Pengolahan Kuliner Rendang';
+        }
+
         $report->update([
-            'tanggal'      => $request->tanggal,
-            'jumlah_panen' => $request->jumlah_panen,
-            'kondisi'      => $request->kondisi,
-            'catatan'      => $request->catatan,
+            'inokulasi_id'      => $request->inokulasi_id,
+            'tanggal'           => $request->tanggal,
+            'jumlah_panen'      => $request->jumlah_panen,
+            'kualitas_panen'    => $request->kualitas_panen,
+            'status_distribusi' => $status_distribusi,
+            'catatan'           => $request->catatan,
         ]);
 
         return redirect()->route('petugas.laporan-panen.index')

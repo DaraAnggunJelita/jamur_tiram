@@ -1,4 +1,4 @@
-<x-app-layout>
+﻿<x-app-layout>
     <x-slot name="header">
         <div class="flex items-center justify-between font-sans">
             <div class="flex items-center gap-3">
@@ -20,7 +20,7 @@
                 {{-- Header Section Form --}}
                 <div class="flex items-center space-x-2.5 pb-4 mb-6 border-b border-[#C9B896]/20">
                     <div class="w-8 h-8 bg-[#7C9169]/15 rounded-lg flex items-center justify-center text-[#4F6146] text-lg">
-                        ✏️
+                        <svg class='w-6 h-6 inline-block' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z'/></svg>
                     </div>
                     <div>
                         <h3 class="text-base font-black text-[#26201B] font-heading">Perbarui Jadwal Estimasi</h3>
@@ -71,3 +71,4 @@
         </div>
     </div>
 </x-app-layout>
+

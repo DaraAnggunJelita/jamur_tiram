@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Baglog;
+use App\Models\Bibit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,15 +14,15 @@ class BaglogController extends Controller
      */
     public function index()
     {
-        // Jika admin atau ketua, tampilkan semua data. Jika petugas, tampilkan miliknya saja.
         if (Auth::user()->role === 'petugas') {
-            $baglogs = Baglog::with('user')->where('user_id', Auth::id())->orderBy('tanggal', 'desc')->get();
+            $baglogs = Baglog::with(['user', 'bibit'])->where('user_id', Auth::id())->orderBy('tanggal_pembuatan', 'desc')->get();
+            $sterilisasis = \App\Models\Sterilisasi::with(['baglog', 'user'])->where('user_id', Auth::id())->orderBy('tanggal', 'desc')->get();
         } else {
-            $baglogs = Baglog::with('user')->orderBy('tanggal', 'desc')->get();
+            $baglogs = Baglog::with(['user', 'bibit'])->orderBy('tanggal_pembuatan', 'desc')->get();
+            $sterilisasis = \App\Models\Sterilisasi::with(['baglog', 'user'])->orderBy('tanggal', 'desc')->get();
         }
 
-        // Return ke view dashboard baglog kamu (sesuaikan path-nya jika memakai folder khusus)
-        return view('baglog.index', compact('baglogs'));
+        return view('baglog.index', compact('baglogs', 'sterilisasis'));
     }
 
     /**
@@ -33,7 +34,9 @@ class BaglogController extends Controller
             abort(403, 'Hanya petugas yang dapat menambahkan data baglog.');
         }
 
-        return view('baglog.create');
+        $bibits = Bibit::where('status', 'Tersedia')->get();
+        $baglogs = Baglog::orderBy('created_at', 'desc')->get();
+        return view('baglog.create', compact('bibits', 'baglogs'));
     }
 
     /**
@@ -42,20 +45,22 @@ class BaglogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tanggal' => 'required|date',
-            'jumlah_baglog_aktif' => 'required|integer|min:0',
-            'kondisi_kumbung' => 'required|string|max:255',
+            'bibit_id' => 'required|exists:bibits,id',
+            'kode_batch' => 'required|string|unique:baglogs,kode_batch',
+            'tanggal_pembuatan' => 'required|date',
+            'jumlah_baglog' => 'required|integer|min:1',
         ]);
 
         Baglog::create([
+            'bibit_id' => $request->bibit_id,
             'user_id' => Auth::id(),
-            'tanggal' => $request->tanggal,
-            'jumlah_baglog_aktif' => $request->jumlah_baglog_aktif,
-            'kondisi_kumbung' => $request->kondisi_kumbung,
-            'status_validasi' => 'pending', // default awal sebelum dicek admin
+            'kode_batch' => $request->kode_batch,
+            'tanggal_pembuatan' => $request->tanggal_pembuatan,
+            'jumlah_baglog' => $request->jumlah_baglog,
+            'status_validasi' => 'pending',
         ]);
 
-        return redirect()->route('baglog.index')->with('success', 'Data log baglog berhasil dikirim dan menunggu validasi!');
+        return redirect()->route('baglog.index')->with('success', 'Data pembuatan baglog berhasil disimpan dan menunggu validasi!');
     }
 
     /**
@@ -63,7 +68,6 @@ class BaglogController extends Controller
      */
     public function validateBaglog($id)
     {
-        // Proteksi tingkat controller agar hanya admin yang bisa memvalidasi
         if (Auth::user()->role !== 'admin') {
             abort(403, 'Anda tidak memiliki akses untuk tindakan ini.');
         }

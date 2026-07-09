@@ -235,7 +235,7 @@
                     <td class="bold">{{ optional($r->tanggal)->isoFormat('D MMM Y') ?: $r->tanggal }}</td>
                     <td>{{ optional($r->user)->name ?: '-' }}</td>
                     <td class="num">{{ number_format($r->jumlah_panen, 1) }} Kg</td>
-                    <td class="center"><span class="badge-kondisi">{{ $r->kondisi }}</span></td>
+                    <td class="center"><span class="badge-kondisi">{{ $r->kualitas_panen }}</span></td>
                     <td class="center"><span class="badge-valid">✓ Valid</span></td>
                 </tr>
             @empty

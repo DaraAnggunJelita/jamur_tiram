@@ -1,4 +1,4 @@
-@extends('layouts.app')
+﻿@extends('layouts.app')
 
 @section('content')
 <div class="py-8 bg-[#F6F1E6] min-h-screen text-[#26201B]">
@@ -110,16 +110,16 @@
                                 <td class="px-6 py-4 text-sm font-black text-[#4F6146] font-mono-data">{{ number_format($r->jumlah_panen, 1) }} Kg</td>
                                 <td class="px-6 py-4 text-sm">
                                     <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider border font-mono-data
-                                        {{ $r->kondisi === 'Bagus' ? 'bg-[#7C9169]/15 text-[#37452F] border-[#7C9169]/30' :
-                                          ($r->kondisi === 'Cukup' ? 'bg-[#C9B896]/20 text-[#6B4E36] border-[#C9B896]/40' : 'bg-[#A0653D]/10 text-[#A0653D] border-[#A0653D]/20') }}">
-                                        {{ $r->kondisi }}
+                                        {{ $r->kualitas_panen === 'Kualitas Bagus' ? 'bg-[#7C9169]/15 text-[#37452F] border-[#7C9169]/30' :
+                                          ($r->kualitas_panen === 'Kualitas Cukup' ? 'bg-[#C9B896]/20 text-[#6B4E36] border-[#C9B896]/40' : 'bg-[#A0653D]/10 text-[#A0653D] border-[#A0653D]/20') }}">
+                                        {{ $r->kualitas_panen }}
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 text-sm">
                                     @if ($r->status_validasi === 'valid')
                                         <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#7C9169]/15 text-[#37452F] border border-[#7C9169]/30 font-mono-data">✓ Valid</span>
                                     @elseif ($r->status_validasi === 'pending')
-                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#C9B896]/20 text-[#6B4E36] border border-[#C9B896]/40 animate-pulse font-mono-data">⏳ Menunggu</span>
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#C9B896]/20 text-[#6B4E36] border border-[#C9B896]/40 animate-pulse font-mono-data"><svg class='w-6 h-6 inline-block' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'/></svg> Menunggu</span>
                                     @else
                                         <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#A0653D]/10 text-[#A0653D] border border-[#A0653D]/20 font-mono-data">✕ Invalid</span>
                                     @endif
@@ -129,7 +129,7 @@
                             <tr>
                                 <td colspan="6" class="px-6 py-16 text-center">
                                     <div class="w-14 h-14 bg-[#F6F1E6] border border-[#C9B896]/40 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl shadow-2xs">
-                                        📋
+                                        <svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'/></svg>
                                     </div>
                                     <p class="text-sm font-black text-[#26201B] font-heading">Belum Ada Data Laporan</p>
                                     <p class="text-xs text-[#8E6E4E] mt-1 font-medium">Laporan akan muncul setelah petugas menginputkan data panen.</p>
@@ -144,3 +144,4 @@
     </div>
 </div>
 @endsection
+
