@@ -10,18 +10,12 @@ class Baglog extends Model
     use HasFactory;
 
     protected $fillable = [
-        'bibit_id',
         'user_id',
         'kode_batch',
         'tanggal_pembuatan',
         'jumlah_baglog',
         'status_validasi',
     ];
-
-    public function bibit()
-    {
-        return $this->belongsTo(Bibit::class);
-    }
 
     public function user()
     {

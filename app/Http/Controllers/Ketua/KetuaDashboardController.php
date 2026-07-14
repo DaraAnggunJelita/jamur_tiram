@@ -23,16 +23,16 @@ class KetuaDashboardController extends Controller
     public function index(): View
     {
         // 1. Ringkasan Data Produksi (hanya laporan yang sudah divalidasi 'valid')
-        $totalProduksi     = ProductionReport::where('status_validasi', 'valid')->where('kualitas_panen', '!=', 'Kualitas Buruk/Layu')->sum('jumlah_panen');
-        $totalPanenGagal   = ProductionReport::where('status_validasi', 'valid')->where('kualitas_panen', 'Kualitas Buruk/Layu')->sum('jumlah_panen');
+        $totalProduksi     = ProductionReport::where('status_validasi', 'valid')->sum('berat_grade_a');
+        $totalPanenGagal   = ProductionReport::where('status_validasi', 'valid')->sum('berat_grade_b');
         $totalLaporanValid = ProductionReport::where('status_validasi', 'valid')->count();
         $rataRataPanen     = ProductionReport::where('status_validasi', 'valid')->avg('jumlah_panen') ?? 0;
 
         // 2. Data Grafik: Total panen per bulan untuk 12 bulan terakhir
         $chartData = ProductionReport::select(
                 DB::raw("DATE_FORMAT(tanggal, '%M %Y') as bulan"),
-                DB::raw("SUM(CASE WHEN kualitas_panen != 'Kualitas Buruk/Layu' THEN jumlah_panen ELSE 0 END) as total_berhasil"),
-                DB::raw("SUM(CASE WHEN kualitas_panen = 'Kualitas Buruk/Layu' THEN jumlah_panen ELSE 0 END) as total_gagal")
+                DB::raw("SUM(berat_grade_a) as total_berhasil"),
+                DB::raw("SUM(berat_grade_b) as total_gagal")
             )
             ->where('status_validasi', 'valid')
             ->groupBy('bulan')
@@ -51,6 +51,19 @@ class KetuaDashboardController extends Controller
             ->take(10)
             ->get();
 
+        // Pipeline Production Indicators
+        $pipelineStokBaglog = \App\Models\Baglog::doesntHave('sterilisasis')->count();
+        $pipelinePendinginan = \App\Models\Sterilisasi::doesntHave('inokulasis')->whereDate('tanggal', today())->count();
+        $pipelineSiapInokulasi = \App\Models\Sterilisasi::doesntHave('inokulasis')->whereDate('tanggal', '<', today())->count();
+        $pipelineInkubasi = \App\Models\Inokulasi::whereDoesntHave('logInkubasis', function ($q) {
+            $q->where('persentase_tumbuh', 100);
+        })->count();
+        $pipelineSiapPanen = \App\Models\Inokulasi::where(function ($q) {
+            $q->whereHas('logInkubasis', function ($q2) {
+                $q2->where('persentase_tumbuh', 100);
+            })->orWhere('tanggal', '<=', now()->subDays(40));
+        })->count();
+
         return view('ketua.dashboard', compact(
             'totalProduksi',
             'totalPanenGagal',
@@ -59,7 +72,12 @@ class KetuaDashboardController extends Controller
             'chartLabels',
             'chartValuesBerhasil',
             'chartValuesGagal',
-            'recentReports'
+            'recentReports',
+            'pipelineStokBaglog',
+            'pipelinePendinginan',
+            'pipelineSiapInokulasi',
+            'pipelineInkubasi',
+            'pipelineSiapPanen'
         ));
     }
 
@@ -127,7 +145,7 @@ class KetuaDashboardController extends Controller
         $sheet->getRowDimension(3)->setRowHeight(5);
 
         // === HEADER KOLOM ===
-        $headers = ['No', 'Tanggal Panen', 'Nama Petugas', 'Jumlah Panen (Kg)', 'Kondisi Jamur', 'Status Validasi'];
+        $headers = ['No', 'Tanggal Panen', 'Nama Petugas', 'Jumlah Panen (Kg)', 'Grade A / B (Kg)', 'Status Validasi'];
         $headerCols = ['A', 'B', 'C', 'D', 'E', 'F'];
 
         foreach ($headers as $i => $header) {
@@ -157,7 +175,7 @@ class KetuaDashboardController extends Controller
             $sheet->setCellValue('B' . $row, $tanggal);
             $sheet->setCellValue('C' . $row, $petugas);
             $sheet->setCellValue('D' . $row, (float) $r->jumlah_panen);
-            $sheet->setCellValue('E' . $row, $r->kualitas_panen);
+            $sheet->setCellValue('E' . $row, (float) $r->berat_grade_a . ' / ' . (float) $r->berat_grade_b);
             $sheet->setCellValue('F' . $row, 'Valid ✓');
 
             $sheet->getStyle('A' . $row . ':F' . $row)->applyFromArray([
@@ -248,8 +266,8 @@ class KetuaDashboardController extends Controller
      */
     public function lacakBatch($baglog_id)
     {
-        // 1. Ambil data Baglog dan sumber Bibitnya
-        $baglog = \App\Models\Baglog::with('bibit', 'user')->findOrFail($baglog_id);
+        // 1. Ambil data Baglog
+        $baglog = \App\Models\Baglog::with('user')->findOrFail($baglog_id);
 
         // 2. Ambil data Sterilisasi yang terkait dengan baglog ini
         $sterilisasi = \App\Models\Sterilisasi::where('baglog_id', $baglog_id)->with('user')->first();
@@ -286,7 +304,7 @@ class KetuaDashboardController extends Controller
      */
     public function traceabilityIndex()
     {
-        $baglogs = \App\Models\Baglog::with('bibit', 'user')->orderBy('tanggal_pembuatan', 'desc')->get();
+        $baglogs = \App\Models\Baglog::with('user')->orderBy('tanggal_pembuatan', 'desc')->get();
         return view('ketua.traceability.index', compact('baglogs'));
     }
 

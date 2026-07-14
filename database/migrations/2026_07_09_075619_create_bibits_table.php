@@ -12,9 +12,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('kode_bibit')->unique();
+            $table->string('asal_bibit')->nullable();
             $table->date('tanggal_masuk');
             $table->integer('jumlah');
-            $table->enum('status', ['Tersedia', 'Habis'])->default('Tersedia');
+            $table->integer('sisa_stok')->default(0);
+            $table->enum('status', ['Pending Konfirmasi Admin', 'Aktif/Siap Pakai', 'Habis'])->default('Aktif/Siap Pakai');
             $table->timestamps();
         });
     }

@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             'role'     => 'petugas',
         ]);
 
-        User::create([
+        $ketua = User::create([
             'name'     => 'H. Slamet (Ketua KUPS)',
             'email'    => 'ketua@kups.com',
             'password' => Hash::make('password123'),
@@ -70,15 +70,16 @@ class DatabaseSeeder extends Seeder
         // ===========================================================
 
         $bibit = \App\Models\Bibit::create([
-            'user_id' => $admin->id,
+            'user_id' => $ketua->id,
             'kode_bibit' => 'BBT-001',
+            'asal_bibit' => 'Supplier Bibit Harapan',
             'tanggal_masuk' => now()->subMonths(7)->format('Y-m-d'),
             'jumlah' => 100,
-            'status' => 'Tersedia',
+            'sisa_stok' => 95,
+            'status' => 'Aktif/Siap Pakai',
         ]);
 
         $baglog = \App\Models\Baglog::create([
-            'bibit_id' => $bibit->id,
             'user_id' => $petugas->id,
             'kode_batch' => 'BGL-001',
             'tanggal_pembuatan' => now()->subMonths(7)->addDays(2)->format('Y-m-d'),
@@ -98,10 +99,12 @@ class DatabaseSeeder extends Seeder
 
         $inokulasi = \App\Models\Inokulasi::create([
             'sterilisasi_id' => $sterilisasi->id,
+            'bibit_id' => $bibit->id,
             'user_id' => $petugas->id,
             'tanggal' => now()->subMonths(7)->addDays(6)->format('Y-m-d'),
             'jumlah_berhasil' => 490,
             'jumlah_kontaminasi' => 10,
+            'jumlah_bibit_terpakai' => 5,
         ]);
 
         \App\Models\MonitoringKumbung::create([
@@ -113,53 +116,42 @@ class DatabaseSeeder extends Seeder
             'jumlah_penyiraman' => 2,
         ]);
 
-        $now = now();
-        for ($i = 5; $i >= 0; $i--) {
-            $monthDate = (clone $now)->subMonths($i);
-
-            for ($day = 5; $day <= 25; $day += 5) {
-                $reportDate = $monthDate->copy()->setDay($day);
-                if ($reportDate->isFuture()) {
-                    break;
-                }
-
-                $jumlahPanen = rand(15, 35) + (rand(0, 9) / 10);
-
-                ProductionReport::create([
-                    'inokulasi_id'    => $inokulasi->id,
-                    'user_id'         => $petugas->id,
-                    'tanggal'         => $reportDate->format('Y-m-d'),
-                    'jumlah_panen'    => $jumlahPanen,
-                    'kualitas_panen'        => 'Kualitas Bagus',
-                    'status_distribusi' => 'Siap Jual Segar',
-                    'status_validasi' => 'valid',
-                    'catatan'         => 'Panen baik, cuaca mendukung',
-                    'validated_by'    => $admin->id,
-                ]);
-            }
-        }
-
         ProductionReport::create([
             'inokulasi_id'    => $inokulasi->id,
             'user_id'         => $petugas->id,
-            'tanggal'         => now()->format('Y-m-d'),
-            'jumlah_panen'    => 18.5,
-            'kualitas_panen'        => 'Kualitas Bagus',
-            'status_distribusi' => 'Siap Jual Segar',
-            'status_validasi' => 'pending',
-            'catatan'         => 'Panen pagi hari, kondisi sangat baik',
-            'validated_by'    => null,
+            'tanggal'         => now()->subDays(5)->format('Y-m-d'),
+            'siklus_panen'    => 1,
+            'berat_grade_a'   => 12.5,
+            'berat_grade_b'   => 2.5,
+            'jumlah_panen'    => 15.0,
+            'status_validasi' => 'valid',
+            'catatan'         => 'Panen pertama berjalan lancar',
+            'validated_by'    => $admin->id,
         ]);
 
         ProductionReport::create([
             'inokulasi_id'    => $inokulasi->id,
             'user_id'         => $petugas->id,
-            'tanggal'         => now()->subDay()->format('Y-m-d'),
+            'tanggal'         => now()->subDays(2)->format('Y-m-d'),
+            'siklus_panen'    => 2,
+            'berat_grade_a'   => 15.0,
+            'berat_grade_b'   => 3.0,
+            'jumlah_panen'    => 18.0,
+            'status_validasi' => 'valid',
+            'catatan'         => 'Ukuran jamur sangat baik',
+            'validated_by'    => $admin->id,
+        ]);
+
+        ProductionReport::create([
+            'inokulasi_id'    => $inokulasi->id,
+            'user_id'         => $petugas->id,
+            'tanggal'         => now()->format('Y-m-d'),
+            'siklus_panen'    => 3,
+            'berat_grade_a'   => 10.0,
+            'berat_grade_b'   => 2.0,
             'jumlah_panen'    => 12.0,
-            'kualitas_panen'        => 'Kualitas Cukup',
-            'status_distribusi' => 'Siap Jual Grosir',
             'status_validasi' => 'pending',
-            'catatan'         => 'Ukuran lebih kecil',
+            'catatan'         => 'Panen pagi hari, masih menunggu validasi',
             'validated_by'    => null,
         ]);
     }

@@ -13,11 +13,24 @@ class ProductionReportController extends Controller
     /**
      * Menampilkan riwayat laporan panen milik petugas (paginated).
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $reports = ProductionReport::where('user_id', auth()->id())
-            ->orderBy('tanggal', 'desc')
-            ->paginate(10);
+        $query = ProductionReport::where('user_id', auth()->id());
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->whereHas('user', function($userQuery) use ($search) {
+                      $userQuery->where('name', 'LIKE', '%' . $search . '%');
+                  });
+            });
+        }
+
+        if ($request->filled('date')) {
+            $query->whereDate('tanggal', $request->date);
+        }
+
+        $reports = $query->latest()->paginate(10)->withQueryString();
 
         return view('petugas.laporan_panen.index', compact('reports'));
     }
@@ -27,7 +40,9 @@ class ProductionReportController extends Controller
      */
     public function create(): View
     {
-        $inokulasis = \App\Models\Inokulasi::all();
+        $inokulasis = \App\Models\Inokulasi::withCount('productionReports')
+            ->having('production_reports_count', '<', 5)
+            ->get();
         return view('petugas.laporan_panen.create', compact('inokulasis'));
     }
 
@@ -37,31 +52,24 @@ class ProductionReportController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'inokulasi_id' => 'required|exists:inokulasis,id',
-            'tanggal'      => 'required|date|before_or_equal:today',
-            'jumlah_panen' => 'required|numeric|min:0.1',
-            'kualitas_panen' => 'required|string|max:50',
-            'catatan'      => 'nullable|string',
+            'inokulasi_id'  => 'required|exists:inokulasis,id',
+            'tanggal'       => 'required|date',
+            'siklus_panen'  => 'required|integer|min:1|max:5',
+            'berat_grade_a' => 'required|numeric|min:0',
+            'berat_grade_b' => 'required|numeric|min:0',
+            'catatan'       => 'nullable|string',
         ]);
 
-        // LOGIKA OTOMATIS DISTRIBUSI PASCAPANEN
-        $status_distribusi = 'Belum Didistribusikan';
-        
-        if ($request->kualitas_panen === 'Kualitas Bagus') {
-            $status_distribusi = 'Siap Jual Segar';
-        } elseif ($request->kualitas_panen === 'Kualitas Cukup') {
-            $status_distribusi = 'Siap Jual Grosir';
-        } elseif ($request->kualitas_panen === 'Kualitas Buruk/Layu') {
-            $status_distribusi = 'Pengolahan Kuliner Rendang';
-        }
+        $jumlah_panen = $request->berat_grade_a + $request->berat_grade_b;
 
         ProductionReport::create([
             'inokulasi_id'      => $request->inokulasi_id,
             'user_id'           => auth()->id(),
             'tanggal'           => $request->tanggal,
-            'jumlah_panen'      => $request->jumlah_panen,
-            'kualitas_panen'    => $request->kualitas_panen,
-            'status_distribusi' => $status_distribusi,
+            'siklus_panen'      => $request->siklus_panen,
+            'berat_grade_a'     => $request->berat_grade_a,
+            'berat_grade_b'     => $request->berat_grade_b,
+            'jumlah_panen'      => $jumlah_panen,
             'catatan'           => $request->catatan,
             'status_validasi'   => 'pending',
         ]);
@@ -86,7 +94,11 @@ class ProductionReportController extends Controller
                 ->with('error', 'Laporan yang sudah divalidasi tidak dapat diedit.');
         }
 
-        $inokulasis = \App\Models\Inokulasi::all();
+        // Tambahkan inokulasi_id yang sedang diedit agar tetap muncul meskipun sudah 5 kali, atau biarkan semua yang < 5
+        $inokulasis = \App\Models\Inokulasi::withCount('productionReports')
+            ->having('production_reports_count', '<', 5)
+            ->orWhere('id', $report->inokulasi_id)
+            ->get();
         return view('petugas.laporan_panen.edit', compact('report', 'inokulasis'));
     }
 
@@ -107,28 +119,23 @@ class ProductionReportController extends Controller
         }
 
         $request->validate([
-            'inokulasi_id' => 'required|exists:inokulasis,id',
-            'tanggal'      => 'required|date|before_or_equal:today',
-            'jumlah_panen' => 'required|numeric|min:0.1',
-            'kualitas_panen' => 'required|string|max:50',
-            'catatan'      => 'nullable|string',
+            'inokulasi_id'  => 'required|exists:inokulasis,id',
+            'tanggal'       => 'required|date',
+            'siklus_panen'  => 'required|integer|min:1|max:5',
+            'berat_grade_a' => 'required|numeric|min:0',
+            'berat_grade_b' => 'required|numeric|min:0',
+            'catatan'       => 'nullable|string',
         ]);
 
-        $status_distribusi = 'Belum Didistribusikan';
-        if ($request->kualitas_panen === 'Kualitas Bagus') {
-            $status_distribusi = 'Siap Jual Segar';
-        } elseif ($request->kualitas_panen === 'Kualitas Cukup') {
-            $status_distribusi = 'Siap Jual Grosir';
-        } elseif ($request->kualitas_panen === 'Kualitas Buruk/Layu') {
-            $status_distribusi = 'Pengolahan Kuliner Rendang';
-        }
+        $jumlah_panen = $request->berat_grade_a + $request->berat_grade_b;
 
         $report->update([
             'inokulasi_id'      => $request->inokulasi_id,
             'tanggal'           => $request->tanggal,
-            'jumlah_panen'      => $request->jumlah_panen,
-            'kualitas_panen'    => $request->kualitas_panen,
-            'status_distribusi' => $status_distribusi,
+            'siklus_panen'      => $request->siklus_panen,
+            'berat_grade_a'     => $request->berat_grade_a,
+            'berat_grade_b'     => $request->berat_grade_b,
+            'jumlah_panen'      => $jumlah_panen,
             'catatan'           => $request->catatan,
         ]);
 
@@ -149,12 +156,12 @@ class ProductionReportController extends Controller
 
         if ($report->status_validasi !== 'pending') {
             return redirect()->route('petugas.laporan-panen.index')
-                ->with('error', 'Laporan yang sudah divalidasi tidak dapat dihapus.');
+                ->with('error', 'Laporan yang sudah divalidasi tidak dapat dibatalkan.');
         }
 
-        $report->delete();
+        $report->update(['status_validasi' => 'dibatalkan']);
 
         return redirect()->route('petugas.laporan-panen.index')
-            ->with('success', 'Laporan panen berhasil dihapus.');
+            ->with('success', 'Laporan panen berhasil dibatalkan (Log Audit tersimpan).');
     }
 }

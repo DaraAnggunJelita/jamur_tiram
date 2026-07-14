@@ -35,7 +35,6 @@
                     <div>
                         <label for="tanggal" class="block text-xs font-black text-[#6B4E36] uppercase tracking-widest font-heading mb-1.5">Tanggal Panen</label>
                         <input type="date" id="tanggal" name="tanggal"
-                            max="{{ date('Y-m-d') }}"
                             value="{{ old('tanggal', $report->tanggal) }}"
                             class="block w-full rounded-xl border-[#C9B896]/60 bg-white shadow-2xs focus:border-[#4F6146] focus:ring-[#4F6146] text-sm py-2.5 text-[#362C24] font-medium @error('tanggal') border-[#A0653D] @enderror" required>
                         @error('tanggal')

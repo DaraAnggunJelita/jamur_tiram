@@ -13,9 +13,10 @@ return new class extends Migration
             $table->foreignId('inokulasi_id')->constrained('inokulasis')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->date('tanggal');
-            $table->double('jumlah_panen');
-            $table->enum('kualitas_panen', ['Kualitas Bagus', 'Kualitas Cukup', 'Kualitas Buruk/Layu']);
-            $table->enum('status_distribusi', ['Belum Didistribusikan', 'Siap Jual Segar', 'Siap Jual Grosir', 'Pengolahan Kuliner Rendang'])->default('Belum Didistribusikan');
+            $table->integer('siklus_panen')->default(1);
+            $table->double('berat_grade_a')->default(0);
+            $table->double('berat_grade_b')->default(0);
+            $table->double('jumlah_panen')->default(0); // sum of A and B
             $table->enum('status_validasi', ['pending', 'valid', 'invalid'])->default('pending');
             $table->text('catatan')->nullable();
             $table->foreignId('validated_by')->nullable()->constrained('users')->onDelete('set null');

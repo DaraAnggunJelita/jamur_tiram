@@ -13,7 +13,7 @@ class JadwalPanenController extends Controller
      */
     public function index()
     {
-        $jadwals = JadwalPanen::orderBy('tanggal_estimasi', 'asc')->get();
+        $jadwals = JadwalPanen::latest()->get();
 
         return view('jadwal_panen.index', compact('jadwals'));
     }

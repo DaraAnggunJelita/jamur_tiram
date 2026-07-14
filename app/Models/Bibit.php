@@ -12,8 +12,10 @@ class Bibit extends Model
     protected $fillable = [
         'user_id',
         'kode_bibit',
+        'asal_bibit',
         'tanggal_masuk',
         'jumlah',
+        'sisa_stok',
         'status',
     ];
 

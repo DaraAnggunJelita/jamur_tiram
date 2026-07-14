@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('baglogs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('bibit_id')->constrained('bibits')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('kode_batch')->unique();
             $table->date('tanggal_pembuatan');

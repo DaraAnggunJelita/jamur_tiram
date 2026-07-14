@@ -24,8 +24,8 @@ class CatalogController extends Controller
      */
     public function index(): View
     {
-        $catalogs = Catalog::paginate(10);
-        return view('ketua.catalogs.index', compact('catalogs'));
+        $catalogs = Catalog::latest()->paginate(10);
+        return view('admin.catalogs.index', compact('catalogs'));
     }
 
     /**
@@ -33,7 +33,7 @@ class CatalogController extends Controller
      */
     public function create(): View
     {
-        return view('ketua.catalogs.create');
+        return view('admin.catalogs.create');
     }
 
     /**
@@ -60,7 +60,7 @@ class CatalogController extends Controller
             'image'       => $imagePath,
         ]);
 
-        return redirect()->route('ketua.catalogs.index')
+        return redirect()->route('admin.catalogs.index')
             ->with('success', 'Produk katalog berhasil ditambahkan.');
     }
 
@@ -69,7 +69,7 @@ class CatalogController extends Controller
      */
     public function edit(Catalog $catalog): View
     {
-        return view('ketua.catalogs.edit', compact('catalog'));
+        return view('admin.catalogs.edit', compact('catalog'));
     }
 
     /**
@@ -97,7 +97,7 @@ class CatalogController extends Controller
             'price'       => $request->price,
         ]);
 
-        return redirect()->route('ketua.catalogs.index')
+        return redirect()->route('admin.catalogs.index')
             ->with('success', 'Katalog produk berhasil diperbarui.');
     }
 
@@ -111,7 +111,7 @@ class CatalogController extends Controller
         }
         $catalog->delete();
 
-        return redirect()->route('ketua.catalogs.index')
+        return redirect()->route('admin.catalogs.index')
             ->with('success', 'Katalog produk berhasil dihapus.');
     }
 }
