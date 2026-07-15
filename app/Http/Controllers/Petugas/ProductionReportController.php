@@ -15,24 +15,38 @@ class ProductionReportController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = ProductionReport::where('user_id', auth()->id());
+        $query = \App\Models\Inokulasi::with(['productionReports' => function($q) {
+            if (!auth()->user()->isAdmin()) {
+                $q->where('user_id', auth()->id());
+            }
+            $q->orderBy('siklus_panen', 'asc');
+        }, 'sterilisasi.baglog']);
+
+        if (!auth()->user()->isAdmin()) {
+            $query->whereHas('productionReports', function($q) {
+                $q->where('user_id', auth()->id());
+            });
+        } else {
+            $query->whereHas('productionReports');
+        }
 
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->whereHas('user', function($userQuery) use ($search) {
-                      $userQuery->where('name', 'LIKE', '%' . $search . '%');
-                  });
+            $query->whereHas('sterilisasi.baglog', function($q) use ($search) {
+                $q->where('kode_batch', 'LIKE', '%' . $search . '%');
             });
         }
 
         if ($request->filled('date')) {
-            $query->whereDate('tanggal', $request->date);
+            $date = $request->date;
+            $query->whereHas('productionReports', function($q) use ($date) {
+                $q->whereDate('tanggal', $date);
+            });
         }
 
-        $reports = $query->latest()->paginate(10)->withQueryString();
+        $inokulasis = $query->latest()->paginate(5)->withQueryString();
 
-        return view('petugas.laporan_panen.index', compact('reports'));
+        return view('petugas.laporan_panen.index', compact('inokulasis'));
     }
 
     /**
@@ -40,7 +54,9 @@ class ProductionReportController extends Controller
      */
     public function create(): View
     {
-        $inokulasis = \App\Models\Inokulasi::withCount('productionReports')
+        $inokulasis = \App\Models\Inokulasi::withCount(['productionReports' => function($q) {
+                $q->where('status_validasi', '!=', 'dibatalkan');
+            }])
             ->having('production_reports_count', '<', 5)
             ->get();
         return view('petugas.laporan_panen.create', compact('inokulasis'));
@@ -61,6 +77,12 @@ class ProductionReportController extends Controller
         ]);
 
         $jumlah_panen = $request->berat_grade_a + $request->berat_grade_b;
+
+        // Auto-resolve peringatan Panen untuk batch ini
+        \App\Models\Peringatan::where('kategori', 'Panen')
+            ->where('referensi_id', $request->inokulasi_id)
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
 
         ProductionReport::create([
             'inokulasi_id'      => $request->inokulasi_id,
@@ -85,7 +107,7 @@ class ProductionReportController extends Controller
     {
         $report = ProductionReport::findOrFail($id);
 
-        if ($report->user_id !== auth()->id()) {
+        if (!auth()->user()->isAdmin() && $report->user_id !== auth()->id()) {
             abort(403, 'Anda tidak memiliki akses untuk mengedit laporan ini.');
         }
 
@@ -95,7 +117,9 @@ class ProductionReportController extends Controller
         }
 
         // Tambahkan inokulasi_id yang sedang diedit agar tetap muncul meskipun sudah 5 kali, atau biarkan semua yang < 5
-        $inokulasis = \App\Models\Inokulasi::withCount('productionReports')
+        $inokulasis = \App\Models\Inokulasi::withCount(['productionReports' => function($q) {
+                $q->where('status_validasi', '!=', 'dibatalkan');
+            }])
             ->having('production_reports_count', '<', 5)
             ->orWhere('id', $report->inokulasi_id)
             ->get();
@@ -109,7 +133,7 @@ class ProductionReportController extends Controller
     {
         $report = ProductionReport::findOrFail($id);
 
-        if ($report->user_id !== auth()->id()) {
+        if (!auth()->user()->isAdmin() && $report->user_id !== auth()->id()) {
             abort(403, 'Anda tidak memiliki akses untuk mengubah laporan ini.');
         }
 
@@ -150,7 +174,7 @@ class ProductionReportController extends Controller
     {
         $report = ProductionReport::findOrFail($id);
 
-        if ($report->user_id !== auth()->id()) {
+        if (!auth()->user()->isAdmin() && $report->user_id !== auth()->id()) {
             abort(403, 'Anda tidak memiliki akses untuk menghapus laporan ini.');
         }
 

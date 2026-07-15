@@ -42,7 +42,7 @@ Route::get('/dashboard', function () {
 | 3. RUTE GRUP PETUGAS (Protected: Auth & Role: petugas)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth', 'role:petugas'])->prefix('petugas')->name('petugas.')->group(function () {
+Route::middleware(['auth', 'role:petugas,admin'])->prefix('petugas')->name('petugas.')->group(function () {
     Route::get('/dashboard', [PetugasDashboardController::class, 'index'])->name('dashboard');
     Route::post('/peringatan/{id}/resolve', [PetugasDashboardController::class, 'resolvePeringatan'])->name('peringatan.resolve');
     Route::resource('laporan-panen', ProductionReportController::class);
@@ -60,6 +60,9 @@ Route::middleware(['auth', 'role:ketua'])->prefix('ketua')->name('ketua.')->grou
     Route::get('/reports/print', [KetuaDashboardController::class, 'printable'])->name('reports.print');
     Route::get('/reports/export-pdf', [KetuaDashboardController::class, 'exportPdf'])->name('reports.export.pdf');
     Route::get('/reports/export-excel', [KetuaDashboardController::class, 'exportExcel'])->name('reports.export.excel');
+    
+    // RUTE PANTAU STOK BIBIT (Ketua)
+    Route::get('/pantau-stok-bibit', [KetuaDashboardController::class, 'pantauStokBibit'])->name('bibit.pantau');
     
     // RUTE TRACEABILITY KETUA KUPS
     Route::get('/traceability', [KetuaDashboardController::class, 'traceabilityIndex'])->name('traceability.index');
@@ -87,11 +90,15 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/pantau-stok-bibit', [AdminDashboardController::class, 'pantauStokBibit'])->name('bibit.pantau');
     Route::post('/bibit/{id}/konfirmasi', [AdminDashboardController::class, 'konfirmasiBibit'])->name('bibit.konfirmasi');
     Route::post('/bibit/{id}/tambah-stok', [AdminDashboardController::class, 'tambahStokBibit'])->name('bibit.tambah-stok');
+
 });
 
 Route::middleware(['auth'])->group(function () {
-    // RUTE BARU UNTUK BIBIT
-    Route::resource('bibit', \App\Http\Controllers\BibitController::class)->except(['show']);
+
+    // RUTE BARU UNTUK BIBIT (Admin Only)
+    Route::middleware(['role:admin'])->group(function () {
+        Route::resource('bibit', \App\Http\Controllers\BibitController::class)->except(['show']);
+    });
 
     // RUTE BARU UNTUK BAGLOG
     Route::get('/baglog', [BaglogController::class, 'index'])->name('baglog.index');

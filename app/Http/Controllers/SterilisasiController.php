@@ -158,6 +158,12 @@ class SterilisasiController extends Controller
             'status_sterilisasi' => $status,
         ]);
 
+        // Auto-resolve peringatan sterilisasi sebelumnya untuk batch ini
+        Peringatan::where('kategori', 'Sterilisasi')
+            ->where('referensi_id', $sterilisasi->id)
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
         if ($kritis) {
             Peringatan::create([
                 'kategori' => 'Sterilisasi',

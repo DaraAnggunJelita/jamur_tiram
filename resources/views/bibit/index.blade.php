@@ -16,13 +16,11 @@
  <h3 class="text-xl font-bold text-[#064E3B]">Data Pembibitan (Stok F2)</h3>
  <p class="text-xs text-[#6B7280] font-medium mt-0.5">Daftar riwayat stok bibit jamur tiram yang masuk.</p>
  </div>
- @if(auth()->user()->role ==='ketua')
  <a href="{{ route('bibit.create') }}"
  class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#059669] hover:bg-[#047857] text-white text-xs font-bold rounded-xl transition duration-150 shadow-md shadow-[#059669]/10 transform hover:-translate-y-0.5 self-start sm:self-center cursor-pointer">
  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
  Input Stok Bibit Baru
  </a>
- @endif
  </div>
 
  {{-- Form Filter & Pencarian --}}
@@ -54,9 +52,7 @@
  <th class="py-3 px-4 text-center">Jumlah Botol</th>
  <th class="py-3 px-4 text-center">Sisa Stok</th>
  <th class="py-3 px-4 text-center">Status</th>
- @if(auth()->user()->role ==='ketua')
  <th class="py-3 px-4 text-right">Aksi</th>
- @endif
  </tr>
  </thead>
  <tbody class="divide-y divide-[#E5E7EB]/20 text-[#374151]">
@@ -76,7 +72,6 @@
  {{ $bibit->status }}
  </span>
  </td>
- @if(auth()->user()->role ==='ketua')
  <td class="py-3.5 px-4 text-right">
  @if($bibit->sisa_stok == $bibit->jumlah)
  <div class="flex items-center justify-end gap-2">
@@ -95,11 +90,10 @@
  <span class="text-[10px] text-[#6B7280] font-bold italic">Terkunci (Sudah Terpakai)</span>
  @endif
  </td>
- @endif
  </tr>
  @empty
  <tr>
- <td colspan="{{ auth()->user()->role ==='ketua' ? 8 : 7 }}" class="py-12 text-center text-[#6B7280] font-medium italic">
+ <td colspan="8" class="py-12 text-center text-[#6B7280] font-medium italic">
  Belum ada data stok bibit masuk.
  </td>
  </tr>

@@ -64,8 +64,7 @@
  ✓
  </div>
  <div>
- <p class="text-[10px] text-[#047857] font-bold">Selesai Diverifikasi</p>
- <h4 class="text-2xl font-bold text-[#064E3B] mt-0.5">{{ \App\Models\ProductionReport::whereIn('status_validasi', ['valid','invalid'])->count() }} <span class="text-xs font-bold text-[#6B7280]/70 font-sans">Laporan</span></h4>
+ <p class="text-[10px] text-[#047857] font-bold">Selesai Diverifikasi</p> <h4 class="text-2xl font-bold text-[#064E3B] mt-0.5">{{ \App\Models\ProductionReport::whereIn('status_validasi', ['valid','invalid','dibatalkan'])->count() }} <span class="text-xs font-bold text-[#6B7280]/70 font-sans">Laporan</span></h4>
  </div>
  </div>
  </div>
@@ -111,7 +110,7 @@
 
  @if($report->catatan)
  <div class="text-xs text-[#374151] bg-[#FFFFFF] px-4 py-3 rounded-lg border border-[#E5E7EB]/30 font-normal italic leading-relaxed">
-"{{ $report->catatan }}"
+ "{{ $report->catatan }}"
  </div>
  @endif
  </div>
@@ -164,9 +163,8 @@
  <span class="text-[10px] text-[#6B7280] font-bold">
  {{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}
  </span>
- <span class="px-2.5 py-0.5 text-[9px] font-bold rounded-md shadow-2xs text-white
- {{ $report->status_validasi ==='valid' ?'bg-[#059669]' :'bg-[#F59E0B]' }}">
- {{ $report->status_validasi }}
+ <span class="px-2.5 py-0.5 text-[9px] font-bold rounded-md shadow-2xs {{ $report->status_validasi === 'valid' ? 'bg-[#059669] text-white' : ($report->status_validasi === 'dibatalkan' ? 'bg-gray-200 text-gray-700' : 'bg-[#F59E0B] text-white') }}">
+ {{ ucfirst($report->status_validasi) }}
  </span>
  </div>
  <div>
@@ -188,6 +186,94 @@
  </div>
 
  </div>
+ 
+ {{-- === SECTION 3: ANALISIS DAN AKTIVITAS PANEN TERBARU === --}}
+ <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+ 
+ {{-- Left Column: Rasio Kualitas --}}
+ <div class="bg-[#FFFFFF] rounded-2xl border border-[#E5E7EB]/40 p-6 shadow-xs flex flex-col justify-between hover:shadow-sm transition">
+ <div class="flex items-center justify-between pb-4 border-b border-[#E5E7EB]/20">
+ <div class="flex items-center space-x-2">
+ <div class="w-8 h-8 bg-[#059669]/10 rounded-lg flex items-center justify-center text-[#059669]">
+ <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
+ </div>
+ <h3 class="text-sm font-bold text-[#064E3B]">Rasio Kualitas (Bulan Ini)</h3>
+ </div>
+ </div>
+ 
+ <div class="flex flex-col items-center justify-center flex-1 py-4">
+ @if($persentaseA > 0 || $persentaseB > 0)
+ <div class="relative w-36 h-36 rounded-full shadow-inner flex items-center justify-center" style="background: conic-gradient(#059669 0% {{ $persentaseA }}%, #F59E0B {{ $persentaseA }}% 100%);">
+ <div class="w-24 h-24 bg-[#FFFFFF] rounded-full flex flex-col items-center justify-center shadow-md">
+ <span class="text-[10px] text-[#6B7280] font-bold">Total</span>
+ <span class="text-lg font-black text-[#064E3B] leading-none">{{ $reportsBulanIni->count() }}</span>
+ </div>
+ </div>
+ @else
+ <div class="w-32 h-32 rounded-full border-4 border-dashed border-[#E5E7EB]/70 flex items-center justify-center">
+ <span class="text-[10px] font-bold text-[#6B7280] text-center px-4">Belum ada<br>panen</span>
+ </div>
+ @endif
+ </div>
+
+ <div class="space-y-2 border-t border-[#E5E7EB]/20 pt-4">
+ <div class="flex items-center justify-between text-xs">
+ <div class="flex items-center space-x-2">
+ <span class="w-2.5 h-2.5 rounded-full bg-[#059669]"></span>
+ <span class="text-[#374151] font-bold">Grade A (Bagus)</span>
+ </div>
+ <span class="font-bold text-[#064E3B]">{{ $persentaseA }}%</span>
+ </div>
+ <div class="flex items-center justify-between text-xs">
+ <div class="flex items-center space-x-2">
+ <span class="w-2.5 h-2.5 rounded-full bg-[#F59E0B]"></span>
+ <span class="text-[#374151] font-bold">Grade B (Layu)</span>
+ </div>
+ <span class="font-bold text-[#064E3B]">{{ $persentaseB }}%</span>
+ </div>
+ </div>
+ </div>
+
+ {{-- Right Column: Aktivitas Panen Terbaru --}}
+ <div class="bg-[#FFFFFF] rounded-2xl border border-[#E5E7EB]/40 p-6 shadow-xs lg:col-span-2">
+ <div class="flex items-center justify-between pb-4 border-b border-[#E5E7EB]/20 mb-4">
+ <div class="flex items-center space-x-2">
+ <div class="w-8 h-8 bg-[#047857]/10 rounded-lg flex items-center justify-center text-[#047857]">
+ <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+ </div>
+ <h3 class="text-sm font-bold text-[#064E3B]">Aktivitas Panen Terbaru</h3>
+ </div>
+ </div>
+
+ <div class="space-y-3">
+ @forelse ($recentReports as $report)
+ <div class="flex items-center justify-between p-3 rounded-xl border border-[#E5E7EB]/30 hover:bg-[#F3F5F4]/30 transition">
+ <div class="flex items-center space-x-4">
+ <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#059669]/10 to-[#047857]/10 flex items-center justify-center text-[#059669] font-bold border border-[#059669]/20">
+ {{ \Carbon\Carbon::parse($report->tanggal)->format('d') }}
+ </div>
+ <div>
+ <p class="text-xs font-bold text-[#064E3B]">{{ $report->user->name }}</p>
+ <p class="text-[10px] text-[#6B7280] font-medium">{{ \Carbon\Carbon::parse($report->tanggal)->format('M Y') }}</p>
+ </div>
+ </div>
+ <div class="text-right">
+ <p class="text-sm font-bold text-[#059669]">{{ number_format($report->jumlah_panen, 1) }} Kg</p>
+ <span class="inline-block mt-0.5 px-2 py-0.5 text-[9px] font-bold rounded-md shadow-2xs {{ $report->status_validasi === 'valid' ? 'bg-[#059669] text-white' : ($report->status_validasi === 'dibatalkan' ? 'bg-gray-200 text-gray-700' : ($report->status_validasi === 'pending' ? 'bg-[#F59E0B] text-white' : 'bg-red-500 text-white')) }}">
+ {{ ucfirst($report->status_validasi) }}
+ </span>
+ </div>
+ </div>
+ @empty
+ <div class="text-center py-8 text-[#6B7280]">
+ <p class="text-xs font-bold text-[#047857]">Belum ada aktivitas panen tercatat.</p>
+ </div>
+ @endforelse
+ </div>
+ </div>
+
+ </div>
+
  </div>
  </div>
 </x-app-layout>

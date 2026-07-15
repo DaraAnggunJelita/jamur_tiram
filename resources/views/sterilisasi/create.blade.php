@@ -18,13 +18,21 @@
  @csrf
  <div>
  <label for="baglog_id" class="block text-xs font-bold text-[#047857] mb-1">Batch Baglog</label>
- <select name="baglog_id" id="baglog_id" required class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white py-2.5 shadow-sm focus:border-[#059669] focus:ring-[#059669]">
- <option value="">-- Pilih Batch Baglog --</option>
- @foreach($baglogs as $b)
- <option value="{{ $b->id }}" {{ old('baglog_id') == $b->id ?'selected' :'' }}>Batch #{{ $b->kode_batch }} ({{ $b->jumlah_baglog }} Pcs)</option>
- @endforeach
- </select>
- @error('baglog_id')<p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>@enderror
+ @if(request()->has('baglog_id') && $baglogs->contains('id', request('baglog_id')))
+     @php $selected = $baglogs->firstWhere('id', request('baglog_id')); @endphp
+     <div class="block w-full rounded-xl border border-[#E5E7EB]/60 bg-[#E5E7EB]/40 shadow-inner text-sm py-2.5 px-4 text-[#374151] font-bold cursor-not-allowed">
+         Batch #{{ $selected->kode_batch }} ({{ $selected->jumlah_baglog }} Pcs)
+     </div>
+     <input type="hidden" name="baglog_id" value="{{ $selected->id }}">
+ @else
+     <select name="baglog_id" id="baglog_id" required class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white py-2.5 shadow-sm focus:border-[#059669] focus:ring-[#059669]">
+     <option value="">-- Pilih Batch Baglog --</option>
+     @foreach($baglogs as $b)
+     <option value="{{ $b->id }}" {{ old('baglog_id', request('baglog_id')) == $b->id ? 'selected' : '' }}>Batch #{{ $b->kode_batch }} ({{ $b->jumlah_baglog }} Pcs)</option>
+     @endforeach
+     </select>
+     @error('baglog_id')<p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>@enderror
+ @endif
  </div>
  <div>
  <label for="tanggal" class="block text-xs font-bold text-[#047857] mb-1">Tanggal Sterilisasi</label>

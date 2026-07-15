@@ -58,7 +58,10 @@ class KetuaDashboardController extends Controller
         $pipelineInkubasi = \App\Models\Inokulasi::whereDoesntHave('logInkubasis', function ($q) {
             $q->where('persentase_tumbuh', 100);
         })->count();
-        $pipelineSiapPanen = \App\Models\Inokulasi::where(function ($q) {
+        $pipelineSiapPanen = \App\Models\Inokulasi::whereHas('productionReports', function($q) {
+                $q->where('status_validasi', '!=', 'dibatalkan');
+            }, '<', 5)
+            ->where(function ($q) {
             $q->whereHas('logInkubasis', function ($q2) {
                 $q2->where('persentase_tumbuh', 100);
             })->orWhere('tanggal', '<=', now()->subDays(40));
@@ -123,50 +126,53 @@ class KetuaDashboardController extends Controller
 
         // === HEADER JUDUL ===
         $sheet->mergeCells('A1:F1');
-        $sheet->setCellValue('A1', 'LAPORAN PANEN KUPS HARAPAN ASRI');
+        $sheet->setCellValue('A1', 'KUPS HARAPAN ASRI');
         $sheet->getStyle('A1')->applyFromArray([
-            'font' => ['bold' => true, 'size' => 14, 'color' => ['rgb' => 'FFFFFF']],
+            'font' => ['bold' => true, 'size' => 14, 'color' => ['rgb' => '000000']],
             'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER, 'vertical' => Alignment::VERTICAL_CENTER],
-            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => '0d7844']],
         ]);
-        $sheet->getRowDimension(1)->setRowHeight(30);
+        $sheet->getRowDimension(1)->setRowHeight(25);
 
         // Sub-judul tanggal cetak
         $sheet->mergeCells('A2:F2');
-        $sheet->setCellValue('A2', 'Dicetak: ' . now()->isoFormat('D MMMM Y, HH:mm') . ' | Status: Tervalidasi');
+        $sheet->setCellValue('A2', 'LAPORAN REKAPITULASI PANEN HARIAN');
         $sheet->getStyle('A2')->applyFromArray([
-            'font' => ['italic' => true, 'size' => 10, 'color' => ['rgb' => '555555']],
+            'font' => ['bold' => true, 'size' => 12, 'color' => ['rgb' => '000000']],
             'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
-            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'e6f4ee']],
+        ]);
+        
+        $sheet->mergeCells('A3:F3');
+        $sheet->setCellValue('A3', 'Dicetak: ' . now()->isoFormat('D MMMM Y, HH:mm') . ' | Status: Tervalidasi');
+        $sheet->getStyle('A3')->applyFromArray([
+            'font' => ['italic' => true, 'size' => 10, 'color' => ['rgb' => '000000']],
+            'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
         ]);
         $sheet->getRowDimension(2)->setRowHeight(18);
 
         // Baris kosong
-        $sheet->getRowDimension(3)->setRowHeight(5);
+        $sheet->getRowDimension(4)->setRowHeight(10);
 
         // === HEADER KOLOM ===
-        $headers = ['No', 'Tanggal Panen', 'Nama Petugas', 'Jumlah Panen (Kg)', 'Grade A / B (Kg)', 'Status Validasi'];
+        $headers = ['No', 'Tanggal Panen', 'Nama Petugas', 'Grade A (Kg)', 'Grade B (Kg)', 'Status Validasi'];
         $headerCols = ['A', 'B', 'C', 'D', 'E', 'F'];
 
         foreach ($headers as $i => $header) {
             $col = $headerCols[$i];
-            $sheet->setCellValue($col . '4', $header);
+            $sheet->setCellValue($col . '5', $header);
         }
 
-        $sheet->getStyle('A4:F4')->applyFromArray([
-            'font' => ['bold' => true, 'size' => 11, 'color' => ['rgb' => 'FFFFFF']],
+        $sheet->getStyle('A5:F5')->applyFromArray([
+            'font' => ['bold' => true, 'size' => 11, 'color' => ['rgb' => '000000']],
             'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER, 'vertical' => Alignment::VERTICAL_CENTER],
-            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => '0a5e35']],
-            'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['rgb' => '088a4b']]],
+            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'F5F5F5']],
+            'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['rgb' => '000000']]],
         ]);
-        $sheet->getRowDimension(4)->setRowHeight(22);
+        $sheet->getRowDimension(5)->setRowHeight(22);
 
         // === DATA ROWS ===
-        $row = 5;
+        $row = 6;
         $no = 1;
         foreach ($reports as $r) {
-            $isEven = ($no % 2 === 0);
-            $bgColor = $isEven ? 'f0faf5' : 'ffffff';
 
             $tanggal = optional($r->tanggal)->format('d-m-Y') ?: $r->tanggal;
             $petugas = optional($r->user)->name ?: '-';
@@ -174,24 +180,22 @@ class KetuaDashboardController extends Controller
             $sheet->setCellValue('A' . $row, $no);
             $sheet->setCellValue('B' . $row, $tanggal);
             $sheet->setCellValue('C' . $row, $petugas);
-            $sheet->setCellValue('D' . $row, (float) $r->jumlah_panen);
-            $sheet->setCellValue('E' . $row, (float) $r->berat_grade_a . ' / ' . (float) $r->berat_grade_b);
-            $sheet->setCellValue('F' . $row, 'Valid ✓');
+            $sheet->setCellValue('D' . $row, (float) $r->berat_grade_a);
+            $sheet->setCellValue('E' . $row, (float) $r->berat_grade_b);
+            $sheet->setCellValue('F' . $row, 'Tervalidasi');
 
             $sheet->getStyle('A' . $row . ':F' . $row)->applyFromArray([
                 'font' => ['size' => 10],
                 'alignment' => ['vertical' => Alignment::VERTICAL_CENTER],
-                'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => $bgColor]],
-                'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['rgb' => 'c7e8d5']]],
+                'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['rgb' => '000000']]],
             ]);
 
             // Angka tengah
             $sheet->getStyle('A' . $row)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            $sheet->getStyle('B' . $row)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
             $sheet->getStyle('D' . $row)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-            $sheet->getStyle('F' . $row)->applyFromArray([
-                'font' => ['bold' => true, 'color' => ['rgb' => '0d7844']],
-                'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
-            ]);
+            $sheet->getStyle('E' . $row)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+            $sheet->getStyle('F' . $row)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
             $sheet->getRowDimension($row)->setRowHeight(18);
             $row++;
@@ -201,15 +205,17 @@ class KetuaDashboardController extends Controller
         // === BARIS TOTAL ===
         $sheet->mergeCells('A' . $row . ':C' . $row);
         $sheet->setCellValue('A' . $row, 'TOTAL KESELURUHAN');
-        $sheet->setCellValue('D' . $row, $reports->sum('jumlah_panen'));
-        $sheet->setCellValue('E' . $row, $reports->count() . ' laporan');
+        $sheet->setCellValue('D' . $row, $reports->sum('berat_grade_a'));
+        $sheet->setCellValue('E' . $row, $reports->sum('berat_grade_b'));
+        $sheet->setCellValue('F' . $row, $reports->count() . ' Laporan');
 
         $sheet->getStyle('A' . $row . ':F' . $row)->applyFromArray([
-            'font' => ['bold' => true, 'size' => 11, 'color' => ['rgb' => 'FFFFFF']],
+            'font' => ['bold' => true, 'size' => 11, 'color' => ['rgb' => '000000']],
             'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER, 'vertical' => Alignment::VERTICAL_CENTER],
-            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => '0d7844']],
-            'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['rgb' => '088a4b']]],
+            'fill' => ['fillType' => Fill::FILL_SOLID, 'startColor' => ['rgb' => 'F5F5F5']],
+            'borders' => ['allBorders' => ['borderStyle' => Border::BORDER_THIN, 'color' => ['rgb' => '000000']]],
         ]);
+        $sheet->getStyle('A' . $row)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
         $sheet->getRowDimension($row)->setRowHeight(22);
 
         // === LEBAR KOLOM ===
@@ -345,5 +351,14 @@ class KetuaDashboardController extends Controller
 
         return redirect()->route('ketua.verifikasi.index')
             ->with('success', 'Status validasi laporan panen berhasil diperbarui!');
+    }
+
+    /**
+     * Tampilkan pemantauan stok bibit untuk Ketua.
+     */
+    public function pantauStokBibit(): View
+    {
+        $bibits = \App\Models\Bibit::with('user')->orderBy('tanggal_masuk', 'desc')->get();
+        return view('ketua.bibit.pantau_stok', compact('bibits'));
     }
 }

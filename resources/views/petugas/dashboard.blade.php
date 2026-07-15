@@ -52,12 +52,19 @@
  @foreach($peringatanAktif as $peringatan)
  <div class="flex justify-between items-center bg-white/50 p-3 rounded-lg">
  <p class="font-semibold">{{ $peringatan->pesan }}</p>
- <form action="{{ route('petugas.peringatan.resolve', $peringatan->id) }}" method="POST">
- @csrf
- <button type="submit" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-md shadow transition">
- Selesai Ditindaklanjuti
- </button>
- </form>
+ @php
+ $targetRoute = '#';
+ if ($peringatan->kategori === 'Sterilisasi') {
+     $targetRoute = route('sterilisasi.edit', $peringatan->referensi_id);
+ } elseif ($peringatan->kategori === 'Kumbung') {
+     $monitoring = $peringatan->referensi;
+     $inokulasiId = $monitoring ? $monitoring->inokulasi_id : '';
+     $targetRoute = route('monitoring.create', ['inokulasi_id' => $inokulasiId]);
+ }
+ @endphp
+ <a href="{{ $targetRoute }}" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-md shadow transition inline-block text-center">
+ Segera Tindak Lanjuti
+ </a>
  </div>
  @endforeach
  </div>
@@ -108,42 +115,80 @@
  <div class="bg-white border border-[#E5E7EB]/50 rounded-xl p-4 shadow-sm flex flex-col justify-between">
  <div>
  <div class="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1">Stok Mentah</div>
- <div class="text-2xl font-black text-gray-700">{{ $pipelineStokBaglog }}</div>
+ <div class="text-2xl font-black text-gray-700">{{ $pipelineStokBaglog->count() }}</div>
  </div>
- <div class="text-xs text-gray-400 font-medium mt-2 leading-tight">Baglog belum disterilisasi</div>
+ <div class="mt-2 space-y-1">
+     <div class="text-xs text-gray-400 font-medium leading-tight">Belum disterilisasi</div>
+     @if($pipelineStokBaglog->count() > 0)
+     <div class="flex flex-wrap gap-1 mt-1">
+         @foreach($pipelineStokBaglog->take(3) as $item)
+         <a href="{{ route('sterilisasi.create', ['baglog_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-gray-100 text-[10px] font-bold text-gray-600 rounded border hover:bg-gray-200 transition">#{{ $item->kode_batch }}</a>
+         @endforeach
+         @if($pipelineStokBaglog->count() > 3) <span class="text-[10px] text-gray-400">...</span> @endif
+     </div>
+     @endif
+ </div>
  </div>
 
  {{-- Widget 2: Baglog Masa Pendinginan --}}
  <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
  <div>
  <div class="text-[10px] font-bold text-amber-600 uppercase tracking-wider mb-1">Masa Pendinginan</div>
- <div class="text-2xl font-black text-amber-700">{{ $pipelinePendinginan }}</div>
+ <div class="text-2xl font-black text-amber-700">{{ $pipelinePendinginan->count() }}</div>
  </div>
- <div class="text-[10px] text-amber-600 font-bold mt-2 leading-tight flex items-start gap-1">
- <span>⚠️</span>
- <span>Belum Layak Inokulasi (Masih Panas)</span>
+ <div class="mt-2 space-y-1">
+     <div class="text-[10px] text-amber-600 font-bold leading-tight flex items-start gap-1">
+         <span>⚠️</span><span>Belum Layak Inokulasi</span>
+     </div>
+     @if($pipelinePendinginan->count() > 0)
+     <div class="flex flex-wrap gap-1 mt-1">
+         @foreach($pipelinePendinginan->take(3) as $item)
+         <a href="{{ route('inokulasi.create', ['sterilisasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-amber-100 text-[10px] font-bold text-amber-700 rounded border border-amber-200 hover:bg-amber-200 transition">#{{ $item->baglog->kode_batch ?? 'N/A' }}</a>
+         @endforeach
+         @if($pipelinePendinginan->count() > 3) <span class="text-[10px] text-amber-600">...</span> @endif
+     </div>
+     @endif
  </div>
  </div>
 
- {{-- Widget 3: Baglog Siap Inokulasi (Clickable) --}}
- <a href="{{ route('inokulasi.create') }}" class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 shadow-sm flex flex-col justify-between hover:bg-emerald-100 hover:border-emerald-300 transition cursor-pointer transform hover:-translate-y-1">
+ {{-- Widget 3: Baglog Siap Inokulasi --}}
+ <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
  <div>
  <div class="text-[10px] font-bold text-emerald-600 uppercase tracking-wider mb-1 flex items-center justify-between">
  <span>Siap Inokulasi</span>
- <svg class="w-3 h-3 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
  </div>
- <div class="text-2xl font-black text-emerald-700">{{ $pipelineSiapInokulasi }}</div>
+ <div class="text-2xl font-black text-emerald-700">{{ $pipelineSiapInokulasi->count() }}</div>
  </div>
- <div class="text-xs text-emerald-600 font-medium mt-2 leading-tight">Batch siap disuntik bibit</div>
- </a>
+ <div class="mt-2 space-y-1">
+     <div class="text-xs text-emerald-600 font-medium leading-tight">Batch siap disuntik bibit</div>
+     @if($pipelineSiapInokulasi->count() > 0)
+     <div class="flex flex-wrap gap-1 mt-1">
+         @foreach($pipelineSiapInokulasi->take(3) as $item)
+         <a href="{{ route('inokulasi.create', ['sterilisasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-emerald-100 text-[10px] font-bold text-emerald-700 rounded border border-emerald-300 hover:bg-emerald-200 transition">#{{ $item->baglog->kode_batch ?? 'N/A' }}</a>
+         @endforeach
+         @if($pipelineSiapInokulasi->count() > 3) <span class="text-[10px] text-emerald-600">...</span> @endif
+     </div>
+     @endif
+ </div>
+ </div>
 
  {{-- Widget 4: Baglog Masa Inkubasi --}}
  <div class="bg-indigo-50 border border-indigo-200 rounded-xl p-4 shadow-sm flex flex-col justify-between">
  <div>
  <div class="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-1">Masa Inkubasi</div>
- <div class="text-2xl font-black text-indigo-700">{{ $pipelineInkubasi }}</div>
+ <div class="text-2xl font-black text-indigo-700">{{ $pipelineInkubasi->count() }}</div>
  </div>
- <div class="text-xs text-indigo-600 font-medium mt-2 leading-tight">Sedang dipantau</div>
+ <div class="mt-2 space-y-1">
+     <div class="text-xs text-indigo-600 font-medium leading-tight">Sedang dipantau</div>
+     @if($pipelineInkubasi->count() > 0)
+     <div class="flex flex-wrap gap-1 mt-1">
+         @foreach($pipelineInkubasi->take(3) as $item)
+         <a href="{{ route('monitoring.create', ['inokulasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-indigo-100 text-[10px] font-bold text-indigo-700 rounded border border-indigo-200 hover:bg-indigo-200 transition">#{{ $item->sterilisasi->baglog->kode_batch ?? 'N/A' }}</a>
+         @endforeach
+         @if($pipelineInkubasi->count() > 3) <span class="text-[10px] text-indigo-600">...</span> @endif
+     </div>
+     @endif
+ </div>
  </div>
 
  {{-- Widget 5: Alarm Siap Panen --}}
@@ -153,9 +198,19 @@
  <svg class="w-3.5 h-3.5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
  <span>Siap Panen</span>
  </div>
- <div class="text-2xl font-black text-rose-700">{{ $pipelineSiapPanen }}</div>
+ <div class="text-2xl font-black text-rose-700">{{ $pipelineSiapPanen->count() }}</div>
  </div>
- <div class="text-[10px] text-rose-600 font-bold mt-2 leading-tight">Inkubasi 100% / >40 Hari</div>
+ <div class="mt-2 space-y-1">
+     <div class="text-[10px] text-rose-600 font-bold leading-tight">Inkubasi 100% / >40 Hari</div>
+     @if($pipelineSiapPanen->count() > 0)
+     <div class="flex flex-wrap gap-1 mt-1">
+         @foreach($pipelineSiapPanen->take(3) as $item)
+         <a href="{{ route('petugas.laporan-panen.create', ['inokulasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-rose-100 text-[10px] font-bold text-rose-700 rounded border border-rose-300 hover:bg-rose-200 transition">#{{ $item->sterilisasi->baglog->kode_batch ?? 'N/A' }}</a>
+         @endforeach
+         @if($pipelineSiapPanen->count() > 3) <span class="text-[10px] text-rose-600">...</span> @endif
+     </div>
+     @endif
+ </div>
  </div>
 
  </div>
@@ -256,96 +311,6 @@
  </div>
  </div>
 
-        {{-- 3. RIWAYAT INPUT LAPORAN LAINNYA --}}
-        <div class="mt-2 bg-[#FFFFFF] border border-[#E5E7EB]/40 rounded-2xl p-6 shadow-xs">
-            <h3 class="text-sm font-bold text-[#047857] mb-4">Riwayat Input Laporan Lainnya (Terbaru)</h3>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {{-- Baglog --}}
-                <div class="bg-[#F3F5F4]/70 p-4 rounded-xl border border-[#E5E7EB]/50">
-                    <h4 class="text-xs font-bold text-[#374151] mb-3 flex items-center justify-between">
-                        <span>Baglog</span>
-                        <span class="text-[10px] bg-[#059669] text-white px-2 py-0.5 rounded-full">{{ $recentBaglogs->count() }}</span>
-                    </h4>
-                    <div class="space-y-2">
-                        @forelse($recentBaglogs as $baglog)
-                            <div class="bg-white p-2.5 rounded-lg shadow-sm text-xs border border-gray-100 hover:border-gray-300 transition">
-                                <div class="font-bold text-[#064E3B] truncate">{{ $baglog->kode_batch }}</div>
-                                <div class="flex justify-between mt-1 text-[#6B7280]">
-                                    <span>{{ \Carbon\Carbon::parse($baglog->tanggal_pembuatan)->format('d M') }}</span>
-                                    <span class="font-medium text-[#059669]">{{ $baglog->jumlah_baglog }} pcs</span>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="text-xs text-center text-[#9CA3AF] py-3 italic border border-dashed border-gray-300 rounded-lg">Belum ada input</div>
-                        @endforelse
-                    </div>
-                </div>
-
-                {{-- Sterilisasi --}}
-                <div class="bg-[#F3F5F4]/70 p-4 rounded-xl border border-[#E5E7EB]/50">
-                    <h4 class="text-xs font-bold text-[#374151] mb-3 flex items-center justify-between">
-                        <span>Sterilisasi</span>
-                        <span class="text-[10px] bg-[#059669] text-white px-2 py-0.5 rounded-full">{{ $recentSterilisasi->count() }}</span>
-                    </h4>
-                    <div class="space-y-2">
-                        @forelse($recentSterilisasi as $sterilisasi)
-                            <div class="bg-white p-2.5 rounded-lg shadow-sm text-xs border border-gray-100 hover:border-gray-300 transition">
-                                <div class="font-bold text-[#064E3B] truncate">Batch: {{ $sterilisasi->baglog->kode_batch ?? '-' }}</div>
-                                <div class="flex justify-between mt-1 text-[#6B7280]">
-                                    <span>{{ \Carbon\Carbon::parse($sterilisasi->tanggal)->format('d M') }}</span>
-                                    <span class="font-medium text-[#059669]">{{ $sterilisasi->jumlah_berhasil }} pcs</span>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="text-xs text-center text-[#9CA3AF] py-3 italic border border-dashed border-gray-300 rounded-lg">Belum ada input</div>
-                        @endforelse
-                    </div>
-                </div>
-
-                {{-- Inokulasi --}}
-                <div class="bg-[#F3F5F4]/70 p-4 rounded-xl border border-[#E5E7EB]/50">
-                    <h4 class="text-xs font-bold text-[#374151] mb-3 flex items-center justify-between">
-                        <span>Inokulasi (Bibit)</span>
-                        <span class="text-[10px] bg-[#059669] text-white px-2 py-0.5 rounded-full">{{ $recentInokulasi->count() }}</span>
-                    </h4>
-                    <div class="space-y-2">
-                        @forelse($recentInokulasi as $inokulasi)
-                            <div class="bg-white p-2.5 rounded-lg shadow-sm text-xs border border-gray-100 hover:border-gray-300 transition">
-                                <div class="font-bold text-[#064E3B] truncate">Batch: {{ $inokulasi->sterilisasi->baglog->kode_batch ?? '-' }}</div>
-                                <div class="flex justify-between mt-1 text-[#6B7280]">
-                                    <span>{{ \Carbon\Carbon::parse($inokulasi->tanggal)->format('d M') }}</span>
-                                    <span class="font-medium text-[#059669]">{{ $inokulasi->jumlah_berhasil }} pcs</span>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="text-xs text-center text-[#9CA3AF] py-3 italic border border-dashed border-gray-300 rounded-lg">Belum ada input</div>
-                        @endforelse
-                    </div>
-                </div>
-
-                {{-- Monitoring --}}
-                <div class="bg-[#F3F5F4]/70 p-4 rounded-xl border border-[#E5E7EB]/50">
-                    <h4 class="text-xs font-bold text-[#374151] mb-3 flex items-center justify-between">
-                        <span>Monitoring Kumbung</span>
-                        <span class="text-[10px] bg-[#059669] text-white px-2 py-0.5 rounded-full">{{ $recentMonitoring->count() }}</span>
-                    </h4>
-                    <div class="space-y-2">
-                        @forelse($recentMonitoring as $monitoring)
-                            <div class="bg-white p-2.5 rounded-lg shadow-sm text-xs border border-gray-100 hover:border-gray-300 transition">
-                                <div class="font-bold text-[#064E3B] truncate">Batch: {{ $monitoring->inokulasi->sterilisasi->baglog->kode_batch ?? $monitoring->inokulasi_id }}</div>
-                                <div class="flex justify-between mt-1 text-[#6B7280]">
-                                    <span>{{ \Carbon\Carbon::parse($monitoring->tanggal)->format('d M') }}</span>
-                                    <span class="font-medium text-[#059669]">Siram: {{ $monitoring->jumlah_penyiraman }}x</span>
-                                </div>
-                            </div>
-                        @empty
-                            <div class="text-xs text-center text-[#9CA3AF] py-3 italic border border-dashed border-gray-300 rounded-lg">Belum ada input</div>
-                        @endforelse
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </div>
 

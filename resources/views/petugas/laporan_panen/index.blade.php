@@ -73,63 +73,100 @@
  </div>
  </form>
 
- <div class="overflow-x-auto rounded-xl border border-[#E5E7EB]/30">
+ <div class="space-y-6">
+ @forelse ($inokulasis as $inokulasi)
+ <div class="bg-white overflow-hidden shadow-xs rounded-2xl border border-[#E5E7EB]/40">
+ <div class="p-6 bg-[#F3F5F4]/30 border-b border-[#E5E7EB]/40 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+ <div class="flex items-center space-x-3">
+ <div class="w-10 h-10 bg-[#059669]/10 rounded-xl flex items-center justify-center text-[#059669]">
+ <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+ </div>
+ <div>
+ <h4 class="text-sm font-bold text-[#064E3B]">Batch: {{ $inokulasi->sterilisasi->baglog->kode_batch ?? 'Unknown' }}</h4>
+ <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-[#6B7280]">
+ <span title="Tanggal Inokulasi (Bibit Disuntikkan)"><strong class="text-[#064E3B]">Disuntik:</strong> {{ \Carbon\Carbon::parse($inokulasi->tanggal)->isoFormat('D MMM Y') }}</span>
+ <span class="hidden sm:inline text-gray-300">|</span>
+ <span title="Estimasi 40 hari setelah disuntik (Buka Kapas/Mulai Panen)"><strong class="text-amber-600">Est. Mulai Panen:</strong> {{ \Carbon\Carbon::parse($inokulasi->tanggal)->addDays(40)->isoFormat('D MMM Y') }}</span>
+ <span class="hidden sm:inline text-gray-300">|</span>
+ <span title="Estimasi 5x panen (jarak 1-2 hari per panen)"><strong class="text-red-600">Est. Afkir:</strong> {{ \Carbon\Carbon::parse($inokulasi->tanggal)->addDays(50)->isoFormat('D MMM Y') }}</span>
+ </div>
+ </div>
+ </div>
+ <div class="flex items-center gap-2">
+ @php
+ $validReportsCount = $inokulasi->productionReports->where('status_validasi', '!=', 'dibatalkan')->count();
+ @endphp
+ <span class="bg-[#059669] text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-md shadow-[#059669]/10">
+ {{ $validReportsCount }} / 5 Panen
+ </span>
+ @if ($validReportsCount < 5)
+ <a href="{{ route('petugas.laporan-panen.create') }}" class="text-xs text-[#059669] font-bold hover:underline">
+ + Tambah Laporan
+ </a>
+ @else
+ <span class="flex items-center gap-1">
+ <span class="text-[10px] bg-red-100 text-red-700 px-2 py-1 rounded-full font-bold">Afkir</span>
+ <span class="text-[10px] text-gray-500 font-bold italic">Selesai Panen</span>
+ </span>
+ @endif
+ </div>
+ </div>
+ <div class="overflow-x-auto">
  <table class="min-w-full divide-y divide-[#E5E7EB]/20">
- <thead class="bg-[#F3F5F4]/50">
+ <thead class="bg-gray-50/50">
  <tr>
- <th class="px-6 py-3.5 text-left text-xs font-bold text-[#047857]">Tanggal</th>
- <th class="px-6 py-3.5 text-left text-xs font-bold text-[#047857]">Siklus</th>
- <th class="px-6 py-3.5 text-center text-xs font-bold text-[#047857]">Grade A (Kg)</th>
- <th class="px-6 py-3.5 text-center text-xs font-bold text-[#047857]">Grade B (Kg)</th>
- <th class="px-6 py-3.5 text-center text-xs font-bold text-[#047857]">Total (Kg)</th>
- <th class="px-6 py-3.5 text-center text-xs font-bold text-[#047857]">Status</th>
- <th class="px-6 py-3.5 text-center text-xs font-bold text-[#047857]">Aksi</th>
+ <th class="px-6 py-3 text-left text-[11px] font-bold text-[#047857] uppercase tracking-wider">Siklus</th>
+ <th class="px-6 py-3 text-left text-[11px] font-bold text-[#047857] uppercase tracking-wider">Tanggal</th>
+ <th class="px-6 py-3 text-center text-[11px] font-bold text-[#047857] uppercase tracking-wider">Grade A</th>
+ <th class="px-6 py-3 text-center text-[11px] font-bold text-[#047857] uppercase tracking-wider">Grade B</th>
+ <th class="px-6 py-3 text-center text-[11px] font-bold text-[#047857] uppercase tracking-wider">Total</th>
+ <th class="px-6 py-3 text-center text-[11px] font-bold text-[#047857] uppercase tracking-wider">Status</th>
+ <th class="px-6 py-3 text-center text-[11px] font-bold text-[#047857] uppercase tracking-wider">Aksi</th>
  </tr>
  </thead>
  <tbody class="bg-white divide-y divide-[#E5E7EB]/15 text-[#374151]">
- @forelse ($reports as $report)
+ @foreach ($inokulasi->productionReports as $report)
  <tr class="hover:bg-[#F3F5F4]/30 transition duration-150">
- <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#064E3B]">
- {{ \Carbon\Carbon::parse($report->tanggal)->isoFormat('D MMMM Y') }}
- </td>
- <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#059669]">
+ <td class="px-6 py-3 whitespace-nowrap text-xs font-bold text-[#059669]">
  Ke-{{ $report->siklus_panen }}
  </td>
- <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-bold text-green-700">
- {{ number_format($report->berat_grade_a, 1) }}
+ <td class="px-6 py-3 whitespace-nowrap text-xs font-medium text-[#064E3B]">
+ {{ \Carbon\Carbon::parse($report->tanggal)->isoFormat('D MMM Y') }}
  </td>
- <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-bold text-red-700">
- {{ number_format($report->berat_grade_b, 1) }}
+ <td class="px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-green-700">
+ {{ number_format($report->berat_grade_a, 1) }} Kg
  </td>
- <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-bold text-[#059669]">
- {{ number_format($report->jumlah_panen, 1) }}
+ <td class="px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-red-700">
+ {{ number_format($report->berat_grade_b, 1) }} Kg
  </td>
- <td class="px-6 py-4 whitespace-nowrap text-center">
+ <td class="px-6 py-3 whitespace-nowrap text-center text-xs font-bold text-[#059669]">
+ {{ number_format($report->jumlah_panen, 1) }} Kg
+ </td>
+ <td class="px-6 py-3 whitespace-nowrap text-center">
  @if ($report->status_validasi ==='pending')
- <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#E5E7EB]/20 text-[#047857] border border-[#E5E7EB]/40 animate-pulse">
- <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Menunggu
+ <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#E5E7EB]/20 text-[#047857] border border-[#E5E7EB]/40 animate-pulse">
+ Menunggu
  </span>
  @elseif ($report->status_validasi ==='valid')
- <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#34D399]/15 text-[#047857] border border-[#34D399]/30">
- <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Valid
+ <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#34D399]/15 text-[#047857] border border-[#34D399]/30">
+ Valid
  </span>
  @elseif ($report->status_validasi ==='dibatalkan')
- <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold bg-gray-100 text-gray-500 border border-gray-300">
- <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Dibatalkan
+ <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-gray-100 text-gray-500 border border-gray-300">
+ Dibatalkan
  </span>
  @else
- <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold bg-[#F59E0B]/10 text-[#F59E0B] border border-[#F59E0B]/20">
- <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg> Invalid
+ <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-[#F59E0B]/10 text-[#F59E0B] border border-[#F59E0B]/20">
+ Invalid
  </span>
  @endif
  </td>
- <td class="px-6 py-4 whitespace-nowrap text-center text-xs font-bold">
+ <td class="px-6 py-3 whitespace-nowrap text-center text-xs font-bold">
  @if ($report->status_validasi ==='pending')
  <div class="flex items-center justify-center space-x-2">
  <a href="{{ route('petugas.laporan-panen.edit', $report->id) }}"
- class="inline-flex items-center px-3 py-1.5 bg-[#E6DAC2]/40 hover:bg-[#E6DAC2]/80 text-[#047857] rounded-lg border border-[#E5E7EB]/60 transition duration-150">
- <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h10a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
- Edit
+ class="inline-flex items-center px-2 py-1 bg-[#E6DAC2]/40 hover:bg-[#E6DAC2]/80 text-[#047857] rounded-lg transition duration-150" title="Edit">
+ <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h10a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
  </a>
  <form action="{{ route('petugas.laporan-panen.destroy', $report->id) }}" method="POST"
  onsubmit="return confirm('Apakah Anda yakin ingin membatalkan laporan ini? Data akan tersimpan sebagai log audit.');"
@@ -137,35 +174,35 @@
  @csrf
  @method('DELETE')
  <button type="submit"
- class="inline-flex items-center px-3 py-1.5 bg-[#F59E0B]/10 hover:bg-[#F59E0B] hover:text-white text-[#F59E0B] rounded-lg border border-[#F59E0B]/30 transition duration-150 cursor-pointer">
- <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
- Batalkan
+ class="inline-flex items-center px-2 py-1 bg-[#F59E0B]/10 hover:bg-[#F59E0B] hover:text-white text-[#F59E0B] rounded-lg transition duration-150 cursor-pointer" title="Batalkan">
+ <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
  </button>
  </form>
  </div>
  @else
- <span class="text-[#E5E7EB] text-xs italic font-medium">Terkunci</span>
+ <span class="text-[#E5E7EB] text-[10px] italic font-medium">Terkunci</span>
  @endif
  </td>
  </tr>
- @empty
- <tr>
- <td colspan="7" class="py-12 text-center text-[#6B7280] font-medium italic">
- <div class="w-12 h-12 bg-[#F3F5F4] border border-[#E5E7EB]/40 text-[#6B7280] rounded-xl flex items-center justify-center mx-auto mb-3 text-xl shadow-2xs">
- <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
- </div>
- <p class="text-sm font-bold text-[#064E3B]">Belum ada laporan produksi.</p>
- Klik tombol di atas untuk mulai membuat laporan panen harian baru.
- </td>
- </tr>
- @endforelse
+ @endforeach
  </tbody>
  </table>
  </div>
+ </div>
+ @empty
+ <div class="bg-white p-12 text-center rounded-2xl shadow-xs border border-[#E5E7EB]/40">
+ <div class="w-16 h-16 bg-[#F3F5F4] border border-[#E5E7EB]/40 text-[#6B7280] rounded-2xl flex items-center justify-center mx-auto mb-4 text-xl shadow-2xs">
+ <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+ </div>
+ <p class="text-base font-bold text-[#064E3B]">Belum ada riwayat laporan produksi.</p>
+ <p class="text-xs text-[#6B7280] mt-1">Klik "Input Hasil Panen" di atas untuk mulai melaporkan.</p>
+ </div>
+ @endforelse
+ </div>
 
  {{-- Pagination --}}
- <div class="mt-6">
- {{ $reports->links() }}
+ <div class="mt-8">
+ {{ $inokulasis->links() }}
  </div>
  </div>
  </div>

@@ -1,0 +1,471 @@
+<mxfile host="app.diagrams.net" pages="2">
+  <diagram id="asi_jamur_tiram_final" name="Aliran Sistem Informasi">
+    <mxGraphModel dx="1935" dy="1128" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="2000" math="0" shadow="1">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lane_admin" parent="1" style="swimlane;whiteSpace=wrap;html=1;fontStyle=1;startSize=40;horizontal=1;labelBackgroundColor=none;swimlaneFillColor=none;" value="Admin" vertex="1">
+          <mxGeometry height="2100" width="250" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="n_start" parent="lane_admin" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;labelBackgroundColor=none;" value="Mulai" vertex="1">
+          <mxGeometry height="50" width="100" x="75" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="n_input_bibit" parent="lane_admin" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=none;" value="Menginput Data Bibit Baru" vertex="1">
+          <mxGeometry height="50" width="160" x="45" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_ketua" parent="1" style="swimlane;whiteSpace=wrap;html=1;fontStyle=1;startSize=40;horizontal=1;labelBackgroundColor=none;swimlaneFillColor=none;" value="Ketua KUPS" vertex="1">
+          <mxGeometry height="2100" width="220" x="290" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GTWOD7l73u9ZpHm3GmdL-3" parent="lane_ketua" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;labelBackgroundColor=none;" value="Memeriksa laporan" vertex="1">
+          <mxGeometry height="80" width="120" x="37.5" y="1330" as="geometry" />
+        </mxCell>
+        <mxCell id="GTWOD7l73u9ZpHm3GmdL-5" parent="lane_ketua" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Memvalidasi data Laporan" vertex="1">
+          <mxGeometry height="60" width="120" x="37.5" y="1430" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_sistem" parent="1" style="swimlane;whiteSpace=wrap;html=1;fontStyle=1;startSize=40;horizontal=1;labelBackgroundColor=none;swimlaneFillColor=none;" value="Sistem Informasi" vertex="1">
+          <mxGeometry height="2100" width="480" x="510" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="n_validasi_bibit" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Memvalidasi &amp;amp;&#xa;Menyimpan Data Bibit" vertex="1">
+          <mxGeometry height="50" width="160" x="40" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="n_simpan_baglog" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Menyimpan Data Baglog" vertex="1">
+          <mxGeometry height="50" width="140" x="50" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="n_cek_sterilisasi" parent="lane_sistem" style="rhombus;whiteSpace=wrap;html=1;fontStyle=1;labelBackgroundColor=none;" value="Memeriksa Kelayakan&#xa;(Air, Api, Durasi)" vertex="1">
+          <mxGeometry height="80" width="160" x="40" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="n_set_beresiko" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Menyimpan Status&#xa;&quot;Beresiko&quot;" vertex="1">
+          <mxGeometry height="50" width="140" x="50" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="n_set_aman" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Menyimpan Status&#xa;&quot;Aman&quot;" vertex="1">
+          <mxGeometry height="50" width="140" x="50" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="n_cek_pendinginan" parent="lane_sistem" style="rhombus;whiteSpace=wrap;html=1;fontStyle=1;labelBackgroundColor=none;" value="Memeriksa Masa&#xa;Pendinginan &amp;gt; 24 Jam" vertex="1">
+          <mxGeometry height="80" width="160" x="40" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="n_tolak_inokulasi" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Menolak Input&#xa;(Belum Lewat 24 Jam)" vertex="1">
+          <mxGeometry height="50" width="140" x="50" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="n_cek_stok" parent="lane_sistem" style="rhombus;whiteSpace=wrap;html=1;fontStyle=1;labelBackgroundColor=none;" value="Memeriksa&#xa;Stok Bibit" vertex="1">
+          <mxGeometry height="80" width="160" x="40" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="n_peringatan_stok" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Menampilkan Peringatan&#xa;Stok Habis" vertex="1">
+          <mxGeometry height="50" width="140" x="50" y="830" as="geometry" />
+        </mxCell>
+        <mxCell id="n_kurangi_stok" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Mengurangi Stok &amp;amp;&#xa;Menyimpan Data Inokulasi" vertex="1">
+          <mxGeometry height="50" width="160" x="40" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="n_cek_runtut" parent="lane_sistem" style="rhombus;whiteSpace=wrap;html=1;fontStyle=1;labelBackgroundColor=none;" value="Memeriksa Urutan&#xa;Progres (+25%)" vertex="1">
+          <mxGeometry height="80" width="160" x="40" y="980" as="geometry" />
+        </mxCell>
+        <mxCell id="n_tolak_inkubasi" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Menolak Input&#xa;(Tidak Berurutan)" vertex="1">
+          <mxGeometry height="50" width="140" x="50" y="1090" as="geometry" />
+        </mxCell>
+        <mxCell id="n_log_inkubasi" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Menyimpan Log&#xa;Perawatan Inkubasi" vertex="1">
+          <mxGeometry height="50" width="140" x="50" y="1160" as="geometry" />
+        </mxCell>
+        <mxCell id="n_cek_miselium" parent="lane_sistem" style="rhombus;whiteSpace=wrap;html=1;fontStyle=1;labelBackgroundColor=none;" value="Memeriksa Persentase&#xa;Miselium = 100%" vertex="1">
+          <mxGeometry height="80" width="160" x="40" y="1240" as="geometry" />
+        </mxCell>
+        <mxCell id="n_set_siap_panen" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Memperbarui Status&#xa;&quot;Siap Panen&quot;" vertex="1">
+          <mxGeometry height="50" width="140" x="50" y="1340" as="geometry" />
+        </mxCell>
+        <mxCell id="n_set_panen_pending" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Menyimpan Laporan (Pending)&#xa;&amp;amp; Kirim Notifikasi" vertex="1">
+          <mxGeometry height="50" width="180" x="30" y="1425" as="geometry" />
+        </mxCell>
+        <mxCell id="n_cek_validasi" parent="lane_sistem" style="rhombus;whiteSpace=wrap;html=1;fontStyle=1;labelBackgroundColor=none;" value="Memeriksa Keputusan&#xa;(Valid/Tolak)" vertex="1">
+          <mxGeometry height="80" width="160" x="40" y="1500" as="geometry" />
+        </mxCell>
+        <mxCell id="n_set_batal" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Menyimpan Status&#xa;&quot;Dibatalkan&quot;" vertex="1">
+          <mxGeometry height="50" width="140" x="50" y="1610" as="geometry" />
+        </mxCell>
+        <mxCell id="n_update_katalog" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Memperbarui Katalog &amp;amp;&#xa;Menyimpan Status Valid" vertex="1">
+          <mxGeometry height="50" width="150" x="45" y="1670" as="geometry" />
+        </mxCell>
+        <mxCell id="n_cek_siklus" parent="lane_sistem" style="rhombus;whiteSpace=wrap;html=1;fontStyle=1;labelBackgroundColor=none;" value="Memeriksa Siklus&#xa;Panen &amp;gt;= 5 Kali" vertex="1">
+          <mxGeometry height="70" width="120" x="60" y="1745" as="geometry" />
+        </mxCell>
+        <mxCell id="n_tandai_afkir" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Menandai Baglog&#xa;Sebagai &quot;Afkir&quot;" vertex="1">
+          <mxGeometry height="50" width="100" x="70" y="1930" as="geometry" />
+        </mxCell>
+        <mxCell id="e22" edge="1" parent="lane_sistem" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;curved=0;" target="n_input_inkubasi" value="Tidak">
+          <mxGeometry relative="1" x="-0.9088" y="20" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="200" y="1280" />
+              <mxPoint x="680" y="1280" />
+            </Array>
+            <mxPoint x="199.99776624795174" y="1282.563883123976" as="sourcePoint" />
+            <mxPoint x="715.3994736842108" y="1040.0015789473684" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n_database" parent="lane_sistem" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fontStyle=1;labelBackgroundColor=none;" value="Database" vertex="1">
+          <mxGeometry height="370" width="100" x="340" y="1095" as="geometry" />
+        </mxCell>
+        <mxCell id="db_e1" edge="1" parent="lane_sistem" source="n_validasi_bibit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=2;fontSize=10;labelBackgroundColor=none;curved=0;" target="n_database" value="Simpan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="db_e2_bgl" edge="1" parent="lane_sistem" source="n_simpan_baglog" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=2;fontSize=10;labelBackgroundColor=none;curved=0;exitX=0.703;exitY=0.07;exitDx=0;exitDy=0;exitPerimeter=0;" value="Simpan">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="150" y="203" />
+              <mxPoint x="150" y="180" />
+              <mxPoint x="350" y="180" />
+            </Array>
+            <mxPoint x="150" y="190" as="sourcePoint" />
+            <mxPoint x="350" y="1090" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="db_e3" edge="1" parent="lane_sistem" source="n_set_beresiko" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=2;fontSize=10;labelBackgroundColor=none;curved=0;" target="n_database" value="Simpan">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="390" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="db_e4" edge="1" parent="lane_sistem" source="n_set_aman" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;dashed=1;fontStyle=2;fontSize=10;labelBackgroundColor=none;" target="n_database" value="Simpan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="db_e5" edge="1" parent="lane_sistem" source="n_kurangi_stok" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;dashed=1;fontStyle=2;fontSize=10;labelBackgroundColor=none;" target="n_database" value="Simpan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="db_e6" edge="1" parent="lane_sistem" source="n_log_inkubasi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=2;fontSize=10;labelBackgroundColor=none;curved=0;" target="n_database" value="Simpan">
+          <mxGeometry relative="1" x="-0.0667" y="35" as="geometry">
+            <mxPoint x="1" as="offset" />
+            <Array as="points">
+              <mxPoint x="300" y="1185" />
+              <mxPoint x="300" y="1185" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="db_e7" edge="1" parent="lane_sistem" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=2;fontSize=10;labelBackgroundColor=none;curved=0;entryX=-0.031;entryY=0.569;entryDx=0;entryDy=0;entryPerimeter=0;" target="n_database" value="Simpan">
+          <mxGeometry relative="1" x="-0.1186" y="10" as="geometry">
+            <mxPoint x="1" as="offset" />
+            <Array as="points">
+              <mxPoint x="180" y="1320" />
+              <mxPoint x="337" y="1320" />
+            </Array>
+            <mxPoint x="180" y="1340" as="sourcePoint" />
+            <mxPoint x="340" y="1279.9999999999998" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="db_e8" edge="1" parent="lane_sistem" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=2;fontSize=10;labelBackgroundColor=none;curved=0;" value="Simpan">
+          <mxGeometry relative="1" x="0.0884" y="40" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="210" y="1440" />
+            </Array>
+            <mxPoint x="210" y="1460" as="sourcePoint" />
+            <mxPoint x="337" y="1440" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="db_e9" edge="1" parent="lane_sistem" source="n_set_batal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=2;fontSize=10;labelBackgroundColor=none;curved=0;" target="n_database" value="Simpan">
+          <mxGeometry relative="1" x="-0.1171" y="15" as="geometry">
+            <mxPoint x="-1" as="offset" />
+            <Array as="points">
+              <mxPoint x="390" y="1650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="db_e10" edge="1" parent="lane_sistem" source="n_update_katalog" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=2;fontSize=10;labelBackgroundColor=none;curved=0;" target="n_database" value="Simpan">
+          <mxGeometry relative="1" x="-0.0116" y="-20" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="db_e11" edge="1" parent="lane_sistem" source="n_jadwal_panen" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;dashed=1;fontStyle=2;fontSize=10;labelBackgroundColor=none;" target="n_database" value="Simpan">
+          <mxGeometry relative="1" x="-0.0444" y="-20" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="390" y="1780" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="db_e12" edge="1" parent="lane_sistem" source="n_jadwal_panen" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=2;fontSize=10;labelBackgroundColor=none;curved=0;" target="n_database" value="Simpan">
+          <mxGeometry relative="1" x="-0.0444" y="-20" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="390" y="1780" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GTWOD7l73u9ZpHm3GmdL-2" edge="1" parent="lane_sistem" source="n_set_siap_panen" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;curved=0;" target="n_database" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="230" y="1360" />
+              <mxPoint x="230" y="1360" />
+            </Array>
+            <mxPoint x="190" y="1365" as="sourcePoint" />
+            <mxPoint x="630" y="1420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GTWOD7l73u9ZpHm3GmdL-8" edge="1" parent="lane_sistem" source="n_tandai_afkir" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=2;fontSize=10;labelBackgroundColor=none;curved=0;" target="n_jadwal_panen" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="300" y="1940" />
+            </Array>
+            <mxPoint x="620" y="1970" as="sourcePoint" />
+            <mxPoint x="900" y="1505" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n_jadwal_panen" parent="lane_sistem" style="rounded=1;whiteSpace=wrap;html=1;labelBackgroundColor=none;" value="Menjadwalkan Panen&#xa;Berikutnya" vertex="1">
+          <mxGeometry height="50" width="140" x="230" y="1755" as="geometry" />
+        </mxCell>
+        <mxCell id="n_selesai" parent="lane_sistem" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;labelBackgroundColor=none;" value="Selesai" vertex="1">
+          <mxGeometry height="50" width="100" x="70" y="2030" as="geometry" />
+        </mxCell>
+        <mxCell id="e38" edge="1" parent="lane_sistem" source="n_tandai_afkir" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_selesai">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="lane_sistem" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;curved=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="150" y="420" />
+              <mxPoint x="655" y="420" />
+            </Array>
+            <mxPoint x="150" y="430" as="sourcePoint" />
+            <mxPoint x="655" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="lane_sistem" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="550" y="240" as="sourcePoint" />
+            <mxPoint x="190" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_tolak_loop" edge="1" parent="lane_sistem" source="n_tolak_inkubasi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;curved=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="1115" />
+              <mxPoint x="210" y="1055" />
+              <mxPoint x="611" y="1055" />
+            </Array>
+            <mxPoint x="150" y="1090" as="sourcePoint" />
+            <mxPoint x="611.06" y="1040" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e32" edge="1" parent="lane_sistem" source="n_cek_validasi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;curved=0;" target="n_update_katalog" value="Valid">
+          <mxGeometry relative="1" x="-0.222" y="-20" as="geometry">
+            <mxPoint y="1" as="offset" />
+            <Array as="points">
+              <mxPoint x="30" y="1540" />
+              <mxPoint x="30" y="1695" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lane_petugas" parent="1" style="swimlane;whiteSpace=wrap;html=1;fontStyle=1;startSize=40;horizontal=1;labelBackgroundColor=none;swimlaneFillColor=none;" value="Petugas Kumbung" vertex="1">
+          <mxGeometry height="2100" width="300" x="990" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="n_input_baglog" parent="lane_petugas" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=none;" value="Menginput Jumlah Baglog" vertex="1">
+          <mxGeometry height="60" width="180" x="60" y="195" as="geometry" />
+        </mxCell>
+        <mxCell id="n_input_sterilisasi" parent="lane_petugas" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=none;" value="Menginput Data Sterilisasi&#xa;(Air, Api, Durasi)" vertex="1">
+          <mxGeometry height="60" width="180" x="60" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="n_input_inokulasi" parent="lane_petugas" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=none;" value="Menginput Data Inokulasi&#xa;&amp;amp; Memilih Bibit" vertex="1">
+          <mxGeometry height="60" width="180" x="60" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="n_input_inkubasi" parent="lane_petugas" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=none;" value="Menginput Persentase&#xa;Miselium (%)" vertex="1">
+          <mxGeometry height="60" width="180" x="60" y="990" as="geometry" />
+        </mxCell>
+        <mxCell id="n_input_panen" parent="lane_petugas" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=none;" value="Menginput Data Panen&#xa;(Grade A &amp;amp; B)" vertex="1">
+          <mxGeometry height="60" width="180" x="60" y="1420" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="n_start" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_input_bibit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="n_validasi_bibit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;curved=0;" target="n_input_baglog">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1140" y="170" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="n_simpan_baglog" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;curved=0;" target="n_input_sterilisasi">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="630" y="330" />
+              <mxPoint x="1140" y="330" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="n_input_sterilisasi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_cek_sterilisasi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="n_cek_sterilisasi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_set_beresiko" value="Tidak">
+          <mxGeometry relative="1" x="-1" y="40" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="n_cek_sterilisasi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;curved=0;" target="n_set_aman" value="Ya">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="400" />
+              <mxPoint x="530" y="555" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="n_set_aman" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;curved=0;" target="n_input_inokulasi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="n_input_inokulasi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_cek_pendinginan">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="n_cek_pendinginan" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_tolak_inokulasi" value="Tidak">
+          <mxGeometry relative="1" x="-1" y="40" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="n_tolak_inokulasi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;exitX=0.989;exitY=0.66;exitDx=0;exitDy=0;exitPerimeter=0;labelBackgroundColor=none;curved=0;" target="n_input_inokulasi">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1090" y="733" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e19" edge="1" parent="1" source="n_cek_pendinginan" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;labelBackgroundColor=none;curved=0;" value="Ya">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="640" />
+              <mxPoint x="530" y="770" />
+            </Array>
+            <mxPoint x="630" y="770" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cek_stok_no" edge="1" parent="1" source="n_cek_stok" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_peringatan_stok" value="Habis">
+          <mxGeometry relative="1" x="-1" y="40" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_peringatan_loop" edge="1" parent="1" source="n_peringatan_stok" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_input_inokulasi">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1140" y="855" />
+              <mxPoint x="1140" y="600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cek_stok_yes" edge="1" parent="1" source="n_cek_stok" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;curved=0;" target="n_kurangi_stok" value="Ada">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="810" />
+              <mxPoint x="540" y="965" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e20" edge="1" parent="1" source="n_kurangi_stok" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_input_inkubasi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e21" edge="1" parent="1" source="n_input_inkubasi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_cek_runtut">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cek_runtut_no" edge="1" parent="1" source="n_cek_runtut" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_tolak_inkubasi" value="Tidak">
+          <mxGeometry relative="1" x="-1" y="50" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_cek_runtut_yes" edge="1" parent="1" source="n_cek_runtut" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;labelBackgroundColor=none;curved=0;" target="n_log_inkubasi" value="Ya">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="1060" />
+              <mxPoint x="540" y="1225" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_log_to_miselium" edge="1" parent="1" source="n_log_inkubasi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_cek_miselium">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e24" edge="1" parent="1" source="n_cek_miselium" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;labelBackgroundColor=none;curved=0;" target="n_set_siap_panen" value="Ya">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="1320" />
+              <mxPoint x="540" y="1405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e25" edge="1" parent="1" source="n_database" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_input_panen">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1110" y="1340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e27" edge="1" parent="1" source="n_input_panen" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;curved=0;" target="n_set_panen_pending">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="890" y="1510" />
+              <mxPoint x="890" y="1510" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e28" edge="1" parent="1" source="n_set_panen_pending" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;curved=0;" target="GTWOD7l73u9ZpHm3GmdL-3" value="Notifikasi">
+          <mxGeometry relative="1" x="0.6232" y="-30" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="480" y="1490" />
+              <mxPoint x="480" y="1410" />
+            </Array>
+            <mxPoint x="460" y="1490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e29" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;labelBackgroundColor=none;curved=0;" target="n_cek_validasi">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="388" y="1540" />
+              <mxPoint x="388" y="1580" />
+            </Array>
+            <mxPoint x="390" y="1540" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e30" edge="1" parent="1" source="n_cek_validasi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_set_batal" value="Tolak">
+          <mxGeometry relative="1" x="-0.3333" y="-30" as="geometry">
+            <mxPoint y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e31" edge="1" parent="1" source="n_set_batal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;labelBackgroundColor=none;curved=0;" target="n_input_panen">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="665" y="1640" />
+              <mxPoint x="1100" y="1640" />
+              <mxPoint x="1100" y="1520" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e34" edge="1" parent="1" source="n_update_katalog" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_cek_siklus">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e35" edge="1" parent="1" source="n_cek_siklus" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_jadwal_panen" value="Belum">
+          <mxGeometry relative="1" x="-0.2" y="30" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e36" edge="1" parent="1" source="n_jadwal_panen" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;curved=0;" target="n_input_panen">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1140" y="1840" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e37" edge="1" parent="1" source="n_cek_siklus" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeWidth=2;fontStyle=1;labelBackgroundColor=none;" target="n_tandai_afkir" value="Sudah">
+          <mxGeometry relative="1" x="-0.0435" y="20" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GTWOD7l73u9ZpHm3GmdL-11" edge="1" parent="1" source="n_input_bibit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="n_validasi_bibit">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="185" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="7OmK7uDYs8yQMIsP_fnT" name="Page-2">
+    <mxGraphModel dx="774" dy="451" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

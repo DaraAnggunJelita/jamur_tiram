@@ -58,6 +58,13 @@ class MonitoringKumbungController extends Controller
             'jumlah_penyiraman' => $request->jumlah_penyiraman,
         ]);
 
+        // Auto-resolve peringatan kumbung sebelumnya untuk batch ini
+        $existingMonitoringIds = MonitoringKumbung::where('inokulasi_id', $request->inokulasi_id)->pluck('id');
+        Peringatan::where('kategori', 'Kumbung')
+            ->whereIn('referensi_id', $existingMonitoringIds)
+            ->where('is_read', false)
+            ->update(['is_read' => true]);
+
         // EWS Logic
         if ($request->kondisi_udara === 'Panas/Gersang' && $request->jumlah_penyiraman <= 1) {
             Peringatan::create([

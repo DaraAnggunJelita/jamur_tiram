@@ -44,8 +44,8 @@
 
  <nav class="flex-1 overflow-y-auto py-5 px-3 space-y-8 scrollbar-hide">
 
- {{-- MENU PETUGAS PRODUKSI --}}
- @if($user->isPetugas())
+ {{-- MENU PETUGAS PRODUKSI & SUPERVISI ADMIN --}}
+ @if($user->isPetugas() || $user->isAdmin())
  <div>
  <div class="px-3 mb-3">
  <span class="text-[10px] font-bold text-[#E6D5B8]/60">ALUR LAPANGAN</span>
@@ -127,12 +127,12 @@
  <span class="text-sm font-bold">Dashboard Eksekutif</span>
  </a>
 
- {{-- Pembibitan --}}
- <a href="{{ route('bibit.index') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl transition duration-150 {{ request()->routeIs('bibit.*') ?'bg-[#10B981]/10 text-[#10B981]' :'text-white/80 hover:bg-white/5 hover:text-white' }}">
- <div class="flex items-center justify-center w-8 h-8 rounded-lg {{ request()->routeIs('bibit.*') ?'bg-[#10B981]/20 text-[#10B981]' :'bg-white/5 text-white/60 group-hover:bg-white/10 group-hover:text-white' }}">
+ {{-- Pantau Stok Bibit --}}
+ <a href="{{ route('ketua.bibit.pantau') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl transition duration-150 {{ request()->routeIs('ketua.bibit.pantau') ?'bg-[#10B981]/10 text-[#10B981]' :'text-white/80 hover:bg-white/5 hover:text-white' }}">
+ <div class="flex items-center justify-center w-8 h-8 rounded-lg {{ request()->routeIs('ketua.bibit.pantau') ?'bg-[#10B981]/20 text-[#10B981]' :'bg-white/5 text-white/60 group-hover:bg-white/10 group-hover:text-white' }}">
  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/></svg>
  </div>
- <span class="text-sm font-bold">Data Pembibitan</span>
+ <span class="text-sm font-bold">Pantau Stok Bibit</span>
  </a>
 
  {{-- Verifikasi Data --}}
@@ -178,12 +178,12 @@
  <span class="text-sm font-bold">Kelola Akun Pengguna</span>
  </a>
 
- {{-- Pantau Stok Bibit --}}
- <a href="{{ route('admin.bibit.pantau') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl transition duration-150 {{ request()->routeIs('admin.bibit.pantau') ?'bg-[#10B981]/10 text-[#10B981]' :'text-white/80 hover:bg-white/5 hover:text-white' }}">
- <div class="flex items-center justify-center w-8 h-8 rounded-lg {{ request()->routeIs('admin.bibit.pantau') ?'bg-[#10B981]/20 text-[#10B981]' :'bg-white/5 text-white/60 group-hover:bg-white/10 group-hover:text-white' }}">
+ {{-- Kelola Bibit (CRUD) --}}
+ <a href="{{ route('bibit.index') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl transition duration-150 {{ request()->routeIs('bibit.*') ?'bg-[#10B981]/10 text-[#10B981]' :'text-white/80 hover:bg-white/5 hover:text-white' }}">
+ <div class="flex items-center justify-center w-8 h-8 rounded-lg {{ request()->routeIs('bibit.*') ?'bg-[#10B981]/20 text-[#10B981]' :'bg-white/5 text-white/60 group-hover:bg-white/10 group-hover:text-white' }}">
  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
  </div>
- <span class="text-sm font-bold">Konfirmasi & Pantau Stok</span>
+ <span class="text-sm font-bold">Kelola Data Bibit</span>
  </a>
 
  {{-- Pengaturan EWS --}}
@@ -194,15 +194,17 @@
  <span class="text-sm font-bold">Pengaturan Batas EWS</span>
  </a>
 
- {{-- Katalog Produk --}}
- <a href="{{ route('admin.catalogs.index') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl transition duration-150 {{ request()->routeIs('admin.catalogs.*') ?'bg-[#10B981]/10 text-[#10B981]' :'text-white/80 hover:bg-white/5 hover:text-white' }}">
- <div class="flex items-center justify-center w-8 h-8 rounded-lg {{ request()->routeIs('admin.catalogs.*') ?'bg-[#10B981]/20 text-[#10B981]' :'bg-white/5 text-white/60 group-hover:bg-white/10 group-hover:text-white' }}">
- <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
- </div>
- <span class="text-sm font-bold">Katalog Produk</span>
- </a>
- </div>
- </div>
+  {{-- Katalog Produk --}}
+  <a href="{{ route('admin.catalogs.index') }}" class="group flex items-center gap-3 px-3 py-2.5 rounded-xl transition duration-150 {{ request()->routeIs('admin.catalogs.*') ?'bg-[#10B981]/10 text-[#10B981]' :'text-white/80 hover:bg-white/5 hover:text-white' }}">
+  <div class="flex items-center justify-center w-8 h-8 rounded-lg {{ request()->routeIs('admin.catalogs.*') ?'bg-[#10B981]/20 text-[#10B981]' :'bg-white/5 text-white/60 group-hover:bg-white/10 group-hover:text-white' }}">
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+  </div>
+  <span class="text-sm font-bold">Katalog Produk</span>
+  </a>
+
+
+  </div>
+  </div>
  @endif
 
  {{-- PROFIL AKUN (SEMUA ROLE) --}}

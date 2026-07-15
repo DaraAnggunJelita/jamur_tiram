@@ -54,8 +54,7 @@
  <th class="py-3 px-4">Kode Batch</th>
  <th class="py-3 px-4">Petugas</th>
  <th class="py-3 px-4">Jumlah Baglog</th>
- <th class="py-3 px-4 text-center">Status</th>
- @if(auth()->user()->role ==='admin' || auth()->user()->role ==='petugas')
+ @if(auth()->user()->role ==='petugas')
  <th class="py-3 px-4 text-right">Aksi</th>
  @endif
  </tr>
@@ -67,29 +66,8 @@
  <td class="py-3.5 px-4 font-bold text-[#059669]">{{ $log->kode_batch }}</td>
  <td class="py-3.5 px-4 font-medium">{{ $log->user->name }}</td>
  <td class="py-3.5 px-4 text-[#059669] font-bold text-xs">{{ number_format($log->jumlah_baglog) }} Pcs</td>
- <td class="py-3.5 px-4 text-center">
- <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border 
- {{ $log->status_validasi ==='valid'
- ?'bg-[#34D399]/15 text-[#047857] border-[#34D399]/30'
- :'bg-[#F59E0B]/10 text-[#F59E0B] border-[#F59E0B]/20 animate-pulse' }}">
- {{ $log->status_validasi }}
- </span>
- </td>
- @if(auth()->user()->role ==='admin' || auth()->user()->role ==='petugas')
+ @if(auth()->user()->role ==='petugas')
  <td class="py-3.5 px-4 text-right">
- @if(auth()->user()->role ==='admin')
- @if($log->status_validasi ==='pending')
- <form method="POST" action="{{ route('baglog.validate', $log->id) }}" class="inline">
- @csrf
- <button type="submit" class="bg-[#059669] hover:bg-[#047857] text-white font-bold text-[10px] px-3 py-1.5 rounded-lg transition duration-150 shadow-xs cursor-pointer">
- Validasi
- </button>
- </form>
- @else
- <span class="text-xs text-[#6B7280] font-bold italic">Selesai</span>
- @endif
- @elseif(auth()->user()->role ==='petugas')
- @if($log->status_validasi ==='pending')
  @php
  $hasSterilisasi = \App\Models\Sterilisasi::where('baglog_id', $log->id)->exists();
  @endphp
@@ -109,16 +87,12 @@
  </form>
  </div>
  @endif
- @else
- <span class="text-[10px] text-[#6B7280] font-bold italic">Divalidasi</span>
- @endif
- @endif
  </td>
  @endif
  </tr>
  @empty
  <tr>
- <td colspan="{{ auth()->user()->role ==='admin' || auth()->user()->role ==='petugas' ? 6 : 5 }}" class="py-12 text-center text-[#6B7280] font-medium italic">
+ <td colspan="{{ auth()->user()->role ==='petugas' ? 5 : 4 }}" class="py-12 text-center text-[#6B7280] font-medium italic">
  Belum ada log batch pembuatan baglog.
  </td>
  </tr>

@@ -33,7 +33,6 @@
  <th class="py-3 px-4 text-center">Jumlah Terpakai</th>
  <th class="py-3 px-4 text-center">Sisa Stok Saat Ini</th>
  <th class="py-3 px-4 text-center">Status</th>
- <th class="py-3 px-4 text-center">Aksi</th>
  </tr>
  </thead>
  <tbody class="divide-y divide-[#E5E7EB]/20 text-[#374151]">
@@ -52,40 +51,10 @@
  {{ $bibit->status }}
  </span>
  </td>
- <td class="py-3.5 px-4 text-center">
- @if($bibit->status ==='Pending Konfirmasi Admin')
- <form method="POST" action="{{ route('admin.bibit.konfirmasi', $bibit->id) }}">
- @csrf
- <button type="submit" class="inline-flex items-center px-3 py-1.5 bg-[#059669] hover:bg-[#047857] text-white text-[10px] font-bold rounded-lg transition duration-150 shadow-md">
- Konfirmasi Stok Cocok
- </button>
- </form>
- @elseif($bibit->status ==='Aktif/Siap Pakai' || $bibit->status ==='Habis')
- <div x-data="{ open: false }" class="relative flex justify-center">
- <button @click="open = !open" type="button" class="inline-flex items-center px-3 py-1.5 bg-[#10B981] hover:bg-[#E5E7EB] text-white text-[10px] font-bold rounded-lg transition duration-150 shadow-md">
- Tambah Stok
- </button>
- 
- <div x-show="open" @click.away="open = false" style="display: none;" class="absolute top-full right-0 mt-2 w-56 bg-white rounded-xl shadow-xl z-50 p-4 border border-gray-100 text-left">
- <form method="POST" action="{{ route('admin.bibit.tambah-stok', $bibit->id) }}">
- @csrf
- <label class="block text-xs font-bold text-[#047857] mb-2">Jumlah Tambah (Botol)</label>
- <input type="number" name="tambahan_stok" min="1" required class="w-full text-sm rounded-lg border-gray-300 focus:border-[#34D399] focus:ring-[#34D399] mb-3 p-2">
- <div class="flex justify-end gap-2">
- <button type="button" @click="open = false" class="px-3 py-1.5 text-xs text-gray-500 hover:text-gray-700 font-bold transition">Batal</button>
- <button type="submit" class="px-3 py-1.5 bg-[#34D399] text-white text-xs font-bold rounded-lg shadow-sm hover:bg-[#059669] transition">Simpan</button>
- </div>
- </form>
- </div>
- </div>
- @else
- <span class="text-xs text-gray-400 font-medium">-</span>
- @endif
- </td>
  </tr>
  @empty
  <tr>
- <td colspan="7" class="py-12 text-center text-[#6B7280] font-medium italic">
+ <td colspan="6" class="py-12 text-center text-[#6B7280] font-medium italic">
  Belum ada data stok bibit.
  </td>
  </tr>

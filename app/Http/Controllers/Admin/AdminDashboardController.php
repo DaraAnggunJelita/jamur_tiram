@@ -23,14 +23,29 @@ class AdminDashboardController extends Controller
             ->orderBy('tanggal', 'asc')
             ->get();
 
-        // Riwayat laporan yang sudah diproses
+        // Riwayat laporan yang sudah diproses atau dibatalkan
         $processedReports = ProductionReport::with(['user', 'validator'])
-            ->whereIn('status_validasi', ['valid', 'invalid'])
+            ->whereIn('status_validasi', ['valid', 'invalid', 'dibatalkan'])
             ->orderBy('updated_at', 'desc')
             ->take(10)
             ->get();
 
-        return view('admin.dashboard', compact('pendingReports', 'processedReports'));
+        // Data untuk Rasio Kualitas dan Aktivitas Panen Terbaru
+        $reportsBulanIni = ProductionReport::whereMonth('tanggal', now()->month)
+            ->whereYear('tanggal', now()->year)
+            ->get();
+        $totalGradeA = $reportsBulanIni->sum('berat_grade_a');
+        $totalGradeB = $reportsBulanIni->sum('berat_grade_b');
+        $totalBerat = $totalGradeA + $totalGradeB;
+        $persentaseA = $totalBerat > 0 ? round(($totalGradeA / $totalBerat) * 100) : 0;
+        $persentaseB = $totalBerat > 0 ? round(($totalGradeB / $totalBerat) * 100) : 0;
+
+        $recentReports = ProductionReport::with('user')
+            ->orderBy('tanggal', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('admin.dashboard', compact('pendingReports', 'processedReports', 'reportsBulanIni', 'persentaseA', 'persentaseB', 'recentReports'));
     }
 
     /**
@@ -55,51 +70,5 @@ class AdminDashboardController extends Controller
         return redirect()->route('admin.dashboard')->with('success', $message);
     }
 
-    /**
-     * Tampilkan pemantauan stok bibit.
-     */
-    public function pantauStokBibit(): View
-    {
-        $bibits = \App\Models\Bibit::with('user')->orderBy('tanggal_masuk', 'desc')->get();
-        return view('admin.bibit.pantau_stok', compact('bibits'));
-    }
-
-    /**
-     * Konfirmasi ketersediaan bibit.
-     */
-    public function konfirmasiBibit($id): RedirectResponse
-    {
-        $bibit = \App\Models\Bibit::findOrFail($id);
-        
-        if ($bibit->status === 'Pending Konfirmasi Admin') {
-            $bibit->update(['status' => 'Aktif/Siap Pakai']);
-            return redirect()->route('admin.bibit.pantau')->with('success', 'Stok bibit berhasil dikonfirmasi dan kini Aktif/Siap Pakai.');
-        }
-
-        return redirect()->route('admin.bibit.pantau')->with('error', 'Status bibit tidak valid untuk dikonfirmasi.');
-    }
-
-    /**
-     * Tambah stok bibit yang sudah ada.
-     */
-    public function tambahStokBibit(Request $request, $id): RedirectResponse
-    {
-        $request->validate([
-            'tambahan_stok' => 'required|integer|min:1',
-        ]);
-
-        $bibit = \App\Models\Bibit::findOrFail($id);
-        
-        // Hanya bisa nambah stok jika statusnya sudah aktif atau habis
-        if ($bibit->status === 'Aktif/Siap Pakai' || $bibit->status === 'Habis') {
-            $bibit->jumlah += $request->tambahan_stok;
-            $bibit->sisa_stok += $request->tambahan_stok;
-            $bibit->status = 'Aktif/Siap Pakai'; // Jika sebelumnya habis, otomatis aktif lagi
-            $bibit->save();
-
-            return redirect()->route('admin.bibit.pantau')->with('success', 'Stok bibit berhasil ditambahkan sebanyak ' . $request->tambahan_stok . ' botol.');
-        }
-
-        return redirect()->route('admin.bibit.pantau')->with('error', 'Stok bibit tidak dapat ditambahkan pada status ini.');
-    }
+    // Old bibit routes removed. Admin uses BibitController now.
 }

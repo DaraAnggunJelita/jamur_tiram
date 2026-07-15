@@ -15,10 +15,8 @@ class PetugasDashboardController extends Controller
      */
     public function index(): View
     {
-        $userId = auth()->id();
-
-        $reportsBulanIni = ProductionReport::where('user_id', $userId)
-            ->whereMonth('tanggal', now()->month)
+        // Tampilkan seluruh data laporan secara kolektif agar sinkron dengan widget pipeline
+        $reportsBulanIni = ProductionReport::whereMonth('tanggal', now()->month)
             ->whereYear('tanggal', now()->year)
             ->get();
 
@@ -29,21 +27,12 @@ class PetugasDashboardController extends Controller
         $persentaseA = $totalBerat > 0 ? round(($totalGradeA / $totalBerat) * 100) : 0;
         $persentaseB = $totalBerat > 0 ? round(($totalGradeB / $totalBerat) * 100) : 0;
 
-        $recentReports = ProductionReport::where('user_id', $userId)
+        $recentReports = ProductionReport::with('user')
             ->orderBy('tanggal', 'desc')
             ->take(10)
             ->get();
 
-        // Mengambil data laporan lainnya yang diinputkan oleh petugas
-        $recentBaglogs = \App\Models\Baglog::where('user_id', $userId)->orderBy('created_at', 'desc')->take(5)->get();
-        $recentSterilisasi = \App\Models\Sterilisasi::where('user_id', $userId)->orderBy('created_at', 'desc')->take(5)->get();
-        $recentInokulasi = \App\Models\Inokulasi::where('user_id', $userId)->orderBy('created_at', 'desc')->take(5)->get();
-        $recentMonitoring = \App\Models\MonitoringKumbung::where('user_id', $userId)->orderBy('created_at', 'desc')->take(5)->get();
 
-        // Mengambil data Peringatan Aktif (is_read = false) untuk dikirim ke Dashboard
-        $peringatanAktif = \App\Models\Peringatan::where('is_read', false)
-            ->orderBy('created_at', 'desc')
-            ->get();
 
         // Mengambil inokulasi yang sudah >= 40 hari dan belum dibuka kapasnya
         $inokulasiBukaKapas = \App\Models\Inokulasi::with('sterilisasi.baglog')
@@ -52,17 +41,68 @@ class PetugasDashboardController extends Controller
             ->get();
 
         // Pipeline Production Indicators
-        $pipelineStokBaglog = \App\Models\Baglog::doesntHave('sterilisasis')->count();
-        $pipelinePendinginan = \App\Models\Sterilisasi::doesntHave('inokulasis')->whereDate('tanggal', today())->count();
-        $pipelineSiapInokulasi = \App\Models\Sterilisasi::doesntHave('inokulasis')->whereDate('tanggal', '<', today())->count();
-        $pipelineInkubasi = \App\Models\Inokulasi::whereDoesntHave('logInkubasis', function ($q) {
+        $pipelineStokBaglog = \App\Models\Baglog::doesntHave('sterilisasis')->orderBy('created_at', 'asc')->get();
+        $pipelinePendinginan = \App\Models\Sterilisasi::with('baglog')->doesntHave('inokulasis')->whereDate('tanggal', today())->orderBy('created_at', 'asc')->get();
+        $pipelineSiapInokulasi = \App\Models\Sterilisasi::with('baglog')->doesntHave('inokulasis')->whereDate('tanggal', '<', today())->orderBy('created_at', 'asc')->get();
+        $pipelineInkubasi = \App\Models\Inokulasi::with('sterilisasi.baglog')->whereDoesntHave('logInkubasis', function ($q) {
             $q->where('persentase_tumbuh', 100);
-        })->count();
-        $pipelineSiapPanen = \App\Models\Inokulasi::where(function ($q) {
+        })->orderBy('created_at', 'asc')->get();
+        $pipelineSiapPanen = \App\Models\Inokulasi::with('sterilisasi.baglog')
+            ->whereHas('productionReports', function($q) {
+                $q->where('status_validasi', '!=', 'dibatalkan');
+            }, '<', 5)
+            ->where(function ($q) {
             $q->whereHas('logInkubasis', function ($q2) {
                 $q2->where('persentase_tumbuh', 100);
             })->orWhere('tanggal', '<=', now()->subDays(40));
-        })->count();
+        })->orderBy('created_at', 'asc')->get();
+
+        // ---------------------------------------------------------
+        // EWS LOGIC: MAKSIMAL HARI PANEN
+        // ---------------------------------------------------------
+        $ewsSetting = \App\Models\EwsSetting::first();
+        $maksHariPanen = $ewsSetting ? $ewsSetting->maks_hari_panen : 4;
+
+        foreach ($pipelineSiapPanen as $inokulasi) {
+            $lastPanen = \App\Models\ProductionReport::where('inokulasi_id', $inokulasi->id)
+                ->where('status_validasi', '!=', 'dibatalkan')
+                ->orderBy('tanggal', 'desc')
+                ->first();
+            
+            if ($lastPanen) {
+                $lastDate = \Carbon\Carbon::parse($lastPanen->tanggal);
+            } else {
+                // If never harvested, start counting from the estimated ready date (40 days after inokulasi)
+                $lastDate = \Carbon\Carbon::parse($inokulasi->tanggal)->addDays(40);
+            }
+
+            $hariTelat = (int) $lastDate->diffInDays(now());
+
+            if ($hariTelat > $maksHariPanen && now()->startOfDay()->greaterThan($lastDate)) {
+                $existingWarning = \App\Models\Peringatan::where('kategori', 'Panen')
+                    ->where('referensi_id', $inokulasi->id)
+                    ->where('is_read', false)
+                    ->exists();
+
+                if (!$existingWarning) {
+                    $kode = $inokulasi->sterilisasi->baglog->kode_batch ?? $inokulasi->id;
+                    \App\Models\Peringatan::create([
+                        'kategori' => 'Panen',
+                        'referensi_id' => $inokulasi->id,
+                        'level' => 'Kritis',
+                        'pesan' => "Batch #{$kode} sudah {$hariTelat} hari tidak dipanen (Batas EWS: {$maksHariPanen} hari). Segera panen sebelum layu!",
+                        'is_read' => false,
+                    ]);
+                }
+            }
+        }
+        // ---------------------------------------------------------
+
+        // Mengambil data Peringatan Aktif (is_read = false) untuk dikirim ke Dashboard
+        // Dipanggil di sini agar mencakup peringatan EWS baru yang digenerate di atas
+        $peringatanAktif = \App\Models\Peringatan::where('is_read', false)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         // Ambil data sterilisasi yang berisiko untuk notifikasi
         $sterilisasiBerisiko = \App\Models\Sterilisasi::where('status_sterilisasi', 'berisiko')
@@ -74,10 +114,6 @@ class PetugasDashboardController extends Controller
             'recentReports', 
             'peringatanAktif', 
             'inokulasiBukaKapas',
-            'recentBaglogs',
-            'recentSterilisasi',
-            'recentInokulasi',
-            'recentMonitoring',
             'persentaseA',
             'persentaseB',
             'pipelineStokBaglog',

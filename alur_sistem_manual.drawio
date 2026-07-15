@@ -1,0 +1,177 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="manual_flow" name="Alur Sistem Manual">
+    <mxGraphModel dx="1720" dy="1002" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="2200" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lane_petugas" parent="1" style="swimlane;whiteSpace=wrap;html=1;fontStyle=1;startSize=40;horizontal=1;labelBackgroundColor=none;swimlaneFillColor=none;" value="Petugas Kumbung" vertex="1">
+          <mxGeometry height="2100" width="360" x="40" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="el_101" parent="lane_petugas" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;" value="Mulai" vertex="1">
+          <mxGeometry height="50" width="100" x="130" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="el_102" parent="lane_petugas" style="rounded=1;whiteSpace=wrap;html=1;" value="Mencatat bibit jamur&#xa;masuk (Buku Tulis)" vertex="1">
+          <mxGeometry height="60" width="160" x="100" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="el_103" parent="lane_petugas" style="rounded=1;whiteSpace=wrap;html=1;" value="Melakukan sterilisasi /&#xa;pengukusan baglog" vertex="1">
+          <mxGeometry height="60" width="160" x="100" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="el_104" parent="lane_petugas" style="rhombus;whiteSpace=wrap;html=1;fontStyle=1;" value="Proses sterilisasi&#xa;lancar (air/api aman)?" vertex="1">
+          <mxGeometry height="80" width="140" x="110" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="el_105" parent="lane_petugas" style="rounded=1;whiteSpace=wrap;html=1;" value="Mencatat hasil&#xa;sterilisasi baglog" vertex="1">
+          <mxGeometry height="60" width="160" x="100" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="el_106" parent="lane_petugas" style="rounded=1;whiteSpace=wrap;html=1;" value="Inokulasi (Penanaman&#xa;bibit ke baglog)" vertex="1">
+          <mxGeometry height="60" width="160" x="100" y="570" as="geometry" />
+        </mxCell>
+        <mxCell id="el_107" parent="lane_petugas" style="rounded=1;whiteSpace=wrap;html=1;" value="Mencatat data&#xa;inokulasi" vertex="1">
+          <mxGeometry height="60" width="160" x="100" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="el_108" parent="lane_petugas" style="rounded=1;whiteSpace=wrap;html=1;" value="Monitoring perkembangan&#xa;jamur mingguan (1-4)" vertex="1">
+          <mxGeometry height="60" width="160" x="100" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="el_109" parent="lane_petugas" style="rounded=1;whiteSpace=wrap;html=1;" value="Mencatat perkembangan&#xa;&amp; baglog rusak/terkontaminasi" vertex="1">
+          <mxGeometry height="60" width="200" x="80" y="870" as="geometry" />
+        </mxCell>
+        <mxCell id="el_110" parent="lane_petugas" style="rhombus;whiteSpace=wrap;html=1;fontStyle=1;" value="Sudah minggu ke-4 /&#xa;masa panen tiba?" vertex="1">
+          <mxGeometry height="80" width="160" x="100" y="970" as="geometry" />
+        </mxCell>
+        <mxCell id="el_111" parent="lane_petugas" style="rounded=1;whiteSpace=wrap;html=1;" value="Panen &amp; mencatat&#xa;hasil panen harian (kg)" vertex="1">
+          <mxGeometry height="60" width="160" x="100" y="1090" as="geometry" />
+        </mxCell>
+        <mxCell id="el_112" parent="lane_petugas" style="rhombus;whiteSpace=wrap;html=1;fontStyle=1;" value="Buku catatan&#xa;layak/tidak rusak?" vertex="1">
+          <mxGeometry height="80" width="140" x="110" y="1190" as="geometry" />
+        </mxCell>
+        <mxCell id="el_113" parent="lane_petugas" style="rounded=1;whiteSpace=wrap;html=1;" value="Petugas&amp;nbsp;&lt;br&gt;menyalin ulang data" vertex="1">
+          <mxGeometry height="60" width="160" x="100" y="1310" as="geometry" />
+        </mxCell>
+        <mxCell id="JyFS5d7oV7wibiFqQL4d-2" edge="1" parent="lane_petugas" source="el_114" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="JyFS5d7oV7wibiFqQL4d-1" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="el_114" parent="lane_petugas" style="rounded=1;whiteSpace=wrap;html=1;" value="Menyerahkan&#xa;buku catatan" vertex="1">
+          <mxGeometry height="60" width="160" x="100" y="1410" as="geometry" />
+        </mxCell>
+        <mxCell id="el_121" edge="1" parent="lane_petugas" source="el_101" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="el_102" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="el_122" edge="1" parent="lane_petugas" source="el_102" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="el_103" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="el_123" edge="1" parent="lane_petugas" source="el_103" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="el_104" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="el_124" edge="1" parent="lane_petugas" source="el_104" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="el_105" value="Ya">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="el_125" edge="1" parent="lane_petugas" source="el_104" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="el_103" value="Tidak">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="60" y="390" />
+              <mxPoint x="60" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="el_126" edge="1" parent="lane_petugas" source="el_105" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="el_106" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="el_127" edge="1" parent="lane_petugas" source="el_106" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="el_107" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="el_128" edge="1" parent="lane_petugas" source="el_107" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="el_108" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="el_129" edge="1" parent="lane_petugas" source="el_108" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="el_109" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="el_130" edge="1" parent="lane_petugas" source="el_109" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="el_110" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="el_131" edge="1" parent="lane_petugas" source="el_110" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="el_111" value="Ya">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="el_132" edge="1" parent="lane_petugas" source="el_110" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="el_108" value="Tidak">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="60" y="1010" />
+              <mxPoint x="60" y="800" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="el_133" edge="1" parent="lane_petugas" source="el_111" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="el_112" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="el_134" edge="1" parent="lane_petugas" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="el_114" value="Ya">
+          <mxGeometry relative="1" x="-0.0588" y="-20" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="50" y="1230" />
+              <mxPoint x="50" y="1440" />
+            </Array>
+            <mxPoint x="110" y="1230" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="el_135" edge="1" parent="lane_petugas" source="el_112" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="el_113" value="Tidak">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="el_136" edge="1" parent="lane_petugas" source="el_113" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" target="el_114" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JyFS5d7oV7wibiFqQL4d-1" parent="lane_petugas" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;rounded=1;" value="hasil catatan" vertex="1">
+          <mxGeometry height="80" width="120" x="120" y="1540" as="geometry" />
+        </mxCell>
+        <mxCell id="lane_ketua" parent="1" style="swimlane;whiteSpace=wrap;html=1;fontStyle=1;startSize=40;horizontal=1;labelBackgroundColor=none;swimlaneFillColor=none;" value="Ketua KUPS" vertex="1">
+          <mxGeometry height="2100" width="360" x="400" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="el_116" parent="lane_ketua" style="rhombus;whiteSpace=wrap;html=1;fontStyle=1;" value="Data jelas&#xa;&amp; lengkap?" vertex="1">
+          <mxGeometry height="80" width="140" x="120" y="1500" as="geometry" />
+        </mxCell>
+        <mxCell id="el_120" parent="lane_ketua" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;" value="Selesai" vertex="1">
+          <mxGeometry height="50" width="100" x="130" y="1830" as="geometry" />
+        </mxCell>
+        <mxCell id="el_139" edge="1" parent="lane_ketua" source="el_116" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" value="Ya">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="1620" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JyFS5d7oV7wibiFqQL4d-10" edge="1" parent="lane_ketua" source="JyFS5d7oV7wibiFqQL4d-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="el_116" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JyFS5d7oV7wibiFqQL4d-3" parent="lane_ketua" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;rounded=1;" value="hasil catatan" vertex="1">
+          <mxGeometry height="80" width="120" x="130" y="1390" as="geometry" />
+        </mxCell>
+        <mxCell id="JyFS5d7oV7wibiFqQL4d-4" edge="1" parent="lane_ketua" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="JyFS5d7oV7wibiFqQL4d-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-40" y="1570" />
+              <mxPoint x="-40" y="1450" />
+            </Array>
+            <mxPoint x="-120.00000000000011" y="1570" as="sourcePoint" />
+            <mxPoint x="70" y="1340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JyFS5d7oV7wibiFqQL4d-8" edge="1" parent="lane_ketua" source="JyFS5d7oV7wibiFqQL4d-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="JyFS5d7oV7wibiFqQL4d-7" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JyFS5d7oV7wibiFqQL4d-6" parent="lane_ketua" style="verticalLabelPosition=middle;verticalAlign=middle;html=1;shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;size=0.23;arcSize=10;flipV=1;labelPosition=center;align=center;legacyAnchorPoints=0;" value="Membuat laporan bulanan" vertex="1">
+          <mxGeometry height="60" width="100" x="130" y="1620" as="geometry" />
+        </mxCell>
+        <mxCell id="JyFS5d7oV7wibiFqQL4d-9" edge="1" parent="lane_ketua" source="JyFS5d7oV7wibiFqQL4d-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="el_120" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="JyFS5d7oV7wibiFqQL4d-7" parent="lane_ketua" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;arcSize=10;" value="Laporan bulanan" vertex="1">
+          <mxGeometry height="60" width="120" x="120" y="1730" as="geometry" />
+        </mxCell>
+        <mxCell id="el_140" edge="1" parent="1" source="el_116" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="el_113" value="Tidak">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="430" y="1590" />
+              <mxPoint x="430" y="1370" />
+              <mxPoint x="300" y="1370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

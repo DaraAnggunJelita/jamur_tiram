@@ -34,18 +34,11 @@ class BibitController extends Controller
 
     public function create()
     {
-        if (Auth::user()->role !== 'ketua') {
-            abort(403, 'Hanya ketua yang dapat menambah stok bibit baru.');
-        }
         return view('bibit.create');
     }
 
     public function store(Request $request)
     {
-        if (Auth::user()->role !== 'ketua') {
-            abort(403, 'Hanya ketua yang dapat menambah stok bibit baru.');
-        }
-
         $request->validate([
             'kode_bibit' => 'required|string|unique:bibits,kode_bibit|max:50',
             'asal_bibit' => 'required|string|max:255',
@@ -68,10 +61,6 @@ class BibitController extends Controller
 
     public function edit($id)
     {
-        if (Auth::user()->role !== 'ketua') {
-            abort(403, 'Hanya ketua yang dapat mengedit stok bibit baru.');
-        }
-
         $bibit = Bibit::findOrFail($id);
         
         // Cek apakah stok bibit sudah mulai terpakai
@@ -84,10 +73,6 @@ class BibitController extends Controller
 
     public function update(Request $request, $id)
     {
-        if (Auth::user()->role !== 'ketua') {
-            abort(403, 'Hanya ketua yang dapat mengubah stok bibit baru.');
-        }
-
         $bibit = Bibit::findOrFail($id);
 
         if ($bibit->sisa_stok != $bibit->jumlah) {
@@ -114,10 +99,6 @@ class BibitController extends Controller
 
     public function destroy($id)
     {
-        if (Auth::user()->role !== 'ketua') {
-            abort(403, 'Hanya ketua yang dapat menghapus stok bibit baru.');
-        }
-
         $bibit = Bibit::findOrFail($id);
 
         if ($bibit->sisa_stok != $bibit->jumlah) {
