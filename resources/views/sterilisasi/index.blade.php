@@ -60,7 +60,7 @@
  @forelse($sterilisasis as $st)
  <tr class="hover:bg-[#F3F5F4]/40 transition duration-150">
  <td class="py-3.5 px-4 font-bold text-[#064E3B] text-xs">{{ \Carbon\Carbon::parse($st->tanggal)->format('d M Y') }}<br><span class="text-[#6B7280] text-[10px]">{{ $st->user->name }}</span></td>
- <td class="py-3.5 px-4 font-bold text-[#059669]">Baglog #{{ $st->baglog->kode_batch ??'-' }}</td>
+ <td class="py-3.5 px-4 font-bold text-[#059669]">Baglog {{ $st->baglog->kode_batch ??'-' }}</td>
  <td class="py-3.5 px-4 text-center {{ $st->durasi_pengukusan < 7 ?'text-red-600' :'text-[#059669]' }} font-bold text-xs">{{ $st->durasi_pengukusan }} Jam</td>
  <td class="py-3.5 px-4 text-xs font-bold text-[#6B7280]">Air: <span class="{{ $st->kondisi_air =='Habis' ?'text-red-600' :'text-[#064E3B]' }}">{{ $st->kondisi_air }}</span><br>Api: <span class="{{ $st->kestabilan_api !='Stabil-Besar' ?'text-red-600' :'text-[#064E3B]' }}">{{ $st->kestabilan_api }}</span></td>
  <td class="py-3.5 px-4 text-center">

@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\BaglogController;
 use App\Http\Controllers\CatalogController;
-use App\Http\Controllers\JadwalPanenController;
 use App\Http\Controllers\Ketua\KetuaDashboardController;
 use App\Http\Controllers\Petugas\PetugasDashboardController;
 use App\Http\Controllers\Petugas\ProductionReportController;
@@ -17,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 Route::get('/', [CatalogController::class, 'publicIndex'])->name('welcome');
+Route::get('/profile-kups', [CatalogController::class, 'publicProfile'])->name('public.profile-kups');
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +86,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Manajemen Katalog Produk oleh Admin
     Route::resource('catalogs', CatalogController::class)->except(['show']);
 
+    // Manajemen Kelola Profile KUPS oleh Admin
+    Route::get('/profile-kups', [App\Http\Controllers\Admin\ProfileKupsController::class, 'index'])->name('profile-kups.index');
+    Route::post('/profile-kups', [App\Http\Controllers\Admin\ProfileKupsController::class, 'update'])->name('profile-kups.update');
+
     // Rute Konfirmasi dan Pantau Stok Bibit
     Route::get('/pantau-stok-bibit', [AdminDashboardController::class, 'pantauStokBibit'])->name('bibit.pantau');
     Route::post('/bibit/{id}/konfirmasi', [AdminDashboardController::class, 'konfirmasiBibit'])->name('bibit.konfirmasi');
@@ -141,14 +145,6 @@ Route::middleware(['auth'])->group(function () {
     // RUTE SETTINGS EWS ADMIN
     Route::get('/admin/ews-settings', [\App\Http\Controllers\Admin\EwsSettingController::class, 'index'])->name('admin.ews.settings');
     Route::post('/admin/ews-settings', [\App\Http\Controllers\Admin\EwsSettingController::class, 'update'])->name('admin.ews.settings.update');
-
-    // RUTE BARU UNTUK JADWAL PANEN
-    Route::get('/jadwal-panen', [JadwalPanenController::class, 'index'])->name('jadwal-panen.index');
-    Route::get('/jadwal-panen/create', [JadwalPanenController::class, 'create'])->name('jadwal-panen.create');
-    Route::post('/jadwal-panen', [JadwalPanenController::class, 'store'])->name('jadwal-panen.store');
-    Route::get('/jadwal-panen/{id}/edit', [JadwalPanenController::class, 'edit'])->name('jadwal-panen.edit');
-    Route::put('/jadwal-panen/{id}', [JadwalPanenController::class, 'update'])->name('jadwal-panen.update');
-    Route::delete('/jadwal-panen/{id}', [JadwalPanenController::class, 'destroy'])->name('jadwal-panen.destroy');
 });
 
 

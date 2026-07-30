@@ -1,0 +1,202 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="class_diagram" name="Class Diagram">
+    <mxGraphModel dx="1800" dy="1800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="User" value="User" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="50" width="250" height="148" as="geometry" />
+        </mxCell>
+        <mxCell id="User_attrs" value="- id: id&#xa;- name: string&#xa;- email: string&#xa;- password: string&#xa;- role: enum&#xa;- created_at: timestamp&#xa;- updated_at: timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="User">
+          <mxGeometry y="26" width="250" height="122" as="geometry" />
+        </mxCell>
+        <mxCell id="Bibit" value="Bibit" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="150" y="350" width="250" height="196" as="geometry" />
+        </mxCell>
+        <mxCell id="Bibit_attrs" value="- id: id&#xa;- user_id: foreignId&#xa;- kode_bibit: string&#xa;- asal_bibit: string&#xa;- tanggal_masuk: date&#xa;- jumlah: integer&#xa;- sisa_stok: integer&#xa;- status: enum&#xa;- created_at: timestamp&#xa;- updated_at: timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="Bibit">
+          <mxGeometry y="26" width="250" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="Baglog" value="Baglog" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="500" y="350" width="250" height="164" as="geometry" />
+        </mxCell>
+        <mxCell id="Baglog_attrs" value="- id: id&#xa;- user_id: foreignId&#xa;- kode_batch: string&#xa;- tanggal_pembuatan: date&#xa;- jumlah_baglog: integer&#xa;- status_validasi: enum&#xa;- created_at: timestamp&#xa;- updated_at: timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="Baglog">
+          <mxGeometry y="26" width="250" height="138" as="geometry" />
+        </mxCell>
+        <mxCell id="Sterilisasi" value="Sterilisasi" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="850" y="350" width="250" height="196" as="geometry" />
+        </mxCell>
+        <mxCell id="Sterilisasi_attrs" value="- id: id&#xa;- baglog_id: foreignId&#xa;- user_id: foreignId&#xa;- tanggal: date&#xa;- durasi_pengukusan: integer&#xa;- kondisi_air: enum&#xa;- kestabilan_api: enum&#xa;- status_sterilisasi: enum&#xa;- created_at: timestamp&#xa;- updated_at: timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="Sterilisasi">
+          <mxGeometry y="26" width="250" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="Inokulasi" value="Inokulasi" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="500" y="700" width="250" height="212" as="geometry" />
+        </mxCell>
+        <mxCell id="Inokulasi_attrs" value="- id: id&#xa;- sterilisasi_id: foreignId&#xa;- bibit_id: foreignId&#xa;- user_id: foreignId&#xa;- tanggal: date&#xa;- jumlah_berhasil: integer&#xa;- jumlah_kontaminasi: integer&#xa;- jumlah_bibit_terpakai: integer&#xa;- status_buka_kapas: boolean&#xa;- created_at: timestamp&#xa;- updated_at: timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="Inokulasi">
+          <mxGeometry y="26" width="250" height="186" as="geometry" />
+        </mxCell>
+        <mxCell id="LogInkubasi" value="LogInkubasi" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="150" y="1050" width="250" height="164" as="geometry" />
+        </mxCell>
+        <mxCell id="LogInkubasi_attrs" value="- id: id&#xa;- inokulasi_id: foreignId&#xa;- user_id: foreignId&#xa;- persentase_tumbuh: integer&#xa;- catatan: text&#xa;- tanggal_catat: date&#xa;- created_at: timestamp&#xa;- updated_at: timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="LogInkubasi">
+          <mxGeometry y="26" width="250" height="138" as="geometry" />
+        </mxCell>
+        <mxCell id="MonitoringKumbung" value="MonitoringKumbung" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="500" y="1050" width="250" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="MonitoringKumbung_attrs" value="- id: id&#xa;- inokulasi_id: foreignId&#xa;- user_id: foreignId&#xa;- tanggal: date&#xa;- kondisi_udara: enum&#xa;- kondisi_lantai: enum&#xa;- jumlah_penyiraman: integer&#xa;- created_at: timestamp&#xa;- updated_at: timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="MonitoringKumbung">
+          <mxGeometry y="26" width="250" height="154" as="geometry" />
+        </mxCell>
+        <mxCell id="ProductionReport" value="ProductionReport (Panen)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="850" y="1050" width="250" height="244" as="geometry" />
+        </mxCell>
+        <mxCell id="ProductionReport_attrs" value="- id: id&#xa;- inokulasi_id: foreignId&#xa;- user_id: foreignId&#xa;- tanggal: date&#xa;- siklus_panen: integer&#xa;- berat_grade_a: double&#xa;- berat_grade_b: double&#xa;- jumlah_panen: double&#xa;- status_validasi: enum&#xa;- catatan: text&#xa;- validated_by: foreignId&#xa;- created_at: timestamp&#xa;- updated_at: timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="ProductionReport">
+          <mxGeometry y="26" width="250" height="218" as="geometry" />
+        </mxCell>
+        <mxCell id="Catalog" value="Catalog" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="350" width="250" height="148" as="geometry" />
+        </mxCell>
+        <mxCell id="Catalog_attrs" value="- id: id&#xa;- name: string&#xa;- description: text&#xa;- price: decimal&#xa;- image: string&#xa;- created_at: timestamp&#xa;- updated_at: timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="Catalog">
+          <mxGeometry y="26" width="250" height="122" as="geometry" />
+        </mxCell>
+        <mxCell id="Peringatan" value="Peringatan" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="700" width="250" height="164" as="geometry" />
+        </mxCell>
+        <mxCell id="Peringatan_attrs" value="- id: id&#xa;- kategori: enum&#xa;- referensi_id: unsignedBigInteger&#xa;- level: enum&#xa;- pesan: text&#xa;- is_read: boolean&#xa;- created_at: timestamp&#xa;- updated_at: timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="Peringatan">
+          <mxGeometry y="26" width="250" height="138" as="geometry" />
+        </mxCell>
+        <mxCell id="EwsSetting" value="EwsSetting" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1600" y="700" width="250" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="EwsSetting_attrs" value="- id: id&#xa;- min_durasi_sterilisasi: integer&#xa;- maks_hari_panen: integer&#xa;- kondisi_udara_kritis: string&#xa;- created_at: timestamp&#xa;- updated_at: timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;" vertex="1" parent="EwsSetting">
+          <mxGeometry y="26" width="250" height="106" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_bibit" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="User" target="Bibit">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_bibit_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_bibit">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_bibit_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_bibit">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_baglog" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="User" target="Baglog">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_baglog_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_baglog">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_baglog_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_baglog">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_sterilisasi" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="User" target="Sterilisasi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_sterilisasi_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_sterilisasi">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_sterilisasi_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_sterilisasi">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_inokulasi" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="User" target="Inokulasi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_inokulasi_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_inokulasi">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_inokulasi_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_inokulasi">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_log" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="User" target="LogInkubasi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_log_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_log">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_log_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_log">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_monitoring" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="User" target="MonitoringKumbung">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_monitoring_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_monitoring">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_monitoring_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_monitoring">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_production" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="User" target="ProductionReport">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_production_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_production">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_production_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_production">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_production_val" value="validated_by" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="User" target="ProductionReport">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_production_val_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_production_val">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_user_production_val_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_user_production_val">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_baglog_sterilisasi" value="baglog_id" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="Baglog" target="Sterilisasi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_baglog_sterilisasi_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_baglog_sterilisasi">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_baglog_sterilisasi_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_baglog_sterilisasi">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sterilisasi_inokulasi" value="sterilisasi_id" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="Sterilisasi" target="Inokulasi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sterilisasi_inokulasi_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_sterilisasi_inokulasi">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sterilisasi_inokulasi_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_sterilisasi_inokulasi">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_bibit_inokulasi" value="bibit_id" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="Bibit" target="Inokulasi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_bibit_inokulasi_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_bibit_inokulasi">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_bibit_inokulasi_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_bibit_inokulasi">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_inokulasi_log" value="inokulasi_id" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="Inokulasi" target="LogInkubasi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_inokulasi_log_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_inokulasi_log">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_inokulasi_log_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_inokulasi_log">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_inokulasi_monitoring" value="inokulasi_id" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="Inokulasi" target="MonitoringKumbung">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_inokulasi_monitoring_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_inokulasi_monitoring">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_inokulasi_monitoring_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_inokulasi_monitoring">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_inokulasi_production" value="inokulasi_id" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;dashed=0;" edge="1" parent="1" source="Inokulasi" target="ProductionReport">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_inokulasi_production_src" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_inokulasi_production">
+          <mxGeometry x="-0.8" relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_inokulasi_production_tgt" value="*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="e_inokulasi_production">
+          <mxGeometry x="0.8" relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

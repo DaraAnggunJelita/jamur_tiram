@@ -71,7 +71,7 @@
  @forelse($inokulasis as $inok)
  <tr class="hover:bg-[#F3F5F4]/40 transition duration-150">
  <td class="py-3.5 px-4 font-bold text-[#064E3B] text-xs">{{ \Carbon\Carbon::parse($inok->tanggal)->format('d M Y') }}<br><span class="text-[#6B7280] text-[10px]">{{ $inok->user->name }}</span></td>
- <td class="py-3.5 px-4 font-bold text-[#059669]">Sterilisasi #{{ $inok->sterilisasi_id }}<br><span class="text-[#6B7280] text-[10px] font-bold">Bibit: F2 {{ $inok->bibit->asal_bibit ?? $inok->bibit->kode_bibit ?? '-' }} ({{ $inok->jumlah_bibit_terpakai }} Botol)</span></td>
+ <td class="py-3.5 px-4 font-bold text-[#059669]">Sterilisasi {{ $inok->sterilisasi_id }}<br><span class="text-[#6B7280] text-[10px] font-bold">Bibit: F2 {{ $inok->bibit->asal_bibit ?? $inok->bibit->kode_bibit ?? '-' }} ({{ $inok->jumlah_bibit_terpakai }} Botol)</span></td>
  <td class="py-3.5 px-4 text-center text-[#059669] font-bold text-xs">{{ number_format($inok->jumlah_berhasil) }} / {{ number_format($inok->sterilisasi->baglog->jumlah_baglog ?? 0) }} Pcs</td>
  <td class="py-3.5 px-4 text-center text-red-600 font-bold text-xs">{{ number_format($inok->jumlah_kontaminasi) }} Pcs</td>
  <td class="py-3.5 px-4 text-center">

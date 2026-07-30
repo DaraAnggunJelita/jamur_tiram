@@ -29,7 +29,7 @@
  <select name="baglog_id" id="baglog_id" required class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white py-2.5 shadow-sm focus:border-[#059669] focus:ring-[#059669]">
  <option value="">-- Pilih Batch Baglog --</option>
  @foreach($baglogs as $b)
- <option value="{{ $b->id }}" {{ old('baglog_id', $sterilisasi->baglog_id) == $b->id ? 'selected' : '' }}>Batch #{{ $b->kode_batch }} ({{ $b->jumlah_baglog }} Pcs)</option>
+ <option value="{{ $b->id }}" {{ old('baglog_id', $sterilisasi->baglog_id) == $b->id ? 'selected' : '' }}>Batch {{ $b->kode_batch }} ({{ $b->jumlah_baglog }} Pcs)</option>
  @endforeach
  </select>
  @error('baglog_id')<p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>@enderror

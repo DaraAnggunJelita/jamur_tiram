@@ -8,7 +8,7 @@
  </button>
  <div>
  <h2 class="font-bold text-2xl text-[#064E3B] leading-tight">
- {{ __('Investigasi Batch') }} <span class="text-[#6B7280]">#{{ $baglog->kode_batch }}</span>
+ {{ __('Investigasi Batch') }} <span class="text-[#6B7280]">{{ $baglog->kode_batch }}</span>
  </h2>
  </div>
  </div>

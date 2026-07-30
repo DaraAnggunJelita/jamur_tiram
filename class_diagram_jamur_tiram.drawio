@@ -1,0 +1,250 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="class_diagram_jamur_tiram" name="Class Diagram Sistem Budidaya Jamur Tiram">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ================= COL 1: MASTER & HULU ================= -->
+        
+        <!-- CLASS: USER -->
+        <mxCell id="cls_user" value="User" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=1;shadow=0;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="240" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="user_attr" value="- id: BigInt&#xa;- name: String&#xa;- email: String&#xa;- password: String&#xa;- role: String&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_user">
+          <mxGeometry y="28" width="240" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="user_line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=0;spacingBottom=0;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;strokeColor=#6c8ebf;" vertex="1" parent="cls_user">
+          <mxGeometry y="140" width="240" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="user_meth" value="+ baglogs(): HasMany&#xa;+ bibits(): HasMany&#xa;+ inokulasis(): HasMany&#xa;+ productionReports(): HasMany&#xa;+ hasRole(role: String): Boolean&#xa;+ authenticate(): Boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_user">
+          <mxGeometry y="148" width="240" height="112" as="geometry" />
+        </mxCell>
+
+        <!-- CLASS: BAGLOG -->
+        <mxCell id="cls_baglog" value="Baglog" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=1;shadow=0;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="360" width="240" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="bag_attr" value="- id: BigInt&#xa;- user_id: BigInt&#xa;- kode_batch: String&#xa;- tanggal_pembuatan: Date&#xa;- jumlah_baglog: Integer&#xa;- status_validasi: String&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_baglog">
+          <mxGeometry y="28" width="240" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="bag_line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=0;spacingBottom=0;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;strokeColor=#82b366;" vertex="1" parent="cls_baglog">
+          <mxGeometry y="160" width="240" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="bag_meth" value="+ user(): BelongsTo&#xa;+ sterilisasi(): HasMany&#xa;+ validateBatch(): Boolean&#xa;+ checkStock(): Integer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_baglog">
+          <mxGeometry y="168" width="240" height="82" as="geometry" />
+        </mxCell>
+
+        <!-- CLASS: BIBIT -->
+        <mxCell id="cls_bibit" value="Bibit" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=1;shadow=0;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="660" width="240" height="280" as="geometry" />
+        </mxCell>
+        <mxCell id="bib_attr" value="- id: BigInt&#xa;- user_id: BigInt&#xa;- kode_bibit: String&#xa;- asal_bibit: String&#xa;- tanggal_masuk: Date&#xa;- jumlah: Integer&#xa;- sisa_stok: Integer&#xa;- status: String&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_bibit">
+          <mxGeometry y="28" width="240" height="152" as="geometry" />
+        </mxCell>
+        <mxCell id="bib_line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=0;spacingBottom=0;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;strokeColor=#82b366;" vertex="1" parent="cls_bibit">
+          <mxGeometry y="180" width="240" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="bib_meth" value="+ user(): BelongsTo&#xa;+ inokulasis(): HasMany&#xa;+ kurangiStok(qty: Integer): Void&#xa;+ cekStatusKadaluarsa(): Boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_bibit">
+          <mxGeometry y="188" width="240" height="92" as="geometry" />
+        </mxCell>
+
+
+        <!-- ================= COL 2: PROSES BUDIDAYA & INOKULASI ================= -->
+
+        <!-- CLASS: STERILISASI -->
+        <mxCell id="cls_sterilisasi" value="Sterilisasi" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=1;shadow=0;strokeWidth=2;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="360" y="360" width="250" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="ster_attr" value="- id: BigInt&#xa;- baglog_id: BigInt&#xa;- user_id: BigInt&#xa;- tanggal: Date&#xa;- durasi_pengukusan: Integer&#xa;- kondisi_air: String&#xa;- kestabilan_api: String&#xa;- status_sterilisasi: String&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_sterilisasi">
+          <mxGeometry y="28" width="250" height="152" as="geometry" />
+        </mxCell>
+        <mxCell id="ster_line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=0;spacingBottom=0;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;strokeColor=#d6b656;" vertex="1" parent="cls_sterilisasi">
+          <mxGeometry y="180" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="ster_meth" value="+ baglog(): BelongsTo&#xa;+ user(): BelongsTo&#xa;+ inokulasi(): HasMany&#xa;+ validasiDurasiEws(): Boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_sterilisasi">
+          <mxGeometry y="188" width="250" height="72" as="geometry" />
+        </mxCell>
+
+        <!-- CLASS: INOKULASI -->
+        <mxCell id="cls_inokulasi" value="Inokulasi" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=1;shadow=0;strokeWidth=2;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="360" y="660" width="250" height="300" as="geometry" />
+        </mxCell>
+        <mxCell id="inok_attr" value="- id: BigInt&#xa;- sterilisasi_id: BigInt&#xa;- bibit_id: BigInt&#xa;- user_id: BigInt&#xa;- tanggal: Date&#xa;- jumlah_berhasil: Integer&#xa;- jumlah_kontaminasi: Integer&#xa;- jumlah_bibit_terpakai: Integer&#xa;- status_buka_kapas: String&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_inokulasi">
+          <mxGeometry y="28" width="250" height="172" as="geometry" />
+        </mxCell>
+        <mxCell id="inok_line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=0;spacingBottom=0;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;strokeColor=#d6b656;" vertex="1" parent="cls_inokulasi">
+          <mxGeometry y="200" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="inok_meth" value="+ sterilisasi(): BelongsTo&#xa;+ bibit(): BelongsTo&#xa;+ logInkubasis(): HasMany&#xa;+ monitoringKumbungs(): HasMany&#xa;+ productionReports(): HasMany&#xa;+ hitungRasioKontaminasi(): Float" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_inokulasi">
+          <mxGeometry y="208" width="250" height="92" as="geometry" />
+        </mxCell>
+
+
+        <!-- ================= COL 3: MONITORING & PANEN ================= -->
+
+        <!-- CLASS: LOG_INKUBASI -->
+        <mxCell id="cls_log_inkubasi" value="LogInkubasi" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=1;shadow=0;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="690" y="80" width="250" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="ink_attr" value="- id: BigInt&#xa;- inokulasi_id: BigInt&#xa;- user_id: BigInt&#xa;- persentase_tumbuh: Float&#xa;- catatan: String&#xa;- tanggal_catat: Date&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_log_inkubasi">
+          <mxGeometry y="28" width="250" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="ink_line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=0;spacingBottom=0;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;strokeColor=#9673a6;" vertex="1" parent="cls_log_inkubasi">
+          <mxGeometry y="160" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="ink_meth" value="+ inokulasi(): BelongsTo&#xa;+ user(): BelongsTo&#xa;+ cekSiapBukaKapas(): Boolean&#xa;+ generate GrafikPertumbuhan(): Array" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_log_inkubasi">
+          <mxGeometry y="168" width="250" height="72" as="geometry" />
+        </mxCell>
+
+        <!-- CLASS: MONITORING_KUMBUNG -->
+        <mxCell id="cls_monitoring" value="MonitoringKumbung" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=1;shadow=0;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="690" y="370" width="250" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="mon_attr" value="- id: BigInt&#xa;- inokulasi_id: BigInt&#xa;- user_id: BigInt&#xa;- tanggal: Date&#xa;- kondisi_udara: String&#xa;- kondisi_lantai: String&#xa;- jumlah_penyiraman: Integer&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_monitoring">
+          <mxGeometry y="28" width="250" height="142" as="geometry" />
+        </mxCell>
+        <mxCell id="mon_line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=0;spacingBottom=0;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;strokeColor=#9673a6;" vertex="1" parent="cls_monitoring">
+          <mxGeometry y="170" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="mon_meth" value="+ inokulasi(): BelongsTo&#xa;+ user(): BelongsTo&#xa;+ evaluasiSuhuKelembaban(): Void&#xa;+ picuAlarmEWS(): Void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_monitoring">
+          <mxGeometry y="178" width="250" height="72" as="geometry" />
+        </mxCell>
+
+        <!-- CLASS: PRODUCTION_REPORT -->
+        <mxCell id="cls_prod_rep" value="ProductionReport" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=1;shadow=0;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="690" y="670" width="250" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="pr_attr" value="- id: BigInt&#xa;- inokulasi_id: BigInt&#xa;- user_id: BigInt&#xa;- validated_by: BigInt&#xa;- tanggal: Date&#xa;- siklus_panen: Integer&#xa;- berat_grade_a: Float&#xa;- berat_grade_b: Float&#xa;- jumlah_panen: Integer&#xa;- status_validasi: String&#xa;- catatan: String&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_prod_rep">
+          <mxGeometry y="28" width="250" height="192" as="geometry" />
+        </mxCell>
+        <mxCell id="pr_line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=0;spacingBottom=0;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;strokeColor=#9673a6;" vertex="1" parent="cls_prod_rep">
+          <mxGeometry y="220" width="250" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="pr_meth" value="+ inokulasi(): BelongsTo&#xa;+ user(): BelongsTo&#xa;+ validator(): BelongsTo&#xa;+ hitungTotalBobot(): Float&#xa;+ validasiLaporan(status: String): Boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_prod_rep">
+          <mxGeometry y="228" width="250" height="92" as="geometry" />
+        </mxCell>
+
+
+        <!-- ================= COL 4: STANDALONE, CONFIG & SHOWCASE ================= -->
+
+        <!-- CLASS: CATALOG -->
+        <mxCell id="cls_catalog" value="Catalog" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=1;shadow=0;strokeWidth=2;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="60" width="230" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="cat_attr" value="- id: BigInt&#xa;- name: String&#xa;- description: String&#xa;- price: Float&#xa;- image: String&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_catalog">
+          <mxGeometry y="28" width="230" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="cat_line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=0;spacingBottom=0;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;strokeColor=#666666;" vertex="1" parent="cls_catalog">
+          <mxGeometry y="140" width="230" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="cat_meth" value="+ getFormattedPrice(): String&#xa;+ updateImage(file: File): Boolean&#xa;+ publish(): Void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_catalog">
+          <mxGeometry y="148" width="230" height="62" as="geometry" />
+        </mxCell>
+
+        <!-- CLASS: PROFILE_KUPS -->
+        <mxCell id="cls_prof_kups" value="ProfileKups" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=1;shadow=0;strokeWidth=2;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="300" width="230" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="pk_attr" value="- id: BigInt&#xa;- nama_kups: String&#xa;- sub_judul: String&#xa;- deskripsi_singkat: String&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_prof_kups">
+          <mxGeometry y="28" width="230" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="pk_line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=0;spacingBottom=0;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;strokeColor=#666666;" vertex="1" parent="cls_prof_kups">
+          <mxGeometry y="130" width="230" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="pk_meth" value="+ getProfile(): ProfileKups&#xa;+ updateProfile(data: Array): Boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_prof_kups">
+          <mxGeometry y="138" width="230" height="52" as="geometry" />
+        </mxCell>
+
+        <!-- CLASS: EWS_SETTING -->
+        <mxCell id="cls_ews" value="EwsSetting" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=1;shadow=0;strokeWidth=2;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="520" width="230" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="ews_attr" value="- id: BigInt&#xa;- min_durasi_sterilisasi: Integer&#xa;- maks_hari_panen: Integer&#xa;- kondisi_udara_kritis: String&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_ews">
+          <mxGeometry y="28" width="230" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="ews_line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=0;spacingBottom=0;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;strokeColor=#666666;" vertex="1" parent="cls_ews">
+          <mxGeometry y="130" width="230" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="ews_meth" value="+ getActiveConfig(): EwsSetting&#xa;+ isCritical(temp: Float, rh: Float): Boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_ews">
+          <mxGeometry y="138" width="230" height="52" as="geometry" />
+        </mxCell>
+
+        <!-- CLASS: PERINGATAN -->
+        <mxCell id="cls_peringatan" value="Peringatan" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=28;horizontalStack=0;resizeParent=1;resizeLast=0;collapsible=1;marginBottom=0;rounded=1;shadow=0;strokeWidth=2;fillColor=#f5f5f5;strokeColor=#666666;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="740" width="230" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="per_attr" value="- id: BigInt&#xa;- kategori: String&#xa;- referensi_id: BigInt&#xa;- level: String&#xa;- pesan: String&#xa;- is_read: Boolean&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_peringatan">
+          <mxGeometry y="28" width="230" height="132" as="geometry" />
+        </mxCell>
+        <mxCell id="per_line" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=0;spacingBottom=0;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;strokeColor=#666666;" vertex="1" parent="cls_peringatan">
+          <mxGeometry y="160" width="230" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="per_meth" value="+ markAsRead(): Boolean&#xa;+ sendNotification(): Void&#xa;+ getUnreadAlerts(): Array" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingTop=4;spacingBottom=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;" vertex="1" parent="cls_peringatan">
+          <mxGeometry y="168" width="230" height="62" as="geometry" />
+        </mxCell>
+
+
+        <!-- ================= UML ASSOCIATION / AGGREGATION LINKS ================= -->
+        <!-- User -> Baglog (1 to 0..*) -->
+        <mxCell id="link_user_baglog" edge="1" parent="1" source="cls_user" target="cls_baglog" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jumpStyle=arc;html=1;endArrow=open;endSize=10;dashed=0;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_ub1" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="link_user_baglog"><mxGeometry x="-0.8" relative="1" as="geometry"><mxPoint x="5" y="-5" as="offset" /></mxGeometry></mxCell>
+        <mxCell id="lbl_ub2" value="0..*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="link_user_baglog"><mxGeometry x="0.8" relative="1" as="geometry"><mxPoint x="15" y="-5" as="offset" /></mxGeometry></mxCell>
+
+        <!-- Baglog -> Sterilisasi (1 to 0..*) -->
+        <mxCell id="link_baglog_ster" edge="1" parent="1" source="cls_baglog" target="cls_sterilisasi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jumpStyle=arc;html=1;endArrow=open;endSize=10;dashed=0;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lbl_bs1" value="1" style="edgeLabel;html=1;align=left;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="link_baglog_ster"><mxGeometry x="-0.8" relative="1" as="geometry"><mxPoint x="5" y="-5" as="offset" /></mxGeometry></mxCell>
+        <mxCell id="lbl_bs2" value="0..*" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];" vertex="1" connectable="0" parent="link_baglog_ster"><mxGeometry x="0.8" relative="1" as="geometry"><mxPoint x="-5" y="-5" as="offset" /></mxGeometry></mxCell>
+
+        <!-- Sterilisasi -> Inokulasi (1 to 0..*) -->
+        <mxCell id="link_ster_inok" edge="1" parent="1" source="cls_sterilisasi" target="cls_inokulasi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jumpStyle=arc;html=1;endArrow=open;endSize=10;dashed=0;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Bibit -> Inokulasi (1 to 0..*) -->
+        <mxCell id="link_bibit_inok" edge="1" parent="1" source="cls_bibit" target="cls_inokulasi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jumpStyle=arc;html=1;endArrow=open;endSize=10;dashed=0;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Inokulasi -> LogInkubasi (1 to 0..*) -->
+        <mxCell id="link_inok_log" edge="1" parent="1" source="cls_inokulasi" target="cls_log_inkubasi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jumpStyle=arc;html=1;endArrow=open;endSize=10;dashed=0;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="650" y="810" /><mxPoint x="650" y="200" /></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Inokulasi -> MonitoringKumbung (1 to 0..*) -->
+        <mxCell id="link_inok_mon" edge="1" parent="1" source="cls_inokulasi" target="cls_monitoring" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jumpStyle=arc;html=1;endArrow=open;endSize=10;dashed=0;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="630" y="820" /><mxPoint x="630" y="495" /></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Inokulasi -> ProductionReport (1 to 0..*) -->
+        <mxCell id="link_inok_prod" edge="1" parent="1" source="cls_inokulasi" target="cls_prod_rep" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jumpStyle=arc;html=1;endArrow=open;endSize=10;dashed=0;strokeWidth=2;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- User -> Bibit (1 to 0..*) via left loop -->
+        <mxCell id="link_user_bibit" edge="1" parent="1" source="cls_user" target="cls_bibit" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jumpStyle=arc;html=1;endArrow=open;endSize=10;dashed=1;strokeColor=#999999;strokeWidth=1.5;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="15" y="170" /><mxPoint x="15" y="800" /></Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- EwsSetting -> Peringatan (Dependency / Trigger) -->
+        <mxCell id="link_ews_per" edge="1" parent="1" source="cls_ews" target="cls_peringatan" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jumpStyle=arc;html=1;endArrow=open;endSize=10;dashed=1;strokeWidth=2;strokeColor=#d6b656;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points"><mxPoint x="1270" y="615" /><mxPoint x="1270" y="855" /></Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lbl_trigger" value="&lt;i&gt;&amp;lt;&amp;lt;triggers&amp;gt;&amp;gt;&lt;/i&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=11;fontColor=#666666;" vertex="1" connectable="0" parent="link_ews_per"><mxGeometry x="0" y="0" relative="1" as="geometry"><mxPoint x="40" y="0" as="offset" /></mxGeometry></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

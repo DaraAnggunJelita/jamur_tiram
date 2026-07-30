@@ -122,7 +122,7 @@
      @if($pipelineStokBaglog->count() > 0)
      <div class="flex flex-wrap gap-1 mt-1">
          @foreach($pipelineStokBaglog->take(3) as $item)
-         <a href="{{ route('sterilisasi.create', ['baglog_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-gray-100 text-[10px] font-bold text-gray-600 rounded border hover:bg-gray-200 transition">#{{ $item->kode_batch }}</a>
+         <a href="{{ route('sterilisasi.create', ['baglog_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-gray-100 text-[10px] font-bold text-gray-600 rounded border hover:bg-gray-200 transition">{{ $item->kode_batch }}</a>
          @endforeach
          @if($pipelineStokBaglog->count() > 3) <span class="text-[10px] text-gray-400">...</span> @endif
      </div>
@@ -143,7 +143,7 @@
      @if($pipelinePendinginan->count() > 0)
      <div class="flex flex-wrap gap-1 mt-1">
          @foreach($pipelinePendinginan->take(3) as $item)
-         <a href="{{ route('inokulasi.create', ['sterilisasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-amber-100 text-[10px] font-bold text-amber-700 rounded border border-amber-200 hover:bg-amber-200 transition">#{{ $item->baglog->kode_batch ?? 'N/A' }}</a>
+         <a href="{{ route('inokulasi.create', ['sterilisasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-amber-100 text-[10px] font-bold text-amber-700 rounded border border-amber-200 hover:bg-amber-200 transition">{{ $item->baglog->kode_batch ?? 'N/A' }}</a>
          @endforeach
          @if($pipelinePendinginan->count() > 3) <span class="text-[10px] text-amber-600">...</span> @endif
      </div>
@@ -164,7 +164,7 @@
      @if($pipelineSiapInokulasi->count() > 0)
      <div class="flex flex-wrap gap-1 mt-1">
          @foreach($pipelineSiapInokulasi->take(3) as $item)
-         <a href="{{ route('inokulasi.create', ['sterilisasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-emerald-100 text-[10px] font-bold text-emerald-700 rounded border border-emerald-300 hover:bg-emerald-200 transition">#{{ $item->baglog->kode_batch ?? 'N/A' }}</a>
+         <a href="{{ route('inokulasi.create', ['sterilisasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-emerald-100 text-[10px] font-bold text-emerald-700 rounded border border-emerald-300 hover:bg-emerald-200 transition">{{ $item->baglog->kode_batch ?? 'N/A' }}</a>
          @endforeach
          @if($pipelineSiapInokulasi->count() > 3) <span class="text-[10px] text-emerald-600">...</span> @endif
      </div>
@@ -183,7 +183,7 @@
      @if($pipelineInkubasi->count() > 0)
      <div class="flex flex-wrap gap-1 mt-1">
          @foreach($pipelineInkubasi->take(3) as $item)
-         <a href="{{ route('monitoring.create', ['inokulasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-indigo-100 text-[10px] font-bold text-indigo-700 rounded border border-indigo-200 hover:bg-indigo-200 transition">#{{ $item->sterilisasi->baglog->kode_batch ?? 'N/A' }}</a>
+         <a href="{{ route('monitoring.create', ['inokulasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-indigo-100 text-[10px] font-bold text-indigo-700 rounded border border-indigo-200 hover:bg-indigo-200 transition">{{ $item->sterilisasi->baglog->kode_batch ?? 'N/A' }}</a>
          @endforeach
          @if($pipelineInkubasi->count() > 3) <span class="text-[10px] text-indigo-600">...</span> @endif
      </div>
@@ -205,7 +205,7 @@
      @if($pipelineSiapPanen->count() > 0)
      <div class="flex flex-wrap gap-1 mt-1">
          @foreach($pipelineSiapPanen->take(3) as $item)
-         <a href="{{ route('petugas.laporan-panen.create', ['inokulasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-rose-100 text-[10px] font-bold text-rose-700 rounded border border-rose-300 hover:bg-rose-200 transition">#{{ $item->sterilisasi->baglog->kode_batch ?? 'N/A' }}</a>
+         <a href="{{ route('petugas.laporan-panen.create', ['inokulasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-rose-100 text-[10px] font-bold text-rose-700 rounded border border-rose-300 hover:bg-rose-200 transition">{{ $item->sterilisasi->baglog->kode_batch ?? 'N/A' }}</a>
          @endforeach
          @if($pipelineSiapPanen->count() > 3) <span class="text-[10px] text-rose-600">...</span> @endif
      </div>

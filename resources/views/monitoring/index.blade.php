@@ -57,7 +57,7 @@
  @forelse($monitorings as $mon)
  <tr class="hover:bg-[#F3F5F4]/40 transition duration-150">
  <td class="py-3.5 px-4 font-bold text-[#064E3B] text-xs">{{ \Carbon\Carbon::parse($mon->tanggal)->format('d M Y') }}<br><span class="text-[#6B7280] text-[10px]">{{ $mon->user->name }}</span></td>
- <td class="py-3.5 px-4 font-bold text-[#059669]">Inokulasi #{{ $mon->inokulasi_id }}</td>
+ <td class="py-3.5 px-4 font-bold text-[#059669]">Inokulasi {{ $mon->inokulasi_id }}</td>
  <td class="py-3.5 px-4 text-center text-xs font-bold">
  @if($mon->kondisi_udara =='Sejuk') <span class="text-blue-600">Sejuk</span>
  @elseif($mon->kondisi_udara =='Hangat') <span class="text-yellow-600">Hangat</span>

@@ -1,4 +1,4 @@
-﻿@extends('layouts.app')
+@extends('layouts.app')
 
 @section('content')
 <div class="py-8 bg-[#F3F5F4] min-h-screen text-[#064E3B]">
@@ -95,7 +95,7 @@
  <th class="px-6 py-3.5 text-left text-xs font-bold text-[#047857]">Tanggal</th>
  <th class="px-6 py-3.5 text-left text-xs font-bold text-[#047857]">Petugas</th>
  <th class="px-6 py-3.5 text-left text-xs font-bold text-[#047857]">Jumlah (Kg)</th>
- <th class="px-6 py-3.5 text-left text-xs font-bold text-[#047857]">Kondisi</th>
+ <th class="px-6 py-3.5 text-left text-xs font-bold text-[#047857]">Distribusi Grade</th>
  <th class="px-6 py-3.5 text-left text-xs font-bold text-[#047857]">Status</th>
  </tr>
  </thead>
@@ -109,11 +109,16 @@
  <td class="px-6 py-4 text-sm font-medium text-[#374151]">{{ optional($r->user)->name ?:'-' }}</td>
  <td class="px-6 py-4 text-sm font-bold text-[#059669]">{{ number_format($r->jumlah_panen, 1) }} Kg</td>
  <td class="px-6 py-4 text-sm">
- <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-bold border 
- {{ $r->kualitas_panen ==='Kualitas Bagus' ?'bg-[#34D399]/15 text-[#047857] border-[#34D399]/30' :
- ($r->kualitas_panen ==='Kualitas Cukup' ?'bg-[#E5E7EB]/20 text-[#047857] border-[#E5E7EB]/40' :'bg-[#F59E0B]/10 text-[#F59E0B] border-[#F59E0B]/20') }}">
- {{ $r->kualitas_panen }}
+ <div class="flex flex-col gap-1">
+ <span class="inline-flex items-center gap-1 text-[10px] font-bold text-green-700">
+ <span class="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
+ Grade A: {{ number_format($r->berat_grade_a, 1) }} Kg
  </span>
+ <span class="inline-flex items-center gap-1 text-[10px] font-bold text-amber-600">
+ <span class="w-2 h-2 rounded-full bg-amber-400 inline-block"></span>
+ Grade B: {{ number_format($r->berat_grade_b, 1) }} Kg
+ </span>
+ </div>
  </td>
  <td class="px-6 py-4 text-sm">
  @if ($r->status_validasi ==='valid')

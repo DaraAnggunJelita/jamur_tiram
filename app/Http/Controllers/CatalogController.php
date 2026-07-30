@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catalog;
+use App\Models\ProfileKups;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +17,17 @@ class CatalogController extends Controller
     public function publicIndex(): View
     {
         $catalogs = Catalog::all();
-        return view('welcome', compact('catalogs'));
+        $profile  = ProfileKups::getProfile();
+        return view('welcome', compact('catalogs', 'profile'));
+    }
+
+    /**
+     * Halaman Lihat Profile KUPS untuk pengguna Umum (Public).
+     */
+    public function publicProfile(): View
+    {
+        $profile = ProfileKups::getProfile();
+        return view('profile_kups', compact('profile'));
     }
 
     /**

@@ -1,0 +1,2087 @@
+<mxfile host="app.diagrams.net" pages="21">
+  <diagram id="seq_umum_katalog" name="UC Umum: Lihat Katalog Produk">
+    <mxGraphModel dx="939" dy="564" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_umum_katalog_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Pengunjung" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_katalog_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_katalog_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Katalog Utama" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_katalog_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_katalog_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="KatalogController" vertex="1">
+          <mxGeometry height="40" width="40" x="541" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_katalog_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_katalog_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Katalogs" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_katalog_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_katalog_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses Halaman()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_umum_katalog_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Request Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="240" as="sourcePoint" />
+            <mxPoint x="553" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_umum_katalog_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Query Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="275" as="sourcePoint" />
+            <mxPoint x="773" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_umum_katalog_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Kembalikan Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="310" as="sourcePoint" />
+            <mxPoint x="567" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_umum_katalog_a_self_4" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_katalog_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Format Output()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="345" />
+              <mxPoint x="614" y="375" />
+            </Array>
+            <mxPoint x="574" y="345" as="sourcePoint" />
+            <mxPoint x="574" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_umum_katalog_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Tampilkan ke Layar()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="410" as="sourcePoint" />
+            <mxPoint x="347" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_umum_katalog_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_katalog_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="235" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_katalog_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_katalog_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="260" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_login" name="UC: Login (Semua Role)">
+    <mxGraphModel dx="1448" dy="752" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_login_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Admin&amp;nbsp;" vertex="1">
+          <mxGeometry height="60" width="35" x="105" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="113" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Login" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="333" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="AuthController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="557" y="185" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Users" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="775" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_h_D" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Dashboard" vertex="1">
+          <mxGeometry height="40" width="50" x="975" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_l_D" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="997" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses halaman login()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_login_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Input email dan password()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="240" as="sourcePoint" />
+            <mxPoint x="333" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_login_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="POST Login()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="275" as="sourcePoint" />
+            <mxPoint x="553" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_login_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Cek Credentials()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="310" as="sourcePoint" />
+            <mxPoint x="773" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_login_a_self_4" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Validasi()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="345" />
+              <mxPoint x="614" y="375" />
+            </Array>
+            <mxPoint x="574" y="345" as="sourcePoint" />
+            <mxPoint x="574" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_login_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Gagal()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="410" as="sourcePoint" />
+            <mxPoint x="347" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_login_m_6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Redirect Dashboard()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="445" as="sourcePoint" />
+            <mxPoint x="993" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_login_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="235" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="773" y="295" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_login_a_D" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="993" y="430" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_admin_akun" name="UC Admin: Kelola Akun">
+    <mxGraphModel dx="1241" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_admin_akun_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Admin" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Akun Pengguna" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="337" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="UserController" vertex="1">
+          <mxGeometry height="40" width="40" x="541" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Users" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_h_D" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Daftar Akun Pengguna" vertex="1">
+          <mxGeometry height="40" width="50" x="975" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_l_D" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="1000" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses form()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_akun_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Input data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="240" as="sourcePoint" />
+            <mxPoint x="333" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_akun_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="POST Kirim Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="275" as="sourcePoint" />
+            <mxPoint x="553" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_akun_a_self_3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Validasi()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="310" />
+              <mxPoint x="614" y="340" />
+            </Array>
+            <mxPoint x="574" y="310" as="sourcePoint" />
+            <mxPoint x="574" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_akun_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Insert / Update()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="375" as="sourcePoint" />
+            <mxPoint x="773" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_akun_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Berhasil()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="410" as="sourcePoint" />
+            <mxPoint x="567" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_akun_m_6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Redirect Sukses()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="445" as="sourcePoint" />
+            <mxPoint x="993" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_akun_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="100" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_akun_a_D" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="993" y="430" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_admin_katalog" name="UC Admin: Kelola Katalog">
+    <mxGraphModel dx="1241" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_admin_katalog_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Admin" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Katalog Produk" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="AdminKatalogController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Katalogs" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_h_D" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Daftar Katalog Produk" vertex="1">
+          <mxGeometry height="40" width="50" x="975" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_l_D" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="1000" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses form()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_katalog_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Input data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="240" as="sourcePoint" />
+            <mxPoint x="333" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_katalog_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="POST Kirim Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="275" as="sourcePoint" />
+            <mxPoint x="553" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_katalog_a_self_3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Validasi()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="310" />
+              <mxPoint x="614" y="340" />
+            </Array>
+            <mxPoint x="574" y="310" as="sourcePoint" />
+            <mxPoint x="574" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_katalog_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Insert / Update()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="375" as="sourcePoint" />
+            <mxPoint x="773" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_katalog_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Berhasil()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="410" as="sourcePoint" />
+            <mxPoint x="567" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_katalog_m_6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Redirect Sukses()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="445" as="sourcePoint" />
+            <mxPoint x="993" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_katalog_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="100" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_katalog_a_D" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="993" y="430" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_admin_bibit" name="UC Admin: Kelola Data Bibit">
+    <mxGraphModel dx="1022" dy="531" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_admin_bibit_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Admin" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Bibit" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="BibitController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Bibits" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_h_D" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Daftar Bibit" vertex="1">
+          <mxGeometry height="40" width="50" x="975" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_l_D" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="1000" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses form()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_bibit_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Input data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="240" as="sourcePoint" />
+            <mxPoint x="333" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_bibit_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="POST Kirim Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="275" as="sourcePoint" />
+            <mxPoint x="553" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_bibit_a_self_3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Validasi()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="310" />
+              <mxPoint x="614" y="340" />
+            </Array>
+            <mxPoint x="574" y="310" as="sourcePoint" />
+            <mxPoint x="574" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_bibit_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Insert / Update()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="375" as="sourcePoint" />
+            <mxPoint x="773" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_bibit_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Berhasil()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="410" as="sourcePoint" />
+            <mxPoint x="567" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_bibit_m_6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Redirect Sukses()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="445" as="sourcePoint" />
+            <mxPoint x="993" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_bibit_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="100" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_bibit_a_D" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="993" y="430" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_admin_konfirm_bibit" name="UC Admin: Konfirmasi Bibit">
+    <mxGraphModel dx="1001" dy="601" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_admin_konfirm_bibit_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Admin" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Daftar Bibit" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="BibitController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Bibits" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Klik Tombol Aksi()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Kirim Request()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="240" as="sourcePoint" />
+            <mxPoint x="553" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_a_self_2" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="275" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Validasi Syarat()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="275" />
+              <mxPoint x="614" y="305" />
+            </Array>
+            <mxPoint x="574" y="275" as="sourcePoint" />
+            <mxPoint x="574" y="305" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Update Status()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="340" as="sourcePoint" />
+            <mxPoint x="773" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Berhasil()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="375" as="sourcePoint" />
+            <mxPoint x="567" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Refresh Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="410" as="sourcePoint" />
+            <mxPoint x="347" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="235" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_konfirm_bibit_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="325" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_admin_validasi_panen" name="UC Admin: Validasi Panen">
+    <mxGraphModel dx="1001" dy="601" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_admin_validasi_panen_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Admin" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Laporan Panen" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="ReportController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel ProductionReports" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Klik Tombol Aksi()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Kirim Request()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="240" as="sourcePoint" />
+            <mxPoint x="553" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_a_self_2" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="275" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Validasi Syarat()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="275" />
+              <mxPoint x="614" y="305" />
+            </Array>
+            <mxPoint x="574" y="275" as="sourcePoint" />
+            <mxPoint x="574" y="305" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Update Status()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="340" as="sourcePoint" />
+            <mxPoint x="773" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Berhasil()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="375" as="sourcePoint" />
+            <mxPoint x="567" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Refresh Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="410" as="sourcePoint" />
+            <mxPoint x="347" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="235" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_validasi_panen_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="325" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_admin_ews" name="UC Admin: Pengaturan EWS">
+    <mxGraphModel dx="1155" dy="694" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_admin_ews_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Admin" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Pengaturan" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="SettingController" vertex="1">
+          <mxGeometry height="40" width="40" x="541" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Settings" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_h_D" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Daftar Pengaturan" vertex="1">
+          <mxGeometry height="40" width="50" x="975" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_l_D" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="1000" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses form()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_ews_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Input data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="240" as="sourcePoint" />
+            <mxPoint x="333" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_ews_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="POST Kirim Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="275" as="sourcePoint" />
+            <mxPoint x="553" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_ews_a_self_3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Validasi()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="310" />
+              <mxPoint x="614" y="340" />
+            </Array>
+            <mxPoint x="574" y="310" as="sourcePoint" />
+            <mxPoint x="574" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_ews_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Insert / Update()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="375" as="sourcePoint" />
+            <mxPoint x="773" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_ews_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Berhasil()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="410" as="sourcePoint" />
+            <mxPoint x="567" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_ews_m_6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Redirect Sukses()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="445" as="sourcePoint" />
+            <mxPoint x="993" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_ews_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="100" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_ews_a_D" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="993" y="430" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_ketua_grafik" name="UC Ketua: Lihat Grafik">
+    <mxGraphModel dx="1252" dy="752" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_ketua_grafik_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Ketua KUPS" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Dashboard" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="DashboardController" vertex="1">
+          <mxGeometry height="40" width="40" x="530" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Reports" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses Halaman()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Request Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="240" as="sourcePoint" />
+            <mxPoint x="553" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Query Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="275" as="sourcePoint" />
+            <mxPoint x="773" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Kembalikan Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="310" as="sourcePoint" />
+            <mxPoint x="567" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_a_self_4" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Format Output()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="345" />
+              <mxPoint x="614" y="375" />
+            </Array>
+            <mxPoint x="574" y="345" as="sourcePoint" />
+            <mxPoint x="574" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Tampilkan ke Layar()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="410" as="sourcePoint" />
+            <mxPoint x="347" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="235" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_grafik_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="260" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_ketua_laporan" name="UC Ketua: Lihat dan Export Laporan">
+    <mxGraphModel dx="834" dy="501" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_ketua_laporan_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Ketua KUPS" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Laporan Produksi" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="LaporanController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Reports" vertex="1">
+          <mxGeometry height="40" width="40" x="750" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses Halaman()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Request Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="240" as="sourcePoint" />
+            <mxPoint x="553" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Query Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="275" as="sourcePoint" />
+            <mxPoint x="773" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Kembalikan Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="310" as="sourcePoint" />
+            <mxPoint x="567" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_a_self_4" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Format Output()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="345" />
+              <mxPoint x="614" y="375" />
+            </Array>
+            <mxPoint x="574" y="345" as="sourcePoint" />
+            <mxPoint x="574" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Tampilkan ke Layar()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="410" as="sourcePoint" />
+            <mxPoint x="347" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="235" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_laporan_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="260" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_ketua_stok" name="UC Ketua: Pantau Stok Bibit">
+    <mxGraphModel dx="834" dy="501" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_ketua_stok_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Ketua KUPS" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_stok_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_stok_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Stok Bibit" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_stok_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_stok_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="BibitController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_stok_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_stok_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Bibits" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_stok_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_stok_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses Halaman()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_stok_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Request Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="240" as="sourcePoint" />
+            <mxPoint x="553" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_stok_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Query Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="275" as="sourcePoint" />
+            <mxPoint x="773" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_stok_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Kembalikan Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="310" as="sourcePoint" />
+            <mxPoint x="567" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_stok_a_self_4" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_stok_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Format Output()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="345" />
+              <mxPoint x="614" y="375" />
+            </Array>
+            <mxPoint x="574" y="345" as="sourcePoint" />
+            <mxPoint x="574" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_stok_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Tampilkan ke Layar()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="410" as="sourcePoint" />
+            <mxPoint x="347" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_stok_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_stok_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="235" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_stok_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_stok_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="260" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_ketua_trace" name="UC Ketua: Rekam Jejak Produksi">
+    <mxGraphModel dx="834" dy="501" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_ketua_trace_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Ketua KUPS" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_trace_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_trace_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Traceability" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_trace_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_trace_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="TraceabilityController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_trace_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_trace_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="All Tables" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_trace_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_trace_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Input Kode Batch()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_trace_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Search()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="240" as="sourcePoint" />
+            <mxPoint x="553" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_trace_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Query Join Baglog-Panen()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="275" as="sourcePoint" />
+            <mxPoint x="773" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_trace_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Data History()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="310" as="sourcePoint" />
+            <mxPoint x="567" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_trace_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Tampilkan Timeline()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="345" as="sourcePoint" />
+            <mxPoint x="347" y="345" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_trace_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_trace_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="170" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_trace_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="135" width="14" x="553" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_trace_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="260" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_ketua_verif_panen" name="UC Ketua: Verifikasi Laporan">
+    <mxGraphModel dx="834" dy="501" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_ketua_verif_panen_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Ketua KUPS" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Laporan Tervalidasi" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="LaporanController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel ProductionReports" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Klik Tombol Aksi()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Kirim Request()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="240" as="sourcePoint" />
+            <mxPoint x="553" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_a_self_2" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="275" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Validasi Syarat()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="275" />
+              <mxPoint x="614" y="305" />
+            </Array>
+            <mxPoint x="574" y="275" as="sourcePoint" />
+            <mxPoint x="574" y="305" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Update Status()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="340" as="sourcePoint" />
+            <mxPoint x="773" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Berhasil()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="375" as="sourcePoint" />
+            <mxPoint x="567" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Refresh Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="410" as="sourcePoint" />
+            <mxPoint x="347" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="235" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_ketua_verif_panen_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="325" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_petugas_baglog" name="UC Petugas: Kelola Baglog">
+    <mxGraphModel dx="1155" dy="694" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_petugas_baglog_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Petugas" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Input Baglog" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="BaglogController" vertex="1">
+          <mxGeometry height="40" width="40" x="541" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Baglogs" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_h_D" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Daftar Baglog" vertex="1">
+          <mxGeometry height="40" width="50" x="975" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_l_D" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="1000" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses form baglog()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Input jumlah &amp; kode_batch()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="240" as="sourcePoint" />
+            <mxPoint x="333" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="POST /baglog">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="275" as="sourcePoint" />
+            <mxPoint x="553" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_a_self_3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Validasi unik()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="310" />
+              <mxPoint x="614" y="340" />
+            </Array>
+            <mxPoint x="574" y="310" as="sourcePoint" />
+            <mxPoint x="574" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Insert (Status Pending)()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="375" as="sourcePoint" />
+            <mxPoint x="773" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Berhasil()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="410" as="sourcePoint" />
+            <mxPoint x="567" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_m_6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Redirect()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="445" as="sourcePoint" />
+            <mxPoint x="993" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="100" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_baglog_a_D" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="993" y="430" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_petugas_steril" name="UC Petugas: Kelola Sterilisasi">
+    <mxGraphModel dx="1073" dy="644" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_petugas_steril_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Petugas" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Sterilisasi" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="SterilController" vertex="1">
+          <mxGeometry height="40" width="40" x="541" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Sterilisasi" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_h_D" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Daftar Sterilisasi" vertex="1">
+          <mxGeometry height="40" width="50" x="975" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_l_D" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="1000" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses form()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_steril_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Input data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="240" as="sourcePoint" />
+            <mxPoint x="333" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_steril_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="POST Kirim Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="275" as="sourcePoint" />
+            <mxPoint x="553" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_steril_a_self_3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Validasi()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="310" />
+              <mxPoint x="614" y="340" />
+            </Array>
+            <mxPoint x="574" y="310" as="sourcePoint" />
+            <mxPoint x="574" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_steril_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Insert / Update()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="375" as="sourcePoint" />
+            <mxPoint x="773" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_steril_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Berhasil()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="410" as="sourcePoint" />
+            <mxPoint x="567" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_steril_m_6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Redirect Sukses()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="445" as="sourcePoint" />
+            <mxPoint x="993" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_steril_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="100" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_steril_a_D" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="993" y="430" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_petugas_inokulasi" name="UC Petugas: Kelola Inokulasi">
+    <mxGraphModel dx="939" dy="564" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_petugas_inokulasi_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Petugas" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="470" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Input Inokulasi" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="470" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="InokulasiController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="470" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_h_E1" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Bibits" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_l_E1" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="470" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_h_E2" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Inokulasis" vertex="1">
+          <mxGeometry height="40" width="40" x="980" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_l_E2" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="470" width="10" x="1000" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Input(sterilisasi_id, bibit_id)">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="POST /inokulasi">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="240" as="sourcePoint" />
+            <mxPoint x="553" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Cek sisa stok()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="275" as="sourcePoint" />
+            <mxPoint x="773" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Sisa stok">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="310" as="sourcePoint" />
+            <mxPoint x="567" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_a_self_4" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Validasi Jarak Hari(1-3)">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="345" />
+              <mxPoint x="614" y="375" />
+            </Array>
+            <mxPoint x="574" y="345" as="sourcePoint" />
+            <mxPoint x="574" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Insert Inokulasi()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="410" as="sourcePoint" />
+            <mxPoint x="993" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_m_6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Kurangi sisa stok bibit()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="445" as="sourcePoint" />
+            <mxPoint x="773" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_m_7" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Redirect Sukses()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="480" as="sourcePoint" />
+            <mxPoint x="347" y="480" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="305" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="270" width="14" x="553" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_a_E1" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="773" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_inokulasi_a_E2" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="993" y="395" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_petugas_monitoring" name="UC Petugas: Input Monitoring">
+    <mxGraphModel dx="1155" dy="694" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_petugas_monitoring_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Petugas" vertex="1">
+          <mxGeometry height="60" width="30" x="110" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Monitoring" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="MonitoringController" vertex="1">
+          <mxGeometry height="40" width="40" x="541" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Monitoring" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_h_D" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Daftar Monitoring" vertex="1">
+          <mxGeometry height="40" width="50" x="975" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_l_D" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="1000" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses form()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Input data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="240" as="sourcePoint" />
+            <mxPoint x="333" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="POST Kirim Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="275" as="sourcePoint" />
+            <mxPoint x="553" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_a_self_3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Validasi()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="310" />
+              <mxPoint x="614" y="340" />
+            </Array>
+            <mxPoint x="574" y="310" as="sourcePoint" />
+            <mxPoint x="574" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Insert / Update()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="375" as="sourcePoint" />
+            <mxPoint x="773" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Berhasil()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="410" as="sourcePoint" />
+            <mxPoint x="567" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_m_6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Redirect Sukses()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="445" as="sourcePoint" />
+            <mxPoint x="993" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="100" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_monitoring_a_D" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="993" y="430" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_petugas_panen" name="UC Petugas: Input Panen">
+    <mxGraphModel dx="939" dy="564" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_petugas_panen_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Petugas" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Input Panen" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="ProdReportController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_h_E1" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Peringatan" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_l_E1" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_h_E2" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Laporan Panen" vertex="1">
+          <mxGeometry height="40" width="40" x="980" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_l_E2" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="400" width="10" x="1000" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Input Grade A, B">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_panen_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="POST /laporan-panen">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="240" as="sourcePoint" />
+            <mxPoint x="553" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_panen_a_self_2" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="275" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Hitung total()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="275" />
+              <mxPoint x="614" y="305" />
+            </Array>
+            <mxPoint x="574" y="275" as="sourcePoint" />
+            <mxPoint x="574" y="305" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_panen_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Auto-resolve EWS()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="340" as="sourcePoint" />
+            <mxPoint x="773" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_panen_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Insert status pending()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="375" as="sourcePoint" />
+            <mxPoint x="993" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_panen_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Redirect Sukses()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="410" as="sourcePoint" />
+            <mxPoint x="347" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_panen_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="235" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_a_E1" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="773" y="325" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_panen_a_E2" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="993" y="360" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_petugas_ews" name="UC Petugas: Melihat Peringatan EWS">
+    <mxGraphModel dx="834" dy="501" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_petugas_ews_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Petugas" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_ews_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_ews_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Peringatan EWS" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_ews_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_ews_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="EwsController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_ews_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_ews_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Peringatan" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_ews_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_ews_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses Halaman EWS()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_ews_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Request Data Peringatan()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="240" as="sourcePoint" />
+            <mxPoint x="553" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_ews_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Query Data Peringatan()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="275" as="sourcePoint" />
+            <mxPoint x="773" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_ews_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Kembalikan Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="310" as="sourcePoint" />
+            <mxPoint x="567" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_ews_a_self_4" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_ews_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Format Status Sensor()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="345" />
+              <mxPoint x="614" y="375" />
+            </Array>
+            <mxPoint x="574" y="345" as="sourcePoint" />
+            <mxPoint x="574" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_ews_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Tampilkan Peringatan EWS()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="410" as="sourcePoint" />
+            <mxPoint x="347" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_ews_m_6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Render View Peringatan()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="333" y="445" as="sourcePoint" />
+            <mxPoint x="127" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_ews_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_ews_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="270" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_ews_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_ews_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="260" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_petugas_rendang" name="UC Petugas: Alokasi Rendang Jamur">
+    <mxGraphModel dx="834" dy="501" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_petugas_rendang_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Petugas" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Alokasi Rendang" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="RendangController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Laporan Panen" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses Halaman Rendang()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Request Data Grade B()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="240" as="sourcePoint" />
+            <mxPoint x="553" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Query Panen Grade B &gt; 0()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="275" as="sourcePoint" />
+            <mxPoint x="773" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Kembalikan Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="310" as="sourcePoint" />
+            <mxPoint x="567" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_a_self_4" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Filter &amp; Format Alokasi()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="345" />
+              <mxPoint x="614" y="375" />
+            </Array>
+            <mxPoint x="574" y="345" as="sourcePoint" />
+            <mxPoint x="574" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Tampilkan Daftar Alokasi Rendang()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="410" as="sourcePoint" />
+            <mxPoint x="347" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_m_6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Render View Alokasi()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="333" y="445" as="sourcePoint" />
+            <mxPoint x="127" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="270" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_petugas_rendang_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="260" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_umum_profile_kups" name="UC Umum: Lihat Profile KUPS">
+    <mxGraphModel dx="185" dy="111" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_umum_profile_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Umum" vertex="1">
+          <mxGeometry height="60" width="30" x="113" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_profile_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_profile_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Profile KUPS" vertex="1">
+          <mxGeometry height="40" width="60" x="305" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_profile_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="335" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_profile_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="ProfileController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_profile_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_profile_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Users" vertex="1">
+          <mxGeometry height="40" width="40" x="750" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_profile_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_profile_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses Halaman Profile()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="328" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_umum_profile_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="GET edit()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="342" y="240" as="sourcePoint" />
+            <mxPoint x="553" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_umum_profile_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Query Data User &amp; KUPS()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="275" as="sourcePoint" />
+            <mxPoint x="773" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_umum_profile_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Kembalikan Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="310" as="sourcePoint" />
+            <mxPoint x="567" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_umum_profile_a_self_4" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="345" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_profile_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Siapkan Data Profile()">
+          <mxGeometry relative="1" x="-0.2727" y="6" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="614" y="345" />
+              <mxPoint x="614" y="375" />
+            </Array>
+            <mxPoint x="574" y="345" as="sourcePoint" />
+            <mxPoint x="574" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_umum_profile_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Tampilkan Profile KUPS()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="553" y="410" as="sourcePoint" />
+            <mxPoint x="342" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_umum_profile_m_6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Render View Profile()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="328" y="445" as="sourcePoint" />
+            <mxPoint x="127" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_umum_profile_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_profile_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="270" width="14" x="328" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_profile_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="225" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_umum_profile_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="260" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="seq_admin_profile_kups" name="UC Admin: Kelola Profile KUPS">
+    <mxGraphModel dx="774" dy="451" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1300" pageHeight="800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="seq_admin_profile_kups_h_A" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Admin" vertex="1">
+          <mxGeometry height="60" width="30" x="105" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_l_A" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="120" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_h_B" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Kelola Profile KUPS" vertex="1">
+          <mxGeometry height="40" width="50" x="315" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_l_B" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="340" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_h_C" parent="1" style="shape=umlControl;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="ProfileKupsController" vertex="1">
+          <mxGeometry height="40" width="40" x="540" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_l_C" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="560" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_h_E" parent="1" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Tabel Profile KUPS" vertex="1">
+          <mxGeometry height="40" width="40" x="760" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_l_E" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="780" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_h_D" parent="1" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalAlign=bottom;verticalLabelPosition=bottom;" value="Halaman Profile KUPS" vertex="1">
+          <mxGeometry height="40" width="50" x="975" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_l_D" parent="1" style="endArrow=none;dashed=1;html=1;" value="" vertex="1">
+          <mxGeometry height="430" width="10" x="1000" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_m_0" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Akses form kelola profile()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="205" as="sourcePoint" />
+            <mxPoint x="333" y="205" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_m_1" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Input data (Visi, Misi, Sejarah, Struktur)()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="127" y="240" as="sourcePoint" />
+            <mxPoint x="333" y="240" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_m_2" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="POST Simpan / Update Data()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="347" y="275" as="sourcePoint" />
+            <mxPoint x="553" y="275" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_a_self_3" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="567" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_m_3" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Validasi Data()">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="614" y="310" />
+              <mxPoint x="614" y="340" />
+            </Array>
+            <mxPoint x="574" y="310" as="sourcePoint" />
+            <mxPoint x="574" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_m_4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Insert / Update Profile()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="375" as="sourcePoint" />
+            <mxPoint x="773" y="375" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_m_5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Berhasil Disimpan()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="773" y="410" as="sourcePoint" />
+            <mxPoint x="567" y="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_m_6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;" value="Redirect dengan pesan Sukses()">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="567" y="445" as="sourcePoint" />
+            <mxPoint x="993" y="445" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_a_A" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="113" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_a_B" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="100" width="14" x="333" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_a_C" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="200" width="14" x="553" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_a_E" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="65" width="14" x="773" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="seq_admin_profile_kups_a_D" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#ffffff;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="14" x="993" y="430" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

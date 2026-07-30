@@ -38,14 +38,14 @@
  @if(request()->has('sterilisasi_id') && $sterilisasis->contains('id', request('sterilisasi_id')))
      @php $selected = $sterilisasis->firstWhere('id', request('sterilisasi_id')); @endphp
      <select id="sterilisasi_id" disabled class="block w-full rounded-xl border border-[#E5E7EB]/60 bg-[#E5E7EB]/40 shadow-inner text-sm py-2.5 px-4 text-[#374151] font-bold cursor-not-allowed">
-         <option value="{{ $selected->id }}" data-tanggal="{{ $selected->tanggal }}" selected>Sterilisasi #{{ $selected->id }} (Baglog #{{ $selected->baglog->kode_batch ??'N/A' }}) - {{ $selected->baglog->jumlah_baglog ?? 0 }} Pcs</option>
+         <option value="{{ $selected->id }}" data-tanggal="{{ $selected->tanggal }}" selected>Sterilisasi {{ $selected->id }} (Baglog {{ $selected->baglog->kode_batch ??'N/A' }}) - {{ $selected->baglog->jumlah_baglog ?? 0 }} Pcs</option>
      </select>
      <input type="hidden" name="sterilisasi_id" value="{{ $selected->id }}">
  @else
      <select name="sterilisasi_id" id="sterilisasi_id" required class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white py-2.5 shadow-sm focus:border-[#059669] focus:ring-[#059669]">
      <option value="" data-tanggal="">-- Pilih Batch Sterilisasi --</option>
      @foreach($sterilisasis as $s)
-     <option value="{{ $s->id }}" data-tanggal="{{ $s->tanggal }}" {{ old('sterilisasi_id', request('sterilisasi_id')) == $s->id ? 'selected' : '' }}>Sterilisasi #{{ $s->id }} (Baglog #{{ $s->baglog->kode_batch ??'N/A' }}) - {{ $s->baglog->jumlah_baglog ?? 0 }} Pcs</option>
+     <option value="{{ $s->id }}" data-tanggal="{{ $s->tanggal }}" {{ old('sterilisasi_id', request('sterilisasi_id')) == $s->id ? 'selected' : '' }}>Sterilisasi {{ $s->id }} (Baglog {{ $s->baglog->kode_batch ??'N/A' }}) - {{ $s->baglog->jumlah_baglog ?? 0 }} Pcs</option>
      @endforeach
      </select>
  @endif

@@ -38,7 +38,7 @@
          $selectedIno = $inokulasis->firstWhere('id', request('inokulasi_id'));
      @endphp
      <div class="block w-full rounded-xl border border-[#E5E7EB]/60 bg-[#E5E7EB]/40 shadow-inner text-sm py-3 px-4 text-[#374151] font-bold cursor-not-allowed">
-         Inokulasi #{{ $selectedIno->id }} ({{ \Carbon\Carbon::parse($selectedIno->tanggal)->format('d M Y') }})
+         Inokulasi {{ $selectedIno->id }} ({{ \Carbon\Carbon::parse($selectedIno->tanggal)->format('d M Y') }})
      </div>
      <input type="hidden" name="inokulasi_id" value="{{ $selectedIno->id }}">
  @else
@@ -46,7 +46,7 @@
          class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-3 text-[#374151] font-bold @error('inokulasi_id') border-[#F59E0B] @enderror" required>
          <option value="">-- Pilih Batch --</option>
          @foreach($inokulasis as $ino)
-             <option value="{{ $ino->id }}" {{ request('inokulasi_id') == $ino->id ? 'selected' : '' }}>Inokulasi #{{ $ino->id }} ({{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }})</option>
+             <option value="{{ $ino->id }}" {{ request('inokulasi_id') == $ino->id ? 'selected' : '' }}>Inokulasi {{ $ino->id }} ({{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }})</option>
          @endforeach
      </select>
  @endif

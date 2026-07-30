@@ -13,7 +13,7 @@
  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
  @foreach($baglogs as $baglog)
  <a href="{{ route('ketua.traceability.detail', $baglog->id) }}" class="block p-4 border rounded-xl hover:bg-gray-50 transition">
- <h4 class="font-bold">Batch #{{ $baglog->kode_batch }}</h4>
+ <h4 class="font-bold">Batch {{ $baglog->kode_batch }}</h4>
  <p class="text-sm text-gray-500">{{ \Carbon\Carbon::parse($baglog->tanggal_pembuatan)->format('d M Y') }}</p>
  </a>
  @endforeach
