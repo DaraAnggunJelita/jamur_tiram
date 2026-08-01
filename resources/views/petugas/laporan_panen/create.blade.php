@@ -6,7 +6,7 @@
  class="inline-flex items-center justify-center w-9 h-9 rounded-xl border border-[#E5E7EB]/60 bg-[#FFFFFF] hover:bg-[#E6DAC2]/60 text-[#047857] transition duration-150 shadow-xs cursor-pointer">
  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
  </button>
- <h2 class="font-bold text-2xl text-[#064E3B] leading-tight">
+ <h2 class="font-bold text-base text-[#064E3B] leading-tight">
  {{ __('Input Hasil Panen Harian') }}
  </h2>
  </div>
@@ -26,6 +26,17 @@
  <p class="text-xs text-[#6B7280] font-medium">Sistem otomatis mendistribusikan panen berdasarkan kualitas.</p>
  </div>
  </div>
+
+ @if ($errors->any())
+ <div class="mb-6 p-4 bg-red-100 border border-red-300 text-red-700 rounded-xl text-sm font-bold shadow-2xs flex items-start gap-3">
+     <svg class="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+     <ul class="list-none m-0 p-0">
+         @foreach ($errors->all() as $error)
+             <li>{{ $error }}</li>
+         @endforeach
+     </ul>
+ </div>
+ @endif
 
  <form action="{{ route('petugas.laporan-panen.store') }}" method="POST" class="space-y-5">
  @csrf
@@ -63,7 +74,7 @@
  <select id="siklus_panen" name="siklus_panen"
  class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-2.5 text-[#374151] font-medium @error('siklus_panen') border-[#F59E0B] @enderror" required>
  <option value="">-- Pilih Siklus --</option>
- @for($i = 1; $i <= 5; $i++)
+ @for($i = 1; $i <= 7; $i++)
  <option value="{{ $i }}" {{ old('siklus_panen') == $i ?'selected' :'' }}>Panen Ke-{{ $i }}</option>
  @endfor
  </select>

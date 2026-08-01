@@ -20,7 +20,7 @@ class ProductionReportController extends Controller
                 $q->where('user_id', auth()->id());
             }
             $q->orderBy('siklus_panen', 'asc');
-        }, 'sterilisasi.baglog']);
+        }, 'sterilisasi.bibit']);
 
         if (!auth()->user()->isAdmin()) {
             $query->whereHas('productionReports', function($q) {
@@ -32,8 +32,8 @@ class ProductionReportController extends Controller
 
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->whereHas('sterilisasi.baglog', function($q) use ($search) {
-                $q->where('kode_batch', 'LIKE', '%' . $search . '%');
+            $query->whereHas('sterilisasi.bibit', function($q) use ($search) {
+                $q->where('kode_bibit', 'LIKE', '%' . $search . '%');
             });
         }
 
@@ -57,7 +57,7 @@ class ProductionReportController extends Controller
         $inokulasis = \App\Models\Inokulasi::withCount(['productionReports' => function($q) {
                 $q->where('status_validasi', '!=', 'dibatalkan');
             }])
-            ->having('production_reports_count', '<', 5)
+            ->having('production_reports_count', '<', 7)
             ->get();
         return view('petugas.laporan_panen.create', compact('inokulasis'));
     }
@@ -70,11 +70,21 @@ class ProductionReportController extends Controller
         $request->validate([
             'inokulasi_id'  => 'required|exists:inokulasis,id',
             'tanggal'       => 'required|date',
-            'siklus_panen'  => 'required|integer|min:1|max:5',
+            'siklus_panen'  => 'required|integer|min:1|max:7',
             'berat_grade_a' => 'required|numeric|min:0',
             'berat_grade_b' => 'required|numeric|min:0',
             'catatan'       => 'nullable|string',
         ]);
+
+        $inokulasi = \App\Models\Inokulasi::findOrFail($request->inokulasi_id);
+        $tanggalInokulasi = \Carbon\Carbon::parse($inokulasi->tanggal)->startOfDay();
+        $tanggalPanen = \Carbon\Carbon::parse($request->tanggal)->startOfDay();
+
+        $jarakHari = $tanggalInokulasi->diffInDays($tanggalPanen, false);
+
+        if ($jarakHari < 40) {
+            return back()->withErrors(['error' => "Gagal! Batch ini baru berumur $jarakHari hari semenjak inokulasi. Baglog belum layak untuk dipanen (minimal masa inkubasi adalah 40 hari)."])->withInput();
+        }
 
         $jumlah_panen = $request->berat_grade_a + $request->berat_grade_b;
 
@@ -116,11 +126,11 @@ class ProductionReportController extends Controller
                 ->with('error', 'Laporan yang sudah divalidasi tidak dapat diedit.');
         }
 
-        // Tambahkan inokulasi_id yang sedang diedit agar tetap muncul meskipun sudah 5 kali, atau biarkan semua yang < 5
+        // Tambahkan inokulasi_id yang sedang diedit agar tetap muncul meskipun sudah 7 kali, atau biarkan semua yang < 7
         $inokulasis = \App\Models\Inokulasi::withCount(['productionReports' => function($q) {
                 $q->where('status_validasi', '!=', 'dibatalkan');
             }])
-            ->having('production_reports_count', '<', 5)
+            ->having('production_reports_count', '<', 7)
             ->orWhere('id', $report->inokulasi_id)
             ->get();
         return view('petugas.laporan_panen.edit', compact('report', 'inokulasis'));
@@ -145,7 +155,7 @@ class ProductionReportController extends Controller
         $request->validate([
             'inokulasi_id'  => 'required|exists:inokulasis,id',
             'tanggal'       => 'required|date',
-            'siklus_panen'  => 'required|integer|min:1|max:5',
+            'siklus_panen'  => 'required|integer|min:1|max:7',
             'berat_grade_a' => 'required|numeric|min:0',
             'berat_grade_b' => 'required|numeric|min:0',
             'catatan'       => 'nullable|string',

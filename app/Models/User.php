@@ -38,6 +38,11 @@ class User extends Authenticatable
         return $this->hasMany(ProductionReport::class);
     }
 
+    public function distribusis(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(DistribusiBibit::class, 'user_id');
+    }
+
     /**
      * Helper Methods untuk pengecekan Role
      */

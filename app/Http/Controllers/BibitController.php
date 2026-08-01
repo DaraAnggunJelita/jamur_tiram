@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bibit;
+use App\Models\DistribusiBibit;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,29 +36,42 @@ class BibitController extends Controller
 
     public function create()
     {
-        return view('bibit.create');
+        $petugas = User::where('role', 'petugas')->get();
+        return view('bibit.create', compact('petugas'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'kode_bibit' => 'required|string|unique:bibits,kode_bibit|max:50',
+            'kode_bibit' => 'required|string|max:50',
             'asal_bibit' => 'required|string|max:255',
+            'user_ids' => 'required|array|min:1',
+            'user_ids.*' => 'exists:users,id',
             'tanggal_masuk' => 'required|date',
-            'jumlah' => 'required|integer|min:1',
+            'jumlah' => 'required|numeric|min:0.1',
         ]);
 
-        Bibit::create([
-            'user_id' => Auth::id(),
-            'kode_bibit' => $request->kode_bibit,
-            'asal_bibit' => $request->asal_bibit,
-            'tanggal_masuk' => $request->tanggal_masuk,
-            'jumlah' => $request->jumlah,
-            'sisa_stok' => $request->jumlah,
-            'status' => 'Aktif/Siap Pakai',
-        ]);
+        $countPetugas = count($request->user_ids);
+        $totalBungkus = (float) $request->jumlah;
+        $totalBaglog = $totalBungkus * 50;
 
-        return redirect()->route('bibit.index')->with('success', 'Data bibit berhasil ditambahkan dan siap digunakan.');
+        $bungkusPerPetugas = $totalBungkus / $countPetugas;
+        $baglogPerPetugas = $totalBaglog / $countPetugas;
+
+        foreach ($request->user_ids as $userId) {
+            Bibit::create([
+                'user_id' => $userId,
+                'kode_bibit' => 'F2',
+                'asal_bibit' => $request->asal_bibit,
+                'tanggal_masuk' => $request->tanggal_masuk,
+                'jumlah' => $bungkusPerPetugas,
+                'sisa_stok' => $bungkusPerPetugas,
+                'banyak_baglog' => $baglogPerPetugas,
+                'status' => 'Aktif/Siap Pakai',
+            ]);
+        }
+
+        return redirect()->route('bibit.index')->with('success', "Stok $totalBungkus bungkus ($totalBaglog baglog) berhasil ditambahkan dan dibagikan kepada $countPetugas petugas terpilih!");
     }
 
     public function edit($id)
@@ -65,10 +80,12 @@ class BibitController extends Controller
         
         // Cek apakah stok bibit sudah mulai terpakai
         if ($bibit->sisa_stok != $bibit->jumlah) {
-            return redirect()->route('bibit.index')->with('error', 'Data bibit yang sudah terpakai tidak dapat diubah.');
+            $redirectRoute = auth()->user()->role === 'ketua' ? 'ketua.bibit.pantau' : 'bibit.index';
+            return redirect()->route($redirectRoute)->with('error', 'Data bibit yang sudah terpakai tidak dapat diubah.');
         }
 
-        return view('bibit.edit', compact('bibit'));
+        $petugas = User::where('role', 'petugas')->get();
+        return view('bibit.edit', compact('bibit', 'petugas'));
     }
 
     public function update(Request $request, $id)
@@ -80,21 +97,28 @@ class BibitController extends Controller
         }
 
         $request->validate([
-            'kode_bibit' => 'required|string|max:50|unique:bibits,kode_bibit,'.$bibit->id,
+            'kode_bibit' => 'required|string|max:50',
             'asal_bibit' => 'required|string|max:255',
+            'user_id' => 'required|exists:users,id',
             'tanggal_masuk' => 'required|date',
-            'jumlah' => 'required|integer|min:1',
+            'jumlah' => 'required|numeric|min:0.1',
         ]);
+
+        $jumlahBungkus = (float) $request->jumlah;
+        $banyakBaglog = $jumlahBungkus * 50;
 
         $bibit->update([
-            'kode_bibit' => $request->kode_bibit,
+            'user_id' => $request->user_id,
+            'kode_bibit' => 'F2',
             'asal_bibit' => $request->asal_bibit,
             'tanggal_masuk' => $request->tanggal_masuk,
-            'jumlah' => $request->jumlah,
-            'sisa_stok' => $request->jumlah,
+            'jumlah' => $jumlahBungkus,
+            'sisa_stok' => $jumlahBungkus,
+            'banyak_baglog' => $banyakBaglog,
         ]);
 
-        return redirect()->route('bibit.index')->with('success', 'Data bibit berhasil diperbarui!');
+        $redirectRoute = auth()->user()->role === 'ketua' ? 'ketua.bibit.pantau' : 'bibit.index';
+        return redirect()->route($redirectRoute)->with('success', 'Data bibit berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -102,11 +126,13 @@ class BibitController extends Controller
         $bibit = Bibit::findOrFail($id);
 
         if ($bibit->sisa_stok != $bibit->jumlah) {
-            return redirect()->route('bibit.index')->with('error', 'Data bibit yang sudah terpakai tidak dapat dihapus.');
+            $redirectRoute = auth()->user()->role === 'ketua' ? 'ketua.bibit.pantau' : 'bibit.index';
+            return redirect()->route($redirectRoute)->with('error', 'Data bibit yang sudah terpakai tidak dapat dihapus.');
         }
 
         $bibit->delete();
 
-        return redirect()->route('bibit.index')->with('success', 'Data bibit berhasil dihapus.');
+        $redirectRoute = auth()->user()->role === 'ketua' ? 'ketua.bibit.pantau' : 'bibit.index';
+        return redirect()->route($redirectRoute)->with('success', 'Data bibit berhasil dihapus.');
     }
 }

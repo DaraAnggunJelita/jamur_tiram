@@ -1,7 +1,7 @@
 <x-app-layout>
  <x-slot name="header">
  <div class="flex items-center justify-between font-sans">
- <h2 class="font-bold text-2xl text-[#064E3B] leading-tight">
+ <h2 class="font-bold text-base text-[#064E3B] leading-tight">
  {{ __('Profile') }}
  </h2>
  <span class="bg-[#E6DAC2] text-[#047857] text-xs font-bold px-3 py-1 rounded-full border border-[#E5E7EB]/60">

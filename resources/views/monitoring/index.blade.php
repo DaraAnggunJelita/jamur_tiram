@@ -1,5 +1,18 @@
 <x-app-layout>
- <div class="py-12 bg-[#F3F5F4] min-h-screen text-[#064E3B]">
+    <x-slot name="header">
+        <div class="flex items-center gap-3 font-sans">
+            <a href="{{ route('petugas.dashboard') }}" 
+                class="inline-flex items-center justify-center w-8 h-8 rounded-xl border border-[#E5E7EB] bg-white hover:bg-[#F3F4F6] text-[#4B5563] transition cursor-pointer"
+                title="Kembali ke Dashboard">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            </a>
+            <h2 class="font-bold text-base text-[#064E3B] leading-tight">
+                {{ __('Monitoring Kumbung') }}
+            </h2>
+        </div>
+    </x-slot>
+
+ <div class="py-8 bg-[#F3F5F4] min-h-screen text-[#064E3B]">
  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
  @if(session('success'))
@@ -12,10 +25,10 @@
  <div class="bg-[#FFFFFF] border border-[#E5E7EB]/40 rounded-2xl p-6 shadow-xs overflow-hidden">
  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-4 border-b border-[#E5E7EB]/20">
  <div>
- <h3 class="text-xl font-bold text-[#064E3B]">Log Monitoring Kumbung</h3>
+ <h3 class="text-base font-bold text-[#064E3B]">Log Monitoring Kumbung</h3>
  <p class="text-xs text-[#6B7280] font-medium mt-0.5">Catatan pengawasan visual harian terhadap suhu/kelembapan ruang kumbung.</p>
  </div>
- @if(auth()->user()->role ==='petugas')
+ @if(in_array(auth()->user()->role, ['petugas', 'admin']))
  <a href="{{ route('monitoring.create') }}"
  class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#059669] hover:bg-[#047857] text-white text-xs font-bold rounded-xl transition duration-150 shadow-md shadow-[#059669]/10 transform hover:-translate-y-0.5 self-start sm:self-center cursor-pointer">
  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
@@ -49,7 +62,6 @@
  <th class="py-3 px-4">Tanggal & Petugas</th>
  <th class="py-3 px-4">Ref. Inokulasi</th>
  <th class="py-3 px-4 text-center">Kondisi Udara</th>
- <th class="py-3 px-4 text-center">Kondisi Lantai</th>
  <th class="py-3 px-4 text-center">Jml Penyiraman</th>
  </tr>
  </thead>
@@ -63,17 +75,13 @@
  @elseif($mon->kondisi_udara =='Hangat') <span class="text-yellow-600">Hangat</span>
  @else <span class="text-red-600 animate-pulse">Panas/Gersang</span> @endif
  </td>
- <td class="py-3.5 px-4 text-center text-xs font-bold">
- @if($mon->kondisi_lantai =='Basah/Lembab') <span class="text-blue-600">Basah/Lembab</span>
- @else <span class="text-red-600 animate-pulse">Kering</span> @endif
- </td>
  <td class="py-3.5 px-4 text-center font-bold text-xs {{ $mon->jumlah_penyiraman < 2 ?'text-red-600' :'text-[#059669]' }}">
  {{ $mon->jumlah_penyiraman }}x Hari Ini
  </td>
  </tr>
  @empty
  <tr>
- <td colspan="5" class="py-12 text-center text-[#6B7280] font-medium italic">
+ <td colspan="4" class="py-12 text-center text-[#6B7280] font-medium italic">
  Belum ada riwayat monitoring.
  </td>
  </tr>

@@ -9,7 +9,7 @@
 <div class="w-full max-w-[360px] mx-auto flex flex-col justify-center px-4 py-6">
 
  <div class="mb-5">
- <h1 class="text-xl font-bold text-slate-900 sm:text-2xl">
+ <h1 class="text-base font-bold text-slate-900 sm:text-lg">
  Daftar Akun Baru
  </h1>
  <p class="mt-1 text-xs text-slate-400 leading-relaxed font-normal">

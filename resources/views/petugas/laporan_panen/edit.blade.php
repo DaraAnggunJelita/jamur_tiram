@@ -3,27 +3,27 @@
         <div class="flex items-center justify-between font-sans">
             <div class="flex items-center gap-3">
                 <button onclick="history.back()"
-                    class="inline-flex items-center justify-center w-9 h-9 rounded-xl border border-[#C9B896]/60 bg-[#FBF8F1] hover:bg-[#E6DAC2]/60 text-[#6B4E36] transition duration-150 shadow-xs cursor-pointer">
+                    class="inline-flex items-center justify-center w-9 h-9 rounded-xl border border-[#E5E7EB]/60 bg-white hover:bg-gray-50 text-[#047857] transition duration-150 shadow-xs cursor-pointer">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
                 </button>
-                <h2 class="font-black text-2xl text-[#26201B] leading-tight font-heading tracking-tight">
+                <h2 class="font-bold text-base text-[#064E3B] leading-tight">
                     {{ __('Edit Laporan Hasil Panen') }}
                 </h2>
             </div>
         </div>
     </x-slot>
 
-    <div class="py-8 bg-[#F6F1E6] min-h-screen text-[#26201B]">
+    <div class="py-8 bg-[#F3F5F4] min-h-screen text-[#064E3B]">
         <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-[#FBF8F1] shadow-xs rounded-2xl border border-[#C9B896]/40 p-8">
+            <div class="bg-white shadow-xs rounded-2xl border border-[#E5E7EB]/40 p-8">
 
-                <div class="flex items-center space-x-2.5 pb-4 mb-6 border-b border-[#C9B896]/20">
-                    <div class="w-8 h-8 bg-[#6B4E36]/10 rounded-lg flex items-center justify-center text-[#6B4E36]">
+                <div class="flex items-center space-x-2.5 pb-4 mb-6 border-b border-[#E5E7EB]/20">
+                    <div class="w-8 h-8 bg-[#059669]/10 rounded-lg flex items-center justify-center text-[#059669]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h10a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                     </div>
                     <div>
-                        <h3 class="text-base font-black text-[#26201B] font-heading tracking-tight">Modifikasi Laporan Panen</h3>
-                        <p class="text-xs text-[#8E6E4E] font-medium">Sesuaikan data berat dan kondisi panen jamur tiram yang Anda input.</p>
+                        <h3 class="text-base font-bold text-[#064E3B]">Modifikasi Laporan Panen</h3>
+                        <p class="text-xs text-[#6B7280] font-medium">Sesuaikan data berat dan siklus panen jamur tiram.</p>
                     </div>
                 </div>
 
@@ -31,81 +31,102 @@
                     @csrf
                     @method('PUT')
 
-                    {{-- Tanggal Panen --}}
-                    <div>
-                        <label for="tanggal" class="block text-xs font-black text-[#6B4E36] uppercase tracking-widest font-heading mb-1.5">Tanggal Panen</label>
-                        <input type="date" id="tanggal" name="tanggal"
-                            value="{{ old('tanggal', $report->tanggal) }}"
-                            class="block w-full rounded-xl border-[#C9B896]/60 bg-white shadow-2xs focus:border-[#4F6146] focus:ring-[#4F6146] text-sm py-2.5 text-[#362C24] font-medium @error('tanggal') border-[#A0653D] @enderror" required>
-                        @error('tanggal')
-                            <p class="text-[#A0653D] text-xs font-bold mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    {{-- Jumlah Panen --}}
-                    <div>
-                        <label for="jumlah_panen" class="block text-xs font-black text-[#6B4E36] uppercase tracking-widest font-heading mb-1.5">Berat Hasil Panen</label>
-                        <div class="relative rounded-xl shadow-2xs">
-                            <input type="number" step="0.1" min="0.1" id="jumlah_panen" name="jumlah_panen"
-                                placeholder="Contoh: 12.5"
-                                value="{{ old('jumlah_panen', $report->jumlah_panen) }}"
-                                class="block w-full pr-12 rounded-xl border-[#C9B896]/60 bg-white focus:border-[#4F6146] focus:ring-[#4F6146] text-sm py-2.5 text-[#362C24] font-medium placeholder-[#8E6E4E]/50 @error('jumlah_panen') border-[#A0653D] @enderror" required>
-                            <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                                <span class="text-[#8E6E4E] text-sm font-black font-mono-data">Kg</span>
-                            </div>
-                        </div>
-                        @error('jumlah_panen')
-                            <p class="text-[#A0653D] text-xs font-bold mt-1">{{ $message }}</p>
-                        @enderror
-                    </div>
-
                     {{-- Inokulasi Batch --}}
                     <div>
-                        <label for="inokulasi_id" class="block text-xs font-black text-[#6B4E36] uppercase tracking-widest font-heading mb-1.5">Batch Inokulasi</label>
+                        <label for="inokulasi_id" class="block text-xs font-bold text-[#047857] mb-1.5">Batch Inokulasi</label>
                         <select id="inokulasi_id" name="inokulasi_id"
-                            class="block w-full rounded-xl border-[#C9B896]/60 bg-white shadow-2xs focus:border-[#4F6146] focus:ring-[#4F6146] text-sm py-2.5 text-[#362C24] font-medium @error('inokulasi_id') border-[#A0653D] @enderror" required>
+                            class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-2.5 text-[#374151] font-medium @error('inokulasi_id') border-[#F59E0B] @enderror" required>
                             <option value="">-- Pilih Batch Inokulasi --</option>
                             @foreach($inokulasis as $ino)
                                 <option value="{{ $ino->id }}" {{ old('inokulasi_id', $report->inokulasi_id) == $ino->id ? 'selected' : '' }}>Inokulasi #{{ $ino->id }} - {{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }}</option>
                             @endforeach
                         </select>
                         @error('inokulasi_id')
-                            <p class="text-[#A0653D] text-xs font-bold mt-1">{{ $message }}</p>
+                            <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    {{-- Kualitas Jamur --}}
-                    <div>
-                        <label for="kualitas_panen" class="block text-xs font-black text-[#6B4E36] uppercase tracking-widest font-heading mb-1.5">Klasifikasi Kualitas Panen</label>
-                        <select id="kualitas_panen" name="kualitas_panen"
-                            class="block w-full rounded-xl border-[#C9B896]/60 bg-white shadow-2xs focus:border-[#4F6146] focus:ring-[#4F6146] text-sm py-2.5 text-[#362C24] font-medium @error('kualitas_panen') border-[#A0653D] @enderror" required>
-                            <option value="Kualitas Bagus" {{ old('kualitas_panen', $report->kualitas_panen) === 'Kualitas Bagus' ? 'selected' : '' }}>Kualitas Bagus (Jamur Segar, Putih, Besar)</option>
-                            <option value="Kualitas Cukup" {{ old('kualitas_panen', $report->kualitas_panen) === 'Kualitas Cukup' ? 'selected' : '' }}>Kualitas Cukup (Ukuran Sedang, Warna Agak Kusam)</option>
-                            <option value="Kualitas Buruk/Layu" {{ old('kualitas_panen', $report->kualitas_panen) === 'Kualitas Buruk/Layu' ? 'selected' : '' }}>Kualitas Buruk/Layu (Jamur Patah, Kekuningan/Layu)</option>
-                        </select>
-                        @error('kualitas_panen')
-                            <p class="text-[#A0653D] text-xs font-bold mt-1">{{ $message }}</p>
-                        @enderror
+                    {{-- Siklus Panen & Tanggal Panen (Grid) --}}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label for="tanggal" class="block text-xs font-bold text-[#047857] mb-1.5">Tanggal Panen</label>
+                            <input type="date" id="tanggal" name="tanggal"
+                                value="{{ old('tanggal', $report->tanggal) }}"
+                                class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-2.5 text-[#374151] font-medium" required>
+                            @error('tanggal')
+                                <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div>
+                            <label for="siklus_panen" class="block text-xs font-bold text-[#047857] mb-1.5">Siklus Panen Ke-</label>
+                            <select id="siklus_panen" name="siklus_panen"
+                                class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-2.5 text-[#374151] font-medium @error('siklus_panen') border-[#F59E0B] @enderror" required>
+                                <option value="">-- Pilih Siklus --</option>
+                                @for($i = 1; $i <= 7; $i++)
+                                    <option value="{{ $i }}" {{ old('siklus_panen', $report->siklus_panen) == $i ? 'selected' : '' }}>Panen Ke-{{ $i }}</option>
+                                @endfor
+                            </select>
+                            @error('siklus_panen')
+                                <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    {{-- Pemisahan Grade Kualitas --}}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5 p-5 rounded-xl border-2 border-dashed border-[#E5E7EB] bg-[#F3F5F4]/50">
+                        <div>
+                            <label for="berat_grade_a" class="block text-xs font-bold text-green-700 mb-1.5">Berat Grade A (Kg)</label>
+                            <p class="text-[10px] text-gray-500 mb-2 leading-tight">Jamur segar kualitas bagus untuk dijual langsung.</p>
+                            <div class="relative rounded-xl shadow-2xs">
+                                <input type="number" step="0.1" min="0" id="berat_grade_a" name="berat_grade_a"
+                                    placeholder="0"
+                                    value="{{ old('berat_grade_a', $report->berat_grade_a) }}"
+                                    class="block w-full pr-12 rounded-xl border-[#E5E7EB]/60 bg-white focus:border-green-600 focus:ring-green-600 text-sm py-2.5 text-[#374151] font-bold" required>
+                                <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                    <span class="text-[#6B7280] text-sm font-bold">Kg</span>
+                                </div>
+                            </div>
+                            @error('berat_grade_a')
+                                <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="berat_grade_b" class="block text-xs font-bold text-red-700 mb-1.5">Berat Grade B (Kg)</label>
+                            <p class="text-[10px] text-gray-500 mb-2 leading-tight">Jamur layu/patah dialokasikan untuk olahan rendang.</p>
+                            <div class="relative rounded-xl shadow-2xs">
+                                <input type="number" step="0.1" min="0" id="berat_grade_b" name="berat_grade_b"
+                                    placeholder="0"
+                                    value="{{ old('berat_grade_b', $report->berat_grade_b) }}"
+                                    class="block w-full pr-12 rounded-xl border-[#E5E7EB]/60 bg-white focus:border-red-600 focus:ring-red-600 text-sm py-2.5 text-[#374151] font-bold" required>
+                                <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                    <span class="text-[#6B7280] text-sm font-bold">Kg</span>
+                                </div>
+                            </div>
+                            @error('berat_grade_b')
+                                <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
                     </div>
 
                     {{-- Catatan Harian --}}
                     <div>
-                        <label for="catatan" class="block text-xs font-black text-[#6B4E36] uppercase tracking-widest font-heading mb-1.5">Catatan Kumbung <span class="text-[#8E6E4E] font-normal capitalize">(Opsional)</span></label>
-                        <textarea id="catatan" name="catatan" rows="4"
-                            placeholder="Misal: Suhu kumbung 25°C, kelembaban udara 82%..."
-                            class="block w-full rounded-xl border-[#C9B896]/60 bg-white shadow-2xs focus:border-[#4F6146] focus:ring-[#4F6146] text-sm py-2.5 text-[#362C24] font-medium placeholder-[#8E6E4E]/50 @error('catatan') border-[#A0653D] @enderror">{{ old('catatan', $report->catatan) }}</textarea>
+                        <label for="catatan" class="block text-xs font-bold text-[#047857] mb-1.5">Catatan Tambahan <span class="text-[#6B7280] font-normal capitalize">(Opsional)</span></label>
+                        <textarea id="catatan" name="catatan" rows="3"
+                            placeholder="Ada temuan aneh saat panen?"
+                            class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-2.5 text-[#374151] font-medium placeholder-[#6B7280]/50">{{ old('catatan', $report->catatan) }}</textarea>
                         @error('catatan')
-                            <p class="text-[#A0653D] text-xs font-bold mt-1">{{ $message }}</p>
+                            <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div class="pt-4 border-t border-[#C9B896]/20 flex justify-end gap-3">
+                    <div class="pt-6 border-t border-[#E5E7EB]/20 flex justify-end gap-3">
                         <a href="{{ route('petugas.laporan-panen.index') }}"
-                            class="px-5 py-2.5 text-sm font-bold text-[#8E6E4E] hover:text-[#26201B] transition">
+                            class="px-5 py-2.5 text-sm font-bold text-[#6B7280] hover:text-[#064E3B] transition">
                             Batal
                         </a>
                         <button type="submit"
-                            class="py-2.5 px-6 bg-[#4F6146] hover:bg-[#37452F] text-white text-sm font-extrabold rounded-xl transition duration-150 shadow-md shadow-[#4F6146]/10 transform hover:-translate-y-0.5 cursor-pointer">
+                            class="py-2.5 px-6 bg-[#059669] hover:bg-[#047857] text-white text-sm font-extrabold rounded-xl transition shadow-md hover:-translate-y-0.5 cursor-pointer">
                             Simpan Perubahan
                         </button>
                     </div>

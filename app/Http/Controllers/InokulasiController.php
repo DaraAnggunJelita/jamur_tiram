@@ -11,13 +11,13 @@ class InokulasiController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Inokulasi::with(['sterilisasi.baglog', 'user', 'logInkubasis.user']);
+        $query = Inokulasi::with(['sterilisasi.bibit.user', 'user', 'logInkubasis.user']);
 
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
-                $q->whereHas('sterilisasi.baglog', function($baglogQuery) use ($search) {
-                      $baglogQuery->where('kode_batch', 'LIKE', '%' . $search . '%');
+                $q->whereHas('sterilisasi.bibit', function($bibitQuery) use ($search) {
+                      $bibitQuery->where('kode_bibit', 'LIKE', '%' . $search . '%');
                   })
                   ->orWhereHas('user', function($userQuery) use ($search) {
                       $userQuery->where('name', 'LIKE', '%' . $search . '%');
@@ -29,7 +29,7 @@ class InokulasiController extends Controller
             $query->whereDate('tanggal', $request->date);
         }
 
-        $inokulasis = $query->latest()->paginate(10)->withQueryString();
+        $inokulasis = $query->orderBy('updated_at', 'desc')->paginate(10)->withQueryString();
 
         return view('inokulasi.index', compact('inokulasis'));
     }
@@ -37,27 +37,19 @@ class InokulasiController extends Controller
     public function create()
     {
         // Ambil data sterilisasi yang siap untuk diinokulasi
-        $sterilisasis = Sterilisasi::whereDoesntHave('inokulasis')->with('baglog')->orderBy('tanggal', 'desc')->get();
-        // Ambil data bibit yang masih tersedia
-        $bibits = \App\Models\Bibit::where('status', 'Aktif/Siap Pakai')->where('sisa_stok', '>', 0)->get();
-        return view('inokulasi.create', compact('sterilisasis', 'bibits'));
+        $sterilisasis = Sterilisasi::whereDoesntHave('inokulasis')->with('bibit.user')->orderBy('tanggal', 'desc')->get();
+        return view('inokulasi.create', compact('sterilisasis'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'sterilisasi_id' => 'required|exists:sterilisasis,id',
-            'bibit_id' => 'required|exists:bibits,id',
             'tanggal' => 'required|date',
-            'jumlah_bibit_terpakai' => 'required|integer|min:1',
         ]);
 
-        $sterilisasi = Sterilisasi::with('baglog')->findOrFail($request->sterilisasi_id);
-        $bibit = \App\Models\Bibit::findOrFail($request->bibit_id);
-
-        if ($request->jumlah_bibit_terpakai > $bibit->sisa_stok) {
-            return back()->withErrors(['jumlah_bibit_terpakai' => 'Maaf, jumlah botol yang dipakai melebihi sisa stok yang ada di gudang!'])->withInput();
-        }
+        $sterilisasi = Sterilisasi::with('bibit')->findOrFail($request->sterilisasi_id);
+        $bibit = $sterilisasi->bibit;
 
         $tanggalSterilisasi = \Carbon\Carbon::parse($sterilisasi->tanggal)->startOfDay();
         $tanggalInokulasi = \Carbon\Carbon::parse($request->tanggal)->startOfDay();
@@ -69,24 +61,26 @@ class InokulasiController extends Controller
             return back()->withErrors(['error' => 'Gagal! Jeda inokulasi maksimal adalah 3 hari setelah sterilisasi. Media mungkin sudah tidak steril/ideal.'])->withInput();
         }
 
-        $jumlah_baglog_awal = $sterilisasi->baglog->jumlah_baglog ?? 0;
+        $jumlah_baglog_awal = $sterilisasi->bibit->banyak_baglog ?? 0;
+        $bibit_id = $bibit ? $bibit->id : null;
+        $jumlah_terpakai = $bibit ? (float) ($bibit->sisa_stok > 0 ? $bibit->sisa_stok : $bibit->jumlah) : 0;
 
         Inokulasi::create([
             'sterilisasi_id' => $request->sterilisasi_id,
-            'bibit_id' => $request->bibit_id,
+            'bibit_id' => $bibit_id,
             'user_id' => Auth::id(),
             'tanggal' => $request->tanggal,
             'jumlah_berhasil' => $jumlah_baglog_awal,
             'jumlah_kontaminasi' => 0,
-            'jumlah_bibit_terpakai' => $request->jumlah_bibit_terpakai,
+            'jumlah_bibit_terpakai' => $jumlah_terpakai,
         ]);
 
         // Kurangi sisa stok bibit otomatis
-        $bibit->sisa_stok -= $request->jumlah_bibit_terpakai;
-        if ($bibit->sisa_stok == 0) {
+        if ($bibit) {
+            $bibit->sisa_stok = 0;
             $bibit->status = 'Habis';
+            $bibit->save();
         }
-        $bibit->save();
 
         $pesanFlash = 'Data inokulasi berhasil disimpan.';
         if ($sterilisasi->status_sterilisasi === 'berisiko') {
@@ -167,6 +161,15 @@ class InokulasiController extends Controller
 
         if (\App\Models\ProductionReport::where('inokulasi_id', $id)->exists()) {
             return redirect()->route('inokulasi.index')->with('error', 'Data inokulasi ini tidak dapat dihapus karena sudah mulai masuk masa panen.');
+        }
+
+        // Kembalikan stok bibit yang dipakai
+        if ($inokulasi->bibit_id && $inokulasi->bibit) {
+            $inokulasi->bibit->sisa_stok += $inokulasi->jumlah_bibit_terpakai;
+            if ($inokulasi->bibit->sisa_stok > 0 && $inokulasi->bibit->status === 'Habis') {
+                $inokulasi->bibit->status = 'Aktif/Siap Pakai';
+            }
+            $inokulasi->bibit->save();
         }
 
         $inokulasi->delete();

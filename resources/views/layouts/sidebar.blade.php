@@ -5,7 +5,7 @@
  ============================================================ --}}
 
 <!-- ======================== DESKTOP SIDEBAR ======================== -->
-<aside class="hidden md:flex md:flex-col md:fixed md:inset-y-0 md:left-0 md:w-64 lg:w-72 z-40 shadow-2xl shadow-[#3A5A40]/10 border-r border-[#E6D5B8]/40">
+<aside class="hidden md:flex md:flex-col md:fixed md:inset-y-0 md:left-0 md:w-56 lg:w-60 z-40 shadow-2xl shadow-[#3A5A40]/10 border-r border-[#E6D5B8]/40">
  <div class="flex flex-col h-full overflow-hidden">
  @include('layouts.sidebar-content')
  </div>
@@ -31,7 +31,7 @@
  </div>
 
  <!-- Drawer Panel -->
- <div class="fixed inset-y-0 left-0 z-50 flex flex-col w-72 max-w-[85vw]">
+ <div class="fixed inset-y-0 left-0 z-50 flex flex-col w-60 max-w-[85vw]">
  <div x-show="sidebarOpen"
  x-transition:enter="transition ease-in-out duration-300 transform"
  x-transition:enter-start="-translate-x-full"

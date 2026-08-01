@@ -18,6 +18,7 @@ class PetugasDashboardController extends Controller
         // Tampilkan seluruh data laporan secara kolektif agar sinkron dengan widget pipeline
         $reportsBulanIni = ProductionReport::whereMonth('tanggal', now()->month)
             ->whereYear('tanggal', now()->year)
+            ->where('status_validasi', 'valid')
             ->get();
 
         $totalGradeA = $reportsBulanIni->sum('berat_grade_a');
@@ -35,22 +36,22 @@ class PetugasDashboardController extends Controller
 
 
         // Mengambil inokulasi yang sudah >= 40 hari dan belum dibuka kapasnya
-        $inokulasiBukaKapas = \App\Models\Inokulasi::with('sterilisasi.baglog')
+        $inokulasiBukaKapas = \App\Models\Inokulasi::with('sterilisasi.bibit')
             ->where('status_buka_kapas', false)
             ->where('tanggal', '<=', now()->subDays(40))
             ->get();
 
         // Pipeline Production Indicators
-        $pipelineStokBaglog = \App\Models\Baglog::doesntHave('sterilisasis')->orderBy('created_at', 'asc')->get();
-        $pipelinePendinginan = \App\Models\Sterilisasi::with('baglog')->doesntHave('inokulasis')->whereDate('tanggal', today())->orderBy('created_at', 'asc')->get();
-        $pipelineSiapInokulasi = \App\Models\Sterilisasi::with('baglog')->doesntHave('inokulasis')->whereDate('tanggal', '<', today())->orderBy('created_at', 'asc')->get();
-        $pipelineInkubasi = \App\Models\Inokulasi::with('sterilisasi.baglog')->whereDoesntHave('logInkubasis', function ($q) {
+        $pipelineStokBaglog = \App\Models\Bibit::doesntHave('sterilisasis')->orderBy('created_at', 'asc')->get();
+        $pipelinePendinginan = \App\Models\Sterilisasi::with('bibit')->doesntHave('inokulasis')->whereDate('tanggal', today())->orderBy('created_at', 'asc')->get();
+        $pipelineSiapInokulasi = \App\Models\Sterilisasi::with('bibit')->doesntHave('inokulasis')->whereDate('tanggal', '<', today())->orderBy('created_at', 'asc')->get();
+        $pipelineInkubasi = \App\Models\Inokulasi::with('sterilisasi.bibit')->whereDoesntHave('logInkubasis', function ($q) {
             $q->where('persentase_tumbuh', 100);
         })->orderBy('created_at', 'asc')->get();
-        $pipelineSiapPanen = \App\Models\Inokulasi::with('sterilisasi.baglog')
+        $pipelineSiapPanen = \App\Models\Inokulasi::with('sterilisasi.bibit')
             ->whereHas('productionReports', function($q) {
                 $q->where('status_validasi', '!=', 'dibatalkan');
-            }, '<', 5)
+            }, '<', 7)
             ->where(function ($q) {
             $q->whereHas('logInkubasis', function ($q2) {
                 $q2->where('persentase_tumbuh', 100);
@@ -85,12 +86,12 @@ class PetugasDashboardController extends Controller
                     ->exists();
 
                 if (!$existingWarning) {
-                    $kode = $inokulasi->sterilisasi->baglog->kode_batch ?? $inokulasi->id;
+                    $kode = $inokulasi->sterilisasi->bibit->kode_bibit ?? $inokulasi->id;
                     \App\Models\Peringatan::create([
                         'kategori' => 'Panen',
                         'referensi_id' => $inokulasi->id,
                         'level' => 'Kritis',
-                        'pesan' => "Batch #{$kode} sudah {$hariTelat} hari tidak dipanen (Batas EWS: {$maksHariPanen} hari). Segera panen sebelum layu!",
+                        'pesan' => "Batch Bibit F2 #{$kode} sudah {$hariTelat} hari tidak dipanen (Batas EWS: {$maksHariPanen} hari). Segera panen sebelum layu!",
                         'is_read' => false,
                     ]);
                 }
@@ -106,8 +107,22 @@ class PetugasDashboardController extends Controller
 
         // Ambil data sterilisasi yang berisiko untuk notifikasi
         $sterilisasiBerisiko = \App\Models\Sterilisasi::where('status_sterilisasi', 'berisiko')
-            ->with('baglog')
+            ->with('bibit')
             ->get();
+
+        // Ambil data stok bibit yang dialokasikan oleh Admin ke Petugas ini (hilang dari dashboard setelah dipanen)
+        $bibitAlokasi = \App\Models\Bibit::with(['sterilisasis', 'inokulasis'])
+            ->where('user_id', auth()->id())
+            ->whereDoesntHave('inokulasis.productionReports', function ($q) {
+                $q->where('status_validasi', '!=', 'dibatalkan');
+            })
+            ->whereDoesntHave('sterilisasis.inokulasis.productionReports', function ($q) {
+                $q->where('status_validasi', '!=', 'dibatalkan');
+            })
+            ->orderBy('tanggal_masuk', 'desc')
+            ->get();
+        $totalBibitDiterima = $bibitAlokasi->sum('jumlah');
+        $totalBibitSisa = $bibitAlokasi->sum('sisa_stok');
 
         return view('petugas.dashboard', compact(
             'reportsBulanIni',
@@ -121,7 +136,10 @@ class PetugasDashboardController extends Controller
             'pipelineSiapInokulasi',
             'pipelineInkubasi',
             'pipelineSiapPanen',
-            'sterilisasiBerisiko'
+            'sterilisasiBerisiko',
+            'bibitAlokasi',
+            'totalBibitDiterima',
+            'totalBibitSisa'
         ));
     }
 

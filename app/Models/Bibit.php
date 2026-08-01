@@ -16,6 +16,7 @@ class Bibit extends Model
         'tanggal_masuk',
         'jumlah',
         'sisa_stok',
+        'banyak_baglog',
         'status',
     ];
 
@@ -24,8 +25,13 @@ class Bibit extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function baglogs()
+    public function sterilisasis()
     {
-        return $this->hasMany(Baglog::class);
+        return $this->hasMany(Sterilisasi::class);
+    }
+
+    public function inokulasis()
+    {
+        return $this->hasMany(Inokulasi::class);
     }
 }

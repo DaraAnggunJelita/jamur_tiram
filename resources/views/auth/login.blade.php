@@ -10,7 +10,7 @@
 <div class="w-full max-w-[360px] mx-auto flex flex-col justify-center px-4 py-6 font-sans">
 
  <div class="mb-6">
- <h1 class="text-2xl font-bold text-[#064E3B] sm:text-3xl">
+ <h1 class="text-base font-bold text-[#064E3B] sm:text-lg">
  Selamat Datang Kembali
  </h1>
  <p class="mt-1.5 text-xs text-[#047857] leading-relaxed font-medium">

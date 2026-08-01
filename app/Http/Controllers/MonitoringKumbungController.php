@@ -45,7 +45,6 @@ class MonitoringKumbungController extends Controller
             'inokulasi_id' => 'required|exists:inokulasis,id',
             'tanggal' => 'required|date',
             'kondisi_udara' => 'required|in:Sejuk,Hangat,Panas/Gersang',
-            'kondisi_lantai' => 'required|in:Basah/Lembab,Kering',
             'jumlah_penyiraman' => 'required|integer|min:0',
         ]);
 
@@ -54,7 +53,7 @@ class MonitoringKumbungController extends Controller
             'user_id' => Auth::id(),
             'tanggal' => $request->tanggal,
             'kondisi_udara' => $request->kondisi_udara,
-            'kondisi_lantai' => $request->kondisi_lantai,
+            'kondisi_lantai' => 'Basah/Lembab', // Default otomatis
             'jumlah_penyiraman' => $request->jumlah_penyiraman,
         ]);
 
@@ -74,12 +73,12 @@ class MonitoringKumbungController extends Controller
                 'pesan' => "Kumbung " . $monitoring->inokulasi_id . " KRITIS/BAHAYA! Udara panas/gersang dan penyiraman kurang (<= 1x). Segera lakukan tindakan ekstra.",
                 'is_read' => false,
             ]);
-        } elseif ($request->kondisi_udara === 'Panas/Gersang' || $request->kondisi_lantai === 'Kering') {
+        } elseif ($request->kondisi_udara === 'Panas/Gersang') {
             Peringatan::create([
                 'kategori' => 'Kumbung',
                 'referensi_id' => $monitoring->id,
                 'level' => 'Waspada',
-                'pesan' => "Kumbung " . $monitoring->inokulasi_id . " berisiko. Udara panas/lantai kering. Pastikan penyiraman cukup.",
+                'pesan' => "Kumbung " . $monitoring->inokulasi_id . " berisiko. Udara panas/gersang. Pastikan penyiraman cukup.",
                 'is_read' => false,
             ]);
         } elseif ($request->kondisi_udara === 'Hangat' && $request->jumlah_penyiraman < 2) {

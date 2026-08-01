@@ -16,8 +16,16 @@ class UserController extends Controller
      */
     public function index(): View
     {
-        $users = User::latest()->get();
+        $users = User::latest()->paginate(10);
         return view('admin.users.index', compact('users'));
+    }
+
+    /**
+     * Tampilkan form pembuatan Akun Pengguna KUPS baru.
+     */
+    public function create(): View
+    {
+        return view('admin.users.create');
     }
 
     /**

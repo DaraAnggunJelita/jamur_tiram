@@ -1,16 +1,22 @@
-﻿<x-app-layout>
+<x-app-layout>
  <x-slot name="header">
  <div class="flex items-center justify-between font-sans">
- <h2 class="font-bold text-2xl text-[#064E3B] leading-tight">
- {{ __('Kelola Pengguna & Anggota KUPS') }}
- </h2>
+    <div class="flex items-center gap-3">
+        <a href="{{ route('admin.dashboard') }}" 
+            class="inline-flex items-center justify-center w-8 h-8 rounded-xl border border-[#E5E7EB] bg-white hover:bg-[#F3F4F6] text-[#4B5563] transition cursor-pointer"
+            title="Kembali ke Dashboard">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        </a>
+        <h2 class="font-bold text-base text-[#064E3B] leading-tight">
+            {{ __('Kelola Pengguna & Anggota KUPS') }}
+        </h2>
+    </div>
  <span class="bg-[#E6DAC2] text-[#047857] text-xs font-bold px-3 py-1 rounded-full border border-[#E5E7EB]/60">
  Mode Admin
  </span>
  </div>
  </x-slot>
-
- <div class="py-8 bg-[#F3F5F4] min-h-screen text-[#064E3B]" x-data="{ openCreateModal: false }">
+ <div class="py-8 bg-[#F3F5F4] min-h-screen text-[#064E3B]">
  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
  {{-- Notifikasi Sukses --}}
@@ -42,17 +48,15 @@
  {{-- Daftar Pengguna (Full Width) --}}
  <div class="bg-[#FFFFFF] shadow-xs rounded-2xl border border-[#E5E7EB]/40 p-6">
  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 mb-5 border-b border-[#E5E7EB]/20">
- <div class="flex items-center space-x-2.5">
- <div class="w-8 h-8 bg-[#F3F5F4] rounded-lg flex items-center justify-center text-[#047857] text-lg">
- <svg class='w-6 h-6 inline-block' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'/></svg>
+ <div>
+ <h3 class="text-lg font-bold text-[#064E3B]">Daftar Akun Pengguna</h3>
+ <p class="text-sm text-[#6B7280]">Daftar riwayat akun pengguna sistem yang terdaftar.</p>
  </div>
- <h3 class="text-base font-bold text-[#064E3B]">Daftar Akun Pengguna</h3>
- </div>
- <button @click="openCreateModal = true"
- class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#059669] hover:bg-[#047857] text-white text-xs font-bold rounded-xl transition duration-150 shadow-md shadow-[#059669]/10 transform hover:-translate-y-0.5 self-start sm:self-center cursor-pointer">
- <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
- Tambah Pengguna
- </button>
+ <a href="{{ route('admin.users.create') }}"
+ class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 bg-[#059669] hover:bg-[#047857] text-white text-xs font-bold rounded-xl transition duration-150 shadow-md shadow-[#059669]/10 cursor-pointer self-start sm:self-center">
+ <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+ <span>Tambah Pengguna Baru</span>
+ </a>
  </div>
 
  <div class="overflow-x-auto rounded-xl border border-[#E5E7EB]/30 bg-white">
@@ -140,76 +144,8 @@
  </tbody>
  </table>
  </div>
- </div>
-
- {{-- Modal Tambah Pengguna --}}
- <div x-show="openCreateModal"
- class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#064E3B]/70 backdrop-blur-xs"
- x-transition:enter="transition ease-out duration-200"
- x-transition:enter-start="opacity-0"
- x-transition:enter-end="opacity-100"
- x-transition:leave="transition ease-in duration-150"
- x-transition:leave-start="opacity-100"
- x-transition:leave-end="opacity-0"
- x-cloak>
- <div @click.away="openCreateModal = false"
- class="bg-[#FFFFFF] rounded-2xl border border-[#E5E7EB]/60 p-6 max-w-md w-full shadow-2xl relative animate-fadeIn text-[#064E3B]">
-
- <button @click="openCreateModal = false" class="absolute top-4 right-4 text-[#6B7280] hover:text-[#064E3B] transition cursor-pointer">
- <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
- <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/>
- </svg>
- </button>
-
- <div class="flex items-center space-x-2.5 pb-4 mb-5 border-b border-[#E5E7EB]/20">
- <div class="w-8 h-8 bg-[#34D399]/15 rounded-lg flex items-center justify-center text-[#059669] text-base">
- <svg class='w-6 h-6 inline-block' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'/></svg>
- </div>
- <h3 class="text-base font-bold text-[#064E3B]">Tambah Akun Pengguna</h3>
- </div>
-
- <form action="{{ route('admin.users.store') }}" method="POST" class="space-y-4">
- @csrf
- <div>
- <label for="name" class="block text-xs font-bold text-[#047857] mb-1.5">Nama Lengkap</label>
- <input type="text" id="name" name="name" placeholder="Nama Lengkap Pengguna"
- class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-0 text-sm py-2.5 text-[#064E3B]" required>
- @error('name')<p class="text-[#F59E0B] text-xs font-bold mt-1 font-sans">{{ $message }}</p>@enderror
- </div>
- <div>
- <label for="email" class="block text-xs font-bold text-[#047857] mb-1.5">Alamat Email</label>
- <input type="email" id="email" name="email" placeholder="contoh@kups.com"
- class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-0 text-sm py-2.5 text-[#064E3B]" required>
- @error('email')<p class="text-[#F59E0B] text-xs font-bold mt-1 font-sans">{{ $message }}</p>@enderror
- </div>
- <div>
- <label for="password" class="block text-xs font-bold text-[#047857] mb-1.5">Kata Sandi (Password)</label>
- <input type="password" id="password" name="password" placeholder="Min. 8 karakter"
- class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-0 text-sm py-2.5 text-[#064E3B]" required>
- @error('password')<p class="text-[#F59E0B] text-xs font-bold mt-1 font-sans">{{ $message }}</p>@enderror
- </div>
- <div>
- <label for="role" class="block text-xs font-bold text-[#047857] mb-1.5">Role / Hak Akses</label>
- <select id="role" name="role"
- class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-0 text-sm py-2.5 text-[#064E3B] font-bold" required>
- <option value="petugas">Petugas Harian (Input Panen)</option>
- <option value="ketua">Ketua KUPS (Melihat Laporan & Grafik)</option>
- <option value="admin">Administrator (Kelola Sistem)</option>
- </select>
- @error('role')<p class="text-[#F59E0B] text-xs font-bold mt-1 font-sans">{{ $message }}</p>@enderror
- </div>
-
- <div class="pt-4 border-t border-[#E5E7EB]/20 flex justify-end gap-3">
- <button type="button" @click="openCreateModal = false"
- class="px-4 py-2.5 text-sm font-bold text-[#6B7280] hover:text-[#064E3B] transition cursor-pointer">
- Batal
- </button>
- <button type="submit"
- class="py-2.5 px-5 bg-[#059669] hover:bg-[#047857] text-white text-sm font-bold rounded-xl transition duration-150 shadow-md shadow-[#059669]/10 transform hover:-translate-y-0.5 cursor-pointer">
- Buat Akun
- </button>
- </div>
- </form>
+ <div class="mt-4 px-2">
+     {{ $users->links() }}
  </div>
  </div>
 

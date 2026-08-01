@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Baglog;
+use App\Models\Bibit;
 use App\Models\Sterilisasi;
 use App\Models\Peringatan;
 use Illuminate\Http\Request;
@@ -12,13 +12,16 @@ class SterilisasiController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Sterilisasi::with(['baglog', 'user']);
+        $query = Sterilisasi::with(['bibit.user', 'user']);
 
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
-                $q->whereHas('baglog', function($baglogQuery) use ($search) {
-                      $baglogQuery->where('kode_batch', 'LIKE', '%' . $search . '%');
+                $q->whereHas('bibit', function($bibitQuery) use ($search) {
+                      $bibitQuery->where('kode_bibit', 'LIKE', '%' . $search . '%')
+                                 ->orWhereHas('user', function($u) use ($search) {
+                                     $u->where('name', 'LIKE', '%' . $search . '%');
+                                 });
                   })
                   ->orWhereHas('user', function($userQuery) use ($search) {
                       $userQuery->where('name', 'LIKE', '%' . $search . '%');
@@ -37,60 +40,42 @@ class SterilisasiController extends Controller
 
     public function create()
     {
-        // Hanya tampilkan batch baglog yang belum pernah disterilisasi
-        $baglogs = Baglog::whereDoesntHave('sterilisasis')
-                    ->orderBy('created_at', 'desc')
-                    ->get();
-        return view('sterilisasi.create', compact('baglogs'));
+        // Tampilkan alokasi bibit yang belum pernah disterilisasi
+        $query = Bibit::whereDoesntHave('sterilisasis')->orderBy('created_at', 'desc');
+        if (Auth::user()->role === 'petugas') {
+            $query->where('user_id', Auth::id());
+        }
+        $bibits = $query->get();
+
+        return view('sterilisasi.create', compact('bibits'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'baglog_id' => 'required|exists:baglogs,id',
+            'bibit_id' => 'required|exists:bibits,id',
             'tanggal' => 'required|date',
-            'durasi_pengukusan' => 'required|integer|min:1',
-            'kondisi_air' => 'required|in:Aman,Menipis,Habis',
-            'kestabilan_api' => 'required|in:Stabil-Besar,Mengecil,Padam',
+            'durasi_pengukusan' => 'required|numeric|min:0.1',
         ]);
 
-        $status = 'aman';
-        $kritis = false;
-        $pesanEws = '';
-
-        // Logika EWS berdasarkan durasi pengukusan
-        if ($request->durasi_pengukusan < 7) {
-            $status = 'berisiko';
-            $kritis = true;
-            $pesanEws .= "Durasi pengukusan kurang dari 7 jam! ";
-        } else {
-            $status = 'aman';
-        }
-
-        // Tambahan logika risiko dari parameter lain (opsional)
-        if ($request->kestabilan_api !== 'Stabil-Besar') {
-            $status = 'berisiko';
-            $kritis = true;
-            $pesanEws .= "Api " . $request->kestabilan_api . "! Risiko kontaminasi tinggi.";
-        }
+        $status = ($request->durasi_pengukusan < 7) ? 'berisiko' : 'aman';
 
         $sterilisasi = Sterilisasi::create([
-            'baglog_id' => $request->baglog_id,
+            'bibit_id' => $request->bibit_id,
             'user_id' => Auth::id(),
             'tanggal' => $request->tanggal,
             'durasi_pengukusan' => $request->durasi_pengukusan,
-            'kondisi_air' => $request->kondisi_air,
-            'kestabilan_api' => $request->kestabilan_api,
+            'kondisi_air' => 'Aman',
+            'kestabilan_api' => 'Stabil-Besar',
             'status_sterilisasi' => $status,
         ]);
 
-        // Trigger EWS
-        if ($kritis) {
+        if ($status === 'berisiko') {
             Peringatan::create([
                 'kategori' => 'Sterilisasi',
                 'referensi_id' => $sterilisasi->id,
                 'level' => 'Kritis',
-                'pesan' => "Peringatan Batch Baglog #" . $sterilisasi->baglog_id . ": " . $pesanEws,
+                'pesan' => "Peringatan Sterilisasi Bibit #" . $sterilisasi->bibit_id . ": Durasi pengukusan kurang dari 7 jam ($request->durasi_pengukusan jam)!",
             ]);
         }
 
@@ -117,59 +102,47 @@ class SterilisasiController extends Controller
     public function edit($id)
     {
         $sterilisasi = Sterilisasi::findOrFail($id);
-        $baglogs = Baglog::orderBy('created_at', 'desc')->get();
-        return view('sterilisasi.edit', compact('sterilisasi', 'baglogs'));
+
+        $query = Bibit::orderBy('created_at', 'desc');
+        if (Auth::user()->role === 'petugas') {
+            $query->where('user_id', Auth::id());
+        }
+        $bibits = $query->get();
+
+        return view('sterilisasi.edit', compact('sterilisasi', 'bibits'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'baglog_id' => 'required|exists:baglogs,id',
+            'bibit_id' => 'required|exists:bibits,id',
             'tanggal' => 'required|date',
-            'durasi_pengukusan' => 'required|integer|min:1',
-            'kondisi_air' => 'required|in:Aman,Menipis,Habis',
-            'kestabilan_api' => 'required|in:Stabil-Besar,Mengecil,Padam',
+            'durasi_pengukusan' => 'required|numeric|min:0.1',
         ]);
 
         $sterilisasi = Sterilisasi::findOrFail($id);
-        
-        $status = 'aman';
-        $kritis = false;
-        $pesanEws = '';
-
-        if ($request->durasi_pengukusan < 7) {
-            $status = 'berisiko';
-            $kritis = true;
-            $pesanEws .= "Durasi pengukusan kurang dari 7 jam! ";
-        }
-
-        if ($request->kestabilan_api !== 'Stabil-Besar') {
-            $status = 'berisiko';
-            $kritis = true;
-            $pesanEws .= "Api " . $request->kestabilan_api . "! Risiko kontaminasi tinggi.";
-        }
+        $status = ($request->durasi_pengukusan < 7) ? 'berisiko' : 'aman';
 
         $sterilisasi->update([
-            'baglog_id' => $request->baglog_id,
+            'bibit_id' => $request->bibit_id,
             'tanggal' => $request->tanggal,
             'durasi_pengukusan' => $request->durasi_pengukusan,
-            'kondisi_air' => $request->kondisi_air,
-            'kestabilan_api' => $request->kestabilan_api,
+            'kondisi_air' => 'Aman',
+            'kestabilan_api' => 'Stabil-Besar',
             'status_sterilisasi' => $status,
         ]);
 
-        // Auto-resolve peringatan sterilisasi sebelumnya untuk batch ini
         Peringatan::where('kategori', 'Sterilisasi')
             ->where('referensi_id', $sterilisasi->id)
             ->where('is_read', false)
             ->update(['is_read' => true]);
 
-        if ($kritis) {
+        if ($status === 'berisiko') {
             Peringatan::create([
                 'kategori' => 'Sterilisasi',
                 'referensi_id' => $sterilisasi->id,
                 'level' => 'Kritis',
-                'pesan' => "Peringatan (Update) Batch Baglog #" . $sterilisasi->baglog_id . ": " . $pesanEws,
+                'pesan' => "Peringatan (Update) Sterilisasi Bibit #" . $sterilisasi->bibit_id . ": Durasi pengukusan kurang dari 7 jam ($request->durasi_pengukusan jam)!",
             ]);
         }
 
@@ -180,12 +153,12 @@ class SterilisasiController extends Controller
     {
         $sterilisasi = Sterilisasi::findOrFail($id);
         $sterilisasi->update([
-            'durasi_pengukusan' => 0,
+            'durasi_pengukusan' => 8,
             'kondisi_air' => 'Aman',
             'kestabilan_api' => 'Stabil-Besar',
             'status_sterilisasi' => 'aman'
         ]);
 
-        return redirect()->route('sterilisasi.edit', $id)->with('success', 'Silakan inputkan ulang data durasi pengukusan yang benar untuk batch ini.');
+        return redirect()->route('sterilisasi.index')->with('success', 'Batch berhasil dikukus ulang dengan durasi standar 8 jam.');
     }
 }

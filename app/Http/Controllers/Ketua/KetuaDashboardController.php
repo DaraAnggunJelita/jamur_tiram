@@ -52,7 +52,7 @@ class KetuaDashboardController extends Controller
             ->get();
 
         // Pipeline Production Indicators
-        $pipelineStokBaglog = \App\Models\Baglog::doesntHave('sterilisasis')->count();
+        $pipelineStokBaglog = \App\Models\Bibit::doesntHave('sterilisasis')->count();
         $pipelinePendinginan = \App\Models\Sterilisasi::doesntHave('inokulasis')->whereDate('tanggal', today())->count();
         $pipelineSiapInokulasi = \App\Models\Sterilisasi::doesntHave('inokulasis')->whereDate('tanggal', '<', today())->count();
         $pipelineInkubasi = \App\Models\Inokulasi::whereDoesntHave('logInkubasis', function ($q) {
@@ -60,7 +60,7 @@ class KetuaDashboardController extends Controller
         })->count();
         $pipelineSiapPanen = \App\Models\Inokulasi::whereHas('productionReports', function($q) {
                 $q->where('status_validasi', '!=', 'dibatalkan');
-            }, '<', 5)
+            }, '<', 7)
             ->where(function ($q) {
             $q->whereHas('logInkubasis', function ($q2) {
                 $q2->where('persentase_tumbuh', 100);
@@ -85,15 +85,57 @@ class KetuaDashboardController extends Controller
     }
 
     /**
+     * Helper untuk memfilter query laporan berdasarkan periode (mingguan, bulanan, tahunan)
+     */
+    private function applyReportFilter(\Illuminate\Http\Request $request, $query, &$judulPeriode = null)
+    {
+        $tipe = $request->get('tipe', 'semua');
+        $tahun = $request->get('tahun', now()->year);
+        $bulan = $request->get('bulan', now()->month);
+        $minggu = $request->get('minggu', 1);
+
+        $namaBulan = [
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+        ];
+
+        if ($tipe === 'tahunan') {
+            $query->whereYear('tanggal', $tahun);
+            $judulPeriode = "Laporan Rekapitulasi Panen Tahun " . $tahun;
+        } elseif ($tipe === 'bulanan') {
+            $query->whereYear('tanggal', $tahun)
+                  ->whereMonth('tanggal', $bulan);
+            $judulPeriode = "Laporan Rekapitulasi Panen Bulan " . ($namaBulan[$bulan] ?? $bulan) . " " . $tahun;
+        } elseif ($tipe === 'mingguan') {
+            $query->whereYear('tanggal', $tahun)
+                  ->whereMonth('tanggal', $bulan);
+            
+            // Rentang tanggal per minggu (1-7, 8-14, 15-21, 22-28, 29-akhir)
+            $startDay = (($minggu - 1) * 7) + 1;
+            $endDay = $minggu == 5 ? 31 : $startDay + 6;
+
+            $query->whereDay('tanggal', '>=', $startDay)
+                  ->whereDay('tanggal', '<=', $endDay);
+
+            $judulPeriode = "Laporan Panen Minggu Ke-" . $minggu . " (" . ($namaBulan[$bulan] ?? $bulan) . " " . $tahun . ")";
+        } else {
+            $judulPeriode = "Laporan Rekapitulasi Keseluruhan Panen";
+        }
+
+        return $query;
+    }
+
+    /**
      * Ekspor laporan yang sudah divalidasi sebagai PDF menggunakan DomPDF.
      */
-    public function exportPdf()
+    public function exportPdf(\Illuminate\Http\Request $request)
     {
-        $reports = ProductionReport::with('user')
-            ->where('status_validasi', 'valid')
-            ->orderBy('tanggal', 'asc')
-            ->get();
+        $query = ProductionReport::with('user')->where('status_validasi', 'valid');
+        $judulPeriode = '';
+        $this->applyReportFilter($request, $query, $judulPeriode);
 
+        $reports = $query->orderBy('tanggal', 'asc')->get();
         $totalPanen = $reports->sum('jumlah_panen');
         $jumlahLaporan = $reports->count();
         $tanggalCetak = now()->isoFormat('D MMMM Y, HH:mm');
@@ -102,7 +144,8 @@ class KetuaDashboardController extends Controller
             'reports',
             'totalPanen',
             'jumlahLaporan',
-            'tanggalCetak'
+            'tanggalCetak',
+            'judulPeriode'
         ));
 
         $pdf->setPaper('A4', 'landscape');
@@ -113,12 +156,13 @@ class KetuaDashboardController extends Controller
     /**
      * Ekspor laporan ke format Excel (.xlsx) menggunakan PhpSpreadsheet.
      */
-    public function exportExcel()
+    public function exportExcel(\Illuminate\Http\Request $request)
     {
-        $reports = ProductionReport::with('user')
-            ->where('status_validasi', 'valid')
-            ->orderBy('tanggal', 'asc')
-            ->get();
+        $query = ProductionReport::with('user')->where('status_validasi', 'valid');
+        $judulPeriode = '';
+        $this->applyReportFilter($request, $query, $judulPeriode);
+
+        $reports = $query->orderBy('tanggal', 'asc')->get();
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -135,7 +179,7 @@ class KetuaDashboardController extends Controller
 
         // Sub-judul tanggal cetak
         $sheet->mergeCells('A2:F2');
-        $sheet->setCellValue('A2', 'LAPORAN REKAPITULASI PANEN HARIAN');
+        $sheet->setCellValue('A2', strtoupper($judulPeriode ?: 'LAPORAN REKAPITULASI PANEN HARIAN'));
         $sheet->getStyle('A2')->applyFromArray([
             'font' => ['bold' => true, 'size' => 12, 'color' => ['rgb' => '000000']],
             'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
@@ -242,87 +286,64 @@ class KetuaDashboardController extends Controller
     /**
      * Tampilkan halaman indeks laporan untuk Ketua (lihat + unduh).
      */
-    public function reports()
+    public function reports(\Illuminate\Http\Request $request)
     {
-        $reports = ProductionReport::with('user')
-            ->orderBy('tanggal', 'desc')
-            ->get();
+        $query = ProductionReport::with('user');
+        $judulPeriode = '';
+        $this->applyReportFilter($request, $query, $judulPeriode);
 
-        $totalValid   = $reports->where('status_validasi', 'valid')->count();
-        $totalPending = $reports->where('status_validasi', 'pending')->count();
-        $totalPanen   = $reports->where('status_validasi', 'valid')->sum('jumlah_panen');
+        if ($search = $request->get('search')) {
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+            });
+        }
 
-        return view('ketua.reports.index', compact('reports', 'totalValid', 'totalPending', 'totalPanen'));
+        // Hitung total dari query builder sebelum pagination
+        $statsQuery = clone $query;
+        $totalValid   = (clone $statsQuery)->where('status_validasi', 'valid')->count();
+        $totalPending = (clone $statsQuery)->where('status_validasi', 'pending')->count();
+        $totalPanen   = (clone $statsQuery)->where('status_validasi', 'valid')->sum('jumlah_panen');
+
+        $reports = $query->orderBy('tanggal', 'desc')->paginate(10)->withQueryString();
+
+        $tipe = $request->get('tipe', 'semua');
+        $tahun = $request->get('tahun', now()->year);
+        $bulan = $request->get('bulan', now()->month);
+        $minggu = $request->get('minggu', 1);
+
+        return view('ketua.reports.index', compact('reports', 'totalValid', 'totalPending', 'totalPanen', 'judulPeriode', 'tipe', 'tahun', 'bulan', 'minggu'));
     }
 
     /**
      * Tampilkan versi printable (preview) tanpa mendownload.
      */
-    public function printable()
+    public function printable(\Illuminate\Http\Request $request)
     {
-        $reports = ProductionReport::with('user')
-            ->orderBy('tanggal', 'asc')
-            ->get();
+        $query = ProductionReport::with('user');
+        $judulPeriode = '';
+        $this->applyReportFilter($request, $query, $judulPeriode);
 
-        return view('ketua.reports.printable', compact('reports'));
-    }
+        $reports = $query->orderBy('tanggal', 'asc')->get();
 
-    /**
-     * TRACEABILITY: Melacak riwayat hulu-hilir suatu batch baglog
-     */
-    public function lacakBatch($baglog_id)
-    {
-        // 1. Ambil data Baglog
-        $baglog = \App\Models\Baglog::with('user')->findOrFail($baglog_id);
-
-        // 2. Ambil data Sterilisasi yang terkait dengan baglog ini
-        $sterilisasi = \App\Models\Sterilisasi::where('baglog_id', $baglog_id)->with('user')->first();
-
-        $inokulasi = null;
-        $monitoring = null;
-        $panen = null;
-
-        if ($sterilisasi) {
-            // 3. Ambil Inokulasi dari sterilisasi tersebut
-            $inokulasi = \App\Models\Inokulasi::where('sterilisasi_id', $sterilisasi->id)->with('user')->first();
-            
-            if ($inokulasi) {
-                // 4. Ambil Riwayat Monitoring (Bisa lebih dari 1, kita ambil listnya)
-                $monitoring = \App\Models\MonitoringKumbung::where('inokulasi_id', $inokulasi->id)->with('user')->orderBy('tanggal', 'desc')->get();
-                
-                // 5. Ambil Laporan Panen dari batch inokulasi ini
-                $panen = \App\Models\ProductionReport::where('inokulasi_id', $inokulasi->id)->with('user')->get();
-            }
-        }
-
-        // 6. Return ke view investigasi (Traceability)
-        return view('ketua.traceability.detail', compact(
-            'baglog', 
-            'sterilisasi', 
-            'inokulasi', 
-            'monitoring', 
-            'panen'
-        ));
-    }
-
-    /**
-     * TRACEABILITY: Halaman Index pencarian batch
-     */
-    public function traceabilityIndex()
-    {
-        $baglogs = \App\Models\Baglog::with('user')->orderBy('tanggal_pembuatan', 'desc')->get();
-        return view('ketua.traceability.index', compact('baglogs'));
+        return view('ketua.reports.printable', compact('reports', 'judulPeriode'));
     }
 
     /**
      * VERIFIKASI: Halaman Index laporan panen pending
      */
-    public function verifikasiIndex()
+    public function verifikasiIndex(\Illuminate\Http\Request $request)
     {
-        $reports = \App\Models\ProductionReport::with('user', 'inokulasi.sterilisasi.baglog')
+        $query = \App\Models\ProductionReport::with('user', 'inokulasi.sterilisasi.bibit')
             ->orderBy('status_validasi', 'asc') // Munculkan pending terlebih dahulu
-            ->orderBy('tanggal', 'desc')
-            ->get();
+            ->latest();
+
+        if ($search = $request->get('search')) {
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+            });
+        }
+            
+        $reports = $query->paginate(10)->withQueryString();
             
         return view('ketua.verifikasi.index', compact('reports'));
     }
@@ -356,9 +377,29 @@ class KetuaDashboardController extends Controller
     /**
      * Tampilkan pemantauan stok bibit untuk Ketua.
      */
-    public function pantauStokBibit(): View
+    public function pantauStokBibit(\Illuminate\Http\Request $request): View
     {
-        $bibits = \App\Models\Bibit::with('user')->orderBy('tanggal_masuk', 'desc')->get();
-        return view('ketua.bibit.pantau_stok', compact('bibits'));
+        $query = \App\Models\Bibit::with('user')->latest();
+        
+        if ($search = $request->get('search')) {
+            $query->where('kode_bibit', 'like', "%{$search}%")
+                  ->orWhere('asal_bibit', 'like', "%{$search}%")
+                  ->orWhereHas('user', function ($q) use ($search) {
+                      $q->where('name', 'like', "%{$search}%");
+                  });
+        }
+
+        $bibits = $query->paginate(10)->withQueryString();
+
+        // Rekapitulasi pasokan global (5 terbaru)
+        $batches = \App\Models\Bibit::select('tanggal_masuk', 'asal_bibit')
+            ->selectRaw('SUM(jumlah) as total_batch')
+            ->selectRaw('SUM(sisa_stok) as sisa_batch')
+            ->groupBy('tanggal_masuk', 'asal_bibit')
+            ->orderBy('tanggal_masuk', 'desc')
+            ->limit(5)
+            ->get();
+
+        return view('ketua.bibit.pantau_stok', compact('bibits', 'batches'));
     }
 }

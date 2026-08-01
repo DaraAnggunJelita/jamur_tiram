@@ -14,51 +14,38 @@
 
  @vite(['resources/css/app.css','resources/js/app.js'])
 
- <style>
- /* Variabel Warna KUPS Harapan Asri */
- :root {
- --paper: #F3F5F4;
- --paper-2: #FFFFFF;
- --ink: #064E3B;
- --tan: #E5E7EB;
- --moss: #059669;
- --moss-light: #34D399;
- }
+  <style>
+    /* Variabel Warna KUPS Harapan Asri */
+    :root {
+      --paper: #F3F5F4;
+      --paper-2: #FFFFFF;
+      --ink: #064E3B;
+      --tan: #E5E7EB;
+      --moss: #059669;
+      --moss-light: #34D399;
+    }
 
- body {
- font-family:'Inter', sans-serif;
- }
- h1, h2, h3, h4, . {
- font-family:'Fraunces', serif;
- font-optical-sizing: auto;
- }
- . {
- font-family:'JetBrains Mono', monospace;
- }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
 
- /* Custom scrollbar bertema alam sirkular */
- ::-webkit-scrollbar { width: 5px; }
- ::-webkit-scrollbar-track { background: transparent; }
- ::-webkit-scrollbar-thumb { background: var(--tan); border-radius: 10px; }
- ::-webkit-scrollbar-thumb:hover { background: var(--moss-light); }
- </style>
+    /* Custom scrollbar bertema alam sirkular */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #059669; }
+  </style>
  </head>
  <body class="font-sans antialiased text-[var(--ink)] bg-[#F3F5F4] selection:bg-[#059669] selection:text-white" x-data="{ sidebarOpen: false }">
  <div class="min-h-screen bg-[#F3F5F4]">
 
  @include('layouts.sidebar')
 
- <div class="md:pl-64 lg:pl-72 flex flex-col min-h-screen">
+ <div class="md:pl-56 lg:pl-60 flex flex-col min-h-screen">
 
  @include('layouts.topbar')
 
- @isset($header)
- <header class="bg-[#FFFFFF] border-b border-[#E5E7EB]/40 shadow-xs">
- <div class="max-w-full py-5 px-4 sm:px-6 lg:px-8">
- {{ $header }}
- </div>
- </header>
- @endisset
+
 
  <main class="flex-1 bg-[#F3F5F4]">
  @isset($slot)

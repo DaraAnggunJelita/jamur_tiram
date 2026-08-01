@@ -6,7 +6,7 @@
  class="inline-flex items-center justify-center w-9 h-9 rounded-xl border border-[#E5E7EB]/60 bg-[#FFFFFF] hover:bg-[#E6DAC2]/60 text-[#047857] transition duration-150 shadow-xs cursor-pointer">
  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
  </button>
- <h2 class="font-bold text-2xl text-[#064E3B] leading-tight">
+ <h2 class="font-bold text-base text-[#064E3B] leading-tight">
  {{ __('Tambah Produk Katalog') }}
  </h2>
  </div>

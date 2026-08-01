@@ -2,16 +2,10 @@
  <x-slot name="header">
  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
  <div>
- <h2 class="font-bold text-2xl text-[#064E3B] leading-tight">
- {{ __('Dashboard Administrator') }}
- </h2>
+  <h2 class="font-bold text-base text-[#064E3B] leading-tight">
+  {{ __('Dashboard Administrator') }}
+  </h2>
  <p class="text-xs text-[#047857] mt-0.5 font-medium">Kelola verifikasi pasokan masuk dan otentikasi data KUPS Harapan Asri</p>
- </div>
- <div class="flex items-center self-start sm:self-center">
- <span class="inline-flex items-center gap-1.5 bg-gradient-to-r from-[#047857] to-[#059669] text-white text-[10px] font-bold px-3.5 py-1.5 rounded-xl shadow-md shadow-[#059669]/20">
- <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
- Sistem Validasi Utama
- </span>
  </div>
  </div>
  </x-slot>

@@ -13,8 +13,6 @@
  elseif (request()->routeIs('petugas.laporan-panen.edit')) $pageTitle ='Edit Laporan Hasil Panen';
  elseif (request()->routeIs('petugas.laporan-panen.*')) $pageTitle ='Kelola Laporan Panen';
  elseif (request()->routeIs('ketua.dashboard')) $pageTitle ='Tren & Laporan Hasil Panen';
- elseif (request()->routeIs('baglog.create')) $pageTitle ='Log Kondisi Kumbung';
- elseif (request()->routeIs('baglog.*')) $pageTitle ='Pemantauan Baglog';
  elseif (request()->routeIs('jadwal-panen.create')) $pageTitle ='Atur Perkiraan Panen';
  elseif (request()->routeIs('jadwal-panen.*')) $pageTitle ='Agenda Jadwal Panen';
  elseif (request()->routeIs('profile.*')) $pageTitle ='Pengaturan Profil Akun';
@@ -28,7 +26,7 @@
  };
 @endphp
 
-<header class="bg-[#FFFFFF]/80 backdrop-blur-md border-b border-[#E5E7EB]/40 sticky top-0 z-30 h-16 flex items-center justify-between px-4 sm:px-6 shrink-0 shadow-xs font-sans text-[#064E3B]">
+<header class="bg-[#FFFFFF]/90 backdrop-blur-md border-b border-[#E5E7EB]/40 sticky top-0 z-30 py-4 flex items-center justify-between px-4 sm:px-6 shrink-0 shadow-xs font-sans text-[#064E3B] min-h-[4rem]">
 
  <div class="flex items-center gap-4 min-w-0">
 
@@ -48,25 +46,14 @@
  <span class="font-bold text-[#064E3B] text-xs leading-tight">KUPS Harapan Asri</span>
  </div>
 
- <nav class="hidden md:flex items-center gap-1.5 text-xs font-bold min-w-0" aria-label="Breadcrumb">
- <span class="text-[#6B7280] truncate">{{ $roleLabel }}</span>
- <svg class="w-3.5 h-3.5 text-[#E5E7EB] shrink-0" fill="currentColor" viewBox="0 0 20 20">
- <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
- </svg>
- <span class="text-[#064E3B] font-bold truncate text-sm">{{ $pageTitle }}</span>
- </nav>
+  <div class="hidden md:block">
+      {{ $header ?? '' }}
+  </div>
 
  </div>
 
  <div class="flex items-center gap-3 shrink-0">
 
- <div class="hidden sm:flex items-center gap-1.5 bg-[#34D399]/10 border border-[#34D399]/30 px-3 py-1.5 rounded-full">
- <span class="relative flex h-2 w-2">
- <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#059669] opacity-75"></span>
- <span class="relative inline-flex rounded-full h-2 w-2 bg-[#059669]"></span>
- </span>
- <span class="text-[9px] text-[#047857] font-bold">Sistem Online</span>
- </div>
 
  <x-dropdown align="right" width="48">
  <x-slot name="trigger">

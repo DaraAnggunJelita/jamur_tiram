@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class LogInkubasi extends Model
 {
+    protected $touches = ['inokulasi'];
+
     protected $fillable = [
         'inokulasi_id',
         'user_id',

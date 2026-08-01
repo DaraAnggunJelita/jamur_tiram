@@ -1,0 +1,84 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+skinparam usecase {
+    BackgroundColor white
+    BorderColor black
+}
+
+actor Admin
+actor "Ketua KUPS" as Ketua
+actor Petugas
+actor Umum
+
+rectangle "Usecase Jamur Tiram" {
+    usecase "Kelola Profile KUPS" as UC_Profile
+    usecase "Kelola Akun Pengguna" as UC_Akun
+    usecase "Kelola Katalog Produk" as UC_Katalog
+    usecase "Melihat Dashboard Admin" as UC_DashAdmin
+    usecase "Kelola Data Bibit" as UC_Bibit
+    usecase "Kelola Pengaturan EWS" as UC_EWS
+    
+    usecase "Melihat Dashboard Eksekutif" as UC_DashKetua
+    usecase "Cetak Laporan (Filter & Export)" as UC_Cetak
+    usecase "Pantau Stok Bibit" as UC_PantauBibit
+    usecase "Verifikasi Data Petugas" as UC_Verifikasi
+    
+    usecase "Melihat Dashboard Petugas" as UC_DashPetugas
+    usecase "Kelola Sterilisasi" as UC_Sterilisasi
+    usecase "Kelola Inokulasi" as UC_Inokulasi
+    usecase "Monitoring Suhu & Kelembapan" as UC_Monitoring
+    usecase "Pencatatan Panen (Maks 7 Siklus)" as UC_Panen
+    usecase "Alokasi Rendang Jamur" as UC_Rendang
+    usecase "Menerima Notifikasi EWS" as UC_NotifEWS
+    
+    usecase "Lihat Katalog Produk" as UC_LihatKatalog
+    usecase "Lihat Profil KUPS" as UC_LihatProfile
+    
+    usecase "Login" as UC_Login
+}
+
+Admin --> UC_Profile
+Admin --> UC_Akun
+Admin --> UC_Katalog
+Admin --> UC_DashAdmin
+Admin --> UC_Bibit
+Admin --> UC_EWS
+
+Ketua --> UC_DashKetua
+Ketua --> UC_Cetak
+Ketua --> UC_PantauBibit
+Ketua --> UC_Verifikasi
+
+Petugas --> UC_DashPetugas
+Petugas --> UC_Sterilisasi
+Petugas --> UC_Inokulasi
+Petugas --> UC_Monitoring
+Petugas --> UC_Panen
+Petugas --> UC_Rendang
+Petugas --> UC_NotifEWS
+
+Umum --> UC_LihatKatalog
+Umum --> UC_LihatProfile
+
+UC_Profile ..> UC_Login : <<include>>
+UC_Akun ..> UC_Login : <<include>>
+UC_Katalog ..> UC_Login : <<include>>
+UC_DashAdmin ..> UC_Login : <<include>>
+UC_Bibit ..> UC_Login : <<include>>
+UC_EWS ..> UC_Login : <<include>>
+
+UC_DashKetua ..> UC_Login : <<include>>
+UC_Cetak ..> UC_Login : <<include>>
+UC_PantauBibit ..> UC_Login : <<include>>
+UC_Verifikasi ..> UC_Login : <<include>>
+
+UC_DashPetugas ..> UC_Login : <<include>>
+UC_Sterilisasi ..> UC_Login : <<include>>
+UC_Inokulasi ..> UC_Login : <<include>>
+UC_Monitoring ..> UC_Login : <<include>>
+UC_Panen ..> UC_Login : <<include>>
+UC_Rendang ..> UC_Login : <<include>>
+UC_NotifEWS ..> UC_Login : <<include>>
+
+@enduml

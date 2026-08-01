@@ -20,7 +20,7 @@ class AdminDashboardController extends Controller
         // Laporan yang menunggu validasi
         $pendingReports = ProductionReport::with('user')
             ->where('status_validasi', 'pending')
-            ->orderBy('tanggal', 'asc')
+            ->latest()
             ->get();
 
         // Riwayat laporan yang sudah diproses atau dibatalkan
@@ -33,6 +33,7 @@ class AdminDashboardController extends Controller
         // Data untuk Rasio Kualitas dan Aktivitas Panen Terbaru
         $reportsBulanIni = ProductionReport::whereMonth('tanggal', now()->month)
             ->whereYear('tanggal', now()->year)
+            ->where('status_validasi', 'valid')
             ->get();
         $totalGradeA = $reportsBulanIni->sum('berat_grade_a');
         $totalGradeB = $reportsBulanIni->sum('berat_grade_b');
@@ -41,7 +42,7 @@ class AdminDashboardController extends Controller
         $persentaseB = $totalBerat > 0 ? round(($totalGradeB / $totalBerat) * 100) : 0;
 
         $recentReports = ProductionReport::with('user')
-            ->orderBy('tanggal', 'desc')
+            ->latest()
             ->take(5)
             ->get();
 

@@ -6,7 +6,7 @@
  class="inline-flex items-center justify-center w-9 h-9 rounded-xl border border-[#E5E7EB]/60 bg-[#FFFFFF] hover:bg-[#E6DAC2]/60 text-[#047857] transition duration-150 shadow-xs cursor-pointer">
  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
  </button>
- <h2 class="font-bold text-2xl text-[#064E3B] leading-tight">
+ <h2 class="font-bold text-base text-[#064E3B] leading-tight">
  {{ __('Input Monitoring Kumbung') }}
  </h2>
  </div>
@@ -46,7 +46,9 @@
          class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-3 text-[#374151] font-bold @error('inokulasi_id') border-[#F59E0B] @enderror" required>
          <option value="">-- Pilih Batch --</option>
          @foreach($inokulasis as $ino)
-             <option value="{{ $ino->id }}" {{ request('inokulasi_id') == $ino->id ? 'selected' : '' }}>Inokulasi {{ $ino->id }} ({{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }})</option>
+             <option value="{{ $ino->id }}" {{ request('inokulasi_id') == $ino->id ? 'selected' : '' }}>
+                 Inokulasi {{ $ino->id }} ({{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }}) - Petugas: {{ $ino->user->name ?? 'Tidak diketahui' }}
+             </option>
          @endforeach
      </select>
  @endif
@@ -80,25 +82,6 @@
  <input type="radio" name="kondisi_udara" value="Panas/Gersang" class="peer sr-only">
  <div class="rounded-xl border border-[#E5E7EB]/60 bg-white p-4 text-center shadow-2xs hover:bg-[#F3F5F4] peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:ring-1 peer-checked:ring-red-500 transition">
  <span class="block text-sm font-bold text-[#374151]">Panas/Gersang</span>
- </div>
- </label>
- </div>
- </div>
-
- {{-- Kondisi Lantai (Touch-Friendly Radio Buttons) --}}
- <div>
- <label class="block text-xs font-bold text-[#047857] mb-2">Kondisi Lantai</label>
- <div class="grid grid-cols-2 gap-3">
- <label class="cursor-pointer relative">
- <input type="radio" name="kondisi_lantai" value="Basah/Lembab" class="peer sr-only" required>
- <div class="rounded-xl border border-[#E5E7EB]/60 bg-white p-4 text-center shadow-2xs hover:bg-[#F3F5F4] peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-checked:ring-1 peer-checked:ring-blue-500 transition">
- <span class="block text-sm font-bold text-[#374151]">Basah/Lembab</span>
- </div>
- </label>
- <label class="cursor-pointer relative">
- <input type="radio" name="kondisi_lantai" value="Kering" class="peer sr-only">
- <div class="rounded-xl border border-[#E5E7EB]/60 bg-white p-4 text-center shadow-2xs hover:bg-[#F3F5F4] peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:ring-1 peer-checked:ring-red-500 transition">
- <span class="block text-sm font-bold text-[#374151]">Kering</span>
  </div>
  </label>
  </div>

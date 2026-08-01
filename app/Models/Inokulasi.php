@@ -12,6 +12,7 @@ class Inokulasi extends Model
     protected $fillable = [
         'sterilisasi_id',
         'bibit_id',
+        'distribusi_bibit_id',
         'user_id',
         'tanggal',
         'jumlah_berhasil',
@@ -48,5 +49,10 @@ class Inokulasi extends Model
     public function logInkubasis()
     {
         return $this->hasMany(LogInkubasi::class);
+    }
+
+    public function distribusiBibit()
+    {
+        return $this->belongsTo(DistribusiBibit::class);
     }
 }

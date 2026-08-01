@@ -1,5 +1,18 @@
 <x-app-layout>
- <div class="py-12 bg-[#F3F5F4] min-h-screen text-[#064E3B]">
+    <x-slot name="header">
+        <div class="flex items-center gap-3 font-sans">
+            <a href="{{ route('petugas.dashboard') }}" 
+                class="inline-flex items-center justify-center w-8 h-8 rounded-xl border border-[#E5E7EB] bg-white hover:bg-[#F3F4F6] text-[#4B5563] transition cursor-pointer"
+                title="Kembali ke Dashboard">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            </a>
+            <h2 class="font-bold text-base text-[#064E3B] leading-tight">
+                {{ __('Proses Sterilisasi') }}
+            </h2>
+        </div>
+    </x-slot>
+
+ <div class="py-8 bg-[#F3F5F4] min-h-screen text-[#064E3B]">
  <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
  @if(session('success'))
@@ -12,10 +25,10 @@
  <div class="bg-[#FFFFFF] border border-[#E5E7EB]/40 rounded-2xl p-6 shadow-xs overflow-hidden">
  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-4 border-b border-[#E5E7EB]/20">
  <div>
- <h3 class="text-xl font-bold text-[#064E3B]">Riwayat Sterilisasi Baglog</h3>
+ <h3 class="text-base font-bold text-[#064E3B]">Riwayat Sterilisasi Baglog</h3>
  <p class="text-xs text-[#6B7280] font-medium mt-0.5">Daftar rekaman proses pengukusan baglog (EWS Enabled).</p>
  </div>
- @if(auth()->user()->role ==='petugas')
+ @if(in_array(auth()->user()->role, ['petugas', 'admin']))
  <a href="{{ route('sterilisasi.create') }}"
  class="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#059669] hover:bg-[#047857] text-white text-xs font-bold rounded-xl transition duration-150 shadow-md shadow-[#059669]/10 transform hover:-translate-y-0.5 self-start sm:self-center cursor-pointer">
  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
@@ -27,7 +40,7 @@
  {{-- Form Filter & Pencarian --}}
  <form method="GET" action="{{ route('sterilisasi.index') }}" class="flex flex-col sm:flex-row items-center gap-4 mb-6">
  <div class="w-full sm:w-1/2">
- <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari berdasarkan batch baglog, petugas..." class="w-full rounded-xl border-[#E5E7EB] text-sm focus:border-[#059669] focus:ring-[#059669]" oninput="clearTimeout(this.delay); this.delay = setTimeout(() => this.form.submit(), 500);">
+ <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari berdasarkan kode bibit, petugas..." class="w-full rounded-xl border-[#E5E7EB] text-sm focus:border-[#059669] focus:ring-[#059669]" oninput="clearTimeout(this.delay); this.delay = setTimeout(() => this.form.submit(), 500);">
  </div>
  <div class="w-full sm:w-1/3">
  <input type="date" name="date" value="{{ request('date') }}" class="w-full rounded-xl border-[#E5E7EB] text-sm focus:border-[#059669] focus:ring-[#059669]" title="Pilih Tanggal" onchange="this.form.submit()">
@@ -47,11 +60,10 @@
  <thead>
  <tr class="border-b border-[#E5E7EB]/40 text-[#047857] text-xs font-bold">
  <th class="py-3 px-4">Tgl Sterilisasi</th>
- <th class="py-3 px-4">Batch Baglog</th>
+ <th class="py-3 px-4">Alokasi Bibit & Baglog</th>
  <th class="py-3 px-4 text-center">Durasi (Jam)</th>
- <th class="py-3 px-4">Kondisi Air & Api</th>
  <th class="py-3 px-4 text-center">Status Keamanan</th>
- @if(auth()->user()->role ==='petugas')
+ @if(in_array(auth()->user()->role, ['petugas', 'admin']))
  <th class="py-3 px-4 text-right">Aksi</th>
  @endif
  </tr>
@@ -60,9 +72,11 @@
  @forelse($sterilisasis as $st)
  <tr class="hover:bg-[#F3F5F4]/40 transition duration-150">
  <td class="py-3.5 px-4 font-bold text-[#064E3B] text-xs">{{ \Carbon\Carbon::parse($st->tanggal)->format('d M Y') }}<br><span class="text-[#6B7280] text-[10px]">{{ $st->user->name }}</span></td>
- <td class="py-3.5 px-4 font-bold text-[#059669]">Baglog {{ $st->baglog->kode_batch ??'-' }}</td>
+ <td class="py-3.5 px-4 font-bold text-[#059669]">
+    Bibit {{ $st->bibit->kode_bibit ?? 'F2' }}
+    <span class="block text-xs font-extrabold text-[#047857]">{{ (float)($st->bibit->banyak_baglog ?? 0) }} Baglog</span>
+ </td>
  <td class="py-3.5 px-4 text-center {{ $st->durasi_pengukusan < 7 ?'text-red-600' :'text-[#059669]' }} font-bold text-xs">{{ $st->durasi_pengukusan }} Jam</td>
- <td class="py-3.5 px-4 text-xs font-bold text-[#6B7280]">Air: <span class="{{ $st->kondisi_air =='Habis' ?'text-red-600' :'text-[#064E3B]' }}">{{ $st->kondisi_air }}</span><br>Api: <span class="{{ $st->kestabilan_api !='Stabil-Besar' ?'text-red-600' :'text-[#064E3B]' }}">{{ $st->kestabilan_api }}</span></td>
  <td class="py-3.5 px-4 text-center">
  <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border 
  {{ $st->status_sterilisasi ==='aman'
@@ -71,7 +85,7 @@
  {{ $st->status_sterilisasi }}
  </span>
  </td>
- @if(auth()->user()->role ==='petugas')
+ @if(in_array(auth()->user()->role, ['petugas', 'admin']))
  <td class="py-3.5 px-4 text-right">
  @php
  $hasInokulasi = \App\Models\Inokulasi::where('sterilisasi_id', $st->id)->exists();
@@ -106,7 +120,7 @@
  </tr>
  @empty
  <tr>
- <td colspan="{{ auth()->user()->role ==='petugas' ? 6 : 5 }}" class="py-12 text-center text-[#6B7280] font-medium italic">
+ <td colspan="{{ in_array(auth()->user()->role, ['petugas', 'admin']) ? 6 : 5 }}" class="py-12 text-center text-[#6B7280] font-medium italic">
  Belum ada riwayat sterilisasi.
  </td>
  </tr>

@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\BaglogController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\Ketua\KetuaDashboardController;
 use App\Http\Controllers\Petugas\PetugasDashboardController;
@@ -50,10 +49,10 @@ Route::middleware(['auth', 'role:petugas,admin'])->prefix('petugas')->name('petu
 
 /*
 |--------------------------------------------------------------------------
-| 4. RUTE GRUP KETUA KUPS (Protected: Auth & Role: ketua)
+| 4. RUTE GRUP KETUA KUPS (Protected: Auth & Role: ketua, admin)
 |--------------------------------------------------------------------------
 */
-Route::middleware(['auth', 'role:ketua'])->prefix('ketua')->name('ketua.')->group(function () {
+Route::middleware(['auth', 'role:ketua,admin'])->prefix('ketua')->name('ketua.')->group(function () {
     Route::get('/dashboard', [KetuaDashboardController::class, 'index'])->name('dashboard');
     // Laporan Ketua: halaman indeks + preview + eksport
     Route::get('/reports', [KetuaDashboardController::class, 'reports'])->name('reports.index');
@@ -63,10 +62,6 @@ Route::middleware(['auth', 'role:ketua'])->prefix('ketua')->name('ketua.')->grou
     
     // RUTE PANTAU STOK BIBIT (Ketua)
     Route::get('/pantau-stok-bibit', [KetuaDashboardController::class, 'pantauStokBibit'])->name('bibit.pantau');
-    
-    // RUTE TRACEABILITY KETUA KUPS
-    Route::get('/traceability', [KetuaDashboardController::class, 'traceabilityIndex'])->name('traceability.index');
-    Route::get('/traceability/{id}', [KetuaDashboardController::class, 'lacakBatch'])->name('traceability.detail');
     
     // RUTE VERIFIKASI DATA PETUGAS (Ketua)
     Route::get('/verifikasi', [KetuaDashboardController::class, 'verifikasiIndex'])->name('verifikasi.index');
@@ -99,19 +94,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
 Route::middleware(['auth'])->group(function () {
 
-    // RUTE BARU UNTUK BIBIT (Admin Only)
-    Route::middleware(['role:admin'])->group(function () {
+    // RUTE BARU UNTUK BIBIT (Admin & Ketua)
+    Route::middleware(['role:admin,ketua'])->group(function () {
         Route::resource('bibit', \App\Http\Controllers\BibitController::class)->except(['show']);
     });
-
-    // RUTE BARU UNTUK BAGLOG
-    Route::get('/baglog', [BaglogController::class, 'index'])->name('baglog.index');
-    Route::get('/baglog/create', [BaglogController::class, 'create'])->name('baglog.create');
-    Route::post('/baglog', [BaglogController::class, 'store'])->name('baglog.store');
-    Route::get('/baglog/{id}/edit', [BaglogController::class, 'edit'])->name('baglog.edit');
-    Route::put('/baglog/{id}', [BaglogController::class, 'update'])->name('baglog.update');
-    Route::delete('/baglog/{id}', [BaglogController::class, 'destroy'])->name('baglog.destroy');
-    Route::post('/baglog/{id}/validate', [BaglogController::class, 'validateBaglog'])->name('baglog.validate');
 
     // RUTE BARU UNTUK MODUL HULU & TENGAH
     Route::resource('sterilisasi', \App\Http\Controllers\SterilisasiController::class)->except(['show']);

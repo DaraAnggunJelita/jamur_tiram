@@ -124,24 +124,23 @@
     </div>
 
     <div class="report-title">
-        <h2>Laporan Rekapitulasi Panen Harian</h2>
+        <h2>{{ $judulPeriode ?? 'Laporan Rekapitulasi Panen Harian' }}</h2>
         <p>Data Per Tanggal Cetak: {{ $tanggalCetak }}</p>
     </div>
 
-    <p class="info-p">
+    {{-- <p class="info-p">
         Berikut ini adalah rekapitulasi data laporan panen harian yang telah melalui proses verifikasi dan validasi oleh Ketua KUPS:
-    </p>
+    </p> --}}
 
     <table>
         <thead>
             <tr>
-                <th style="width:4%">No</th>
-                <th style="width:18%">Tanggal Panen</th>
-                <th style="width:22%">Nama Petugas</th>
-                <th style="width:12%">Grade A (Kg)</th>
-                <th style="width:12%">Grade B (Kg)</th>
-                <th style="width:16%">Kondisi Panen</th>
-                <th style="width:16%">Status</th>
+                <th style="width:5%">No</th>
+                <th style="width:20%">Tanggal Panen</th>
+                <th style="width:25%">Nama Petugas</th>
+                <th style="width:15%">Grade A (Kg)</th>
+                <th style="width:15%">Grade B (Kg)</th>
+                <th style="width:20%">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -153,21 +152,12 @@
                 <td class="center">{{ number_format($r->berat_grade_a, 1) }}</td>
                 <td class="center">{{ number_format($r->berat_grade_b, 1) }}</td>
                 <td class="center">
-                    @php
-                        $kualitas = $r->kualitas_panen ?? '-';
-                        $badgeClass = 'badge-cukup';
-                        if ($kualitas === 'Kualitas Bagus') $badgeClass = 'badge-bagus';
-                        elseif ($kualitas === 'Kualitas Buruk' || $kualitas === 'Rusak') $badgeClass = 'badge-buruk';
-                    @endphp
-                    <span class="badge {{ $badgeClass }}">{{ $kualitas }}</span>
-                </td>
-                <td class="center">
                     <span class="badge badge-valid">Tervalidasi</span>
                 </td>
             </tr>
             @empty
             <tr>
-                <td colspan="7" class="center" style="padding: 20px;">
+                <td colspan="6" class="center" style="padding: 20px;">
                     Tidak ada data laporan panen yang tervalidasi.
                 </td>
             </tr>
@@ -178,7 +168,7 @@
                 <td colspan="3" class="right bold" style="padding-right: 15px;">TOTAL KESELURUHAN</td>
                 <td class="center bold">{{ number_format($reports->sum('berat_grade_a'), 1) }} Kg</td>
                 <td class="center bold">{{ number_format($reports->sum('berat_grade_b'), 1) }} Kg</td>
-                <td class="center bold" colspan="2">{{ $jumlahLaporan }} Laporan</td>
+                <td class="center bold">{{ $jumlahLaporan }} Laporan</td>
             </tr>
         </tfoot>
     </table>
