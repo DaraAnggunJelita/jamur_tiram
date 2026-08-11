@@ -16,7 +16,7 @@ return new class extends Migration
             $table->date('tanggal');
             $table->integer('jumlah_berhasil');
             $table->integer('jumlah_kontaminasi')->default(0);
-            $table->integer('jumlah_bibit_terpakai')->default(0);
+            $table->decimal('jumlah_bibit_terpakai', 8, 2)->default(0);
             $table->boolean('status_buka_kapas')->default(false);
             $table->timestamps();
         });

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center gap-3 font-sans">
-            <a href="{{ route('petugas.dashboard') }}" 
+            <a href="{{ route('petugas.dashboard') }}"
                 class="inline-flex items-center justify-center w-8 h-8 rounded-xl border border-[#E5E7EB] bg-white hover:bg-[#F3F4F6] text-[#4B5563] transition cursor-pointer"
                 title="Kembali ke Dashboard">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -23,7 +23,16 @@
                 </div>
             </div>
             @endif
-            
+
+            @if(session('warning'))
+            <div class="p-4 bg-yellow-50 border border-yellow-300 text-yellow-800 rounded-xl text-xs font-semibold shadow-xs flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4 text-yellow-600 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                    <span>{{ session('warning') }}</span>
+                </div>
+            </div>
+            @endif
+
             @if($errors->any())
             <div class="p-4 bg-red-50 border border-red-200 text-red-700 rounded-xl text-xs font-semibold">
                 <ul class="list-disc pl-5 space-y-1">
@@ -35,12 +44,12 @@
             @endif
 
             <div class="bg-white border border-[#E5E7EB]/60 rounded-2xl p-6 shadow-xs overflow-hidden">
-                
+
                 {{-- Header Card --}}
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-4 border-b border-[#E5E7EB]/40">
                     <div>
                         <h2 class="text-base font-bold text-[#064E3B]">Riwayat Inokulasi Bibit</h2>
-                        <p class="text-xs text-[#6B7280] font-medium mt-0.5">Data penanaman bibit pada baglog yang telah disterilisasi.</p>
+                        {{-- <p class="text-xs text-[#6B7280] font-medium mt-0.5">Data penanaman bibit pada baglog yang telah disterilisasi.</p> --}}
                     </div>
                     @if(in_array(auth()->user()->role, ['petugas', 'admin']))
                     <a href="{{ route('inokulasi.create') }}"
@@ -57,25 +66,25 @@
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#9CA3AF]">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </div>
-                        <input type="text" name="search" value="{{ request('search') }}" 
-                            placeholder="Cari kode bibit, petugas..." 
+                        <input type="text" name="search" value="{{ request('search') }}"
+                            placeholder="Cari kode bibit, petugas..."
                             class="w-full pl-9 pr-3.5 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#1F2937] placeholder-[#9CA3AF] focus:bg-white focus:border-[#059669] focus:ring-[#059669]">
                     </div>
 
                     <div class="w-full sm:w-48">
-                        <input type="date" name="date" value="{{ request('date') }}" 
-                            class="w-full px-3.5 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#1F2937] focus:bg-white focus:border-[#059669] focus:ring-[#059669]" 
+                        <input type="date" name="date" value="{{ request('date') }}"
+                            class="w-full px-3.5 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#1F2937] focus:bg-white focus:border-[#059669] focus:ring-[#059669]"
                             onchange="this.form.submit()">
                     </div>
 
                     <div class="flex items-center gap-2 w-full sm:w-auto shrink-0">
-                        <button type="submit" 
+                        <button type="submit"
                             class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2 bg-[#059669] hover:bg-[#047857] text-white text-xs font-bold rounded-xl transition shadow-xs cursor-pointer">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             <span>Cari</span>
                         </button>
                         @if(request('search') || request('date'))
-                        <a href="{{ route('inokulasi.index') }}" 
+                        <a href="{{ route('inokulasi.index') }}"
                             class="inline-flex items-center justify-center p-2 bg-[#F3F4F6] hover:bg-[#E5E7EB] text-[#4B5563] rounded-xl transition cursor-pointer" title="Reset Filter">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                         </a>
@@ -105,7 +114,7 @@
                                 </td>
                                 <td class="py-3.5 px-4">
                                     <div class="font-bold text-[#064E3B]">Sterilisasi {{ $inok->sterilisasi_id }}</div>
-                                    <div class="text-[11px] text-[#6B7280] font-medium">Bibit F2 {{ $inok->bibit->asal_bibit ?? $inok->bibit->kode_bibit ?? '-' }} ({{ (float)$inok->jumlah_bibit_terpakai }} Bungkus)</div>
+                                    <div class="text-[11px] text-[#6B7280] font-medium">Bibit F2 {{ ucwords($inok->bibit->asal_bibit ?? $inok->bibit->kode_bibit ?? '-') }} ({{ (float)$inok->jumlah_bibit_terpakai }} Bungkus)</div>
                                 </td>
                                 <td class="py-3.5 px-4 text-center font-bold text-[#059669] whitespace-nowrap">
                                     {{ number_format($inok->jumlah_berhasil) }} / {{ number_format($inok->sterilisasi->bibit->banyak_baglog ?? 0) }} <span class="text-[10px] font-normal text-[#6B7280]">Pcs</span>
@@ -128,30 +137,30 @@
                                 </td>
                                 <td class="py-3.5 px-4 text-right whitespace-nowrap">
                                     <div class="flex items-center justify-end gap-1.5">
-                                        <button type="button" @click.prevent="showDetailModal = true; selectedDetailId = {{ $inok->id }}" 
+                                        <button type="button" @click.prevent="showDetailModal = true; selectedDetailId = {{ $inok->id }}"
                                             class="inline-flex items-center px-2.5 py-1.5 bg-[#F3F4F6] hover:bg-[#E5E7EB] text-[#374151] text-xs font-semibold rounded-lg border border-[#D1D5DB] transition cursor-pointer gap-1">
                                             <svg class="w-3.5 h-3.5 text-[#6B7280]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                                             <span>Detail</span>
                                         </button>
-                                        
+
                                         @php
                                         $maxProgres = $inok->logInkubasis->max('persentase_tumbuh') ?? 0;
                                         $hasPanen = \App\Models\ProductionReport::where('inokulasi_id', $inok->id)->exists() || $maxProgres == 100;
                                         @endphp
-                                        
+
                                         @if($hasPanen)
                                         <span class="inline-flex items-center px-2.5 py-1.5 bg-[#F3F4F6] text-[#9CA3AF] text-xs font-medium rounded-lg border border-[#E5E7EB] italic">
                                             Selesai (Panen)
                                         </span>
                                         @else
-                                        <button type="button" @click="showInputModal = {{ $inok->id }}" 
+                                        <button type="button" @click="showInputModal = {{ $inok->id }}"
                                             class="inline-flex items-center px-2.5 py-1.5 bg-[#059669] hover:bg-[#047857] text-white text-xs font-semibold rounded-lg transition cursor-pointer">
                                             Pantau
                                         </button>
                                         <form method="POST" action="{{ route('inokulasi.destroy', $inok->id) }}" class="inline" onsubmit="return confirm('Yakin ingin menghapus data inokulasi ini?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" 
+                                            <button type="submit"
                                                 class="inline-flex items-center px-2.5 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-semibold rounded-lg border border-red-200 transition cursor-pointer">
                                                 Hapus
                                             </button>
@@ -175,11 +184,9 @@
                     </table>
                 </div>
 
-                @if($inokulasis->hasPages())
-                <div class="mt-4 pt-4 border-t border-[#E5E7EB]/40">
+                <div class="mt-4 pt-4 border-t border-[#E5E7EB]/40 px-2">
                     {{ $inokulasis->links() }}
                 </div>
-                @endif
             </div>
         </div>
 
@@ -191,7 +198,7 @@
                 <div x-show="showInputModal == {{ $inok->id }}" @click="showInputModal = null" class="fixed inset-0 transition-opacity" aria-hidden="true">
                     <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-xs"></div>
                 </div>
-                
+
                 <div x-show="showInputModal == {{ $inok->id }}" class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-[#E5E7EB]">
                     <div class="bg-white p-6">
                         <div class="flex items-center justify-between pb-3 mb-4 border-b border-[#E5E7EB]">
@@ -202,17 +209,34 @@
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                             </button>
                         </div>
-                        
+
                         <form action="{{ route('inokulasi.store-log', $inok->id) }}" method="POST" class="space-y-4">
                             @csrf
+                            @php 
+                                $maxProgres = $inok->logInkubasis->max('persentase_tumbuh') ?? 0; 
+                                $nextTarget = $maxProgres + 25;
+                                $daysToAdd = match((int)$nextTarget) {
+                                    25 => 10,
+                                    50 => 20,
+                                    75 => 30,
+                                    100 => 40,
+                                    default => 10
+                                };
+                                $autoDate = \Carbon\Carbon::parse($inok->tanggal)->addDays($daysToAdd)->format('Y-m-d');
+                            @endphp
                             <div>
-                                <label class="block text-xs font-bold text-[#064E3B] uppercase tracking-wider mb-2">Tanggal Cek Fisik</label>
-                                <input type="date" name="tanggal_catat" required value="{{ now()->format('Y-m-d') }}" class="block w-full rounded-xl border-[#E5E7EB] bg-white text-xs font-semibold py-2.5 px-3.5 text-[#1F2937] focus:border-[#059669] focus:ring-[#059669]">
+                                <div class="flex items-center justify-between mb-2">
+                                    <label class="block text-xs font-bold text-[#064E3B] uppercase tracking-wider">Tanggal Cek Fisik</label>
+                                    <span class="text-[10px] font-bold text-[#059669] bg-[#34D399]/15 border border-[#059669]/30 px-2 py-0.5 rounded-md">
+                                        Rekomendasi H+{{ $daysToAdd }} Inokulasi
+                                    </span>
+                                </div>
+                                <input type="date" name="tanggal_catat" required value="{{ $autoDate }}" class="block w-full rounded-xl border-[#E5E7EB] bg-white text-xs font-semibold py-2.5 px-3.5 text-[#1F2937] focus:border-[#059669] focus:ring-[#059669]">
+                                <p class="text-[10px] text-[#6B7280] mt-1 italic">*Sistem memilih otomatis target H+{{ $daysToAdd }} dari tanggal inokulasi ({{ \Carbon\Carbon::parse($inok->tanggal)->format('d/m/Y') }}), dapat disesuaikan manual.</p>
                             </div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-xs font-bold text-[#064E3B] uppercase tracking-wider mb-2">Miselium (%)</label>
-                                    @php $maxProgres = $inok->logInkubasis->max('persentase_tumbuh') ?? 0; $nextTarget = $maxProgres + 25; @endphp
                                     <select name="persentase_tumbuh" required class="block w-full rounded-xl border-[#E5E7EB] bg-white text-xs font-semibold py-2.5 px-3.5 text-[#1F2937] focus:border-[#059669] focus:ring-[#059669]">
                                         <option value="25" {{ $nextTarget == 25 ? 'selected' : '' }}>Minggu 1: 25% (Awal)</option>
                                         <option value="50" {{ $nextTarget == 50 ? 'selected' : '' }}>Minggu 2: 50% (Sedang)</option>
@@ -249,7 +273,7 @@
                 <div x-show="showDetailModal && selectedDetailId == {{ $inok->id }}" @click="showDetailModal = false" class="fixed inset-0 transition-opacity" aria-hidden="true">
                     <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-xs"></div>
                 </div>
-                
+
                 <div x-show="showDetailModal && selectedDetailId == {{ $inok->id }}" class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-md w-full border border-[#E5E7EB]">
                     <div class="bg-white p-6">
                         <div class="flex justify-between items-center pb-3 mb-4 border-b border-[#E5E7EB]">
@@ -260,7 +284,7 @@
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                             </button>
                         </div>
-                        
+
                         <div class="space-y-4">
                             @if($inok->logInkubasis->count() > 0)
                             <div class="relative border-l-2 border-[#059669] ml-2 space-y-4 pb-2">
@@ -288,7 +312,7 @@
                             </div>
                             @endif
                         </div>
-                        
+
                         <div class="pt-4 mt-4 border-t border-[#E5E7EB] flex justify-end">
                             <button type="button" @click="showDetailModal = false" class="px-4 py-2 bg-[#F3F4F6] text-[#374151] text-xs font-semibold rounded-xl border border-[#D1D5DB] transition">
                                 Tutup

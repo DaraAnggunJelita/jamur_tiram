@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex items-center justify-between font-sans">
             <div class="flex items-center gap-3">
-                <a href="{{ route('ketua.dashboard') }}" 
+                <a href="{{ route('ketua.dashboard') }}"
                     class="inline-flex items-center justify-center w-8 h-8 rounded-xl border border-[#E5E7EB] bg-white hover:bg-[#F3F4F6] text-[#4B5563] transition cursor-pointer"
                     title="Kembali ke Dashboard">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -34,10 +34,10 @@
                         </div>
                         <div>
                             <h3 class="text-xs font-bold text-[#064E3B] uppercase tracking-wider">Antrean Laporan Petugas</h3>
-                            <p class="text-xs text-[#6B7280] font-medium mt-0.5">Tinjau dan validasi hasil pencatatan panen harian sebelum direkapitulasi.</p>
+                            {{-- <p class="text-xs text-[#6B7280] font-medium mt-0.5">Tinjau dan validasi hasil pencatatan panen harian sebelum direkapitulasi.</p> --}}
                         </div>
                     </div>
-                    
+
                     <form method="GET" class="relative w-full sm:w-64 shrink-0">
                         <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama petugas..."
                         class="w-full pl-9 pr-4 py-2 border border-[#E5E7EB]/80 rounded-xl bg-gray-50 focus:bg-white focus:ring-2 focus:ring-[#059669]/20 focus:border-[#059669] text-xs font-semibold text-[#064E3B] transition shadow-2xs" />
@@ -96,16 +96,17 @@
                                             @csrf
                                             <input type="hidden" name="status_validasi" value="valid">
                                             <button type="submit" class="inline-flex items-center px-3 py-1.5 bg-green-50 hover:bg-green-100 text-green-700 border border-green-200 text-xs font-semibold rounded-lg transition cursor-pointer">
-                                                <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> 
+                                                <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                                                 Setujui
                                             </button>
                                         </form>
-                                        
-                                        <form action="{{ route('ketua.verifikasi.process', $report->id) }}" method="POST" class="inline">
+
+                                        <form action="{{ route('ketua.verifikasi.process', $report->id) }}" method="POST" class="inline" onsubmit="return promptAlasanPenolakan(event, this)">
                                             @csrf
                                             <input type="hidden" name="status_validasi" value="invalid">
+                                            <input type="hidden" name="catatan" class="input-catatan">
                                             <button type="submit" class="inline-flex items-center px-3 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-semibold rounded-lg transition cursor-pointer">
-                                                <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg> 
+                                                <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                                 Tolak
                                             </button>
                                         </form>
@@ -120,6 +121,12 @@
                                                 ● Ditolak
                                             </span>
                                         @endif
+                                    @endif
+
+                                    @if($report->catatan)
+                                        <div class="text-[10px] text-red-600 bg-red-50 p-1.5 rounded border border-red-200 mt-1 max-w-xs text-left italic">
+                                            "{{ $report->catatan }}"
+                                        </div>
                                     @endif
                                 </td>
                             </tr>
@@ -143,4 +150,21 @@
             </div>
         </div>
     </div>
+
+    <script>
+    function promptAlasanPenolakan(e, form) {
+        const alasan = prompt("Harap masukkan alasan penolakan laporan panen ini:");
+        if (alasan === null) {
+            e.preventDefault();
+            return false;
+        }
+        if (alasan.trim() === "") {
+            alert("Alasan penolakan tidak boleh kosong!");
+            e.preventDefault();
+            return false;
+        }
+        form.querySelector('.input-catatan').value = alasan.trim();
+        return true;
+    }
+    </script>
 </x-app-layout>

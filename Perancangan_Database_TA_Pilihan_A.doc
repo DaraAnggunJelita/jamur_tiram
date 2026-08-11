@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+<meta charset='utf-8'>
+<title>3.5 Perancangan Basis Data</title>
+<style>
+  body {
+    font-family: 'Times New Roman', serif;
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000000;
+  }
+  h3 {
+    font-size: 14pt;
+    font-weight: bold;
+    margin-top: 18pt;
+    margin-bottom: 6pt;
+  }
+  p {
+    margin-bottom: 6pt;
+    text-align: justify;
+  }
+  .table-info {
+    margin-bottom: 4pt;
+  }
+  .table-title {
+    font-weight: bold;
+    margin-top: 6pt;
+    margin-bottom: 4pt;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 16pt;
+  }
+  table, th, td {
+    border: 1px solid #000000;
+  }
+  th {
+    background-color: #F2F2F2;
+    font-weight: bold;
+    text-align: center;
+    padding: 5px;
+    font-size: 11pt;
+  }
+  td {
+    padding: 4px 6px;
+    font-size: 11pt;
+    vertical-align: top;
+  }
+  .center {
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<h3>3.5 Perancangan Basis Data</h3>
+<p>Berikut rancangan database yang akan digunakan pada sistem Monitoring dan Traceability Budidaya Jamur Tiram (KUPS Jamur Tiram):</p>
+
+<!-- 1. TABEL USERS -->
+<div class="table-info">
+  <b>1. Tabel User</b><br>
+  Rancangan basis data tabel <i>users</i> berfungsi untuk menyimpan informasi otentikasi akun dan membedakan tingkat hak akses dari setiap pengguna (Admin, Petugas Harian, Ketua KUPS) yang menggunakan sistem.<br>
+  Nama Tabel : <b>users</b><br>
+  Primary key : <b>id</b><br>
+  Foreign key : <b>-</b>
+</div>
+
+<div class="table-title">Table 3. 1 Tabel Users</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%;">No</th>
+      <th style="width: 20%;">Nama Field</th>
+      <th style="width: 15%;">Tipe Data</th>
+      <th style="width: 10%;">Size</th>
+      <th style="width: 50%;">Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="center">1.</td><td>id</td><td>int</td><td class="center">11</td><td>Primary Key</td></tr>
+    <tr><td class="center">2.</td><td>name</td><td>varchar</td><td class="center">255</td><td>Nama pengguna</td></tr>
+    <tr><td class="center">3.</td><td>email</td><td>varchar</td><td class="center">255</td><td>Email untuk login (Unique)</td></tr>
+    <tr><td class="center">4.</td><td>email_verified_at</td><td>timestamp</td><td class="center">-</td><td>Waktu verifikasi email</td></tr>
+    <tr><td class="center">5.</td><td>password</td><td>varchar</td><td class="center">255</td><td>Kata sandi terenkripsi</td></tr>
+    <tr><td class="center">6.</td><td>role</td><td>enum</td><td class="center">-</td><td>Hak akses ('admin', 'petugas', 'ketua')</td></tr>
+    <tr><td class="center">7.</td><td>remember_token</td><td>varchar</td><td class="center">100</td><td>Token untuk sesi login</td></tr>
+    <tr><td class="center">8.</td><td>created_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data dibuat</td></tr>
+    <tr><td class="center">9.</td><td>updated_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data diubah</td></tr>
+  </tbody>
+</table>
+
+<!-- 2. TABEL CATALOGS -->
+<div class="table-info">
+  <b>2. Tabel Katalog</b><br>
+  Rancangan basis data tabel <i>catalogs</i> berfungsi untuk menyimpan informasi daftar produk olahan atau hasil budidaya jamur tiram yang ditampilkan pada halaman katalog utama sistem untuk publik.<br>
+  Nama Tabel : <b>catalogs</b><br>
+  Primary key : <b>id</b><br>
+  Foreign key : <b>-</b>
+</div>
+
+<div class="table-title">Table 3. 2 Tabel Catalogs</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%;">No</th>
+      <th style="width: 20%;">Nama Field</th>
+      <th style="width: 15%;">Tipe Data</th>
+      <th style="width: 10%;">Size</th>
+      <th style="width: 50%;">Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="center">1.</td><td>id</td><td>int</td><td class="center">11</td><td>Primary Key</td></tr>
+    <tr><td class="center">2.</td><td>name</td><td>varchar</td><td class="center">255</td><td>Nama produk olahan / jamur</td></tr>
+    <tr><td class="center">3.</td><td>description</td><td>text</td><td class="center">-</td><td>Deskripsi detail spesifikasi produk</td></tr>
+    <tr><td class="center">4.</td><td>price</td><td>decimal</td><td class="center">12,2</td><td>Harga jual produk</td></tr>
+    <tr><td class="center">5.</td><td>image</td><td>varchar</td><td class="center">255</td><td>Nama file gambar/foto produk</td></tr>
+    <tr><td class="center">6.</td><td>created_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data dibuat</td></tr>
+    <tr><td class="center">7.</td><td>updated_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data diubah</td></tr>
+  </tbody>
+</table>
+
+<!-- 3. TABEL BIBITS -->
+<div class="table-info">
+  <b>3. Tabel Bibit</b><br>
+  Rancangan basis data tabel <i>bibits</i> berfungsi untuk mencatat penerimaan stok bibit indukan jamur tiram, melacak sisa stok yang tersedia, dan mengelola konfirmasi persediaannya di dalam sistem.<br>
+  Nama Tabel : <b>bibits</b><br>
+  Primary key : <b>id</b><br>
+  Foreign key : <b>user_id</b>
+</div>
+
+<div class="table-title">Table 3. 3 Tabel Bibits</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%;">No</th>
+      <th style="width: 20%;">Nama Field</th>
+      <th style="width: 15%;">Tipe Data</th>
+      <th style="width: 10%;">Size</th>
+      <th style="width: 50%;">Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="center">1.</td><td>id</td><td>int</td><td class="center">11</td><td>Primary Key</td></tr>
+    <tr><td class="center">2.</td><td>user_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Merujuk ke users.id)</td></tr>
+    <tr><td class="center">3.</td><td>kode_bibit</td><td>varchar</td><td class="center">255</td><td>Kode unik identifikasi stok bibit</td></tr>
+    <tr><td class="center">4.</td><td>asal_bibit</td><td>varchar</td><td class="center">255</td><td>Asal/sumber produsen bibit</td></tr>
+    <tr><td class="center">5.</td><td>tanggal_masuk</td><td>date</td><td class="center">-</td><td>Tanggal penerimaan bibit</td></tr>
+    <tr><td class="center">6.</td><td>jumlah</td><td>float</td><td class="center">-</td><td>Jumlah total bibit diterima (bungkus)</td></tr>
+    <tr><td class="center">7.</td><td>sisa_stok</td><td>float</td><td class="center">-</td><td>Sisa stok bibit yang tersedia</td></tr>
+    <tr><td class="center">8.</td><td>banyak_baglog</td><td>int</td><td class="center">11</td><td>Kapasitas pembuatan baglog</td></tr>
+    <tr><td class="center">9.</td><td>status</td><td>enum</td><td class="center">-</td><td>Status persediaan ('Tersedia', 'Menipis', 'Habis')</td></tr>
+    <tr><td class="center">10.</td><td>created_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data dibuat</td></tr>
+    <tr><td class="center">11.</td><td>updated_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data diubah</td></tr>
+  </tbody>
+</table>
+
+<!-- 4. TABEL DISTRIBUSI BIBITS -->
+<div class="table-info">
+  <b>4. Tabel Distribusi Bibit</b><br>
+  Rancangan basis data tabel <i>distribusi_bibits</i> berfungsi untuk mencatat riwayat alokasi dan pembagian stok bibit dari Admin kepada Petugas Harian kumbung.<br>
+  Nama Tabel : <b>distribusi_bibits</b><br>
+  Primary key : <b>id</b><br>
+  Foreign key : <b>bibit_id, user_id, admin_id</b>
+</div>
+
+<div class="table-title">Table 3. 4 Tabel Distribusi Bibits</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%;">No</th>
+      <th style="width: 20%;">Nama Field</th>
+      <th style="width: 15%;">Tipe Data</th>
+      <th style="width: 10%;">Size</th>
+      <th style="width: 50%;">Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="center">1.</td><td>id</td><td>int</td><td class="center">11</td><td>Primary Key</td></tr>
+    <tr><td class="center">2.</td><td>bibit_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Merujuk ke bibits.id)</td></tr>
+    <tr><td class="center">3.</td><td>user_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Petugas penerima)</td></tr>
+    <tr><td class="center">4.</td><td>admin_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Admin yang membagikan)</td></tr>
+    <tr><td class="center">5.</td><td>tanggal_distribusi</td><td>date</td><td class="center">-</td><td>Tanggal pembagian bibit</td></tr>
+    <tr><td class="center">6.</td><td>jumlah_dibagikan</td><td>int</td><td class="center">11</td><td>Jumlah bibit yang dialokasikan</td></tr>
+    <tr><td class="center">7.</td><td>sisa_stok</td><td>int</td><td class="center">11</td><td>Sisa stok alokasi pada petugas</td></tr>
+    <tr><td class="center">8.</td><td>catatan</td><td>text</td><td class="center">-</td><td>Catatan alokasi distribusi</td></tr>
+    <tr><td class="center">9.</td><td>created_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data dibuat</td></tr>
+    <tr><td class="center">10.</td><td>updated_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data diubah</td></tr>
+  </tbody>
+</table>
+
+<!-- 5. TABEL STERILISASIS -->
+<div class="table-info">
+  <b>5. Tabel Sterilisasi</b><br>
+  Rancangan basis data tabel <i>sterilisasis</i> berfungsi untuk mencatat proses pengukusan/sterilisasi baglog jamur tiram (dengan inputan utama: Alokasi Bibit, Tanggal, dan Durasi Pengukusan standar 8 jam) serta merekam status kelayakan sterilisasi.<br>
+  Nama Tabel : <b>sterilisasis</b><br>
+  Primary key : <b>id</b><br>
+  Foreign key : <b>bibit_id, user_id</b>
+</div>
+
+<div class="table-title">Table 3. 5 Tabel Sterilisasis</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%;">No</th>
+      <th style="width: 20%;">Nama Field</th>
+      <th style="width: 15%;">Tipe Data</th>
+      <th style="width: 10%;">Size</th>
+      <th style="width: 50%;">Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="center">1.</td><td>id</td><td>int</td><td class="center">11</td><td>Primary Key</td></tr>
+    <tr><td class="center">2.</td><td>bibit_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Merujuk ke bibits.id)</td></tr>
+    <tr><td class="center">3.</td><td>user_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Petugas pelaksana)</td></tr>
+    <tr><td class="center">4.</td><td>tanggal</td><td>date</td><td class="center">-</td><td>Tanggal pelaksanaan sterilisasi</td></tr>
+    <tr><td class="center">5.</td><td>durasi_pengukusan</td><td>int</td><td class="center">11</td><td>Durasi pengukusan dalam jam (Default 8 jam otomatis oleh sistem)</td></tr>
+    <tr><td class="center">6.</td><td>kondisi_air</td><td>enum</td><td class="center">-</td><td>Kondisi air drum ('Aman', 'Menipis', 'Habis')</td></tr>
+    <tr><td class="center">7.</td><td>kestabilan_api</td><td>enum</td><td class="center">-</td><td>Nyala api ('Stabil-Besar', 'Mengecil', 'Padam')</td></tr>
+    <tr><td class="center">8.</td><td>status_sterilisasi</td><td>enum</td><td class="center">-</td><td>Status kelayakan ('aman', 'berisiko')</td></tr>
+    <tr><td class="center">9.</td><td>created_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data dibuat</td></tr>
+    <tr><td class="center">10.</td><td>updated_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data diubah</td></tr>
+  </tbody>
+</table>
+
+<!-- 6. TABEL INOKULASIS -->
+<div class="table-info">
+  <b>6. Tabel Inokulasi</b><br>
+  Rancangan basis data tabel <i>inokulasis</i> berfungsi untuk mencatat pelaksanaan penanaman bibit jamur ke dalam baglog steril (dengan validasi jeda 1-2 hari pasca sterilisasi) serta merekam tingkat keberhasilan dan kontaminasi.<br>
+  Nama Tabel : <b>inokulasis</b><br>
+  Primary key : <b>id</b><br>
+  Foreign key : <b>sterilisasi_id, bibit_id, distribusi_bibit_id, user_id</b>
+</div>
+
+<div class="table-title">Table 3. 6 Tabel Inokulasis</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%;">No</th>
+      <th style="width: 20%;">Nama Field</th>
+      <th style="width: 15%;">Tipe Data</th>
+      <th style="width: 10%;">Size</th>
+      <th style="width: 50%;">Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="center">1.</td><td>id</td><td>int</td><td class="center">11</td><td>Primary Key</td></tr>
+    <tr><td class="center">2.</td><td>sterilisasi_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Merujuk ke sterilisasis.id)</td></tr>
+    <tr><td class="center">3.</td><td>bibit_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Merujuk ke bibits.id)</td></tr>
+    <tr><td class="center">4.</td><td>distribusi_bibit_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Merujuk ke distribusi_bibits.id)</td></tr>
+    <tr><td class="center">5.</td><td>user_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Petugas inokulasi)</td></tr>
+    <tr><td class="center">6.</td><td>tanggal</td><td>date</td><td class="center">-</td><td>Tanggal penanaman bibit (Jeda 1-2 hari pasca sterilisasi)</td></tr>
+    <tr><td class="center">7.</td><td>jumlah_berhasil</td><td>int</td><td class="center">11</td><td>Jumlah baglog tumbuh steril/berhasil</td></tr>
+    <tr><td class="center">8.</td><td>jumlah_kontaminasi</td><td>int</td><td class="center">11</td><td>Jumlah baglog terkontaminasi/gagal</td></tr>
+    <tr><td class="center">9.</td><td>jumlah_bibit_terpakai</td><td>decimal</td><td class="center">8,2</td><td>Jumlah botol/bungkus bibit digunakan</td></tr>
+    <tr><td class="center">10.</td><td>created_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data dibuat</td></tr>
+    <tr><td class="center">11.</td><td>updated_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data diubah</td></tr>
+  </tbody>
+</table>
+
+<!-- 7. TABEL LOG INKUBASIS -->
+<div class="table-info">
+  <b>7. Tabel Log Inkubasi</b><br>
+  Rancangan basis data tabel <i>log_inkubasis</i> berfungsi untuk mencatat perkembangan persentase pertumbuhan miselium jamur secara berkala pada ruang inkubasi.<br>
+  Nama Tabel : <b>log_inkubasis</b><br>
+  Primary key : <b>id</b><br>
+  Foreign key : <b>inokulasi_id, user_id</b>
+</div>
+
+<div class="table-title">Table 3. 7 Tabel Log Inkubasis</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%;">No</th>
+      <th style="width: 20%;">Nama Field</th>
+      <th style="width: 15%;">Tipe Data</th>
+      <th style="width: 10%;">Size</th>
+      <th style="width: 50%;">Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="center">1.</td><td>id</td><td>int</td><td class="center">11</td><td>Primary Key</td></tr>
+    <tr><td class="center">2.</td><td>inokulasi_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Merujuk ke inokulasis.id)</td></tr>
+    <tr><td class="center">3.</td><td>user_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Petugas pengamat)</td></tr>
+    <tr><td class="center">4.</td><td>persentase_tumbuh</td><td>decimal</td><td class="center">5,2</td><td>Persentase pertumbuhan miselium (0-100%)</td></tr>
+    <tr><td class="center">5.</td><td>catatan</td><td>text</td><td class="center">-</td><td>Catatan perkembangan fisik miselium</td></tr>
+    <tr><td class="center">6.</td><td>tanggal_catat</td><td>date</td><td class="center">-</td><td>Tanggal pencatatan pengamatan</td></tr>
+    <tr><td class="center">7.</td><td>created_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data dibuat</td></tr>
+    <tr><td class="center">8.</td><td>updated_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data diubah</td></tr>
+  </tbody>
+</table>
+
+<!-- 8. TABEL MONITORING KUMBUNGS -->
+<div class="table-info">
+  <b>8. Tabel Monitoring Kumbung</b><br>
+  Rancangan basis data tabel <i>monitoring_kumbungs</i> berfungsi untuk mencatat hasil pengawasan kondisi lingkungan ruang kumbung seperti kelembapan udara, kelembapan lantai, dan frekuensi penyiraman.<br>
+  Nama Tabel : <b>monitoring_kumbungs</b><br>
+  Primary key : <b>id</b><br>
+  Foreign key : <b>inokulasi_id, user_id</b>
+</div>
+
+<div class="table-title">Table 3. 8 Tabel Monitoring Kumbungs</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%;">No</th>
+      <th style="width: 20%;">Nama Field</th>
+      <th style="width: 15%;">Tipe Data</th>
+      <th style="width: 10%;">Size</th>
+      <th style="width: 50%;">Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="center">1.</td><td>id</td><td>int</td><td class="center">11</td><td>Primary Key</td></tr>
+    <tr><td class="center">2.</td><td>inokulasi_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Merujuk ke inokulasis.id)</td></tr>
+    <tr><td class="center">3.</td><td>user_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Petugas pemantau)</td></tr>
+    <tr><td class="center">4.</td><td>tanggal</td><td>date</td><td class="center">-</td><td>Tanggal pemantauan kumbung</td></tr>
+    <tr><td class="center">5.</td><td>kondisi_udara</td><td>enum</td><td class="center">-</td><td>Kelembapan udara ('Lembab', 'Normal', 'Kering')</td></tr>
+    <tr><td class="center">6.</td><td>kondisi_lantai</td><td>enum</td><td class="center">-</td><td>Kelembapan lantai ('Basah', 'Lembab', 'Kering')</td></tr>
+    <tr><td class="center">7.</td><td>jumlah_penyiraman</td><td>int</td><td class="center">11</td><td>Frekuensi penyiraman harian (kali)</td></tr>
+    <tr><td class="center">8.</td><td>created_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data dibuat</td></tr>
+    <tr><td class="center">9.</td><td>updated_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data diubah</td></tr>
+  </tbody>
+</table>
+
+<!-- 9. TABEL PRODUCTION REPORTS -->
+<div class="table-info">
+  <b>9. Tabel Laporan Produksi (Panen)</b><br>
+  Rancangan basis data tabel <i>production_reports</i> berfungsi untuk mencatat hasil panen jamur tiram per siklus, memisahkan penimbangan Grade A dan Grade B, serta mengelola status validasi laporan oleh Ketua/Admin.<br>
+  Nama Tabel : <b>production_reports</b><br>
+  Primary key : <b>id</b><br>
+  Foreign key : <b>inokulasi_id, user_id, validated_by</b>
+</div>
+
+<div class="table-title">Table 3. 9 Tabel Production Reports</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%;">No</th>
+      <th style="width: 20%;">Nama Field</th>
+      <th style="width: 15%;">Tipe Data</th>
+      <th style="width: 10%;">Size</th>
+      <th style="width: 50%;">Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="center">1.</td><td>id</td><td>int</td><td class="center">11</td><td>Primary Key</td></tr>
+    <tr><td class="center">2.</td><td>inokulasi_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Merujuk ke inokulasis.id)</td></tr>
+    <tr><td class="center">3.</td><td>user_id</td><td>int</td><td class="center">11</td><td>Foreign Key (Petugas pemanen)</td></tr>
+    <tr><td class="center">4.</td><td>validated_by</td><td>int</td><td class="center">11</td><td>Foreign Key (Admin/Ketua penvalidasi)</td></tr>
+    <tr><td class="center">5.</td><td>tanggal</td><td>date</td><td class="center">-</td><td>Tanggal pelaksanaan pemanenan</td></tr>
+    <tr><td class="center">6.</td><td>siklus_panen</td><td>int</td><td class="center">11</td><td>Urutan gelombang/siklus panen ke-N</td></tr>
+    <tr><td class="center">7.</td><td>berat_grade_a</td><td>decimal</td><td class="center">8,2</td><td>Berat panen Grade A (Kg)</td></tr>
+    <tr><td class="center">8.</td><td>berat_grade_b</td><td>decimal</td><td class="center">8,2</td><td>Berat panen Grade B / olahan (Kg)</td></tr>
+    <tr><td class="center">9.</td><td>jumlah_panen</td><td>decimal</td><td class="center">8,2</td><td>Total akumulasi hasil panen (Kg)</td></tr>
+    <tr><td class="center">10.</td><td>status_validasi</td><td>enum</td><td class="center">-</td><td>Status verifikasi ('pending', 'valid', 'invalid')</td></tr>
+    <tr><td class="center">11.</td><td>catatan</td><td>text</td><td class="center">-</td><td>Catatan hasil panen / evaluasi</td></tr>
+    <tr><td class="center">12.</td><td>created_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data dibuat</td></tr>
+    <tr><td class="center">13.</td><td>updated_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data diubah</td></tr>
+  </tbody>
+</table>
+
+<!-- 10. TABEL PROFILE KUPS -->
+<div class="table-info">
+  <b>10. Tabel Profil KUPS</b><br>
+  Rancangan basis data tabel <i>profile_kups</i> berfungsi untuk menyimpan informasi identitas resmi, deskripsi, visi, misi, dan kontak KUPS Harapan Asri yang ditampilkan pada halaman profil publik.<br>
+  Nama Tabel : <b>profile_kups</b><br>
+  Primary key : <b>id</b><br>
+  Foreign key : <b>-</b>
+</div>
+
+<div class="table-title">Table 3. 10 Tabel Profile Kups</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%;">No</th>
+      <th style="width: 20%;">Nama Field</th>
+      <th style="width: 15%;">Tipe Data</th>
+      <th style="width: 10%;">Size</th>
+      <th style="width: 50%;">Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="center">1.</td><td>id</td><td>int</td><td class="center">11</td><td>Primary Key</td></tr>
+    <tr><td class="center">2.</td><td>nama_kups</td><td>varchar</td><td class="center">255</td><td>Nama resmi kelompok usaha KUPS</td></tr>
+    <tr><td class="center">3.</td><td>sub_judul</td><td>varchar</td><td class="center">255</td><td>Sub judul / slogan KUPS</td></tr>
+    <tr><td class="center">4.</td><td>deskripsi_singkat</td><td>text</td><td class="center">-</td><td>Ringkasan profil KUPS</td></tr>
+    <tr><td class="center">5.</td><td>tentang_kami</td><td>text</td><td class="center">-</td><td>Penjelasan lengkap tentang KUPS</td></tr>
+    <tr><td class="center">6.</td><td>visi</td><td>text</td><td class="center">-</td><td>Visi organisasi KUPS</td></tr>
+    <tr><td class="center">7.</td><td>misi</td><td>text</td><td class="center">-</td><td>Misi organisasi KUPS</td></tr>
+    <tr><td class="center">8.</td><td>jumlah_anggota</td><td>int</td><td class="center">11</td><td>Total anggota petani KUPS</td></tr>
+    <tr><td class="center">9.</td><td>siklus_panen</td><td>varchar</td><td class="center">255</td><td>Informasi durasi siklus panen</td></tr>
+    <tr><td class="center">10.</td><td>tahun_berdiri</td><td>varchar</td><td class="center">255</td><td>Tahun berdirinya kelompok KUPS</td></tr>
+    <tr><td class="center">11.</td><td>alamat</td><td>text</td><td class="center">-</td><td>Alamat fisik lokasi kumbung/KUPS</td></tr>
+    <tr><td class="center">12.</td><td>nomor_telepon</td><td>varchar</td><td class="center">255</td><td>Nomor telepon kontak resmi</td></tr>
+    <tr><td class="center">13.</td><td>email</td><td>varchar</td><td class="center">255</td><td>Alamat email resmi KUPS</td></tr>
+    <tr><td class="center">14.</td><td>created_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data dibuat</td></tr>
+    <tr><td class="center">15.</td><td>updated_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data diubah</td></tr>
+  </tbody>
+</table>
+
+<!-- 11. TABEL EWS SETTINGS -->
+<div class="table-info">
+  <b>11. Tabel Pengaturan EWS</b><br>
+  Rancangan basis data tabel <i>ews_settings</i> berfungsi untuk menyimpan konfigurasi ambang batas kritis (*Early Warning System*) sebagai tolok ukur pemicu notifikasi bahaya otomatis.<br>
+  Nama Tabel : <b>ews_settings</b><br>
+  Primary key : <b>id</b><br>
+  Foreign key : <b>-</b>
+</div>
+
+<div class="table-title">Table 3. 11 Tabel EWS Settings</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%;">No</th>
+      <th style="width: 20%;">Nama Field</th>
+      <th style="width: 15%;">Tipe Data</th>
+      <th style="width: 10%;">Size</th>
+      <th style="width: 50%;">Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="center">1.</td><td>id</td><td>int</td><td class="center">11</td><td>Primary Key</td></tr>
+    <tr><td class="center">2.</td><td>min_durasi_sterilisasi</td><td>int</td><td class="center">11</td><td>Batas minimum pengukusan aman (jam)</td></tr>
+    <tr><td class="center">3.</td><td>maks_hari_panen</td><td>int</td><td class="center">11</td><td>Batas maksimal hari inkubasi hingga panen</td></tr>
+    <tr><td class="center">4.</td><td>kondisi_udara_kritis</td><td>varchar</td><td class="center">255</td><td>Kondisi udara berisiko ('Kering')</td></tr>
+    <tr><td class="center">5.</td><td>created_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data dibuat</td></tr>
+    <tr><td class="center">6.</td><td>updated_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data diubah</td></tr>
+  </tbody>
+</table>
+
+<!-- 12. TABEL PERINGATANS -->
+<div class="table-info">
+  <b>12. Tabel Peringatan (EWS Logs)</b><br>
+  Rancangan basis data tabel <i>peringatans</i> berfungsi untuk menyimpan riwayat log notifikasi peringatan dini (*Early Warning System*) yang terdeteksi secara otomatis oleh sistem.<br>
+  Nama Tabel : <b>peringatans</b><br>
+  Primary key : <b>id</b><br>
+  Foreign key : <b>referensi_id</b>
+</div>
+
+<div class="table-title">Table 3. 12 Tabel Peringatans</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width: 5%;">No</th>
+      <th style="width: 20%;">Nama Field</th>
+      <th style="width: 15%;">Tipe Data</th>
+      <th style="width: 10%;">Size</th>
+      <th style="width: 50%;">Keterangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="center">1.</td><td>id</td><td>int</td><td class="center">11</td><td>Primary Key</td></tr>
+    <tr><td class="center">2.</td><td>kategori</td><td>enum</td><td class="center">-</td><td>Kategori modul ('sterilisasi', 'monitoring', 'panen')</td></tr>
+    <tr><td class="center">3.</td><td>referensi_id</td><td>int</td><td class="center">11</td><td>Foreign Key (ID modul pemicu anomali)</td></tr>
+    <tr><td class="center">4.</td><td>level</td><td>enum</td><td class="center">-</td><td>Level bahaya ('warning', 'danger')</td></tr>
+    <tr><td class="center">5.</td><td>pesan</td><td>text</td><td class="center">-</td><td>Pesan deskripsi peringatan EWS</td></tr>
+    <tr><td class="center">6.</td><td>is_read</td><td>tinyint</td><td class="center">1</td><td>Status penyelesaian (0=Belum, 1=Selesai)</td></tr>
+    <tr><td class="center">7.</td><td>created_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data dibuat</td></tr>
+    <tr><td class="center">8.</td><td>updated_at</td><td>timestamp</td><td class="center">-</td><td>Waktu data diubah</td></tr>
+  </tbody>
+</table>
+
+</body>
+</html>

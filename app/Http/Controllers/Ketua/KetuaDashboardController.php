@@ -64,7 +64,7 @@ class KetuaDashboardController extends Controller
             ->where(function ($q) {
             $q->whereHas('logInkubasis', function ($q2) {
                 $q2->where('persentase_tumbuh', 100);
-            })->orWhere('tanggal', '<=', now()->subDays(40));
+            })->orWhere('tanggal', '<=', now()->subDays(50));
         })->count();
 
         return view('ketua.dashboard', compact(

@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('baglogs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('kode_batch')->unique();
+            $table->string('kode_batch', 20)->unique();
             $table->date('tanggal_pembuatan');
             $table->integer('jumlah_baglog');
             $table->enum('status_validasi', ['pending', 'valid'])->default('pending');

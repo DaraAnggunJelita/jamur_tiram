@@ -55,12 +55,20 @@ class AdminDashboardController extends Controller
     public function validateReport(Request $request, $id): RedirectResponse
     {
         $request->validate([
-            'status' => 'required|in:valid,invalid',
+            'status'  => 'required|in:valid,invalid',
+            'catatan' => 'nullable|string',
         ]);
 
         $report = ProductionReport::findOrFail($id);
+        
+        $catatan = $report->catatan;
+        if ($request->filled('catatan')) {
+            $catatan = ($catatan ? $catatan . "\n[Admin]: " : "[Admin]: ") . $request->catatan;
+        }
+
         $report->update([
             'status_validasi' => $request->status,
+            'catatan'         => $catatan,
             'validated_by'    => auth()->id(),
         ]);
 

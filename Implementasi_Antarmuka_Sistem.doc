@@ -1,0 +1,102 @@
+<html xmlns:w="urn:schemas-microsoft-com:office:word">
+<head>
+    <meta charset="utf-8">
+    <title>Implementasi Antarmuka Sistem</title>
+    <style>
+        body { font-family: "Times New Roman", Times, serif; font-size: 12pt; line-height: 1.5; }
+        h1 { text-align: center; font-size: 16pt; font-weight: bold; margin-bottom: 20px; }
+        h2 { font-size: 14pt; font-weight: bold; margin-top: 20px; border-bottom: 1px solid #000; padding-bottom: 5px;}
+        h3 { font-size: 12pt; font-weight: bold; margin-top: 15px; }
+        ul { margin-top: 5px; margin-bottom: 15px; }
+        li { margin-bottom: 5px; text-align: justify; }
+        p { text-align: justify; margin-top: 5px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>BAB IMPLEMENTASI ANTARMUKA PENGGUNA (USER INTERFACE)</h1>
+    <p>Dokumen ini menjelaskan rancangan dan implementasi antarmuka pengguna (<i>User Interface</i>) pada Sistem Monitoring Budidaya Jamur Tiram KUPS Harapan Asri. Implementasi antarmuka ini dirancang secara terstruktur berdasarkan peran 4 aktor utama sistem, yaitu: Pengunjung/Umum, Petugas Kumbung, Administrator, dan Ketua KUPS.</p>
+
+    <h2>1. Antarmuka Pengunjung (Umum / Publik)</h2>
+    <h3>1.1. Halaman Utama (Landing Page)</h3>
+    <ul>
+        <li><b>Elemen yang Ditampilkan:</b> <i>Hero Section</i> (menampilkan judul website dan gambar latar belakang jamur tiram), profil sejarah singkat KUPS Harapan Asri, informasi kontak (WhatsApp/Alamat), serta etalase Katalog Produk (foto produk, nama produk, dan harga).</li>
+        <li><b>Fungsi Halaman:</b> Berfungsi sebagai etalase digital perusahaan untuk memperkenalkan KUPS Harapan Asri kepada masyarakat luas (publik). Halaman ini juga berfungsi sebagai media promosi hasil panen secara <i>real-time</i> kepada calon pembeli jamur tiram tanpa perlu melakukan proses <i>login</i>.</li>
+    </ul>
+
+    <h3>1.2. Halaman Otentikasi (Login)</h3>
+    <ul>
+        <li><b>Elemen yang Ditampilkan:</b> Form input <i>Email</i>, form input kata sandi (<i>Password</i>), tombol aksi "Masuk/Login", serta opsi tambahan pengingat sesi (<i>Remember Me</i>).</li>
+        <li><b>Fungsi Halaman:</b> Merupakan pintu gerbang (<i>gateway</i>) keamanan sistem. Sistem akan mencocokkan kredensial dan memeriksa level hak akses (<i>role</i>) dari email tersebut, kemudian sistem akan mengarahkan (<i>redirect</i>) pengguna secara otomatis ke halaman <i>Dashboard</i> yang sesuai (Admin, Petugas, atau Ketua).</li>
+    </ul>
+
+    <h2>2. Antarmuka Petugas Kumbung</h2>
+    <h3>2.1. Dashboard Petugas & Sistem Peringatan Dini (EWS)</h3>
+    <ul>
+        <li><b>Elemen yang Ditampilkan:</b> Modul Peringatan Dini (<i>Early Warning System</i>) berupa panel berwarna merah/kuning, informasi sisa stok bibit F2, dan metrik ringkasan status <i>pipeline</i> produksi (jumlah baglog tahap inkubasi vs siap panen).</li>
+        <li><b>Fungsi Halaman:</b> Sebagai halaman beranda utama bagi Petugas Kumbung untuk melihat ringkasan prioritas pekerjaan hari itu. Kehadiran modul EWS berfungsi untuk memberikan notifikasi instan kepada petugas jika terdeteksi anomali di lapangan (seperti inokulasi terlambat atau suhu kumbung terlalu panas).</li>
+    </ul>
+
+    <h3>2.2. Halaman Kelola Sterilisasi Baglog</h3>
+    <ul>
+        <li><b>Elemen yang Ditampilkan:</b> Tabel riwayat sterilisasi, tombol "Tambah Sterilisasi", <i>dropdown</i> referensi bibit indukan, dan form input kuantitas baglog (dengan batasan wajib minimal 50 baglog).</li>
+        <li><b>Fungsi Halaman:</b> Tempat petugas mendata kegiatan pembuatan media tanam baru (baglog) dan proses pengukusannya. Setiap data sterilisasi yang berhasil disimpan akan secara otomatis mengurangi saldo stok bibit F2 di gudang sistem.</li>
+    </ul>
+
+    <h3>2.3. Halaman Data Inokulasi (Pembibitan)</h3>
+    <ul>
+        <li><b>Elemen yang Ditampilkan:</b> Tabel riwayat inokulasi, kalender input tanggal, kolom catatan khusus, dan label peringatan berwarna merah (<i>Soft-Warning</i>) jika inokulasi dilakukan melebihi batas 2 hari pasca sterilisasi.</li>
+        <li><b>Fungsi Halaman:</b> Berfungsi untuk mendokumentasikan waktu pemindahan bibit jamur ke dalam baglog. Halaman ini berperan penting dalam memantau kepatuhan petugas terhadap <i>Standard Operating Procedure</i> (SOP) budidaya jamur tiram yang menetapkan batas maksimal 2x24 jam untuk inokulasi.</li>
+    </ul>
+
+    <h3>2.4. Halaman Monitoring Kumbung</h3>
+    <ul>
+        <li><b>Elemen yang Ditampilkan:</b> Form input parameter lingkungan (Suhu dalam derajat Celcius dan Kelembapan dalam persen), grafik garis (<i>Line Chart</i>) tren suhu, serta tabel daftar <i>log</i> harian.</li>
+        <li><b>Fungsi Halaman:</b> Mencatat kondisi fisik ruangan perawatan jamur (kumbung). Jika sistem mendeteksi input nilai suhu/kelembapan yang berada di luar ambang batas ideal (ekstrem), halaman ini akan langsung mengirimkan parameter bahaya ke modul EWS di <i>Dashboard</i>.</li>
+    </ul>
+
+    <h3>2.5. Halaman Laporan Panen Harian</h3>
+    <ul>
+        <li><b>Elemen yang Ditampilkan:</b> Form laporan hasil panen (Siklus, berat Grade A, berat Grade B), tabel riwayat panen, dan label status ("<i>Pending</i>", "<i>Valid</i>", atau "<i>Invalid/Ditolak</i>").</li>
+        <li><b>Fungsi Halaman:</b> Memfasilitasi pencatatan hasil produksi harian. Fitur ini dilengkapi validasi <i>backend</i> yang menolak <i>input</i> panen jika umur masa inkubasi baglog masih di bawah 50 hari. Jika laporan ditolak oleh Admin, petugas dapat merevisi (mengedit) laporan pada halaman ini untuk disetujui ulang.</li>
+    </ul>
+
+    <h2>3. Antarmuka Administrator (Admin KUPS)</h2>
+    <h3>3.1. Dashboard Admin (Pusat Validasi)</h3>
+    <ul>
+        <li><b>Elemen yang Ditampilkan:</b> Tabel antrean laporan "<i>Pending</i>", tombol aksi "Terima (Approve)", tombol "Tolak (Reject)" beserta form *pop-up* untuk alasan penolakan, Grafik <i>Donut (Pie Chart)</i> perbandingan panen kualitas A vs B, dan log riwayat audit *Quality Control*.</li>
+        <li><b>Fungsi Halaman:</b> Berperan sebagai pos Kendali Mutu (<i>Quality Control</i>). Admin wajib memverifikasi angka laporan dari petugas sebelum data dinyatakan valid. Fungsi penolakan (beserta alasannya) memastikan tidak ada data <i>human-error</i> (salah ketik) yang merusak akumulasi laporan bulanan KUPS.</li>
+    </ul>
+
+    <h3>3.2. Halaman Kelola Akun Pengguna</h3>
+    <ul>
+        <li><b>Elemen yang Ditampilkan:</b> Tabel manajemen data <i>user</i>, tombol fungsi CRUD (<i>Create, Read, Update, Delete</i>), seleksi level otoritas (<i>dropdown role</i>), dan form input kata sandi.</li>
+        <li><b>Fungsi Halaman:</b> Menjaga sentralisasi dan integritas keamanan web. Hanya Admin yang memiliki hak istimewa (<i>privilege</i>) penuh untuk mendaftarkan akun baru, mengubah <i>role</i>, atau menghapus akses dari pegawai KUPS yang sudah berhenti.</li>
+    </ul>
+
+    <h3>3.3. Halaman Kelola Katalog Produk</h3>
+    <ul>
+        <li><b>Elemen yang Ditampilkan:</b> Modul unggah (<i>upload</i>) gambar produk, form nama jamur, input harga Rupiah per kilogram, dan tabel inventaris etalase.</li>
+        <li><b>Fungsi Halaman:</b> Sarana pengelolaan informasi barang dagangan. Setiap penambahan atau pengubahan harga produk di halaman ini akan langsung terintegrasi dan mengubah tampilan etalase pada <i>Landing Page</i> pengunjung (publik).</li>
+    </ul>
+
+    <h3>3.4. Halaman Kelola Profil KUPS</h3>
+    <ul>
+        <li><b>Elemen yang Ditampilkan:</b> Editor teks paragraf deskripsi perusahaan, form nomor kontak WhatsApp, dan form isian alamat lembaga.</li>
+        <li><b>Fungsi Halaman:</b> Memungkinkan Admin untuk memperbarui informasi dasar lembaga secara mandiri dan dinamis tanpa harus mengubah ataupun memiliki kemampuan membongkar kode pemrograman (<i>source code</i>).</li>
+    </ul>
+
+    <h2>4. Antarmuka Ketua KUPS (Pimpinan)</h2>
+    <h3>4.1. Dashboard Ketua (Ringkasan Eksekutif)</h3>
+    <ul>
+        <li><b>Elemen yang Ditampilkan:</b> Kartu matriks angka penting (Total Panen Bulan Ini, Total Baglog Aktif, Performa Pegawai Terbaik) dan Grafik Batang (<i>Bar Chart</i>) yang memetakan tren fluktuasi produksi dalam periode 6-12 bulan terakhir.</li>
+        <li><b>Fungsi Halaman:</b> Menyajikan visualisasi data <i>high-level</i> (sudut pandang manajemen). Tampilan grafis ini dirancang untuk mempercepat Ketua KUPS dalam membaca tren bisnis dan mengambil keputusan strategis (<i>Decision Making</i>) berdasarkan performa produksi.</li>
+    </ul>
+
+    <h3>4.2. Halaman Rekapitulasi & Cetak Laporan Eksekutif</h3>
+    <ul>
+        <li><b>Elemen yang Ditampilkan:</b> Filter pencarian bulan/tahun, tabel agregat panen komprehensif, tombol khusus "Cetak PDF", dan tombol ekspor "Export Excel".</li>
+        <li><b>Fungsi Halaman:</b> Berfungsi sebagai alat otomatisasi laporan (<i>reporting tool</i>). Halaman ini meniadakan pembuatan laporan kertas manual. Ketua dapat mengunduh berkas laporan bulanan (yang sudah diformat dengan kop surat otomatis) kapan saja, untuk keperluan audit pelaporan dana desa maupun kunjungan dari instansi pemerintah terkait.</li>
+    </ul>
+
+</body>
+</html>

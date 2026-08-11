@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('catalogs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->decimal('price', 12, 2);
-            $table->string('image')->nullable();
+            $table->string('name', 50);
+            $table->text('description')->nullable();
+            $table->decimal('price', 10, 2);
+            $table->string('image', 150)->nullable();
             $table->timestamps();
         });
     }

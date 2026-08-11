@@ -57,8 +57,6 @@ class InokulasiController extends Controller
 
         if ($jarakHari < 1) {
             return back()->withErrors(['error' => 'Gagal! Baglog belum layak disuntikkan bibit hari ini karena suhu masih panas. Minimal tunggu 1 hari setelah sterilisasi.'])->withInput();
-        } elseif ($jarakHari > 3) {
-            return back()->withErrors(['error' => 'Gagal! Jeda inokulasi maksimal adalah 3 hari setelah sterilisasi. Media mungkin sudah tidak steril/ideal.'])->withInput();
         }
 
         $jumlah_baglog_awal = $sterilisasi->bibit->banyak_baglog ?? 0;
@@ -83,11 +81,18 @@ class InokulasiController extends Controller
         }
 
         $pesanFlash = 'Data inokulasi berhasil disimpan.';
+        $tipePesan = 'success';
+        
         if ($sterilisasi->status_sterilisasi === 'berisiko') {
             $pesanFlash .= ' (Catatan: Anda memaksakan inokulasi pada batch yang berisiko).';
         }
 
-        return redirect()->route('inokulasi.index')->with('success', $pesanFlash);
+        if ($jarakHari > 2) {
+            $pesanFlash = '⚠️ Peringatan: Data Inokulasi berhasil disimpan, namun jeda sterilisasi melebihi 2 hari. Media baglog ini memiliki risiko kontaminasi yang tinggi.';
+            $tipePesan = 'warning';
+        }
+
+        return redirect()->route('inokulasi.index')->with($tipePesan, $pesanFlash);
     }
 
     public function storeLog(Request $request, $id)
@@ -143,13 +148,7 @@ class InokulasiController extends Controller
         return back()->with('success', 'Progress inkubasi berhasil dicatat.');
     }
 
-    public function bukaKapas(Request $request, $id)
-    {
-        $inokulasi = Inokulasi::findOrFail($id);
-        $inokulasi->update(['status_buka_kapas' => true]);
-        
-        return redirect()->back()->with('success', 'Status buka kapas/cincin berhasil dikonfirmasi!');
-    }
+
 
     public function destroy($id)
     {

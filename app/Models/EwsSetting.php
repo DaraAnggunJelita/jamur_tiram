@@ -10,7 +10,6 @@ class EwsSetting extends Model
     use HasFactory;
 
     protected $fillable = [
-        'min_durasi_sterilisasi',
         'maks_hari_panen',
         'kondisi_udara_kritis',
     ];

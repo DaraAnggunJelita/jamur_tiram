@@ -37,7 +37,8 @@
  </div>
  <div>
  <label for="durasi_pengukusan" class="block text-xs font-bold text-[#047857] mb-1">Durasi Pengukusan (Jam)</label>
- <input type="number" name="durasi_pengukusan" id="durasi_pengukusan" min="1" value="{{ old('durasi_pengukusan', 8) }}" required class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white py-2.5 shadow-sm focus:border-[#059669] focus:ring-[#059669]">
+ <input type="number" name="durasi_pengukusan" id="durasi_pengukusan" value="8" readonly class="block w-full rounded-xl border-[#E5E7EB]/60 bg-gray-100 py-2.5 px-4 text-[#374151] font-bold shadow-sm focus:outline-none cursor-not-allowed">
+ <p class="text-[11px] text-[#6B7280] font-medium mt-1">*Durasi pengukusan disetting tetap 8 jam sesuai standar SOP sterilisasi baglog.</p>
  @error('durasi_pengukusan')<p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>@enderror
  </div>
  

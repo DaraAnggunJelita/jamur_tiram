@@ -17,34 +17,7 @@
     <div class="py-8 bg-[#F3F5F4] min-h-screen text-[#374151]">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-            {{-- 0. TIMELINE TASK REMINDER (BUKA KAPAS) --}}
-            @if(isset($inokulasiBukaKapas) && $inokulasiBukaKapas->count() > 0)
-            @foreach($inokulasiBukaKapas as $inokulasi)
-            <div class="bg-amber-50 border-l-4 border-amber-500 rounded-r-xl shadow-xs p-4 border border-amber-200/60">
-                <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 bg-amber-500/10 rounded-lg flex items-center justify-center text-amber-600 shrink-0">
-                            <svg class="h-5 w-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-                            </svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xs font-extrabold text-amber-900">Pengingat Jadwal Buka Kapas (Inokulasi #{{ $inokulasi->id }})</h3>
-                            <p class="text-[11px] text-amber-800 mt-0.5 font-medium">
-                                Batch Bibit <span class="font-bold">{{ $inokulasi->sterilisasi->bibit->kode_bibit ?? 'F2' }}</span> sudah 40 hari masa inkubasi (Miselium 100%). Waktunya membuka tutup kapas baglog!
-                            </p>
-                        </div>
-                    </div>
-                    <form action="{{ route('inokulasi.buka-kapas', $inokulasi->id) }}" method="POST" class="shrink-0">
-                        @csrf
-                        <button type="submit" class="px-3.5 py-1.5 bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold rounded-lg shadow-2xs transition">
-                            ✓ Selesai Dikerjakan
-                        </button>
-                    </form>
-                </div>
-            </div>
-            @endforeach
-            @endif
+
 
             {{-- 1. PUSAT PERINGATAN DINI (EWS) --}}
             @if(isset($peringatanAktif) && $peringatanAktif->count() > 0)
@@ -111,80 +84,83 @@
             @endforeach
             @endif
 
-            {{-- 1.3 STOK BIBIT SAYA (ALOKASI DARI ADMIN - HILANG SETELAH PANEN) --}}
-            <div class="bg-gradient-to-r from-[#064E3B] to-[#047857] rounded-2xl p-5 text-white shadow-md border border-emerald-600/30">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4 pb-3.5 border-b border-white/15">
-                    <div>
-                        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/10 text-emerald-200 text-[10px] font-bold uppercase tracking-wider mb-1.5">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Alokasi Bibit dari Admin
+            {{-- 1.3 STOK BIBIT SAYA (ALOKASI DARI ADMIN) --}}
+            <div class="bg-white border border-[#E5E7EB]/60 rounded-2xl p-4 shadow-xs">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3.5 pb-3 border-b border-[#E5E7EB]/40">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-[#059669]/10 text-[#059669] flex items-center justify-center shrink-0">
+                            <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
                         </div>
-                        <h3 class="text-lg font-extrabold text-white tracking-tight">Stok Bibit F2 Anda</h3>
-                        {{-- <p class="text-xs text-emerald-100 font-medium mt-0.5">
-                            Stok bibit yang dialokasikan Admin. <span class="text-amber-200 font-bold">(Otomatis hilang jika baglog sudah memasuki masa panen)</span>.
-                        </p> --}}
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h3 class="text-sm font-extrabold text-[#064E3B]">Stok Bibit F2 Anda</h3>
+                                <span class="px-2 py-0.5 rounded-full bg-[#34D399]/15 text-[#047857] text-[10px] font-bold">Alokasi Admin</span>
+                            </div>
+                            <p class="text-[11px] text-[#6B7280] font-medium">Stok bibit F2 aktif yang terdaftar untuk akun Anda.</p>
+                        </div>
                     </div>
 
-                    <div class="flex items-center gap-4 bg-white/10 px-4 py-2.5 rounded-xl border border-white/15 shrink-0 text-right sm:text-left">
-                        <div>
-                            <span class="block text-[10px] font-bold text-emerald-200 uppercase">Diterima</span>
-                            <span class="text-base font-extrabold text-white">{{ (float)($totalBibitDiterima ?? 0) }} <span class="text-[11px] font-normal text-emerald-200">Bungkus</span></span>
+                    <div class="flex items-center gap-3 bg-[#F9FAFB] px-3.5 py-1.5 rounded-xl border border-[#E5E7EB] shrink-0">
+                        <div class="text-center sm:text-left">
+                            <span class="block text-[9px] font-bold text-[#6B7280] uppercase tracking-wider">Diterima</span>
+                            <span class="text-xs font-extrabold text-[#064E3B]">{{ (float)($totalBibitDiterima ?? 0) }} <span class="text-[10px] font-normal text-gray-500">Bungkus</span></span>
                         </div>
-                        <div class="w-px h-7 bg-white/20"></div>
-                        <div>
-                            <span class="block text-[10px] font-bold text-amber-200 uppercase">Sisa Siap Pakai</span>
-                            <span class="text-lg font-black text-amber-300">{{ (float)($totalBibitSisa ?? 0) }} <span class="text-[11px] font-normal text-emerald-100">Bungkus</span></span>
+                        <div class="w-px h-6 bg-gray-200"></div>
+                        <div class="text-center sm:text-left">
+                            <span class="block text-[9px] font-bold text-amber-600 uppercase tracking-wider">Sisa Siap Pakai</span>
+                            <span class="text-xs font-black text-amber-600">{{ (float)($totalBibitSisa ?? 0) }} <span class="text-[10px] font-normal text-gray-500">Bungkus</span></span>
                         </div>
                     </div>
                 </div>
 
                 @if(isset($bibitAlokasi) && $bibitAlokasi->count() > 0)
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                     @foreach($bibitAlokasi as $alokasi)
                     @php
                         $hasInokulasi = $alokasi->inokulasis->count() > 0 || $alokasi->sterilisasis->filter(fn($s) => $s->inokulasis->count() > 0)->count() > 0;
                         $hasSterilisasi = $alokasi->sterilisasis->count() > 0;
                     @endphp
-                    <div class="bg-white/10 hover:bg-white/15 rounded-xl p-3.5 border border-white/15 transition flex flex-col justify-between shadow-2xs">
+                    <div class="bg-[#F9FAFB] hover:bg-white hover:shadow-xs rounded-xl p-3 border border-[#E5E7EB] transition flex flex-col justify-between">
                         <div>
-                            <div class="flex items-center justify-between gap-2 mb-2">
-                                <span class="px-2.5 py-0.5 bg-white text-[#064E3B] font-extrabold text-xs rounded-lg shadow-2xs">
+                            <div class="flex items-center justify-between gap-2 mb-2 pb-1.5 border-b border-gray-100">
+                                <span class="px-2 py-0.5 bg-[#059669] text-white font-extrabold text-[11px] rounded-md shadow-2xs">
                                     {{ $alokasi->kode_bibit ?? 'Bibit F2' }}
                                 </span>
-                                <span class="text-[11px] text-emerald-200 font-bold">{{ \Carbon\Carbon::parse($alokasi->tanggal_masuk)->format('d M Y') }}</span>
+                                <span class="text-[10px] text-gray-500 font-semibold">{{ \Carbon\Carbon::parse($alokasi->tanggal_masuk)->format('d M Y') }}</span>
                             </div>
 
-                            <div class="space-y-1 py-1 text-xs">
+                            <div class="space-y-1 text-[11px]">
                                 <div class="flex justify-between items-center">
-                                    <span class="text-emerald-200">Asal Bibit:</span>
-                                    <span class="font-bold text-white">{{ $alokasi->asal_bibit ?? 'Bibit Internal' }}</span>
+                                    <span class="text-gray-500 font-medium">Asal Bibit:</span>
+                                    <span class="font-bold text-[#1F2937] capitalize">{{ ucwords($alokasi->asal_bibit ?? 'Bibit Internal') }}</span>
                                 </div>
                                 <div class="flex justify-between items-center">
-                                    <span class="text-emerald-200">Jumlah Pemberian:</span>
-                                    <span class="font-bold text-white">{{ (float)($alokasi->jumlah) }} Bungkus</span>
+                                    <span class="text-gray-500 font-medium">Jumlah Pemberian:</span>
+                                    <span class="font-bold text-[#064E3B]">{{ (float)($alokasi->jumlah) }} Bungkus</span>
                                 </div>
                                 <div class="flex justify-between items-center">
-                                    <span class="text-emerald-200">Estimasi Hasil:</span>
-                                    <span class="font-bold text-amber-300">{{ (float)($alokasi->banyak_baglog ?? ($alokasi->jumlah * 50)) }} Baglog</span>
+                                    <span class="text-gray-500 font-medium">Estimasi Hasil:</span>
+                                    <span class="font-bold text-amber-600">{{ (float)($alokasi->banyak_baglog ?? ($alokasi->jumlah * 50)) }} Baglog</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="mt-3 pt-2.5 border-t border-white/15 flex items-center justify-between text-[11px]">
+                        <div class="mt-2.5 pt-2 border-t border-gray-100 flex items-center justify-between text-[10px]">
                             @if($hasInokulasi)
-                                <span class="px-2 py-0.5 bg-indigo-500/80 text-white font-bold rounded-md">
+                                <span class="px-1.5 py-0.5 bg-indigo-50 text-indigo-700 font-bold rounded border border-indigo-100">
                                     Tahap Inkubasi
                                 </span>
                             @elseif($hasSterilisasi)
-                                <span class="px-2 py-0.5 bg-amber-500/80 text-white font-bold rounded-md">
+                                <span class="px-1.5 py-0.5 bg-amber-50 text-amber-700 font-bold rounded border border-amber-100">
                                     Tahap Sterilisasi
                                 </span>
                             @else
-                                <span class="px-2 py-0.5 bg-emerald-400/90 text-[#064E3B] font-extrabold rounded-md">
+                                <span class="px-1.5 py-0.5 bg-emerald-50 text-[#047857] font-bold rounded border border-emerald-100">
                                     Stok Mentah
                                 </span>
                             @endif
 
-                            <span class="px-2.5 py-0.5 rounded-lg font-black text-xs {{ $alokasi->sisa_stok > 0 ? 'bg-white text-[#064E3B]' : 'bg-red-500/90 text-white' }}">
+                            <span class="px-2 py-0.5 rounded-md font-bold text-[11px] {{ $alokasi->sisa_stok > 0 ? 'bg-[#34D399]/20 text-[#047857]' : 'bg-red-100 text-red-700' }}">
                                 Sisa: {{ (float)($alokasi->sisa_stok) }} Bungkus
                             </span>
                         </div>
@@ -192,7 +168,7 @@
                     @endforeach
                 </div>
                 @else
-                <div class="bg-white/5 border border-white/10 rounded-xl p-6 text-center text-xs font-bold text-emerald-100 italic">
+                <div class="bg-gray-50 border border-gray-200/60 rounded-xl p-4 text-center text-xs font-medium text-gray-500 italic">
                     Belum ada stok bibit aktif dari Admin (Atau seluruh stok bibit yang Anda kelola telah berhasil masuk masa panen).
                 </div>
                 @endif
@@ -218,11 +194,10 @@
                         <div class="mt-2.5 pt-2 border-t border-gray-100 space-y-1">
                             <div class="text-[10px] text-gray-500 font-medium">Belum disterilisasi</div>
                             @if($pipelineStokBaglog->count() > 0)
-                            <div class="flex flex-wrap gap-1">
-                                @foreach($pipelineStokBaglog->take(2) as $item)
+                            <div class="flex flex-wrap gap-1 max-h-24 overflow-y-auto">
+                                @foreach($pipelineStokBaglog as $item)
                                 <a href="{{ route('sterilisasi.create', ['bibit_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-gray-100 hover:bg-gray-200 text-[10px] font-bold text-gray-700 rounded transition">Bibit {{ $item->kode_bibit ?? 'F2' }}</a>
                                 @endforeach
-                                @if($pipelineStokBaglog->count() > 2) <span class="text-[10px] text-gray-400 self-center">...+{{ $pipelineStokBaglog->count() - 2 }}</span> @endif
                             </div>
                             @endif
                         </div>
@@ -242,11 +217,10 @@
                                 <span>⚠️</span><span>Belum Siap Inokulasi</span>
                             </div>
                             @if($pipelinePendinginan->count() > 0)
-                            <div class="flex flex-wrap gap-1">
-                                @foreach($pipelinePendinginan->take(2) as $item)
-                                <a href="{{ route('inokulasi.create', ['sterilisasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-amber-100 hover:bg-amber-200 text-[10px] font-bold text-amber-800 rounded transition">Steril #{{ $item->id }}</a>
+                            <div class="flex flex-wrap gap-1 max-h-24 overflow-y-auto">
+                                @foreach($pipelinePendinginan as $item)
+                                <a href="{{ route('inokulasi.create', ['sterilisasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-amber-100 hover:bg-amber-200 text-[10px] font-bold text-amber-800 rounded transition">Steril {{ $item->id }}</a>
                                 @endforeach
-                                @if($pipelinePendinginan->count() > 2) <span class="text-[10px] text-amber-600 self-center">...+{{ $pipelinePendinginan->count() - 2 }}</span> @endif
                             </div>
                             @endif
                         </div>
@@ -264,11 +238,10 @@
                         <div class="mt-2.5 pt-2 border-t border-emerald-100 space-y-1">
                             <div class="text-[10px] text-[#059669] font-bold">Siap disuntik bibit F2</div>
                             @if($pipelineSiapInokulasi->count() > 0)
-                            <div class="flex flex-wrap gap-1">
-                                @foreach($pipelineSiapInokulasi->take(2) as $item)
-                                <a href="{{ route('inokulasi.create', ['sterilisasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-[#059669] text-white hover:bg-[#047857] text-[10px] font-bold rounded transition">Steril #{{ $item->id }}</a>
+                            <div class="flex flex-wrap gap-1 max-h-24 overflow-y-auto">
+                                @foreach($pipelineSiapInokulasi as $item)
+                                <a href="{{ route('inokulasi.create', ['sterilisasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-[#059669] text-white hover:bg-[#047857] text-[10px] font-bold rounded transition">Steril {{ $item->id }}</a>
                                 @endforeach
-                                @if($pipelineSiapInokulasi->count() > 2) <span class="text-[10px] text-emerald-600 self-center">...+{{ $pipelineSiapInokulasi->count() - 2 }}</span> @endif
                             </div>
                             @endif
                         </div>
@@ -286,11 +259,10 @@
                         <div class="mt-2.5 pt-2 border-t border-indigo-100 space-y-1">
                             <div class="text-[10px] text-indigo-600 font-medium">Masa pemantauan tumbuh</div>
                             @if($pipelineInkubasi->count() > 0)
-                            <div class="flex flex-wrap gap-1">
-                                @foreach($pipelineInkubasi->take(2) as $item)
-                                <a href="{{ route('monitoring.create', ['inokulasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-indigo-100 hover:bg-indigo-200 text-[10px] font-bold text-indigo-700 rounded transition">Inokulasi #{{ $item->id }}</a>
+                            <div class="flex flex-wrap gap-1 max-h-24 overflow-y-auto">
+                                @foreach($pipelineInkubasi as $item)
+                                <a href="{{ route('monitoring.create', ['inokulasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-indigo-100 hover:bg-indigo-200 text-[10px] font-bold text-indigo-700 rounded transition">Inokulasi {{ $item->id }}</a>
                                 @endforeach
-                                @if($pipelineInkubasi->count() > 2) <span class="text-[10px] text-indigo-600 self-center">...+{{ $pipelineInkubasi->count() - 2 }}</span> @endif
                             </div>
                             @endif
                         </div>
@@ -308,13 +280,12 @@
                             <div class="text-2xl font-extrabold text-rose-700">{{ $pipelineSiapPanen->count() }} <span class="text-[11px] font-medium text-rose-500">Batch</span></div>
                         </div>
                         <div class="mt-2.5 pt-2 border-t border-rose-100 space-y-1">
-                            <div class="text-[10px] text-rose-600 font-bold">Miselium 100% / >40 Hari</div>
+                            <div class="text-[10px] text-rose-600 font-bold">Miselium 100% / >50 Hari</div>
                             @if($pipelineSiapPanen->count() > 0)
-                            <div class="flex flex-wrap gap-1">
-                                @foreach($pipelineSiapPanen->take(2) as $item)
-                                <a href="{{ route('petugas.laporan-panen.create', ['inokulasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-rose-600 text-white hover:bg-rose-700 text-[10px] font-bold rounded transition">Inokulasi #{{ $item->id }}</a>
+                            <div class="flex flex-wrap gap-1 max-h-24 overflow-y-auto">
+                                @foreach($pipelineSiapPanen as $item)
+                                <a href="{{ route('petugas.laporan-panen.create', ['inokulasi_id' => $item->id]) }}" class="px-1.5 py-0.5 bg-rose-600 text-white hover:bg-rose-700 text-[10px] font-bold rounded transition">Inokulasi {{ $item->id }}</a>
                                 @endforeach
-                                @if($pipelineSiapPanen->count() > 2) <span class="text-[10px] text-rose-600 self-center">...+{{ $pipelineSiapPanen->count() - 2 }}</span> @endif
                             </div>
                             @endif
                         </div>
@@ -397,7 +368,12 @@
                                     <tr class="hover:bg-gray-50 transition">
                                         <td class="py-2.5 px-2 font-bold text-gray-800">
                                             {{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}
-                                            <span class="block text-[10px] font-normal text-gray-400">Siklus Ke-{{ $report->siklus_panen }}</span>
+                                            <div class="flex items-center gap-1.5 mt-0.5">
+                                                <span class="text-[10px] font-normal text-gray-400">Siklus Ke-{{ $report->siklus_panen }}</span>
+                                                <span class="text-[9px] font-bold text-[#059669] bg-[#34D399]/15 border border-[#059669]/30 px-1.5 py-0.2 rounded">
+                                                    👤 {{ $report->user->name ?? 'Petugas' }}
+                                                </span>
+                                            </div>
                                         </td>
                                         <td class="py-2.5 px-2 font-black text-[#059669]">{{ (float)($report->jumlah_panen) }} Kg</td>
                                         <td class="py-2.5 px-2">

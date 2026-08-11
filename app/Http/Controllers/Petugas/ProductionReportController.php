@@ -15,7 +15,7 @@ class ProductionReportController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = \App\Models\Inokulasi::with(['productionReports' => function($q) {
+        $query = \App\Models\Inokulasi::with(['user', 'productionReports.user', 'productionReports' => function($q) {
             if (!auth()->user()->isAdmin()) {
                 $q->where('user_id', auth()->id());
             }
@@ -32,8 +32,14 @@ class ProductionReportController extends Controller
 
         if ($request->filled('search')) {
             $search = $request->search;
-            $query->whereHas('sterilisasi.bibit', function($q) use ($search) {
-                $q->where('kode_bibit', 'LIKE', '%' . $search . '%');
+            $query->where(function($q) use ($search) {
+                $q->whereHas('user', function($qu) use ($search) {
+                    $qu->where('name', 'LIKE', '%' . $search . '%');
+                })->orWhereHas('productionReports.user', function($qu) use ($search) {
+                    $qu->where('name', 'LIKE', '%' . $search . '%');
+                })->orWhereHas('sterilisasi.bibit', function($qb) use ($search) {
+                    $qb->where('kode_bibit', 'LIKE', '%' . $search . '%');
+                });
             });
         }
 
@@ -54,11 +60,17 @@ class ProductionReportController extends Controller
      */
     public function create(): View
     {
-        $inokulasis = \App\Models\Inokulasi::withCount(['productionReports' => function($q) {
+        $query = \App\Models\Inokulasi::with(['user', 'bibit', 'sterilisasi.bibit'])
+            ->withCount(['productionReports' => function($q) {
                 $q->where('status_validasi', '!=', 'dibatalkan');
             }])
-            ->having('production_reports_count', '<', 7)
-            ->get();
+            ->having('production_reports_count', '<', 7);
+
+        if (!auth()->user()->isAdmin()) {
+            $query->where('user_id', auth()->id());
+        }
+
+        $inokulasis = $query->get();
         return view('petugas.laporan_panen.create', compact('inokulasis'));
     }
 
@@ -82,8 +94,8 @@ class ProductionReportController extends Controller
 
         $jarakHari = $tanggalInokulasi->diffInDays($tanggalPanen, false);
 
-        if ($jarakHari < 40) {
-            return back()->withErrors(['error' => "Gagal! Batch ini baru berumur $jarakHari hari semenjak inokulasi. Baglog belum layak untuk dipanen (minimal masa inkubasi adalah 40 hari)."])->withInput();
+        if ($jarakHari < 50) {
+            return back()->withErrors(['error' => "Gagal! Batch ini baru berumur $jarakHari hari semenjak inokulasi. Baglog belum layak untuk dipanen (minimal masa inkubasi adalah 50 hari)."])->withInput();
         }
 
         $jumlah_panen = $request->berat_grade_a + $request->berat_grade_b;
@@ -126,13 +138,18 @@ class ProductionReportController extends Controller
                 ->with('error', 'Laporan yang sudah divalidasi tidak dapat diedit.');
         }
 
-        // Tambahkan inokulasi_id yang sedang diedit agar tetap muncul meskipun sudah 7 kali, atau biarkan semua yang < 7
-        $inokulasis = \App\Models\Inokulasi::withCount(['productionReports' => function($q) {
+        // Tambahkan inokulasi_id yang sedang diedit agar tetap muncul meskipun sudah 7 kali, atau biarkan semua yang < 7 milik petugas ini
+        $query = \App\Models\Inokulasi::with(['user', 'bibit', 'sterilisasi.bibit'])
+            ->withCount(['productionReports' => function($q) {
                 $q->where('status_validasi', '!=', 'dibatalkan');
             }])
-            ->having('production_reports_count', '<', 7)
-            ->orWhere('id', $report->inokulasi_id)
-            ->get();
+            ->having('production_reports_count', '<', 7);
+
+        if (!auth()->user()->isAdmin()) {
+            $query->where('user_id', auth()->id());
+        }
+
+        $inokulasis = $query->orWhere('id', $report->inokulasi_id)->get();
         return view('petugas.laporan_panen.edit', compact('report', 'inokulasis'));
     }
 
@@ -171,6 +188,7 @@ class ProductionReportController extends Controller
             'berat_grade_b'     => $request->berat_grade_b,
             'jumlah_panen'      => $jumlah_panen,
             'catatan'           => $request->catatan,
+            'status_validasi'   => 'pending',
         ]);
 
         return redirect()->route('petugas.laporan-panen.index')

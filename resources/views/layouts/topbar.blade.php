@@ -13,8 +13,6 @@
  elseif (request()->routeIs('petugas.laporan-panen.edit')) $pageTitle ='Edit Laporan Hasil Panen';
  elseif (request()->routeIs('petugas.laporan-panen.*')) $pageTitle ='Kelola Laporan Panen';
  elseif (request()->routeIs('ketua.dashboard')) $pageTitle ='Tren & Laporan Hasil Panen';
- elseif (request()->routeIs('jadwal-panen.create')) $pageTitle ='Atur Perkiraan Panen';
- elseif (request()->routeIs('jadwal-panen.*')) $pageTitle ='Agenda Jadwal Panen';
  elseif (request()->routeIs('profile.*')) $pageTitle ='Pengaturan Profil Akun';
 
  // Label role
@@ -26,7 +24,7 @@
  };
 @endphp
 
-<header class="bg-[#FFFFFF]/90 backdrop-blur-md border-b border-[#E5E7EB]/40 sticky top-0 z-30 py-4 flex items-center justify-between px-4 sm:px-6 shrink-0 shadow-xs font-sans text-[#064E3B] min-h-[4rem]">
+<header class="bg-[#FFFFFF]/90 backdrop-blur-md border-b border-[#E5E7EB]/40 sticky top-0 z-30 py-3 flex items-center justify-between px-4 sm:px-6 shrink-0 shadow-xs font-sans text-[#064E3B] min-h-[3.5rem]">
 
  <div class="flex items-center gap-4 min-w-0">
 

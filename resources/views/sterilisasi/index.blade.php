@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center gap-3 font-sans">
-            <a href="{{ route('petugas.dashboard') }}" 
+            <a href="{{ route('petugas.dashboard') }}"
                 class="inline-flex items-center justify-center w-8 h-8 rounded-xl border border-[#E5E7EB] bg-white hover:bg-[#F3F4F6] text-[#4B5563] transition cursor-pointer"
                 title="Kembali ke Dashboard">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -26,7 +26,7 @@
  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-4 border-b border-[#E5E7EB]/20">
  <div>
  <h3 class="text-base font-bold text-[#064E3B]">Riwayat Sterilisasi Baglog</h3>
- <p class="text-xs text-[#6B7280] font-medium mt-0.5">Daftar rekaman proses pengukusan baglog (EWS Enabled).</p>
+ {{-- <p class="text-xs text-[#6B7280] font-medium mt-0.5">Daftar rekaman proses pengukusan baglog (EWS Enabled).</p> --}}
  </div>
  @if(in_array(auth()->user()->role, ['petugas', 'admin']))
  <a href="{{ route('sterilisasi.create') }}"
@@ -78,7 +78,7 @@
  </td>
  <td class="py-3.5 px-4 text-center {{ $st->durasi_pengukusan < 7 ?'text-red-600' :'text-[#059669]' }} font-bold text-xs">{{ $st->durasi_pengukusan }} Jam</td>
  <td class="py-3.5 px-4 text-center">
- <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border 
+ <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border
  {{ $st->status_sterilisasi ==='aman'
  ?'bg-[#34D399]/15 text-[#047857] border-[#34D399]/30'
  :'bg-red-100 text-red-700 border-red-300 animate-pulse' }}">
@@ -93,14 +93,6 @@
  @if($hasInokulasi)
  <span class="text-[10px] text-[#6B7280] font-bold italic">Terkunci (Sudah Inokulasi)</span>
  @else
- @if($st->status_sterilisasi === 'berisiko')
- <form method="POST" action="{{ route('sterilisasi.kukus-ulang', $st->id) }}" class="inline" onsubmit="return confirm('Yakin ingin melakukan kukus ulang untuk batch ini? Data durasi akan di-reset menjadi 0.');">
- @csrf
- <button type="submit" class="inline-flex items-center justify-center px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold rounded-lg transition duration-150 shadow-xs cursor-pointer">
- Kukus Ulang
- </button>
- </form>
- @else
  <div class="inline-flex gap-1 justify-end">
  <a href="{{ route('sterilisasi.edit', $st->id) }}" class="inline-flex items-center justify-center px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-[10px] font-bold rounded-lg transition duration-150 shadow-xs cursor-pointer">
  Edit
@@ -113,7 +105,6 @@
  </button>
  </form>
  </div>
- @endif
  @endif
  </td>
  @endif

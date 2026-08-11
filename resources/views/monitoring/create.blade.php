@@ -54,51 +54,50 @@
  @endif
  </div>
 
- {{-- Tanggal --}}
- <div>
- <label for="tanggal" class="block text-xs font-bold text-[#047857] mb-1.5">Tanggal Pemantauan</label>
- <input type="date" id="tanggal" name="tanggal"
- value="{{ date('Y-m-d') }}" required
- class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-3 text-[#374151] font-bold">
- </div>
+                    @php
+                        $currentKondisi = old('kondisi_udara', $latestMonitoring->kondisi_udara ?? '');
+                        if ($currentKondisi === 'Panas/Gersang') $currentKondisi = 'Panas';
+                    @endphp
 
- {{-- Kondisi Udara (Touch-Friendly Radio Buttons) --}}
- <div>
- <label class="block text-xs font-bold text-[#047857] mb-2">Kondisi Udara</label>
- <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
- <label class="cursor-pointer relative">
- <input type="radio" name="kondisi_udara" value="Sejuk" class="peer sr-only" required>
- <div class="rounded-xl border border-[#E5E7EB]/60 bg-white p-4 text-center shadow-2xs hover:bg-[#F3F5F4] peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-checked:ring-1 peer-checked:ring-blue-500 transition">
- <span class="block text-sm font-bold text-[#374151]">Sejuk</span>
- </div>
- </label>
- <label class="cursor-pointer relative">
- <input type="radio" name="kondisi_udara" value="Hangat" class="peer sr-only">
- <div class="rounded-xl border border-[#E5E7EB]/60 bg-white p-4 text-center shadow-2xs hover:bg-[#F3F5F4] peer-checked:border-yellow-500 peer-checked:bg-yellow-50 peer-checked:ring-1 peer-checked:ring-yellow-500 transition">
- <span class="block text-sm font-bold text-[#374151]">Hangat</span>
- </div>
- </label>
- <label class="cursor-pointer relative">
- <input type="radio" name="kondisi_udara" value="Panas/Gersang" class="peer sr-only">
- <div class="rounded-xl border border-[#E5E7EB]/60 bg-white p-4 text-center shadow-2xs hover:bg-[#F3F5F4] peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:ring-1 peer-checked:ring-red-500 transition">
- <span class="block text-sm font-bold text-[#374151]">Panas/Gersang</span>
- </div>
- </label>
- </div>
- </div>
+                    {{-- Tanggal --}}
+                    <div>
+                        <label for="tanggal" class="block text-xs font-bold text-[#047857] mb-1.5">Tanggal Pemantauan</label>
+                        <input type="date" id="tanggal" name="tanggal"
+                            value="{{ old('tanggal', $latestMonitoring->tanggal ?? date('Y-m-d')) }}" required
+                            class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-3 text-[#374151] font-bold">
+                    </div>
 
- {{-- Jumlah Penyiraman --}}
- <div>
- <label for="jumlah_penyiraman" class="block text-xs font-bold text-[#047857] mb-1.5">Jumlah Penyiraman (Hari Ini)</label>
- <div class="relative rounded-xl shadow-2xs w-32">
- <input type="number" id="jumlah_penyiraman" name="jumlah_penyiraman"
- value="0" min="0" required
- class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white focus:border-[#059669] focus:ring-[#059669] text-lg text-center py-3 text-[#374151] font-bold">
- <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
- <span class="text-[#6B7280] text-xs font-bold">x</span>
- </div>
- </div>
- </div>
+                    {{-- Kondisi Udara (Touch-Friendly Radio Buttons) --}}
+                    <div>
+                        <label class="block text-xs font-bold text-[#047857] mb-2">Kondisi Udara</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="cursor-pointer relative">
+                                <input type="radio" name="kondisi_udara" value="Sejuk" class="peer sr-only" required {{ $currentKondisi === 'Sejuk' ? 'checked' : '' }} onchange="document.getElementById('jumlah_penyiraman').value = 2">
+                                <div class="rounded-xl border border-[#E5E7EB]/60 bg-white p-4 text-center shadow-2xs hover:bg-[#F3F5F4] peer-checked:border-blue-500 peer-checked:bg-blue-50 peer-checked:ring-1 peer-checked:ring-blue-500 transition">
+                                    <span class="block text-sm font-bold text-[#374151]">Sejuk</span>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer relative">
+                                <input type="radio" name="kondisi_udara" value="Panas" class="peer sr-only" {{ $currentKondisi === 'Panas' ? 'checked' : '' }} onchange="document.getElementById('jumlah_penyiraman').value = 3">
+                                <div class="rounded-xl border border-[#E5E7EB]/60 bg-white p-4 text-center shadow-2xs hover:bg-[#F3F5F4] peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:ring-1 peer-checked:ring-red-500 transition">
+                                    <span class="block text-sm font-bold text-[#374151]">Panas</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    {{-- Jumlah Penyiraman --}}
+                    <div>
+                        <label for="jumlah_penyiraman" class="block text-xs font-bold text-[#047857] mb-1.5">Jumlah Penyiraman (Hari Ini)</label>
+                        <div class="relative rounded-xl shadow-2xs w-32">
+                            <input type="number" id="jumlah_penyiraman" name="jumlah_penyiraman"
+                                value="{{ old('jumlah_penyiraman', $latestMonitoring->jumlah_penyiraman ?? 0) }}" min="0" required
+                                class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white focus:border-[#059669] focus:ring-[#059669] text-lg text-center py-3 text-[#374151] font-bold">
+                            <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                <span class="text-[#6B7280] text-xs font-bold">x</span>
+                            </div>
+                        </div>
+                    </div>
 
  {{-- Submit Button --}}
  <div class="pt-6 border-t border-[#E5E7EB]/20">

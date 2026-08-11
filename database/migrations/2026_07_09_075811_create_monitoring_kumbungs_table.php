@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('inokulasi_id')->constrained('inokulasis')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->date('tanggal');
-            $table->enum('kondisi_udara', ['Sejuk', 'Hangat', 'Panas/Gersang']);
+            $table->string('kondisi_udara', 30)->default('Sejuk');
             $table->enum('kondisi_lantai', ['Basah/Lembab', 'Kering']);
             $table->integer('jumlah_penyiraman')->default(0);
             $table->timestamps();

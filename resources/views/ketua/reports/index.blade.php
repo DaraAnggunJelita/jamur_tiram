@@ -7,7 +7,7 @@
         {{-- === PAGE HEADER === --}}
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div class="flex items-center gap-3 font-sans">
-                <a href="{{ route('ketua.dashboard') }}" 
+                <a href="{{ route('ketua.dashboard') }}"
                     class="inline-flex items-center justify-center w-8 h-8 rounded-xl border border-[#E5E7EB] bg-white hover:bg-[#F3F4F6] text-[#4B5563] transition cursor-pointer"
                     title="Kembali ke Dashboard">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -158,7 +158,7 @@
             <div class="px-5 py-3.5 border-b border-[#E5E7EB]/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
                     <h3 class="font-extrabold text-[#064E3B] text-sm">{{ $judulPeriode ?? 'Semua Data Laporan' }}</h3>
-                    <p class="text-[11px] text-gray-400 font-medium">Menampilkan riwayat pencatatan hasil panen jamur tiram.</p>
+                    {{-- <p class="text-[11px] text-gray-400 font-medium">Menampilkan riwayat pencatatan hasil panen jamur tiram.</p> --}}
                 </div>
                 <span class="text-xs text-[#047857] font-extrabold px-3 py-1 bg-emerald-50 rounded-lg border border-emerald-100 self-start sm:self-auto">{{ $reports->count() }} total entri</span>
             </div>

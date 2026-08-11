@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('tanggal_distribusi');
             $table->integer('jumlah_dibagikan');
             $table->integer('sisa_stok');
-            $table->string('catatan')->nullable();
+            $table->string('catatan', 150)->nullable();
             $table->timestamps();
         });
     }

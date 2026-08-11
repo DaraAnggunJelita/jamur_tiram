@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 font-sans">
             <div class="flex items-center gap-3">
-                <a href="{{ route('admin.dashboard') }}" 
+                <a href="{{ route('admin.dashboard') }}"
                     class="inline-flex items-center justify-center w-8 h-8 rounded-xl border border-[#E5E7EB] bg-white hover:bg-[#F3F4F6] text-[#4B5563] transition cursor-pointer"
                     title="Kembali ke Dashboard">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -11,7 +11,7 @@
                     <h2 class="font-bold text-base text-[#064E3B] leading-tight">
                         {{ __('Kelola Katalog Produk KUPS') }}
                     </h2>
-                    <p class="text-xs text-[#047857] mt-0.5 font-medium">Manajemen daftar produk jamur tiram yang ditampilkan pada halaman publik</p>
+                    {{-- <p class="text-xs text-[#047857] mt-0.5 font-medium">Manajemen daftar produk jamur tiram yang ditampilkan pada halaman publik</p> --}}
                 </div>
             </div>
         </div>
@@ -31,7 +31,7 @@
             @endif
 
             <div class="bg-white border border-[#E5E7EB]/60 rounded-2xl p-6 shadow-xs overflow-hidden">
-                
+
                 {{-- Header Card --}}
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-4 border-b border-[#E5E7EB]/40">
                     <div>
@@ -112,11 +112,9 @@
                     </table>
                 </div>
 
-                @if($catalogs->hasPages())
-                <div class="mt-4 pt-4 border-t border-[#E5E7EB]/40">
+                <div class="mt-4 pt-4 border-t border-[#E5E7EB]/40 px-2">
                     {{ $catalogs->links() }}
                 </div>
-                @endif
             </div>
         </div>
     </div>

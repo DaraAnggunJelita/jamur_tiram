@@ -1,0 +1,343 @@
+<html xmlns:x="urn:schemas-microsoft-com:office:excel">
+<head>
+    <meta charset="utf-8">
+    <!--[if gte mso 9]>
+    <xml>
+        <x:ExcelWorkbook>
+            <x:ExcelWorksheets>
+                <x:ExcelWorksheet>
+                    <x:Name>Test Cases</x:Name>
+                    <x:WorksheetOptions>
+                        <x:DisplayGridlines/>
+                    </x:WorksheetOptions>
+                </x:ExcelWorksheet>
+            </x:ExcelWorksheets>
+        </x:ExcelWorkbook>
+    </xml>
+    <![endif]-->
+</head>
+<body>
+    <table border="1" style="border-collapse: collapse; width: 100%; font-family: sans-serif; font-size: 11pt;">
+  <tr>
+    <th style="background-color: #064E3B; color: white; padding: 5px;">ID</th>
+    <th style="background-color: #064E3B; color: white; padding: 5px;">Modul</th>
+    <th style="background-color: #064E3B; color: white; padding: 5px;">Fitur</th>
+    <th style="background-color: #064E3B; color: white; padding: 5px;">Skenario Pengujian</th>
+    <th style="background-color: #064E3B; color: white; padding: 5px;">Prasyarat</th>
+    <th style="background-color: #064E3B; color: white; padding: 5px;">Langkah-langkah</th>
+    <th style="background-color: #064E3B; color: white; padding: 5px;">Data Uji</th>
+    <th style="background-color: #064E3B; color: white; padding: 5px;">Hasil yang Diharapkan (Expected)</th>
+    <th style="background-color: #064E3B; color: white; padding: 5px;">Kriteria</th>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-AUTH-01</td>
+    <td style="padding: 5px;">Otentikasi</td>
+    <td style="padding: 5px;">Login</td>
+    <td style="padding: 5px;">Login berhasil dengan akun valid</td>
+    <td style="padding: 5px;">Akun sudah terdaftar</td>
+    <td style="padding: 5px;">1. Buka halaman login 2. Masukkan Email 3. Masukkan Password 4. Klik Login</td>
+    <td style="padding: 5px;">Email valid, Password valid</td>
+    <td style="padding: 5px;">Sistem mengarahkan ke dashboard masing-masing role (Admin/Petugas/Ketua)</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-AUTH-02</td>
+    <td style="padding: 5px;">Otentikasi</td>
+    <td style="padding: 5px;">Login</td>
+    <td style="padding: 5px;">Login gagal karena password salah</td>
+    <td style="padding: 5px;">Akun sudah terdaftar</td>
+    <td style="padding: 5px;">1. Buka halaman login 2. Masukkan Email 3. Masukkan Password salah 4. Klik Login</td>
+    <td style="padding: 5px;">Email valid, Password salah</td>
+    <td style="padding: 5px;">Sistem menolak akses dan menampilkan pesan error kredensial</td>
+    <td style="padding: 5px;">Invalid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-AUTH-03</td>
+    <td style="padding: 5px;">Otentikasi</td>
+    <td style="padding: 5px;">Login</td>
+    <td style="padding: 5px;">Login gagal karena email tidak valid</td>
+    <td style="padding: 5px;">Tidak ada</td>
+    <td style="padding: 5px;">1. Buka halaman login 2. Masukkan format email yang salah 3. Klik Login</td>
+    <td style="padding: 5px;">Email: "admincom" (tanpa @)</td>
+    <td style="padding: 5px;">Muncul peringatan dari browser (HTML5) bahwa format email salah</td>
+    <td style="padding: 5px;">Invalid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-AUTH-04</td>
+    <td style="padding: 5px;">Otentikasi</td>
+    <td style="padding: 5px;">Logout</td>
+    <td style="padding: 5px;">Keluar dari sistem</td>
+    <td style="padding: 5px;">User sedang login</td>
+    <td style="padding: 5px;">1. Klik menu dropdown profil di sudut kanan atas 2. Klik "Keluar Sistem"</td>
+    <td style="padding: 5px;">-</td>
+    <td style="padding: 5px;">Sesi dihapus dan sistem mengarahkan user kembali ke halaman Landing Page</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-ADM-01</td>
+    <td style="padding: 5px;">Admin - Akun</td>
+    <td style="padding: 5px;">Create Akun</td>
+    <td style="padding: 5px;">Menambahkan akun pengguna baru (Valid)</td>
+    <td style="padding: 5px;">Login sebagai Admin</td>
+    <td style="padding: 5px;">1. Masuk ke menu Kelola Akun 2. Klik Tambah 3. Isi form dengan lengkap 4. Simpan</td>
+    <td style="padding: 5px;">Nama, Email (unik), Password, Role (petugas)</td>
+    <td style="padding: 5px;">Akun berhasil dibuat, tersimpan di database, dan muncul pesan sukses</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-ADM-02</td>
+    <td style="padding: 5px;">Admin - Akun</td>
+    <td style="padding: 5px;">Create Akun</td>
+    <td style="padding: 5px;">Gagal menambahkan akun (Email duplikat)</td>
+    <td style="padding: 5px;">Login sebagai Admin</td>
+    <td style="padding: 5px;">1. Masuk ke menu Kelola Akun 2. Klik Tambah 3. Isi form dengan email yang sudah ada 4. Simpan</td>
+    <td style="padding: 5px;">Email: (email yang sudah terdaftar)</td>
+    <td style="padding: 5px;">Sistem menolak menyimpan dan menampilkan pesan error bahwa email sudah digunakan</td>
+    <td style="padding: 5px;">Invalid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-ADM-03</td>
+    <td style="padding: 5px;">Admin - Akun</td>
+    <td style="padding: 5px;">Update Akun</td>
+    <td style="padding: 5px;">Mengubah data akun pengguna</td>
+    <td style="padding: 5px;">Login sebagai Admin</td>
+    <td style="padding: 5px;">1. Masuk menu Kelola Akun 2. Klik Edit pada salah satu user 3. Ubah Nama 4. Simpan</td>
+    <td style="padding: 5px;">Nama baru</td>
+    <td style="padding: 5px;">Data berhasil diperbarui dan muncul pesan sukses</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-ADM-04</td>
+    <td style="padding: 5px;">Admin - Akun</td>
+    <td style="padding: 5px;">Delete Akun</td>
+    <td style="padding: 5px;">Menghapus akun pengguna</td>
+    <td style="padding: 5px;">Login sebagai Admin</td>
+    <td style="padding: 5px;">1. Masuk menu Kelola Akun 2. Klik Hapus 3. Konfirmasi penghapusan</td>
+    <td style="padding: 5px;">-</td>
+    <td style="padding: 5px;">Akun terhapus dari tabel dan tidak bisa login lagi</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-ADM-05</td>
+    <td style="padding: 5px;">Admin - Katalog</td>
+    <td style="padding: 5px;">Create Katalog</td>
+    <td style="padding: 5px;">Menambahkan produk baru ke katalog</td>
+    <td style="padding: 5px;">Login sebagai Admin</td>
+    <td style="padding: 5px;">1. Masuk menu Katalog Produk 2. Klik Tambah 3. Isi form (Nama, Harga, Gambar) 4. Simpan</td>
+    <td style="padding: 5px;">Nama produk, Harga > 0, File Gambar (JPG/PNG)</td>
+    <td style="padding: 5px;">Produk berhasil ditambahkan dan langsung tampil di halaman Landing Page publik</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-ADM-06</td>
+    <td style="padding: 5px;">Admin - Katalog</td>
+    <td style="padding: 5px;">Create Katalog</td>
+    <td style="padding: 5px;">Gagal menambah katalog (Harga negatif)</td>
+    <td style="padding: 5px;">Login sebagai Admin</td>
+    <td style="padding: 5px;">1. Masuk menu Katalog Produk 2. Klik Tambah 3. Isi harga dengan minus 4. Simpan</td>
+    <td style="padding: 5px;">Harga: -50000</td>
+    <td style="padding: 5px;">Sistem menolak input harga negatif dan memunculkan validasi error</td>
+    <td style="padding: 5px;">Invalid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-ADM-07</td>
+    <td style="padding: 5px;">Admin - Profil</td>
+    <td style="padding: 5px;">Update Profil</td>
+    <td style="padding: 5px;">Memperbarui informasi lembaga KUPS</td>
+    <td style="padding: 5px;">Login sebagai Admin</td>
+    <td style="padding: 5px;">1. Masuk menu Kelola Profile KUPS 2. Ubah deskripsi atau kontak 3. Simpan</td>
+    <td style="padding: 5px;">Data profil baru</td>
+    <td style="padding: 5px;">Profil berhasil diperbarui dan berubah di Landing Page</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-ADM-08</td>
+    <td style="padding: 5px;">Admin - Validasi</td>
+    <td style="padding: 5px;">Validasi Panen</td>
+    <td style="padding: 5px;">Menyetujui (Approve) laporan panen</td>
+    <td style="padding: 5px;">Login sebagai Admin, Ada laporan pending</td>
+    <td style="padding: 5px;">1. Di Dashboard Admin, lihat antrian panen 2. Klik Terima</td>
+    <td style="padding: 5px;">Laporan berstatus pending</td>
+    <td style="padding: 5px;">Status laporan berubah menjadi Valid dan masuk ke riwayat audit</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-ADM-09</td>
+    <td style="padding: 5px;">Admin - Validasi</td>
+    <td style="padding: 5px;">Validasi Panen</td>
+    <td style="padding: 5px;">Menolak (Reject) laporan panen dengan alasan</td>
+    <td style="padding: 5px;">Login sebagai Admin, Ada laporan pending</td>
+    <td style="padding: 5px;">1. Klik Tolak 2. Isi alasan penolakan pada input yang muncul 3. Klik Kirim</td>
+    <td style="padding: 5px;">Alasan: "Data tidak masuk akal"</td>
+    <td style="padding: 5px;">Status laporan berubah menjadi Invalid (Ditolak) dan catatan terkirim ke petugas</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-PTG-01</td>
+    <td style="padding: 5px;">Petugas - Bibit</td>
+    <td style="padding: 5px;">Pantau Bibit</td>
+    <td style="padding: 5px;">Melihat stok bibit F2 yang dialokasikan</td>
+    <td style="padding: 5px;">Login sebagai Petugas</td>
+    <td style="padding: 5px;">1. Buka Dashboard Petugas 2. Lihat bagian Stok Bibit</td>
+    <td style="padding: 5px;">-</td>
+    <td style="padding: 5px;">Menampilkan tabel bibit yang dialokasikan Admin beserta sisa stoknya</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-PTG-02</td>
+    <td style="padding: 5px;">Petugas - Steril</td>
+    <td style="padding: 5px;">Create Steril</td>
+    <td style="padding: 5px;">Input proses sterilisasi (Valid)</td>
+    <td style="padding: 5px;">Login sebagai Petugas</td>
+    <td style="padding: 5px;">1. Ke menu Sterilisasi 2. Klik Tambah 3. Isi form (jumlah baglog minimal 50) 4. Simpan</td>
+    <td style="padding: 5px;">Jumlah Baglog: 100, Waktu: Sesuai</td>
+    <td style="padding: 5px;">Data tersimpan, stok bibit berkurang, dan muncul di antrean Inokulasi</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-PTG-03</td>
+    <td style="padding: 5px;">Petugas - Steril</td>
+    <td style="padding: 5px;">Create Steril</td>
+    <td style="padding: 5px;">Gagal input sterilisasi (Baglog < 50)</td>
+    <td style="padding: 5px;">Login sebagai Petugas</td>
+    <td style="padding: 5px;">1. Ke menu Sterilisasi 2. Klik Tambah 3. Isi jumlah baglog di bawah batas minimal 4. Simpan</td>
+    <td style="padding: 5px;">Jumlah Baglog: 30</td>
+    <td style="padding: 5px;">Sistem menolak penyimpanan dengan pesan error minimal pembuatan 50 baglog</td>
+    <td style="padding: 5px;">Invalid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-PTG-04</td>
+    <td style="padding: 5px;">Petugas - Inokulasi</td>
+    <td style="padding: 5px;">Create Inokulasi</td>
+    <td style="padding: 5px;">Input proses inokulasi (Waktu Valid)</td>
+    <td style="padding: 5px;">Login sebagai Petugas, Ada data steril</td>
+    <td style="padding: 5px;">1. Ke menu Inokulasi 2. Klik Tambah 3. Pilih referensi sterilisasi 4. Set tanggal dalam batas 2 hari pasca steril 5. Simpan</td>
+    <td style="padding: 5px;">Tanggal inokulasi selisih 1 hari</td>
+    <td style="padding: 5px;">Data inokulasi berhasil tersimpan tanpa peringatan</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-PTG-05</td>
+    <td style="padding: 5px;">Petugas - Inokulasi</td>
+    <td style="padding: 5px;">Create Inokulasi</td>
+    <td style="padding: 5px;">Peringatan (Soft Warning) jika inokulasi telat > 2 hari</td>
+    <td style="padding: 5px;">Login sebagai Petugas</td>
+    <td style="padding: 5px;">1. Input inokulasi 2. Set tanggal inokulasi lewat dari 2 hari pasca sterilisasi 3. Simpan</td>
+    <td style="padding: 5px;">Tanggal selisih 5 hari</td>
+    <td style="padding: 5px;">Data TETAP TERSIMPAN, namun sistem memunculkan flash message Peringatan/Warning khusus</td>
+    <td style="padding: 5px;">Valid (Soft-Warning)</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-PTG-06</td>
+    <td style="padding: 5px;">Petugas - Monitor</td>
+    <td style="padding: 5px;">Create Monitor</td>
+    <td style="padding: 5px;">Input log monitoring harian (Suhu/Kelembapan)</td>
+    <td style="padding: 5px;">Login sebagai Petugas, Ada data inokulasi</td>
+    <td style="padding: 5px;">1. Ke menu Monitoring 2. Klik Tambah 3. Isi Suhu dan Kelembapan 4. Simpan</td>
+    <td style="padding: 5px;">Suhu: 28, Kelembapan: 85</td>
+    <td style="padding: 5px;">Data tersimpan dan jika suhu ekstrem akan memicu EWS di Dashboard</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-PTG-07</td>
+    <td style="padding: 5px;">Petugas - Panen</td>
+    <td style="padding: 5px;">Create Panen</td>
+    <td style="padding: 5px;">Input laporan hasil panen (Valid)</td>
+    <td style="padding: 5px;">Login sebagai Petugas, Ada batch siap panen</td>
+    <td style="padding: 5px;">1. Ke menu Laporan Panen 2. Klik Tambah 3. Pilih Batch Inokulasi (umur > 50 hari) 4. Isi berat grade A & B 5. Simpan</td>
+    <td style="padding: 5px;">Grade A: 5Kg, Grade B: 1Kg</td>
+    <td style="padding: 5px;">Data tersimpan dengan status 'Pending' dan masuk ke Dashboard Admin</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-PTG-08</td>
+    <td style="padding: 5px;">Petugas - Panen</td>
+    <td style="padding: 5px;">Create Panen</td>
+    <td style="padding: 5px;">Gagal panen jika masa inkubasi < 50 hari</td>
+    <td style="padding: 5px;">Login sebagai Petugas</td>
+    <td style="padding: 5px;">1. Tambah laporan panen 2. Pilih Batch Inokulasi yang umurnya baru 20 hari 3. Simpan</td>
+    <td style="padding: 5px;">Umur Batch: 20 Hari</td>
+    <td style="padding: 5px;">Sistem menolak dan menampilkan pesan error baglog belum layak panen</td>
+    <td style="padding: 5px;">Invalid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-PTG-09</td>
+    <td style="padding: 5px;">Petugas - Panen</td>
+    <td style="padding: 5px;">Revisi Panen</td>
+    <td style="padding: 5px;">Mengedit laporan panen yang ditolak Admin</td>
+    <td style="padding: 5px;">Login sebagai Petugas, Ada laporan berstatus Invalid</td>
+    <td style="padding: 5px;">1. Ke menu Laporan Panen 2. Klik Edit pada baris yang ditolak 3. Ubah angka kiloan 4. Simpan</td>
+    <td style="padding: 5px;">Perubahan angka kiloan</td>
+    <td style="padding: 5px;">Data tersimpan dan status kembali menjadi 'Pending' untuk divalidasi ulang Admin</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-PTG-10</td>
+    <td style="padding: 5px;">Petugas - EWS</td>
+    <td style="padding: 5px;">Dashboard EWS</td>
+    <td style="padding: 5px;">Melihat peringatan dini jika kondisi kritis</td>
+    <td style="padding: 5px;">Login sebagai Petugas, Ada input monitoring ekstrem</td>
+    <td style="padding: 5px;">1. Buka Dashboard Petugas 2. Periksa Kotak EWS</td>
+    <td style="padding: 5px;">-</td>
+    <td style="padding: 5px;">Jika suhu > 30 atau < 22, atau ada sterilisasi berisiko, peringatan merah EWS otomatis muncul</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-KTA-01</td>
+    <td style="padding: 5px;">Ketua - Laporan</td>
+    <td style="padding: 5px;">Filter Laporan</td>
+    <td style="padding: 5px;">Memfilter laporan berdasarkan bulan</td>
+    <td style="padding: 5px;">Login sebagai Ketua</td>
+    <td style="padding: 5px;">1. Buka menu Laporan 2. Pilih filter Bulan & Tahun 3. Terapkan</td>
+    <td style="padding: 5px;">-</td>
+    <td style="padding: 5px;">Tabel hanya menampilkan rekapan data panen dan produksi pada bulan yang dipilih</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-KTA-02</td>
+    <td style="padding: 5px;">Ketua - Laporan</td>
+    <td style="padding: 5px;">Cetak PDF</td>
+    <td style="padding: 5px;">Mengekspor laporan ke format PDF</td>
+    <td style="padding: 5px;">Login sebagai Ketua</td>
+    <td style="padding: 5px;">1. Buka menu Laporan 2. Klik tombol Export PDF</td>
+    <td style="padding: 5px;">-</td>
+    <td style="padding: 5px;">Browser mengunduh file berekstensi .pdf berisi tabel laporan dengan rapi</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-KTA-03</td>
+    <td style="padding: 5px;">Ketua - Laporan</td>
+    <td style="padding: 5px;">Cetak Excel</td>
+    <td style="padding: 5px;">Mengekspor laporan ke format Excel</td>
+    <td style="padding: 5px;">Login sebagai Ketua</td>
+    <td style="padding: 5px;">1. Buka menu Laporan 2. Klik tombol Export Excel</td>
+    <td style="padding: 5px;">-</td>
+    <td style="padding: 5px;">Browser mengunduh file berekstensi .xlsx atau .csv berisi data mentah laporan</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-PUB-01</td>
+    <td style="padding: 5px;">Publik - Landing</td>
+    <td style="padding: 5px;">Lihat Landing Page</td>
+    <td style="padding: 5px;">Mengakses halaman utama web</td>
+    <td style="padding: 5px;">Pengunjung Web tanpa login</td>
+    <td style="padding: 5px;">1. Buka URL utama website (misal: domain.com)</td>
+    <td style="padding: 5px;">-</td>
+    <td style="padding: 5px;">Website menampilkan hero section, katalog produk, dan kontak dengan sempurna tanpa error</td>
+    <td style="padding: 5px;">Valid</td>
+  </tr>
+  <tr>
+    <td style="padding: 5px;">TC-PUB-02</td>
+    <td style="padding: 5px;">Publik - Landing</td>
+    <td style="padding: 5px;">Keamanan Akses</td>
+    <td style="padding: 5px;">Mencoba masuk paksa ke rute admin</td>
+    <td style="padding: 5px;">Pengunjung Web tanpa login</td>
+    <td style="padding: 5px;">1. Ketik URL '/admin/dashboard' secara manual di browser</td>
+    <td style="padding: 5px;">-</td>
+    <td style="padding: 5px;">Sistem memblokir akses dan mengarahkan paksa (redirect) pengunjung ke halaman Login</td>
+    <td style="padding: 5px;">Invalid</td>
+  </tr>
+</table>
+
+</body>
+</html>

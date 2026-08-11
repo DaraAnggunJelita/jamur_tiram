@@ -11,8 +11,8 @@ return new class extends Migration
         Schema::create('bibits', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('kode_bibit')->unique();
-            $table->string('asal_bibit')->nullable();
+            $table->string('kode_bibit', 20)->unique();
+            $table->string('asal_bibit', 50)->nullable();
             $table->date('tanggal_masuk');
             $table->integer('jumlah');
             $table->integer('sisa_stok')->default(0);

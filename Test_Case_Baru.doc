@@ -1,0 +1,245 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:w="urn:schemas-microsoft-com:office:word"
+      xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="utf-8">
+<title>Pengujian Sistem</title>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        font-family: "Times New Roman", Times, serif;
+        font-size: 11pt;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 5px;
+        text-align: left;
+        vertical-align: top;
+    }
+    th {
+        font-weight: bold;
+        text-align: center;
+    }
+    h3 {
+        font-family: "Times New Roman", Times, serif;
+    }
+    .text-center {
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+
+<h3>4.2 Analisa Pengujian</h3>
+<p>Tabel 4.3 Pengujian Sistem</p>
+
+<table>
+    <thead>
+        <tr>
+            <th width="5%">No</th>
+            <th width="15%">Skenario Uji</th>
+            <th width="25%">Langkah Uji</th>
+            <th width="25%">Data Uji</th>
+            <th width="20%">Hasil Yang Diharapkan</th>
+            <th width="10%">Hasil</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="text-center">1.</td>
+            <td><strong>Login (Admin)</strong></td>
+            <td>1. Masukkan email dan password admin yang valid.<br>2. Tekan tombol <i>Login</i>.</td>
+            <td>email: admin@kups.com<br>password: password123</td>
+            <td>Sistem berhasil mengotentikasi, memberikan akses, dan menavigasi user ke Beranda/Dashboard Admin.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">2.</td>
+            <td><strong>Login (Petugas)</strong></td>
+            <td>1. Masukkan email dan password petugas yang valid.<br>2. Tekan tombol <i>Login</i>.</td>
+            <td>email: petugas@kups.com<br>password: password123</td>
+            <td>Sistem berhasil mengotentikasi, memberikan akses, dan menavigasi user ke Beranda/Dashboard Petugas.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">3.</td>
+            <td><strong>Login (Ketua)</strong></td>
+            <td>1. Masukkan email dan password ketua yang valid.<br>2. Tekan tombol <i>Login</i>.</td>
+            <td>email: ketua@kups.com<br>password: password123</td>
+            <td>Sistem berhasil mengotentikasi, memberikan akses, dan menavigasi user ke Beranda/Dashboard Ketua.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">4.</td>
+            <td><strong>Login (Gagal - Password Salah)</strong></td>
+            <td>1. Masukkan email yang valid.<br>2. Masukkan password yang salah.<br>3. Tekan <i>Login</i>.</td>
+            <td>email: admin@kups.com<br>password: salah123</td>
+            <td>Sistem menolak akses masuk dan menampilkan pesan <i>error</i> kredensial tidak cocok.</td>
+            <td class="text-center">Invalid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">5.</td>
+            <td><strong>Logout (Keluar Sistem)</strong></td>
+            <td>1. Klik menu dropdown profil di sudut kanan atas.<br>2. Klik "Keluar Sistem".</td>
+            <td>-</td>
+            <td>Sesi dihapus dan sistem mengarahkan user kembali ke halaman Landing Page publik.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">6.</td>
+            <td><strong>Admin - Create Akun (Valid)</strong></td>
+            <td>1. Masuk ke menu Kelola Akun.<br>2. Klik Tambah.<br>3. Isi form dengan lengkap.<br>4. Tekan <i>Simpan</i>.</td>
+            <td>Nama, Email (baru), Password, Role (petugas)</td>
+            <td>Akun baru berhasil dibuat, tersimpan di tabel pengguna, dan muncul notifikasi sukses.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">7.</td>
+            <td><strong>Admin - Create Akun (Duplikat)</strong></td>
+            <td>1. Masuk ke menu Kelola Akun.<br>2. Klik Tambah.<br>3. Isi form dengan email yang sudah ada.<br>4. Tekan <i>Simpan</i>.</td>
+            <td>Email: admin@kups.com</td>
+            <td>Sistem menolak menyimpan data dan menampilkan <i>error</i> validasi email sudah digunakan.</td>
+            <td class="text-center">Invalid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">8.</td>
+            <td><strong>Admin - Create Katalog (Valid)</strong></td>
+            <td>1. Masuk ke menu Katalog Produk.<br>2. Klik Tambah.<br>3. Isi Nama, Harga, Gambar.<br>4. Tekan <i>Simpan</i>.</td>
+            <td>Nama Produk, Harga (15000), Gambar</td>
+            <td>Produk berhasil ditambahkan, tersimpan, dan langsung tampil di halaman depan Landing Page.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">9.</td>
+            <td><strong>Admin - Profil KUPS (Update)</strong></td>
+            <td>1. Masuk ke menu Profil KUPS.<br>2. Ubah data deskripsi / alamat.<br>3. Tekan <i>Simpan</i>.</td>
+            <td>Alamat/Nomor Telepon baru</td>
+            <td>Profil lembaga berhasil diperbarui secara real-time di database dan Landing Page.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">10.</td>
+            <td><strong>Admin - Validasi Panen (Terima)</strong></td>
+            <td>1. Di Dashboard Admin, lihat tabel antrian panen.<br>2. Klik <i>Terima</i> (Approve).</td>
+            <td>Status Laporan: Pending</td>
+            <td>Status laporan produksi panen dari petugas berubah menjadi Valid dan diarsipkan.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">11.</td>
+            <td><strong>Admin - Validasi Panen (Tolak)</strong></td>
+            <td>1. Di Dashboard Admin, lihat tabel antrian panen.<br>2. Klik <i>Tolak</i> (Reject).<br>3. Isi alasan penolakan.<br>4. Kirim.</td>
+            <td>Alasan penolakan: "Data tidak sesuai"</td>
+            <td>Status laporan menjadi Ditolak (Invalid) dan alasan penolakan muncul di halaman Petugas.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">12.</td>
+            <td><strong>Petugas - Create Sterilisasi</strong></td>
+            <td>1. Masuk menu Sterilisasi.<br>2. Klik Tambah.<br>3. Isi durasi, kondisi, dll.<br>4. Tekan <i>Simpan</i>.</td>
+            <td>Tanggal sterilisasi, jumlah baglog steril, durasi.</td>
+            <td>Data proses sterilisasi berhasil tersimpan, memotong stok bibit, dan masuk antrean Inokulasi.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">13.</td>
+            <td><strong>Petugas - Create Inokulasi</strong></td>
+            <td>1. Masuk menu Inokulasi.<br>2. Klik Tambah.<br>3. Pilih referensi sterilisasi dan tanggal.<br>4. Tekan <i>Simpan</i>.</td>
+            <td>Tanggal inokulasi (valid selisih &lt; 2 hari dari steril).</td>
+            <td>Data inokulasi tersimpan sukses tanpa error EWS.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">14.</td>
+            <td><strong>Petugas - EWS Warning (Soft-Warning)</strong></td>
+            <td>1. Masuk menu Inokulasi.<br>2. Set tanggal lewat dari 2 hari setelah proses sterilisasi.<br>3. Tekan <i>Simpan</i>.</td>
+            <td>Tanggal inokulasi (selisih &gt; 2 hari)</td>
+            <td>Data inokulasi tetap tersimpan, namun sistem otomatis membangkitkan peringatan di modul EWS.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">15.</td>
+            <td><strong>Petugas - Monitoring Kumbung</strong></td>
+            <td>1. Masuk menu Monitoring.<br>2. Klik Tambah.<br>3. Set kondisi suhu/udara.<br>4. Tekan <i>Simpan</i>.</td>
+            <td>Kondisi Udara: Sejuk, Kelembapan normal</td>
+            <td>Log harian tersimpan dengan sukses dan riwayat grafik pemantauan diperbarui.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">16.</td>
+            <td><strong>Petugas - Create Panen (Valid)</strong></td>
+            <td>1. Masuk menu Laporan Panen.<br>2. Tambah Laporan.<br>3. Isi berat jamur.<br>4. Tekan <i>Simpan</i>.</td>
+            <td>Grade A: 10Kg<br>Grade B: 2Kg</td>
+            <td>Data laporan panen berhasil dibuat dengan status 'Pending' menunggu validasi Admin.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">17.</td>
+            <td><strong>Ketua - Filter Laporan</strong></td>
+            <td>1. Buka menu Laporan Produksi.<br>2. Set filter Bulan dan Tahun.<br>3. Klik Cari / Terapkan.</td>
+            <td>Filter Bulan: Agustus, Tahun: 2026</td>
+            <td>Tabel secara dinamis hanya menampilkan riwayat data panen sesuai dengan bulan yang dipilih.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">18.</td>
+            <td><strong>Ketua - Ekspor PDF/Excel</strong></td>
+            <td>1. Buka menu Laporan Produksi.<br>2. Klik tombol Ekspor (PDF/Excel).</td>
+            <td>-</td>
+            <td>Browser mengunduh file berisikan rekapan data produksi yang rapi (PDF/XLSX).</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">19.</td>
+            <td><strong>Publik - Akses Ilegal (Security)</strong></td>
+            <td>1. Ketik URL `/admin` atau `/petugas` secara manual di kolom alamat browser (tanpa login).</td>
+            <td>URL: localhost:8000/admin</td>
+            <td>Middleware sistem memblokir akses dan mengarahkan pengunjung paksa kembali ke halaman Login.</td>
+            <td class="text-center">Invalid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">20.</td>
+            <td><strong>Admin - Kelola Bibit (Valid)</strong></td>
+            <td>1. Masuk ke menu Kelola Bibit.<br>2. Klik Tambah Bibit.<br>3. Isi form data bibit (Kode, Jenis, Supplier).<br>4. Tekan <i>Simpan</i>.</td>
+            <td>Kode Bibit: BBT-01, Jenis: F2, Jumlah: 100</td>
+            <td>Data bibit berhasil tersimpan ke sistem dan stok bibit bertambah.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">21.</td>
+            <td><strong>Admin - Pengaturan EWS</strong></td>
+            <td>1. Masuk ke menu Pengaturan EWS.<br>2. Ubah nilai ambang batas suhu atau hari panen.<br>3. Tekan <i>Simpan</i>.</td>
+            <td>Batas Suhu Maks: 32&deg;C</td>
+            <td>Pengaturan peringatan EWS berhasil diperbarui dan diterapkan ke seluruh dasbor.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">22.</td>
+            <td><strong>Petugas - Pemantauan Inkubasi</strong></td>
+            <td>1. Masuk ke menu Data Inokulasi &amp; Inkubasi.<br>2. Klik <i>Log Harian</i> pada salah satu batch.<br>3. Isi jumlah kegagalan (kontaminasi).<br>4. Tekan <i>Simpan</i>.</td>
+            <td>Jumlah Kontaminasi: 2 baglog</td>
+            <td>Log harian masa inkubasi tersimpan dan sisa baglog di batch tersebut otomatis berkurang.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">23.</td>
+            <td><strong>Petugas - Alokasi Rendang</strong></td>
+            <td>1. Masuk menu Alokasi Rendang.<br>2. Masukkan jumlah jamur Grade B yang akan diolah.<br>3. Tekan <i>Simpan</i>.</td>
+            <td>Jumlah Dialokasikan: 2.5 Kg</td>
+            <td>Jamur afkir/Grade B berhasil dialokasikan dan datanya terekam jelas di sistem.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+        <tr>
+            <td class="text-center">24.</td>
+            <td><strong>Ketua - Pantau Stok Bibit</strong></td>
+            <td>1. Masuk ke menu Pantau Stok Bibit melalui akun Ketua.<br>2. Lihat data di tabel.</td>
+            <td>-</td>
+            <td>Sistem menampilkan ringkasan penggunaan dan sisa ketersediaan stok bibit secara <i>real-time</i>.</td>
+            <td class="text-center">Valid<br><br><br></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

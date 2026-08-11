@@ -18,7 +18,6 @@ class Inokulasi extends Model
         'jumlah_berhasil',
         'jumlah_kontaminasi',
         'jumlah_bibit_terpakai',
-        'status_buka_kapas',
     ];
 
     public function bibit()

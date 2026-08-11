@@ -152,35 +152,36 @@
         /* ─── TENTANG ─── */
         .about-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 56px;
-            align-items: center;
+            grid-template-columns: 5fr 7fr;
+            gap: 64px;
+            align-items: flex-start;
         }
         .about-img {
-            width: 100%; border-radius: 6px;
-            aspect-ratio: 4/3; object-fit: cover;
+            width: 100%; border-radius: 8px;
+            aspect-ratio: 4/5; object-fit: cover;
+            position: sticky; top: 100px;
         }
-        .about-list { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+        .about-list { display: flex; flex-direction: column; gap: 16px; margin-top: 32px; }
         .about-item {
-            display: flex; gap: 12px; align-items: flex-start;
-            padding: 14px; border: 1px solid #cfc7b5;
+            display: flex; gap: 16px; align-items: flex-start;
+            padding: 16px; border: 1px solid #cfc7b5;
             border-radius: 6px; background: #faf7f1;
         }
         .about-icon {
-            width: 32px; height: 32px;
+            width: 36px; height: 36px;
             background: #ecfdf5; color: #2d5a3d;
             border-radius: 6px; flex-shrink: 0;
             display: flex; align-items: center; justify-content: center;
         }
-        .about-item-title { font-size: 13px; font-weight: 600; color: #111; margin-bottom: 2px; }
-        .about-item-desc  { font-size: 12px; color: #6b7280; line-height: 1.5; }
+        .about-item-title { font-size: 14px; font-weight: 600; color: #111; margin-bottom: 4px; }
+        .about-item-desc  { font-size: 13px; color: #6b7280; line-height: 1.6; }
         .stats-row {
-            display: flex; gap: 32px;
-            margin-top: 24px; padding-top: 20px;
+            display: flex; gap: 40px;
+            margin-top: 36px; padding-top: 24px;
             border-top: 1px solid #cfc7b5;
         }
-        .stat-val   { font-size: 28px; font-weight: 700; color: #2d5a3d; line-height: 1; }
-        .stat-label { font-size: 11px; color: #9ca3af; text-transform: uppercase; letter-spacing: .06em; margin-top: 4px; }
+        .stat-val   { font-size: 32px; font-weight: 700; color: #2d5a3d; line-height: 1; }
+        .stat-label { font-size: 11px; color: #9ca3af; text-transform: uppercase; letter-spacing: .06em; margin-top: 6px; font-weight: 600; }
 
         /* ─── ALUR PRODUKSI ─── */
         .steps {
@@ -304,77 +305,59 @@
         }
 
         /* ─── KONTAK ─── */
+        .kontak-section-head {
+            text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+            margin-bottom: 40px;
+        }
         .kontak-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 48px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            max-width: 800px;
+            margin: 0 auto;
             align-items: start;
         }
         .kontak-info-item {
-            display: flex; gap: 12px; align-items: flex-start;
-            margin-bottom: 16px;
+            display: flex; gap: 16px; align-items: flex-start;
+            background: #fff; padding: 20px; border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            border: 1px solid #e8e0d2;
         }
         .kontak-icon {
-            width: 32px; height: 32px;
+            width: 40px; height: 40px;
             background: #ecfdf5; color: #2d5a3d;
-            border-radius: 6px; flex-shrink: 0;
+            border-radius: 8px; flex-shrink: 0;
             display: flex; align-items: center; justify-content: center;
         }
-        .kontak-info-title { font-size: 12px; font-weight: 600; color: #111; margin-bottom: 2px; }
-        .kontak-info-desc  { font-size: 13px; color: #6b7280; }
-        .login-box {
-            background: #eae4d8;
-            border: 1px solid #cfc7b5;
-            border-radius: 6px;
-            padding: 28px;
-        }
-        .login-box-title { font-size: 15px; font-weight: 700; color: #111; margin-bottom: 6px; }
-        .login-box-desc  { font-size: 13px; color: #6b7280; line-height: 1.6; margin-bottom: 20px; }
-        .login-box-btn {
-            display: block; width: 100%;
-            padding: 10px;
-            background: #2d5a3d; color: #fff;
-            text-decoration: none; text-align: center;
-            font-size: 13px; font-weight: 600;
-            border-radius: 5px; transition: background .15s;
-        }
-        .login-box-btn:hover { background: #1e3d2a; }
+        .kontak-icon svg { width: 20px; height: 20px; }
+        .kontak-info-title { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 4px; }
+        .kontak-info-desc  { font-size: 13px; color: #6b7280; line-height: 1.5; }
 
         /* ─── FOOTER ─── */
         footer {
-            background: #1a1a1a;
-            color: rgba(255,255,255,.5);
-            padding: 40px 24px 24px;
+            background: #141414;
+            color: rgba(255,255,255,.6);
+            padding: 24px 24px;
         }
         .footer-inner {
             max-width: 1100px; margin: 0 auto;
         }
         .footer-top {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-            padding-bottom: 28px;
-            border-bottom: 1px solid rgba(255,255,255,.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
-        .footer-brand { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+        .footer-brand { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 12px; }
         .footer-brand-logo {
-            width: 30px; height: 30px; border-radius: 5px;
+            width: 32px; height: 32px; border-radius: 6px;
             background: #2d5a3d; color: #fff;
             display: flex; align-items: center; justify-content: center;
-            font-size: 13px; font-weight: 700;
+            font-size: 14px; font-weight: 700;
         }
-        .footer-brand-name { font-size: 13px; font-weight: 700; color: #fff; }
-        .footer-desc { font-size: 12px; line-height: 1.65; max-width: 280px; }
-        .footer-col-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.35); margin-bottom: 12px; }
-        .footer-links { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-        .footer-links a { font-size: 12px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .15s; }
-        .footer-links a:hover { color: rgba(255,255,255,.8); }
-        .footer-bottom {
-            padding-top: 20px;
-            display: flex; align-items: center; justify-content: space-between;
-            flex-wrap: wrap; gap: 8px;
-            font-size: 12px;
-        }
+        .footer-brand-name { font-size: 16px; font-weight: 700; color: #fff; letter-spacing: .02em; }
+        .footer-desc { font-size: 14px; line-height: 1.6; max-width: 450px; color: rgba(255,255,255,.5); margin: 0 auto; }
 
         /* ─── RESPONSIVE ─── */
         @media (max-width: 900px) {
@@ -386,7 +369,7 @@
             .gallery-grid  { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
             .gallery-item:first-child { grid-row: auto; height: 200px; }
             .gallery-item  { height: 160px; }
-            .kontak-grid   { grid-template-columns: 1fr; gap: 28px; }
+            .kontak-grid   { grid-template-columns: 1fr; gap: 16px; }
             .footer-top    { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 600px) {
@@ -450,20 +433,6 @@
             <p class="hero-desc">
                 Produsen jamur tiram organik dari Nagari Sijunjung. Dibudidayakan secara alami oleh perempuan petani dengan standar mutu yang terdigitalisasi.
             </p>
-            <div class="hero-meta">
-                <div>
-                    <div class="hero-meta-num">100%</div>
-                    <div class="hero-meta-label">Organik</div>
-                </div>
-                <div>
-                    <div class="hero-meta-num">15</div>
-                    <div class="hero-meta-label">Anggota</div>
-                </div>
-                <div>
-                    <div class="hero-meta-num">2021</div>
-                    <div class="hero-meta-label">Berdiri Sejak</div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
@@ -611,7 +580,7 @@
                             <div class="catalog-price-label">Harga</div>
                             <div class="catalog-price">Rp{{ number_format($catalog->price, 0, ',', '.') }}</div>
                         </div>
-                        <span class="catalog-tag">Segar ✓</span>
+                        {{-- <span class="catalog-tag">Segar ✓</span> --}}
                     </div>
                 </div>
             </div>
@@ -658,48 +627,46 @@
 {{-- KONTAK --}}
 <section class="section" id="kontak">
     <div class="container">
-        <div class="section-head">
+        <div class="section-head kontak-section-head">
             <div class="section-tag">Kontak</div>
             <h2 class="section-title">Hubungi Kami</h2>
             <p class="section-sub">Untuk pembelian, kemitraan, atau informasi lebih lanjut mengenai KUPS Harapan Asri.</p>
         </div>
         <div class="kontak-grid">
-            <div>
-                <div class="kontak-info-item">
-                    <div class="kontak-icon">
-                        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    </div>
-                    <div>
-                        <div class="kontak-info-title">Lokasi</div>
-                        <div class="kontak-info-desc">Nagari Sijunjung, Kabupaten Sijunjung, Sumatera Barat</div>
-                    </div>
+            <div class="kontak-info-item">
+                <div class="kontak-icon">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 </div>
-                <div class="kontak-info-item">
-                    <div class="kontak-icon">
-                        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    </div>
-                    <div>
-                        <div class="kontak-info-title">Naungan</div>
-                        <div class="kontak-info-desc">LPHN Nagari Sijunjung — Program Perhutanan Sosial</div>
-                    </div>
-                </div>
-                <div class="kontak-info-item">
-                    <div class="kontak-icon">
-                        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <div>
-                        <div class="kontak-info-title">Jam Operasional</div>
-                        <div class="kontak-info-desc">Senin – Sabtu, 07.00 – 16.00 WIB</div>
-                    </div>
+                <div>
+                    <div class="kontak-info-title">Lokasi</div>
+                    <div class="kontak-info-desc">{{ $profile->alamat ?? 'Nagari Sijunjung, Kabupaten Sijunjung, Sumatera Barat' }}</div>
                 </div>
             </div>
-            <div>
-                <div class="login-box">
-                    <div class="login-box-title">Akses Sistem Internal</div>
-                    <p class="login-box-desc">
-                        Khusus untuk anggota dan pengelola KUPS Harapan Asri. Masuk untuk mencatat dan memantau data produksi harian.
-                    </p>
-                    <a href="{{ route('login') }}" class="login-box-btn">Masuk ke Sistem Informasi</a>
+            <div class="kontak-info-item">
+                <div class="kontak-icon">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <div>
+                    <div class="kontak-info-title">Naungan</div>
+                    <div class="kontak-info-desc">LPHN Nagari Sijunjung — Program Perhutanan Sosial</div>
+                </div>
+            </div>
+            <div class="kontak-info-item">
+                <div class="kontak-icon">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                </div>
+                <div>
+                    <div class="kontak-info-title">Telepon / No. HP</div>
+                    <div class="kontak-info-desc">{{ $profile->nomor_telepon ?? '+62 812-3456-7890' }}</div>
+                </div>
+            </div>
+            <div class="kontak-info-item">
+                <div class="kontak-icon">
+                    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+                <div>
+                    <div class="kontak-info-title">Email</div>
+                    <div class="kontak-info-desc">{{ $profile->email ?? 'info@kupsharapanasri.com' }}</div>
                 </div>
             </div>
         </div>
@@ -719,28 +686,6 @@
                     Kelompok Usaha Perhutanan Sosial yang mengembangkan budidaya jamur tiram organik di Nagari Sijunjung, Sumatera Barat.
                 </p>
             </div>
-            <div>
-                <div class="footer-col-title">Navigasi</div>
-                <ul class="footer-links">
-                    <li><a href="#tentang">Tentang Kami</a></li>
-                    <li><a href="#proses">Proses Produksi</a></li>
-                    <li><a href="#produk">Produk</a></li>
-                    <li><a href="#galeri">Galeri</a></li>
-                    <li><a href="#kontak">Kontak</a></li>
-                </ul>
-            </div>
-            <div>
-                <div class="footer-col-title">Tautan</div>
-                <ul class="footer-links">
-                    <li><a href="#">Program LPHN</a></li>
-                    <li><a href="#">Perhutanan Sosial</a></li>
-                    <li><a href="{{ route('login') }}">Sistem Informasi</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <span>&copy; {{ date('Y') }} KUPS Harapan Asri. Seluruh hak dilindungi.</span>
-            <span>Nagari Sijunjung &nbsp;·&nbsp; Sumatera Barat</span>
         </div>
     </div>
 </footer>

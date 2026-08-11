@@ -79,16 +79,8 @@ class DatabaseSeeder extends Seeder
             'status' => 'Aktif/Siap Pakai',
         ]);
 
-        $baglog = \App\Models\Baglog::create([
-            'user_id' => $petugas->id,
-            'kode_batch' => 'BGL-001',
-            'tanggal_pembuatan' => now()->subMonths(7)->addDays(2)->format('Y-m-d'),
-            'jumlah_baglog' => 500,
-            'status_validasi' => 'valid',
-        ]);
-
         $sterilisasi = \App\Models\Sterilisasi::create([
-            'baglog_id' => $baglog->id,
+            'bibit_id' => $bibit->id,
             'user_id' => $petugas->id,
             'tanggal' => now()->subMonths(7)->addDays(4)->format('Y-m-d'),
             'durasi_pengukusan' => 8,

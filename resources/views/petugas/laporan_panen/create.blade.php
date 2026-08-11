@@ -47,7 +47,7 @@
  @if(request()->has('inokulasi_id') && $inokulasis->contains('id', request('inokulasi_id')))
      @php $selected = $inokulasis->firstWhere('id', request('inokulasi_id')); @endphp
      <div class="block w-full rounded-xl border border-[#E5E7EB]/60 bg-[#E5E7EB]/40 shadow-inner text-sm py-2.5 px-4 text-[#374151] font-bold cursor-not-allowed">
-         Inokulasi #{{ $selected->id }} - {{ \Carbon\Carbon::parse($selected->tanggal)->format('d M Y') }}
+         Inokulasi {{ $selected->id }} - {{ \Carbon\Carbon::parse($selected->tanggal)->format('d M Y') }}
      </div>
      <input type="hidden" name="inokulasi_id" value="{{ $selected->id }}">
  @else
@@ -55,8 +55,15 @@
      class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-2.5 text-[#374151] font-medium @error('inokulasi_id') border-[#F59E0B] @enderror" required>
      <option value="">-- Pilih Batch Inokulasi --</option>
      @foreach($inokulasis as $ino)
-     <option value="{{ $ino->id }}" {{ old('inokulasi_id', request('inokulasi_id')) == $ino->id ? 'selected' : '' }}>Inokulasi #{{ $ino->id }} - {{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }}</option>
-     @endforeach
+        @php
+            $namaPetugas = $ino->user->name ?? 'Petugas';
+            $jenisBibit = ucwords($ino->bibit->asal_bibit ?? $ino->bibit->kode_bibit ?? $ino->sterilisasi->bibit->asal_bibit ?? 'Bibit F2');
+            $jumlahBaglog = $ino->jumlah_berhasil > 0 ? $ino->jumlah_berhasil : ($ino->sterilisasi->bibit->banyak_baglog ?? 0);
+        @endphp
+        <option value="{{ $ino->id }}" {{ old('inokulasi_id', request('inokulasi_id')) == $ino->id ? 'selected' : '' }}>
+            Inokulasi {{ $ino->id }} ({{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }}) — Petugas: {{ $namaPetugas }} | Bibit: {{ $jenisBibit }} ({{ number_format($jumlahBaglog) }} Baglog)
+        </option>
+    @endforeach
      </select>
  @endif
  </div>

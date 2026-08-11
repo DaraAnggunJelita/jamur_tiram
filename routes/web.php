@@ -104,7 +104,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/sterilisasi/{id}/kukus-ulang', [\App\Http\Controllers\SterilisasiController::class, 'kukusUlang'])->name('sterilisasi.kukus-ulang');
     Route::resource('inokulasi', \App\Http\Controllers\InokulasiController::class)->only(['index', 'create', 'store', 'destroy']);
     Route::post('/inokulasi/{id}/log-inkubasi', [\App\Http\Controllers\InokulasiController::class, 'storeLog'])->name('inokulasi.store-log');
-    Route::post('/inokulasi/{id}/buka-kapas', [\App\Http\Controllers\InokulasiController::class, 'bukaKapas'])->name('inokulasi.buka-kapas');
     Route::resource('monitoring', \App\Http\Controllers\MonitoringKumbungController::class)->only(['index', 'create', 'store']);
 
     // RUTE RENDANG JAMUR (Khusus panen yang buruk/layu)

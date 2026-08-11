@@ -1,0 +1,31 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="test" name="Test">
+    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="10">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Actor -->
+        <mxCell id="actor" value="Admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;" parent="1" vertex="1">
+          <mxGeometry x="60" y="60" width="30" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Boundary -->
+        <mxCell id="boundary" value="Halaman Login" style="shape=umlBoundary;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="200" y="60" width="50" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Control -->
+        <mxCell id="control" value="AuthController" style="shape=umlControl;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="350" y="60" width="50" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Entity -->
+        <mxCell id="entity" value="Tabel Users" style="shape=umlEntity;whiteSpace=wrap;html=1;verticalLabelPosition=bottom;verticalAlign=top;" parent="1" vertex="1">
+          <mxGeometry x="500" y="60" width="50" height="50" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

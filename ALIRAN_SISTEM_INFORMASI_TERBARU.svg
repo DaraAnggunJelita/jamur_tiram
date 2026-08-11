@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1450" height="1950" viewBox="0 0 1450 1950" style="background-color: #ffffff;">
+  <style>
+    .lane-title { font-family: sans-serif; font-size: 18px; font-weight: bold; fill: #000000; }
+    .box-title { font-family: sans-serif; font-size: 14px; font-weight: bold; fill: #000000; text-anchor: middle; dominant-baseline: middle; }
+    .small-title { font-family: sans-serif; font-size: 12px; font-weight: bold; fill: #000000; text-anchor: middle; dominant-baseline: middle; }
+    .line { stroke: #000000; stroke-width: 2.5; fill: none; }
+    .shape { fill: #ffffff; stroke: #000000; stroke-width: 2.5; }
+    .swimlane { fill: #f8f9fa; stroke: #000000; stroke-width: 2.5; }
+    .header-bg { fill: #e9ecef; stroke: #000000; stroke-width: 2.5; }
+  </style>
+
+  <g transform="translate(30, 30)">
+    <!-- Admin Swimlane -->
+    <rect x="0" y="0" width="380" height="1850" class="swimlane" />
+    <rect x="0" y="0" width="380" height="45" class="header-bg" />
+    <text x="190" y="28" class="lane-title" text-anchor="middle">Admin</text>
+
+    <!-- Ketua KUPS Swimlane -->
+    <rect x="380" y="0" width="400" height="1850" class="swimlane" />
+    <rect x="380" y="0" width="400" height="45" class="header-bg" />
+    <text x="580" y="28" class="lane-title" text-anchor="middle">Ketua KUPS</text>
+
+    <!-- Petugas Kumbung Swimlane -->
+    <rect x="780" y="0" width="600" height="1850" class="swimlane" />
+    <rect x="780" y="0" width="600" height="45" class="header-bg" />
+    <text x="1080" y="28" class="lane-title" text-anchor="middle">Petugas Kumbung</text>
+
+    <!-- Admin Elements -->
+    <!-- Mulai -->
+    <ellipse cx="190" cy="97" rx="70" ry="32" class="shape" />
+    <text x="190" y="97" class="box-title">Mulai</text>
+
+    <!-- Input Bibit Baru -->
+    <polygon points="75,210 325,210 305,290 55,290" class="shape" />
+    <text x="190" y="240" class="box-title">Memasukkan Data Bibit Baru</text>
+    <text x="190" y="260" class="box-title">&amp; Alokasi Distribusi</text>
+
+    <path d="M 190,130 L 190,210" class="line" marker-end="url(#arrow)" />
+
+    <!-- Terima Bibit (Petugas) -->
+    <rect x="960" y="210" width="240" height="70" rx="5" ry="5" class="shape" />
+    <text x="1080" y="245" class="box-title">Terima Alokasi Stok Bibit F2</text>
+
+    <!-- Arrow Admin -> Petugas -->
+    <path d="M 305,250 L 960,250" class="line" />
+
+    <!-- Input Sterilisasi -->
+    <polygon points="195,315 425,315 405,390 175,390" class="shape" transform="translate(780,0)" />
+    <text x="1080" y="352" class="box-title">Memasukkan Data Sterilisasi</text>
+
+    <path d="M 1080,280 L 1080,315" class="line" />
+
+    <!-- Input Inokulasi -->
+    <polygon points="195,420 425,420 405,495 175,495" class="shape" transform="translate(780,0)" />
+    <text x="1080" y="457" class="box-title">Memasukkan Data Inokulasi</text>
+
+    <path d="M 1080,390 L 1080,420" class="line" />
+
+    <!-- Inkubasi 40 Hari? -->
+    <polygon points="1080,525 1150,575 1080,625 1010,575" class="shape" />
+    <text x="1080" y="567" class="box-title">Inkubasi</text>
+    <text x="1080" y="585" class="box-title">40 Hari?</text>
+
+    <path d="M 1080,495 L 1080,525" class="line" />
+
+    <!-- Progres Inkubasi -->
+    <polygon points="400,542 570,542 550,607 380,607" class="shape" transform="translate(780,0)" />
+    <text x="1255" y="575" class="small-title">menginput progres inkubasi</text>
+
+    <path d="M 1150,575 L 1180,575" class="line" />
+    <text x="1160" y="565" class="small-title">Tidak</text>
+
+    <!-- Monitoring Kumbung -->
+    <rect x="970" y="660" width="220" height="70" rx="5" ry="5" class="shape" />
+    <text x="1080" y="695" class="box-title">Memonitoring kumbung</text>
+
+    <path d="M 1080,625 L 1080,660" class="line" />
+    <text x="1095" y="640" class="small-title">Ya</text>
+
+    <!-- Udara Panas? -->
+    <polygon points="1080,760 1150,810 1080,860 1010,810" class="shape" />
+    <text x="1080" y="810" class="box-title">Udara Panas?</text>
+
+    <path d="M 1080,730 L 1080,760" class="line" />
+
+    <!-- Siram 3x & 2x -->
+    <polygon points="30,845 200,845 180,910 10,910" class="shape" transform="translate(780,0)" />
+    <text x="885" y="877" class="small-title">menginput siram 3x sehari</text>
+
+    <polygon points="400,845 570,845 550,910 380,910" class="shape" transform="translate(780,0)" />
+    <text x="1255" y="877" class="small-title">menginput siram 2x sehari</text>
+
+    <path d="M 1010,810 L 885,810 L 885,845" class="line" />
+    <text x="940" y="800" class="small-title">Ya</text>
+
+    <path d="M 1150,810 L 1255,810 L 1255,845" class="line" />
+    <text x="1190" y="800" class="small-title">Tidak</text>
+
+    <!-- Panen Tiba? -->
+    <polygon points="1080,930 1145,980 1080,1030 1015,980" class="shape" />
+    <text x="1080" y="975" class="box-title">Panen</text>
+    <text x="1080" y="995" class="box-title">tiba?</text>
+
+    <path d="M 885,910 L 885,980 L 1015,980" class="line" />
+    <path d="M 1255,910 L 1255,980 L 1145,980" class="line" />
+
+    <!-- Menginput Data Panen -->
+    <polygon points="185,1050 415,1050 395,1125 165,1125" class="shape" transform="translate(780,0)" />
+    <text x="1070" y="1087" class="box-title">Menginput data panen</text>
+
+    <path d="M 1080,1030 L 1080,1050" class="line" />
+    <text x="1095" y="1040" class="small-title">Ya</text>
+
+    <!-- Grade A? -->
+    <polygon points="1080,1155 1145,1205 1080,1255 1015,1205" class="shape" />
+    <text x="1080" y="1205" class="box-title">Grade A?</text>
+
+    <path d="M 1080,1125 L 1080,1155" class="line" />
+
+    <!-- Alokasi Segar & Rendang -->
+    <rect x="810" y="1275" width="210" height="75" rx="5" ry="5" class="shape" />
+    <text x="915" y="1302" class="box-title">Alokasi ke penjualan</text>
+    <text x="915" y="1322" class="box-title">jamur segar</text>
+
+    <rect x="1140" y="1275" width="210" height="75" rx="5" ry="5" class="shape" />
+    <text x="1245" y="1302" class="box-title">Alokasi rendang</text>
+    <text x="1245" y="1322" class="box-title">jamur</text>
+
+    <path d="M 1015,1205 L 915,1205 L 915,1275" class="line" />
+    <text x="960" y="1195" class="small-title">Ya</text>
+
+    <path d="M 1145,1205 L 1245,1205 L 1245,1275" class="line" />
+    <text x="1190" y="1195" class="small-title">Tidak</text>
+
+    <!-- Database Cylinder -->
+    <path d="M 700,435 C 700,420 860,420 860,435 L 860,955 C 860,970 700,970 700,955 Z" class="shape" />
+    <ellipse cx="780" cy="435" rx="80" ry="15" class="shape" />
+    <text x="780" y="695" class="lane-title" text-anchor="middle">Database</text>
+
+    <!-- Ketua KUPS Elements -->
+    <rect x="470" y="1120" width="220" height="75" rx="5" ry="5" class="shape" />
+    <text x="580" y="1157" class="box-title">Melihat Laporan Panen</text>
+
+    <polygon points="580,1250 645,1305 580,1360 515,1305" class="shape" />
+    <text x="580" y="1305" class="box-title">Disetujui?</text>
+
+    <path d="M 580,1195 L 580,1250" class="line" />
+
+    <rect x="470" y="1420" width="220" height="75" rx="5" ry="5" class="shape" />
+    <text x="580" y="1457" class="box-title">Masuk ke rekap panen</text>
+
+    <path d="M 580,1360 L 580,1420" class="line" />
+    <text x="595" y="1385" class="small-title">Ya</text>
+
+    <rect x="460" y="1540" width="240" height="80" rx="5" ry="5" class="shape" />
+    <text x="580" y="1570" class="box-title">Mendownload &amp; Ekspor</text>
+    <text x="580" y="1590" class="box-title">Laporan (PDF / Excel)</text>
+
+    <path d="M 580,1495 L 580,1540" class="line" />
+
+    <path d="M 470,1620 L 470,1660 L 690,1660 L 690,1620" class="shape" />
+    <rect x="470" y="1660" width="220" height="80" rx="5" ry="5" class="shape" />
+    <text x="580" y="1700" class="box-title">Cetak Laporan</text>
+
+    <path d="M 580,1620 L 580,1660" class="line" />
+
+    <ellipse cx="580" cy="1797" rx="70" ry="32" class="shape" />
+    <text x="580" y="1797" class="box-title">Selesai</text>
+
+    <path d="M 580,1740 L 580,1765" class="line" />
+
+    <!-- Connections to Ketua -->
+    <path d="M 1070,1125 L 1070,1157 L 690,1157" class="line" />
+    <path d="M 915,1350 L 915,1380 L 690,1380 L 690,1157" class="line" />
+    <path d="M 1245,1350 L 1245,1380 L 690,1380" class="line" />
+  </g>
+</svg>

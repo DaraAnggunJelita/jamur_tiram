@@ -30,7 +30,7 @@ class ProfileKups extends Model
             'siklus_panen' => 5,
             'tahun_berdiri' => 2021,
             'alamat' => 'Nagari Sijunjung, Kec. Sijunjung, Kab. Sijunjung, Sumatera Barat',
-            'nomor_telepon' => '+62 812-3456-7890',
+            'nomor_telepon' => '081234567890',
             'email' => 'info@kupsharapanasri.com',
         ]);
     }

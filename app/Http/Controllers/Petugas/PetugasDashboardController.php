@@ -35,12 +35,6 @@ class PetugasDashboardController extends Controller
 
 
 
-        // Mengambil inokulasi yang sudah >= 40 hari dan belum dibuka kapasnya
-        $inokulasiBukaKapas = \App\Models\Inokulasi::with('sterilisasi.bibit')
-            ->where('status_buka_kapas', false)
-            ->where('tanggal', '<=', now()->subDays(40))
-            ->get();
-
         // Pipeline Production Indicators
         $pipelineStokBaglog = \App\Models\Bibit::doesntHave('sterilisasis')->orderBy('created_at', 'asc')->get();
         $pipelinePendinginan = \App\Models\Sterilisasi::with('bibit')->doesntHave('inokulasis')->whereDate('tanggal', today())->orderBy('created_at', 'asc')->get();
@@ -128,7 +122,6 @@ class PetugasDashboardController extends Controller
             'reportsBulanIni',
             'recentReports', 
             'peringatanAktif', 
-            'inokulasiBukaKapas',
             'persentaseA',
             'persentaseB',
             'pipelineStokBaglog',

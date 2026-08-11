@@ -38,7 +38,14 @@
                             class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-2.5 text-[#374151] font-medium @error('inokulasi_id') border-[#F59E0B] @enderror" required>
                             <option value="">-- Pilih Batch Inokulasi --</option>
                             @foreach($inokulasis as $ino)
-                                <option value="{{ $ino->id }}" {{ old('inokulasi_id', $report->inokulasi_id) == $ino->id ? 'selected' : '' }}>Inokulasi #{{ $ino->id }} - {{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }}</option>
+                                @php
+                                    $namaPetugas = $ino->user->name ?? 'Petugas';
+                                    $jenisBibit = ucwords($ino->bibit->asal_bibit ?? $ino->bibit->kode_bibit ?? $ino->sterilisasi->bibit->asal_bibit ?? 'Bibit F2');
+                                    $jumlahBaglog = $ino->jumlah_berhasil > 0 ? $ino->jumlah_berhasil : ($ino->sterilisasi->bibit->banyak_baglog ?? 0);
+                                @endphp
+                                <option value="{{ $ino->id }}" {{ old('inokulasi_id', $report->inokulasi_id) == $ino->id ? 'selected' : '' }}>
+                                    Inokulasi {{ $ino->id }} ({{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }}) — Petugas: {{ $namaPetugas }} | Bibit: {{ $jenisBibit }} ({{ number_format($jumlahBaglog) }} Baglog)
+                                </option>
                             @endforeach
                         </select>
                         @error('inokulasi_id')

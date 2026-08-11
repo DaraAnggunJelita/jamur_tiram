@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center gap-3 font-sans">
-            <a href="{{ route('ketua.dashboard') }}" 
+            <a href="{{ route('ketua.dashboard') }}"
                 class="inline-flex items-center justify-center w-8 h-8 rounded-xl border border-[#E5E7EB] bg-white hover:bg-[#F3F4F6] text-[#4B5563] transition cursor-pointer"
                 title="Kembali ke Dashboard">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -38,7 +38,7 @@
                     </div>
                     <h3 class="text-xs font-extrabold text-[#064E3B] uppercase tracking-wider">Ringkasan Total Pasokan Global (Utuh)</h3>
                 </div>
-                
+
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                     @foreach($batches as $batch)
                     <div class="bg-gray-50 rounded-xl p-3 border border-gray-200">
@@ -59,7 +59,7 @@
                     </div>
                     @endforeach
                 </div>
-                <p class="text-[10px] text-gray-500 italic mt-3">* Data di atas adalah jumlah awal bibit sebelum dipecah per petugas.</p>
+                <p class="text-[10px] text-gray-500 italic mt-3"> Jumlah awal bibit sebelum dipecah per petugas.</p>
             </div>
             @endif
 
@@ -67,7 +67,7 @@
  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-4 border-b border-[#E5E7EB]/20">
  <div>
  <h3 class="text-base font-bold text-[#064E3B]">Konfirmasi & Pantau Stok Bibit</h3>
- <p class="text-xs text-[#6B7280] font-medium mt-0.5">Pemantauan real-time stok bibit yang ada di gudang lapangan.</p>
+ {{-- <p class="text-xs text-[#6B7280] font-medium mt-0.5">Pemantauan real-time stok bibit yang ada di gudang lapangan.</p> --}}
  </div>
  <form method="GET" class="relative w-full sm:w-64 shrink-0">
  <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari bibit atau petugas..."
@@ -95,17 +95,17 @@
  <tr class="hover:bg-[#F3F5F4]/40 transition duration-150">
  <td class="py-3.5 px-4 font-bold text-[#059669]">{{ $bibit->kode_bibit }}</td>
  <td class="py-3.5 px-4 font-medium text-[#047857]">{{ $bibit->asal_bibit ??'-' }}</td>
- <td class="py-3.5 px-4 font-bold text-[#1F2937]">
+ <td class="py-3.5 px-4 font-medium text-[#047857] text-xs">
      <div class="flex items-center space-x-1.5">
-         <svg class="w-4 h-4 text-[#9CA3AF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-         <span>{{ $bibit->user->name ?? 'Belum Ditentukan' }}</span>
+         <svg class="w-4 h-4 text-[#059669]/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+         <span>{{ preg_replace('/([^\s])\(/', '$1 (', $bibit->user->name ?? 'Belum Ditentukan') }}</span>
      </div>
  </td>
  <td class="py-3.5 px-4 text-center text-[#059669] font-bold text-xs">{{ (float)($bibit->jumlah) }} Bungkus</td>
  <td class="py-3.5 px-4 text-center text-red-600 font-bold text-xs">{{ (float)($bibit->jumlah - $bibit->sisa_stok) }} Bungkus</td>
  <td class="py-3.5 px-4 text-center text-[#6B7280] font-bold text-xs">{{ (float)($bibit->sisa_stok) }} Bungkus</td>
  <td class="py-3.5 px-4 text-center">
- <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border 
+ <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold border
  @if($bibit->status ==='Aktif/Siap Pakai') bg-[#34D399]/15 text-[#047857] border-[#34D399]/30
  @elseif($bibit->status ==='Pending Konfirmasi Admin') bg-amber-100 text-amber-700 border-amber-300
  @else bg-red-100 text-red-700 border-red-300 @endif">

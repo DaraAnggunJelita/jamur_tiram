@@ -55,29 +55,17 @@ class SterilisasiController extends Controller
         $request->validate([
             'bibit_id' => 'required|exists:bibits,id',
             'tanggal' => 'required|date',
-            'durasi_pengukusan' => 'required|numeric|min:0.1',
         ]);
 
-        $status = ($request->durasi_pengukusan < 7) ? 'berisiko' : 'aman';
-
-        $sterilisasi = Sterilisasi::create([
+        Sterilisasi::create([
             'bibit_id' => $request->bibit_id,
             'user_id' => Auth::id(),
             'tanggal' => $request->tanggal,
-            'durasi_pengukusan' => $request->durasi_pengukusan,
+            'durasi_pengukusan' => 8,
             'kondisi_air' => 'Aman',
             'kestabilan_api' => 'Stabil-Besar',
-            'status_sterilisasi' => $status,
+            'status_sterilisasi' => 'aman',
         ]);
-
-        if ($status === 'berisiko') {
-            Peringatan::create([
-                'kategori' => 'Sterilisasi',
-                'referensi_id' => $sterilisasi->id,
-                'level' => 'Kritis',
-                'pesan' => "Peringatan Sterilisasi Bibit #" . $sterilisasi->bibit_id . ": Durasi pengukusan kurang dari 7 jam ($request->durasi_pengukusan jam)!",
-            ]);
-        }
 
         return redirect()->route('sterilisasi.index')->with('success', 'Data sterilisasi berhasil disimpan.');
     }
@@ -117,34 +105,18 @@ class SterilisasiController extends Controller
         $request->validate([
             'bibit_id' => 'required|exists:bibits,id',
             'tanggal' => 'required|date',
-            'durasi_pengukusan' => 'required|numeric|min:0.1',
         ]);
 
         $sterilisasi = Sterilisasi::findOrFail($id);
-        $status = ($request->durasi_pengukusan < 7) ? 'berisiko' : 'aman';
 
         $sterilisasi->update([
             'bibit_id' => $request->bibit_id,
             'tanggal' => $request->tanggal,
-            'durasi_pengukusan' => $request->durasi_pengukusan,
+            'durasi_pengukusan' => 8,
             'kondisi_air' => 'Aman',
             'kestabilan_api' => 'Stabil-Besar',
-            'status_sterilisasi' => $status,
+            'status_sterilisasi' => 'aman',
         ]);
-
-        Peringatan::where('kategori', 'Sterilisasi')
-            ->where('referensi_id', $sterilisasi->id)
-            ->where('is_read', false)
-            ->update(['is_read' => true]);
-
-        if ($status === 'berisiko') {
-            Peringatan::create([
-                'kategori' => 'Sterilisasi',
-                'referensi_id' => $sterilisasi->id,
-                'level' => 'Kritis',
-                'pesan' => "Peringatan (Update) Sterilisasi Bibit #" . $sterilisasi->bibit_id . ": Durasi pengukusan kurang dari 7 jam ($request->durasi_pengukusan jam)!",
-            ]);
-        }
 
         return redirect()->route('sterilisasi.index')->with('success', 'Data sterilisasi berhasil diperbarui.');
     }

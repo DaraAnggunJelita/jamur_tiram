@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center gap-3 font-sans">
-            <a href="{{ route('petugas.dashboard') }}" 
+            <a href="{{ route('petugas.dashboard') }}"
                 class="inline-flex items-center justify-center w-8 h-8 rounded-xl border border-[#E5E7EB] bg-white hover:bg-[#F3F4F6] text-[#4B5563] transition cursor-pointer"
                 title="Kembali ke Dashboard">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -26,7 +26,7 @@
  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-4 border-b border-[#E5E7EB]/20">
  <div>
  <h3 class="text-base font-bold text-[#064E3B]">Log Monitoring Kumbung</h3>
- <p class="text-xs text-[#6B7280] font-medium mt-0.5">Catatan pengawasan visual harian terhadap suhu/kelembapan ruang kumbung.</p>
+ {{-- <p class="text-xs text-[#6B7280] font-medium mt-0.5">Catatan pengawasan visual harian terhadap suhu/kelembapan ruang kumbung.</p> --}}
  </div>
  @if(in_array(auth()->user()->role, ['petugas', 'admin']))
  <a href="{{ route('monitoring.create') }}"
@@ -70,10 +70,12 @@
  <tr class="hover:bg-[#F3F5F4]/40 transition duration-150">
  <td class="py-3.5 px-4 font-bold text-[#064E3B] text-xs">{{ \Carbon\Carbon::parse($mon->tanggal)->format('d M Y') }}<br><span class="text-[#6B7280] text-[10px]">{{ $mon->user->name }}</span></td>
  <td class="py-3.5 px-4 font-bold text-[#059669]">Inokulasi {{ $mon->inokulasi_id }}</td>
- <td class="py-3.5 px-4 text-center text-xs font-bold">
- @if($mon->kondisi_udara =='Sejuk') <span class="text-blue-600">Sejuk</span>
- @elseif($mon->kondisi_udara =='Hangat') <span class="text-yellow-600">Hangat</span>
- @else <span class="text-red-600 animate-pulse">Panas/Gersang</span> @endif
+ <td class="py-3.5 px-4 text-center">
+    @if($mon->kondisi_udara == 'Sejuk')
+        <span class="text-blue-600 font-bold">Sejuk</span>
+    @else
+        <span class="text-red-600 font-bold">Panas</span>
+    @endif
  </td>
  <td class="py-3.5 px-4 text-center font-bold text-xs {{ $mon->jumlah_penyiraman < 2 ?'text-red-600' :'text-[#059669]' }}">
  {{ $mon->jumlah_penyiraman }}x Hari Ini

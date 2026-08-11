@@ -32,11 +32,17 @@ class MonitoringKumbungController extends Controller
         return view('monitoring.index', compact('monitorings'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         // Hanya tampilkan batch inokulasi yang masih aktif (belum afkir / jumlah_berhasil > 0)
         $inokulasis = Inokulasi::where('jumlah_berhasil', '>', 0)->get();
-        return view('monitoring.create', compact('inokulasis'));
+
+        $latestMonitoring = null;
+        if ($request->filled('inokulasi_id')) {
+            $latestMonitoring = MonitoringKumbung::where('inokulasi_id', $request->inokulasi_id)->latest()->first();
+        }
+
+        return view('monitoring.create', compact('inokulasis', 'latestMonitoring'));
     }
 
     public function store(Request $request)
@@ -44,7 +50,7 @@ class MonitoringKumbungController extends Controller
         $request->validate([
             'inokulasi_id' => 'required|exists:inokulasis,id',
             'tanggal' => 'required|date',
-            'kondisi_udara' => 'required|in:Sejuk,Hangat,Panas/Gersang',
+            'kondisi_udara' => 'required|in:Sejuk,Panas,Panas/Gersang',
             'jumlah_penyiraman' => 'required|integer|min:0',
         ]);
 
@@ -52,44 +58,17 @@ class MonitoringKumbungController extends Controller
             'inokulasi_id' => $request->inokulasi_id,
             'user_id' => Auth::id(),
             'tanggal' => $request->tanggal,
-            'kondisi_udara' => $request->kondisi_udara,
+            'kondisi_udara' => $request->kondisi_udara === 'Panas/Gersang' ? 'Panas' : $request->kondisi_udara,
             'kondisi_lantai' => 'Basah/Lembab', // Default otomatis
             'jumlah_penyiraman' => $request->jumlah_penyiraman,
         ]);
 
-        // Auto-resolve peringatan kumbung sebelumnya untuk batch ini
+        // Auto-resolve peringatan kumbung sebelumnya untuk batch ini jika ada
         $existingMonitoringIds = MonitoringKumbung::where('inokulasi_id', $request->inokulasi_id)->pluck('id');
         Peringatan::where('kategori', 'Kumbung')
             ->whereIn('referensi_id', $existingMonitoringIds)
             ->where('is_read', false)
             ->update(['is_read' => true]);
-
-        // EWS Logic
-        if ($request->kondisi_udara === 'Panas/Gersang' && $request->jumlah_penyiraman <= 1) {
-            Peringatan::create([
-                'kategori' => 'Kumbung',
-                'referensi_id' => $monitoring->id,
-                'level' => 'Kritis',
-                'pesan' => "Kumbung " . $monitoring->inokulasi_id . " KRITIS/BAHAYA! Udara panas/gersang dan penyiraman kurang (<= 1x). Segera lakukan tindakan ekstra.",
-                'is_read' => false,
-            ]);
-        } elseif ($request->kondisi_udara === 'Panas/Gersang') {
-            Peringatan::create([
-                'kategori' => 'Kumbung',
-                'referensi_id' => $monitoring->id,
-                'level' => 'Waspada',
-                'pesan' => "Kumbung " . $monitoring->inokulasi_id . " berisiko. Udara panas/gersang. Pastikan penyiraman cukup.",
-                'is_read' => false,
-            ]);
-        } elseif ($request->kondisi_udara === 'Hangat' && $request->jumlah_penyiraman < 2) {
-            Peringatan::create([
-                'kategori' => 'Kumbung',
-                'referensi_id' => $monitoring->id,
-                'level' => 'Waspada',
-                'pesan' => "Kumbung " . $monitoring->inokulasi_id . " Hangat. Disarankan melakukan penyiraman kembali.",
-                'is_read' => false,
-            ]);
-        }
 
         return redirect()->route('monitoring.index')->with('success', 'Data monitoring kumbung berhasil disimpan.');
     }

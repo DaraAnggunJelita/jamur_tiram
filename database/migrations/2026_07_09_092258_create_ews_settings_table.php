@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('min_durasi_sterilisasi')->default(7);
             $table->integer('maks_hari_panen')->default(4);
-            $table->string('kondisi_udara_kritis')->default('Panas/Gersang');
+            $table->string('kondisi_udara_kritis', 30)->default('Panas/Gersang');
             $table->timestamps();
         });
     }
