@@ -155,14 +155,14 @@
  </div>
  </div>
 
- {{-- Right Column: Rasio Kualitas (Bulan Ini) --}}
+ {{-- Right Column: Rasio Kualitas (6 Bulan Terakhir) --}}
  <div class="bg-[#FFFFFF] rounded-2xl border border-[#E5E7EB]/40 p-5 shadow-xs flex flex-col justify-between hover:shadow-sm transition lg:col-span-1">
  <div class="flex items-center justify-between pb-3 border-b border-[#E5E7EB]/20">
  <div class="flex items-center space-x-2">
  <div class="w-6 h-6 bg-[#059669]/10 rounded-md flex items-center justify-center text-[#059669]">
  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
  </div>
- <h3 class="text-xs font-bold text-[#064E3B]">Rasio Kualitas (Bulan Ini)</h3>
+ <h3 class="text-xs font-bold text-[#064E3B]">Rasio Kualitas (6 Bulan Terakhir)</h3>
  </div>
  </div>
  

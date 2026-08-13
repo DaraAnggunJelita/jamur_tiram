@@ -33,25 +33,18 @@
  {{-- Pilihan Inokulasi --}}
  <div>
  <label for="inokulasi_id" class="block text-xs font-bold text-[#047857] mb-1.5">Batch Inokulasi</label>
- @if(request()->has('inokulasi_id') && $inokulasis->contains('id', request('inokulasi_id')))
-     @php
-         $selectedIno = $inokulasis->firstWhere('id', request('inokulasi_id'));
-     @endphp
-     <div class="block w-full rounded-xl border border-[#E5E7EB]/60 bg-[#E5E7EB]/40 shadow-inner text-sm py-3 px-4 text-[#374151] font-bold cursor-not-allowed">
-         Inokulasi {{ $selectedIno->id }} ({{ \Carbon\Carbon::parse($selectedIno->tanggal)->format('d M Y') }})
-     </div>
-     <input type="hidden" name="inokulasi_id" value="{{ $selectedIno->id }}">
- @else
-     <select id="inokulasi_id" name="inokulasi_id"
-         class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-3 text-[#374151] font-bold @error('inokulasi_id') border-[#F59E0B] @enderror" required>
-         <option value="">-- Pilih Batch --</option>
-         @foreach($inokulasis as $ino)
-             <option value="{{ $ino->id }}" {{ request('inokulasi_id') == $ino->id ? 'selected' : '' }}>
-                 Inokulasi {{ $ino->id }} ({{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }}) - Petugas: {{ $ino->user->name ?? 'Tidak diketahui' }}
-             </option>
-         @endforeach
-     </select>
- @endif
+  <select id="inokulasi_id" name="inokulasi_id"
+      class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-3 text-[#374151] font-bold @error('inokulasi_id') border-[#F59E0B] @enderror" required>
+      <option value="">-- Pilih Batch --</option>
+      @foreach($inokulasis as $ino)
+          @php
+              $selectedVal = old('inokulasi_id', request('inokulasi_id'));
+          @endphp
+          <option value="{{ $ino->id }}" {{ $selectedVal == $ino->id ? 'selected' : '' }}>
+              Inokulasi {{ $ino->id }} ({{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }}) - Petugas: {{ $ino->user->name ?? 'Tidak diketahui' }}
+          </option>
+      @endforeach
+  </select>
  </div>
 
                     @php
@@ -63,8 +56,17 @@
                     <div>
                         <label for="tanggal" class="block text-xs font-bold text-[#047857] mb-1.5">Tanggal Pemantauan</label>
                         <input type="date" id="tanggal" name="tanggal"
-                            value="{{ old('tanggal', $latestMonitoring->tanggal ?? date('Y-m-d')) }}" required
+                            value="{{ old('tanggal', $defaultDate) }}" required
                             class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-3 text-[#374151] font-bold">
+                        @if(isset($lastRecordedDate))
+                            <p class="text-[11px] text-amber-700 font-bold mt-1">
+                                * Tanggal terisi otomatis (H+1 dari {{ $lastRecordedType }} terakhir: {{ $lastRecordedDate }}).
+                            </p>
+                        @else
+                            <p class="text-[11px] text-[#6B7280] font-medium mt-1">
+                                * Silakan pilih batch terlebih dahulu untuk pengisian tanggal otomatis secara berurutan.
+                            </p>
+                        @endif
                     </div>
 
                     {{-- Kondisi Udara (Touch-Friendly Radio Buttons) --}}
@@ -91,8 +93,8 @@
                         <label for="jumlah_penyiraman" class="block text-xs font-bold text-[#047857] mb-1.5">Jumlah Penyiraman (Hari Ini)</label>
                         <div class="relative rounded-xl shadow-2xs w-32">
                             <input type="number" id="jumlah_penyiraman" name="jumlah_penyiraman"
-                                value="{{ old('jumlah_penyiraman', $latestMonitoring->jumlah_penyiraman ?? 0) }}" min="0" required
-                                class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white focus:border-[#059669] focus:ring-[#059669] text-lg text-center py-3 text-[#374151] font-bold">
+                                value="{{ old('jumlah_penyiraman', $latestMonitoring->jumlah_penyiraman ?? 0) }}" min="0" readonly required
+                                class="block w-full rounded-xl border-[#E5E7EB]/60 bg-gray-100 focus:outline-none text-lg text-center py-3 text-[#374151] font-bold cursor-not-allowed">
                             <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
                                 <span class="text-[#6B7280] text-xs font-bold">x</span>
                             </div>
@@ -112,4 +114,15 @@
  </div>
  </div>
  </div>
+
+ <script>
+      document.getElementById('inokulasi_id')?.addEventListener('change', function() {
+          const val = this.value;
+          if (val) {
+              window.location.href = "{{ route('monitoring.create') }}?inokulasi_id=" + val;
+          } else {
+              window.location.href = "{{ route('monitoring.create') }}";
+          }
+      });
+ </script>
 </x-app-layout>

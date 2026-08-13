@@ -138,20 +138,36 @@
                         $hasSterilisasi = $alokasi->sterilisasis->count() > 0;
 
                         // Perhitungan Sisa Stok Real di Blade:
-                        // Kurangi jumlah pemberian bibit dengan bibit yang sudah terpakai di Sterilisasi
                         $terpakaiInSteril = $alokasi->sterilisasis->sum('jumlah_bibit_terpakai')
                             ?? $alokasi->sterilisasis->sum('banyak_baglog');
-
                         $sisaStokItem = max(0, $alokasi->jumlah - $terpakaiInSteril);
+
+                        // Cek apakah bibit belum disterilisasi dan sudah > 5 hari sejak alokasi
+                        $tglAlokasi = \Carbon\Carbon::parse($alokasi->tanggal_masuk ?? $alokasi->created_at);
+                        $selisihHariBibit = (int) $tglAlokasi->diffInDays(now());
+                        $terlambatSteril = !$hasSterilisasi && $selisihHariBibit > 5;
                     @endphp
-                    <div class="bg-[#F9FAFB] hover:bg-white hover:shadow-xs rounded-xl p-3 border border-[#E5E7EB] transition flex flex-col justify-between">
+                    <div class="rounded-xl p-3 border transition flex flex-col justify-between {{ $terlambatSteril ? 'bg-amber-50 border-amber-400 hover:bg-amber-100' : 'bg-[#F9FAFB] hover:bg-white hover:shadow-xs border-[#E5E7EB]' }}">
                         <div>
-                            <div class="flex items-center justify-between gap-2 mb-2 pb-1.5 border-b border-gray-100">
-                                <span class="px-2 py-0.5 bg-[#059669] text-white font-extrabold text-[11px] rounded-md shadow-2xs">
-                                    {{ $alokasi->kode_bibit ?? 'Bibit F2' }}
-                                </span>
-                                <span class="text-[10px] text-gray-500 font-semibold">{{ \Carbon\Carbon::parse($alokasi->tanggal_masuk)->format('d M Y') }}</span>
+                            <div class="flex items-center justify-between gap-2 mb-2 pb-1.5 border-b {{ $terlambatSteril ? 'border-amber-200' : 'border-gray-100' }}">
+                                <div class="flex items-center gap-1.5 flex-wrap">
+                                    <span class="px-2 py-0.5 {{ $terlambatSteril ? 'bg-amber-500' : 'bg-[#059669]' }} text-white font-extrabold text-[11px] rounded-md shadow-2xs">
+                                        {{ $alokasi->kode_bibit ?? 'Bibit F2' }}
+                                    </span>
+                                    @if($terlambatSteril)
+                                    <span class="px-1.5 py-0.5 bg-red-100 text-red-700 font-extrabold text-[9px] rounded-md border border-red-200 animate-pulse">
+                                        ⚠️ {{ $selisihHariBibit }}h Belum Steril
+                                    </span>
+                                    @endif
+                                </div>
+                                <span class="text-[10px] {{ $terlambatSteril ? 'text-amber-700 font-bold' : 'text-gray-500 font-semibold' }}">{{ $tglAlokasi->format('d M Y') }}</span>
                             </div>
+
+                            @if($terlambatSteril)
+                            <div class="mb-2 bg-amber-100 border border-amber-300/70 rounded-lg px-2.5 py-1.5 text-[10px] text-amber-900 font-semibold leading-snug">
+                                Bibit ini belum disterilisasi sejak <span class="font-extrabold">{{ $selisihHariBibit }} hari</span> yang lalu. Batas rekomendasi adalah <span class="font-extrabold">5 hari</span>.
+                            </div>
+                            @endif
 
                             <div class="space-y-1 text-[11px]">
                                 <div class="flex justify-between items-center">
@@ -169,7 +185,7 @@
                             </div>
                         </div>
 
-                        <div class="mt-2.5 pt-2 border-t border-gray-100 flex items-center justify-between text-[10px]">
+                        <div class="mt-2.5 pt-2 border-t {{ $terlambatSteril ? 'border-amber-200' : 'border-gray-100' }} flex items-center justify-between text-[10px] gap-1 flex-wrap">
                             @if($hasInokulasi)
                                 <span class="px-1.5 py-0.5 bg-indigo-50 text-indigo-700 font-bold rounded border border-indigo-100">
                                     Tahap Inkubasi
@@ -178,13 +194,17 @@
                                 <span class="px-1.5 py-0.5 bg-amber-50 text-amber-700 font-bold rounded border border-amber-100">
                                     Tahap Sterilisasi
                                 </span>
+                            @elseif($terlambatSteril)
+                                <a href="{{ route('sterilisasi.create', ['bibit_id' => $alokasi->id]) }}" class="px-2 py-0.5 bg-amber-600 hover:bg-amber-700 text-white font-extrabold rounded-md transition flex items-center gap-1">
+                                    ⚡ Sterilisasi Sekarang
+                                </a>
                             @else
                                 <span class="px-1.5 py-0.5 bg-emerald-50 text-[#047857] font-bold rounded border border-emerald-100">
                                     Stok Mentah
                                 </span>
                             @endif
 
-                            {{-- Indikator Sisa Stok (Akan berubah jadi MERAH & 0 saat disterilisasi) --}}
+                            {{-- Indikator Sisa Stok --}}
                             <span class="px-2 py-0.5 rounded-md font-bold text-[11px] {{ $sisaStokItem > 0 ? 'bg-[#34D399]/20 text-[#047857]' : 'bg-red-100 text-red-700' }}">
                                 Sisa: {{ (float)$sisaStokItem }} Bungkus
                             </span>
@@ -346,31 +366,44 @@
 
                 {{-- Card Pie Chart --}}
                 <div class="bg-white border border-[#E5E7EB]/60 rounded-xl p-5 shadow-2xs md:row-span-2 flex flex-col justify-between">
-                    <div>
+                    <div class="pb-3 border-b border-[#E5E7EB]/20">
                         <h3 class="text-xs font-extrabold text-[#064E3B] uppercase tracking-wider mb-0.5">Rasio Kualitas Panen</h3>
-                        <p class="text-[11px] text-[#6B7280]">Perbandingan Grade A vs Grade B Saya (Bulan Ini).</p>
+                        <p class="text-[11px] text-[#6B7280]">Perbandingan Grade A vs Grade B Saya (6 Bulan Terakhir).</p>
                     </div>
-
-                    <div class="flex flex-col items-center justify-center my-4">
+ 
+                    <div class="flex flex-col items-center justify-center flex-1 py-6">
                         @if($persentaseASaya > 0 || $persentaseBSaya > 0)
-                        <div class="relative w-36 h-36 rounded-full shadow-inner flex items-center justify-center" style="background: conic-gradient(#059669 0% {{ $persentaseASaya }}%, #F59E0B {{ $persentaseASaya }}% 100%);">
-                            <div class="w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-xs">
-                                <div class="text-center">
-                                    <span class="text-[10px] font-bold text-gray-400 block">Dominan</span>
-                                    <span class="text-base font-black {{ $persentaseASaya >= $persentaseBSaya ? 'text-[#059669]' : 'text-[#F59E0B]' }}">{{ $persentaseASaya >= $persentaseBSaya ? "A ($persentaseASaya%)" : "B ($persentaseBSaya%)" }}</span>
-                                </div>
+                        <div class="relative w-40 h-40 rounded-full shadow-inner flex items-center justify-center" style="background: conic-gradient(#059669 0% {{ $persentaseASaya }}%, #F59E0B {{ $persentaseASaya }}% 100%);">
+                            <div class="w-28 h-28 bg-white rounded-full flex flex-col items-center justify-center shadow-md">
+                                <span class="text-[10px] text-[#6B7280] font-bold">Total Laporan</span>
+                                <span class="text-xl font-black text-[#064E3B] leading-none mt-1">{{ $myReportsBulanIni->count() }}</span>
                             </div>
                         </div>
-                        <div class="mt-5 flex items-center justify-center gap-4 text-xs font-bold">
-                            <span class="flex items-center text-gray-700"><span class="w-2.5 h-2.5 bg-[#059669] rounded-full mr-1.5"></span>Grade A: {{ $persentaseASaya }}%</span>
-                            <span class="flex items-center text-gray-700"><span class="w-2.5 h-2.5 bg-[#F59E0B] rounded-full mr-1.5"></span>Grade B: {{ $persentaseBSaya }}%</span>
-                        </div>
                         @else
-                        <div class="text-center text-gray-400 text-xs italic w-full h-36 flex flex-col items-center justify-center border-2 border-dashed border-[#E5E7EB] rounded-xl bg-gray-50/50">
-                            <span>Belum ada data panen</span>
+                        <div class="w-24 h-24 rounded-full border-4 border-dashed border-[#E5E7EB]/70 flex items-center justify-center">
+                            <span class="text-[9px] font-bold text-[#6B7280] text-center px-4">Belum ada<br>panen</span>
                         </div>
                         @endif
                     </div>
+ 
+                    @if($persentaseASaya > 0 || $persentaseBSaya > 0)
+                    <div class="space-y-1.5 border-t border-[#E5E7EB]/20 pt-3">
+                        <div class="flex items-center justify-between text-[11px]">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-2 h-2 rounded-full bg-[#059669]"></span>
+                                <span class="text-[#374151] font-bold">Grade A (Bagus)</span>
+                            </div>
+                            <span class="font-bold text-[#064E3B]">{{ $persentaseASaya }}%</span>
+                        </div>
+                        <div class="flex items-center justify-between text-[11px]">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-2 h-2 rounded-full bg-[#F59E0B]"></span>
+                                <span class="text-[#374151] font-bold">Grade B (Layu)</span>
+                            </div>
+                            <span class="font-bold text-[#F59E0B]">{{ $persentaseBSaya }}%</span>
+                        </div>
+                    </div>
+                    @endif
                 </div>
 
                 {{-- Tabel Riwayat Laporan Singkat --}}

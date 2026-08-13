@@ -57,6 +57,21 @@
                             class="w-full pl-9 pr-3.5 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#1F2937] placeholder-[#9CA3AF] focus:bg-white focus:border-[#059669] focus:ring-[#059669]">
                     </div>
 
+                    <div class="w-full sm:w-64">
+                        <select name="inokulasi_id" onchange="this.form.submit()"
+                            class="w-full px-3.5 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#1F2937] focus:bg-white focus:border-[#059669] focus:ring-[#059669]">
+                            <option value="">-- Pilih Batch --</option>
+                            @foreach($allBatches as $batch)
+                                @php
+                                    $jenisBibit = ucwords($batch->sterilisasi->bibit->asal_bibit ?? $batch->sterilisasi->bibit->kode_bibit ?? 'Bibit F2');
+                                @endphp
+                                <option value="{{ $batch->id }}" {{ request('inokulasi_id') == $batch->id ? 'selected' : '' }}>
+                                    Batch #{{ $batch->id }} ({{ $jenisBibit }}) - {{ \Carbon\Carbon::parse($batch->tanggal)->format('d M Y') }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="w-full sm:w-48">
                         <input type="date" name="date" value="{{ request('date') }}"
                             class="w-full px-3.5 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#1F2937] focus:bg-white focus:border-[#059669] focus:ring-[#059669]"
@@ -69,7 +84,7 @@
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             <span>Cari</span>
                         </button>
-                        @if(request('search') || request('date'))
+                        @if(request('search') || request('date') || request('inokulasi_id'))
                         <a href="{{ route('petugas.laporan-panen.index') }}"
                             class="inline-flex items-center justify-center p-2 bg-[#F3F4F6] hover:bg-[#E5E7EB] text-[#4B5563] rounded-xl transition cursor-pointer" title="Reset Filter">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>

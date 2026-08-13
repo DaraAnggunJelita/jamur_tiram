@@ -30,6 +30,24 @@ class ProductionReportController extends Controller
             $query->whereHas('productionReports');
         }
 
+        // Filter per batch inokulasi (Default: Tampilkan batch terbaru saja jika belum dipilih)
+        if ($request->filled('inokulasi_id')) {
+            $query->where('id', $request->inokulasi_id);
+        } else {
+            $latestBatchQuery = \App\Models\Inokulasi::whereHas('productionReports', function($q) {
+                if (!auth()->user()->isAdmin()) {
+                    $q->where('user_id', auth()->id());
+                }
+            });
+            if (!auth()->user()->isAdmin()) {
+                $latestBatchQuery->where('user_id', auth()->id());
+            }
+            $latestBatchId = $latestBatchQuery->latest('id')->value('id');
+            if ($latestBatchId) {
+                $query->where('id', $latestBatchId);
+            }
+        }
+
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
@@ -52,7 +70,19 @@ class ProductionReportController extends Controller
 
         $inokulasis = $query->latest()->paginate(5)->withQueryString();
 
-        return view('petugas.laporan_panen.index', compact('inokulasis'));
+        // Ambil semua batch untuk pilihan filter dropdown
+        $batchesQuery = \App\Models\Inokulasi::whereHas('productionReports', function($q) {
+            if (!auth()->user()->isAdmin()) {
+                $q->where('user_id', auth()->id());
+            }
+        })->with('sterilisasi.bibit')->latest('id');
+
+        if (!auth()->user()->isAdmin()) {
+            $batchesQuery->where('user_id', auth()->id());
+        }
+        $allBatches = $batchesQuery->get();
+
+        return view('petugas.laporan_panen.index', compact('inokulasis', 'allBatches'));
     }
 
     /**
@@ -60,7 +90,15 @@ class ProductionReportController extends Controller
      */
     public function create(): View
     {
-        $query = \App\Models\Inokulasi::with(['user', 'bibit', 'sterilisasi.bibit', 'logInkubasis'])
+        $query = \App\Models\Inokulasi::with([
+            'user',
+            'bibit',
+            'sterilisasi.bibit',
+            'logInkubasis',
+            'productionReports' => function($q) {
+                $q->where('status_validasi', '!=', 'dibatalkan');
+            }
+        ])
             ->withCount(['productionReports' => function($q) {
                 $q->where('status_validasi', '!=', 'dibatalkan');
             }])

@@ -14,6 +14,11 @@ class SterilisasiController extends Controller
     {
         $query = Sterilisasi::with(['bibit.user', 'user']);
 
+        // Jika petugas: hanya tampilkan riwayat sterilisasi milik sendiri
+        if (Auth::user()->role === 'petugas') {
+            $query->where('user_id', Auth::id());
+        }
+
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
@@ -35,7 +40,17 @@ class SterilisasiController extends Controller
 
         $sterilisasis = $query->latest()->paginate(10)->withQueryString();
 
-        return view('sterilisasi.index', compact('sterilisasis'));
+        // Cari bibit yang sudah dialokasikan tetapi BELUM disterilisasi dan umurnya > 5 hari dari tanggal alokasi
+        $bibitTerlambatQuery = Bibit::whereDoesntHave('sterilisasis')->with('user');
+        if (Auth::user()->role === 'petugas') {
+            $bibitTerlambatQuery->where('user_id', Auth::id());
+        }
+        $bibitTerlambatSteril = $bibitTerlambatQuery->get()->filter(function($b) {
+            $tgl = \Carbon\Carbon::parse($b->tanggal_masuk ?? $b->created_at);
+            return (int) $tgl->diffInDays(now()) > 5 && now()->startOfDay()->greaterThan($tgl);
+        });
+
+        return view('sterilisasi.index', compact('sterilisasis', 'bibitTerlambatSteril'));
     }
 
     public function create()

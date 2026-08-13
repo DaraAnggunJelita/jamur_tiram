@@ -14,6 +14,11 @@ class MonitoringKumbungController extends Controller
     {
         $query = MonitoringKumbung::with(['inokulasi', 'user']);
 
+        // Jika petugas: hanya tampilkan log monitoring milik sendiri
+        if (Auth::user()->role === 'petugas') {
+            $query->where('user_id', Auth::id());
+        }
+
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
@@ -35,14 +40,42 @@ class MonitoringKumbungController extends Controller
     public function create(Request $request)
     {
         // Hanya tampilkan batch inokulasi yang masih aktif (belum afkir / jumlah_berhasil > 0)
-        $inokulasis = Inokulasi::where('jumlah_berhasil', '>', 0)->get();
+        // Jika petugas: hanya tampilkan inokulasi milik sendiri; Admin: tampilkan semua
+        $inokulasisQuery = Inokulasi::where('jumlah_berhasil', '>', 0);
+        if (Auth::user()->role === 'petugas') {
+            $inokulasisQuery->where('user_id', Auth::id());
+        }
+        $inokulasis = $inokulasisQuery->get();
 
         $latestMonitoring = null;
+        $defaultDate = date('Y-m-d');
+        $lastRecordedDate = null;
+        $lastRecordedType = null;
+        
         if ($request->filled('inokulasi_id')) {
-            $latestMonitoring = MonitoringKumbung::where('inokulasi_id', $request->inokulasi_id)->latest()->first();
+            $inokulasi = Inokulasi::find($request->inokulasi_id);
+            if ($inokulasi) {
+                $latestMonitoring = MonitoringKumbung::where('inokulasi_id', $request->inokulasi_id)->latest('tanggal')->first();
+                if ($latestMonitoring) {
+                    $defaultDate = \Carbon\Carbon::parse($latestMonitoring->tanggal)->addDay()->format('Y-m-d');
+                    $lastRecordedDate = \Carbon\Carbon::parse($latestMonitoring->tanggal)->format('d M Y');
+                    $lastRecordedType = 'monitoring';
+                } else {
+                    $latestInkubasi = \App\Models\LogInkubasi::where('inokulasi_id', $request->inokulasi_id)->latest('tanggal_catat')->first();
+                    if ($latestInkubasi) {
+                        $defaultDate = \Carbon\Carbon::parse($latestInkubasi->tanggal_catat)->addDay()->format('Y-m-d');
+                        $lastRecordedDate = \Carbon\Carbon::parse($latestInkubasi->tanggal_catat)->format('d M Y');
+                        $lastRecordedType = 'progres inkubasi';
+                    } else {
+                        $defaultDate = \Carbon\Carbon::parse($inokulasi->tanggal)->addDay()->format('Y-m-d');
+                        $lastRecordedDate = \Carbon\Carbon::parse($inokulasi->tanggal)->format('d M Y');
+                        $lastRecordedType = 'inokulasi';
+                    }
+                }
+            }
         }
-
-        return view('monitoring.create', compact('inokulasis', 'latestMonitoring'));
+        
+        return view('monitoring.create', compact('inokulasis', 'latestMonitoring', 'defaultDate', 'lastRecordedDate', 'lastRecordedType'));
     }
 
     public function store(Request $request)

@@ -30,17 +30,41 @@
       <input type="text" value="Belum ada alokasi baglog yang siap disterilisasi" readonly class="block w-full rounded-xl border-red-300 bg-red-50 text-red-700 py-2.5 px-4 font-bold shadow-sm cursor-not-allowed">
   @endif
   </div>
- <div>
- <label for="tanggal" class="block text-xs font-bold text-[#047857] mb-1">Tanggal Sterilisasi</label>
- <input type="date" name="tanggal" id="tanggal" value="{{ old('tanggal', date('Y-m-d')) }}" required class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white py-2.5 shadow-sm focus:border-[#059669] focus:ring-[#059669]">
- @error('tanggal')<p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>@enderror
- </div>
- <div>
- <label for="durasi_pengukusan" class="block text-xs font-bold text-[#047857] mb-1">Durasi Pengukusan (Jam)</label>
- <input type="number" name="durasi_pengukusan" id="durasi_pengukusan" value="8" readonly class="block w-full rounded-xl border-[#E5E7EB]/60 bg-gray-100 py-2.5 px-4 text-[#374151] font-bold shadow-sm focus:outline-none cursor-not-allowed">
- <p class="text-[11px] text-[#6B7280] font-medium mt-1">*Durasi pengukusan disetting tetap 8 jam sesuai standar SOP sterilisasi baglog.</p>
- @error('durasi_pengukusan')<p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>@enderror
- </div>
+
+  {{-- Peringatan Keterlambatan Sterilisasi --}}
+  @if($selected)
+  @php
+      $tglAlokasiSelected = \Carbon\Carbon::parse($selected->tanggal_masuk ?? $selected->created_at);
+      $selisihHariSelected = (int) $tglAlokasiSelected->diffInDays(now());
+  @endphp
+  @if($selisihHariSelected > 5)
+  <div class="bg-amber-50 border border-amber-400 rounded-xl p-4 flex items-start gap-3 shadow-xs">
+      <div class="w-9 h-9 bg-amber-400/15 rounded-xl flex items-center justify-center text-amber-700 shrink-0">
+          <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      </div>
+      <div>
+          <p class="text-xs font-extrabold text-amber-900 uppercase tracking-wider">⚠️ Peringatan: Alokasi Terlambat!</p>
+          <p class="text-xs text-amber-800 font-medium mt-0.5">
+              Bibit ini dialokasikan sejak <span class="font-extrabold">{{ $tglAlokasiSelected->format('d M Y') }}</span>, sudah
+              <span class="font-extrabold text-red-700">{{ $selisihHariSelected }} hari yang lalu</span> — melebihi batas rekomendasi 5 hari.
+              Segera sterilisasi untuk mencegah penurunan kualitas bibit.
+          </p>
+      </div>
+  </div>
+  @endif
+  @endif
+
+  <div>
+  <label for="tanggal" class="block text-xs font-bold text-[#047857] mb-1">Tanggal Sterilisasi</label>
+  <input type="date" name="tanggal" id="tanggal" value="{{ old('tanggal', date('Y-m-d')) }}" required class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white py-2.5 shadow-sm focus:border-[#059669] focus:ring-[#059669]">
+  @error('tanggal')<p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>@enderror
+  </div>
+  <div>
+  <label for="durasi_pengukusan" class="block text-xs font-bold text-[#047857] mb-1">Durasi Pengukusan (Jam)</label>
+  <input type="number" name="durasi_pengukusan" id="durasi_pengukusan" value="8" readonly class="block w-full rounded-xl border-[#E5E7EB]/60 bg-gray-100 py-2.5 px-4 text-[#374151] font-bold shadow-sm focus:outline-none cursor-not-allowed">
+  <p class="text-[11px] text-[#6B7280] font-medium mt-1">*Durasi pengukusan disetting tetap 8 jam sesuai standar SOP sterilisasi baglog.</p>
+  @error('durasi_pengukusan')<p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>@enderror
+  </div>
  
  <div class="pt-4 border-t border-[#E5E7EB]/20 flex justify-end">
  <button type="submit" class="py-2.5 px-6 bg-[#059669] hover:bg-[#047857] text-white text-sm font-extrabold rounded-xl shadow-md transition">

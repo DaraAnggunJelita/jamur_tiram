@@ -109,7 +109,12 @@ Route::middleware(['auth'])->group(function () {
     // RUTE RENDANG JAMUR (Khusus panen yang buruk/layu)
     Route::get('/alokasi-rendang', function(\Illuminate\Http\Request $request) {
         $query = \App\Models\ProductionReport::where('berat_grade_b', '>', 0);
-        
+
+        // Jika petugas: hanya tampilkan data rendang milik sendiri
+        if (auth()->user()->role === 'petugas') {
+            $query->where('user_id', auth()->id());
+        }
+
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {

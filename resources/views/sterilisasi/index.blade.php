@@ -21,6 +21,43 @@
  </div>
  @endif
 
+ {{-- Spanduk Peringatan Notifikasi Bibit > 5 Hari Belum Disterilisasi --}}
+ @if(isset($bibitTerlambatSteril) && $bibitTerlambatSteril->count() > 0)
+ <div class="bg-amber-50 border-l-4 border-amber-500 rounded-r-2xl p-4 border border-amber-200/80 shadow-xs">
+     <div class="flex items-start gap-3">
+         <div class="w-9 h-9 bg-amber-500/10 rounded-xl flex items-center justify-center text-amber-700 shrink-0 mt-0.5">
+             <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+         </div>
+         <div class="w-full space-y-2">
+             <div>
+                 <h3 class="text-xs font-extrabold text-amber-900 uppercase tracking-wider">Perhatian: Alokasi Bibit Belum Disterilisasi (> 5 Hari)</h3>
+                 <p class="text-xs text-amber-800 font-medium mt-0.5">Terdapat {{ $bibitTerlambatSteril->count() }} alokasi bibit yang telah dialokasikan lebih dari 5 hari yang lalu dan belum melalui proses pengukusan sterilisasi. Segera lakukan sterilisasi!</p>
+             </div>
+             <div class="space-y-1.5 pt-1">
+                 @foreach($bibitTerlambatSteril as $bt)
+                 @php
+                     $tglMasuk = \Carbon\Carbon::parse($bt->tanggal_masuk ?? $bt->created_at);
+                     $selisih = (int) $tglMasuk->diffInDays(now());
+                 @endphp
+                 <div class="flex flex-col sm:flex-row sm:items-center justify-between bg-white p-2.5 rounded-xl border border-amber-200/60 shadow-2xs gap-2 text-xs">
+                     <div class="flex items-center gap-2 flex-wrap">
+                         <span class="px-2 py-0.5 bg-amber-500 text-white font-extrabold text-[10px] rounded-md">Bibit {{ $bt->kode_bibit ?? 'F2' }}</span>
+                         <span class="font-bold text-gray-800">Dialokasikan: {{ $tglMasuk->format('d M Y') }} (<span class="text-amber-700 font-extrabold">{{ $selisih }} hari yang lalu</span>)</span>
+                         @if(auth()->user()->role === 'admin')
+                         <span class="text-gray-500 font-medium">| Petugas: {{ $bt->user->name ?? '-' }}</span>
+                         @endif
+                     </div>
+                     <a href="{{ route('sterilisasi.create', ['bibit_id' => $bt->id]) }}" class="inline-flex items-center justify-center px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white font-extrabold rounded-lg transition text-[11px] shrink-0">
+                         Sterilisasi Sekarang &rarr;
+                     </a>
+                 </div>
+                 @endforeach
+             </div>
+         </div>
+     </div>
+ </div>
+ @endif
+
  <div class="grid grid-cols-1 gap-6">
  <div class="bg-[#FFFFFF] border border-[#E5E7EB]/40 rounded-2xl p-6 shadow-xs overflow-hidden">
  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 pb-4 border-b border-[#E5E7EB]/20">

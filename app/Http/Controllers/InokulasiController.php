@@ -13,6 +13,11 @@ class InokulasiController extends Controller
     {
         $query = Inokulasi::with(['sterilisasi.bibit.user', 'user', 'logInkubasis.user']);
 
+        // Jika petugas: hanya tampilkan riwayat inokulasi milik sendiri
+        if (Auth::user()->role === 'petugas') {
+            $query->where('user_id', Auth::id());
+        }
+
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
@@ -37,7 +42,12 @@ class InokulasiController extends Controller
     public function create()
     {
         // Ambil data sterilisasi yang siap untuk diinokulasi
-        $sterilisasis = Sterilisasi::whereDoesntHave('inokulasis')->with('bibit.user')->orderBy('tanggal', 'desc')->get();
+        // Jika petugas: hanya tampilkan sterilisasi milik sendiri
+        $sterilisasisQuery = Sterilisasi::whereDoesntHave('inokulasis')->with('bibit.user')->orderBy('tanggal', 'desc');
+        if (Auth::user()->role === 'petugas') {
+            $sterilisasisQuery->where('user_id', Auth::id());
+        }
+        $sterilisasis = $sterilisasisQuery->get();
         return view('inokulasi.create', compact('sterilisasis'));
     }
 

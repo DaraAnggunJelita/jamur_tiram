@@ -48,10 +48,9 @@ class PetugasDashboardController extends Controller
             ->where('status_validasi', 'valid')
             ->count();
 
-        // Rasio Kualitas Panen personal untuk bulan ini
+        // Rasio Kualitas Panen personal untuk 6 bulan terakhir
         $myReportsBulanIni = ProductionReport::where('user_id', auth()->id())
-            ->whereMonth('tanggal', now()->month)
-            ->whereYear('tanggal', now()->year)
+            ->where('tanggal', '>=', now()->subMonths(5)->startOfMonth())
             ->where('status_validasi', 'valid')
             ->get();
         $totalGradeASaya = $myReportsBulanIni->sum('berat_grade_a');
@@ -69,14 +68,14 @@ class PetugasDashboardController extends Controller
 
 
 
-        // Pipeline Production Indicators
-        $pipelineStokBaglog = \App\Models\Bibit::doesntHave('sterilisasis')->orderBy('created_at', 'asc')->get();
-        $pipelinePendinginan = \App\Models\Sterilisasi::with('bibit')->doesntHave('inokulasis')->whereDate('tanggal', today())->orderBy('created_at', 'asc')->get();
-        $pipelineSiapInokulasi = \App\Models\Sterilisasi::with('bibit')->doesntHave('inokulasis')->whereDate('tanggal', '<', today())->orderBy('created_at', 'asc')->get();
-        $pipelineInkubasi = \App\Models\Inokulasi::with('sterilisasi.bibit')->whereDoesntHave('logInkubasis', function ($q) {
+        // Pipeline Production Indicators (Hanya Milik Petugas yang Login)
+        $pipelineStokBaglog = \App\Models\Bibit::where('user_id', auth()->id())->doesntHave('sterilisasis')->orderBy('created_at', 'asc')->get();
+        $pipelinePendinginan = \App\Models\Sterilisasi::where('user_id', auth()->id())->with('bibit')->doesntHave('inokulasis')->whereDate('tanggal', today())->orderBy('created_at', 'asc')->get();
+        $pipelineSiapInokulasi = \App\Models\Sterilisasi::where('user_id', auth()->id())->with('bibit')->doesntHave('inokulasis')->whereDate('tanggal', '<', today())->orderBy('created_at', 'asc')->get();
+        $pipelineInkubasi = \App\Models\Inokulasi::where('user_id', auth()->id())->with('sterilisasi.bibit')->whereDoesntHave('logInkubasis', function ($q) {
             $q->where('persentase_tumbuh', 100);
         })->orderBy('created_at', 'asc')->get();
-        $pipelineSiapPanen = \App\Models\Inokulasi::with('sterilisasi.bibit')
+        $pipelineSiapPanen = \App\Models\Inokulasi::where('user_id', auth()->id())->with('sterilisasi.bibit')
             ->whereHas('productionReports', function($q) {
                 $q->where('status_validasi', '!=', 'dibatalkan');
             }, '<', 7)
@@ -127,14 +126,29 @@ class PetugasDashboardController extends Controller
         }
         // ---------------------------------------------------------
 
-        // Mengambil data Peringatan Aktif (is_read = false) untuk dikirim ke Dashboard
+        // Mengambil data Peringatan Aktif (is_read = false) untuk dikirim ke Dashboard (Hanya Milik Petugas yang Login)
         // Dipanggil di sini agar mencakup peringatan EWS baru yang digenerate di atas
         $peringatanAktif = \App\Models\Peringatan::where('is_read', false)
+            ->where(function($q) {
+                $q->where(function($sq) {
+                    $sq->where('kategori', 'Sterilisasi')
+                       ->whereIn('referensi_id', function($sub) {
+                           $sub->select('id')->from('bibits')->where('user_id', auth()->id());
+                       });
+                })
+                ->orWhere(function($iq) {
+                    $iq->whereIn('kategori', ['Kumbung', 'Panen'])
+                       ->whereIn('referensi_id', function($sub) {
+                           $sub->select('id')->from('inokulasis')->where('user_id', auth()->id());
+                       });
+                });
+            })
             ->orderBy('created_at', 'desc')
             ->get();
 
-        // Ambil data sterilisasi yang berisiko untuk notifikasi
-        $sterilisasiBerisiko = \App\Models\Sterilisasi::where('status_sterilisasi', 'berisiko')
+        // Ambil data sterilisasi yang berisiko untuk notifikasi (Hanya Milik Petugas yang Login)
+        $sterilisasiBerisiko = \App\Models\Sterilisasi::where('user_id', auth()->id())
+            ->where('status_sterilisasi', 'berisiko')
             ->with('bibit')
             ->get();
 
@@ -171,7 +185,8 @@ class PetugasDashboardController extends Controller
             'totalBeratPanenSayaBulanIni',
             'totalLaporanSayaBulanIni',
             'persentaseASaya',
-            'persentaseBSaya'
+            'persentaseBSaya',
+            'myReportsBulanIni'
         ));
     }
 

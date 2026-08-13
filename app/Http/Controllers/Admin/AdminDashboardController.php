@@ -29,9 +29,8 @@ class AdminDashboardController extends Controller
             ->orderBy('updated_at', 'desc')
             ->paginate(5, ['*'], 'audit_page');
 
-        // Data untuk Rasio Kualitas dan Aktivitas Panen Terbaru
-        $reportsBulanIni = ProductionReport::whereMonth('tanggal', now()->month)
-            ->whereYear('tanggal', now()->year)
+        // Data untuk Rasio Kualitas dan Aktivitas Panen Terbaru (6 Bulan Terakhir)
+        $reportsBulanIni = ProductionReport::where('tanggal', '>=', now()->subMonths(5)->startOfMonth())
             ->where('status_validasi', 'valid')
             ->get();
         $totalGradeA = $reportsBulanIni->sum('berat_grade_a');

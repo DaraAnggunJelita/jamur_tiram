@@ -1,6 +1,3 @@
-Berikut adalah kode lengkap berkas Blade yang sudah diperbarui dan dibersihkan dari tampilan teks yang terlalu ramai:
-
-```html
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center gap-3 font-sans">
@@ -69,9 +66,30 @@ Berikut adalah kode lengkap berkas Blade yang sudah diperbarui dan dibersihkan d
                         @endif
                     </div>
 
+                    {{-- FIELD TANGGAL DENGAN FORMAT dd/mm/yyyy & IKON KALENDER --}}
                     <div>
-                        <label for="tanggal" class="block text-xs font-bold text-[#047857] mb-1">Tanggal Inokulasi</label>
-                        <input type="date" name="tanggal" id="tanggal" value="{{ date('Y-m-d') }}" required onchange="checkSterilisasiDate()" class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white py-2.5 shadow-sm focus:border-[#059669] focus:ring-[#059669]">
+                        <label for="tanggal_display" class="block text-xs font-bold text-[#047857] mb-1">Tanggal Inokulasi</label>
+
+                        <div class="relative cursor-pointer" onclick="openDatePicker()">
+                            {{-- Input Teks yang Menampilkan Format dd/mm/yyyy --}}
+                            <input type="text" id="tanggal_display" readonly
+                                value="{{ old('tanggal_display', now()->format('d/m/Y')) }}"
+                                class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white py-2.5 px-3.5 pr-10 shadow-sm focus:border-[#059669] focus:ring-[#059669] text-sm text-[#374151] font-medium cursor-pointer"
+                                placeholder="dd/mm/yyyy">
+
+                            {{-- Input Date Transparan (Hanya untuk memunculkan Popup Kalender & mengirim data ke Laravel) --}}
+                            <input type="date" id="tanggal" name="tanggal"
+                                value="{{ old('tanggal', now()->format('Y-m-d')) }}"
+                                onchange="updateTanggalDisplay(this)"
+                                class="absolute right-0 top-0 w-10 h-full opacity-0 cursor-pointer">
+
+                            {{-- Ikon Kalender Visual --}}
+                            <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-700">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="pt-4 border-t border-[#E5E7EB]/20 flex justify-end">
@@ -86,6 +104,26 @@ Berikut adalah kode lengkap berkas Blade yang sudah diperbarui dan dibersihkan d
     </div>
 
     <script>
+    // Buka kalender saat area kotak diklik
+    function openDatePicker() {
+        const dateInput = document.getElementById('tanggal');
+        if (dateInput.showPicker) {
+            dateInput.showPicker();
+        } else {
+            dateInput.click();
+        }
+    }
+
+    // Update Tampilan Teks ke Format dd/mm/yyyy saat Tanggal Dipilih dari Kalender
+    function updateTanggalDisplay(inputDate) {
+        if (!inputDate.value) return;
+        const [year, month, day] = inputDate.value.split('-');
+        document.getElementById('tanggal_display').value = `${day}/${month}/${year}`;
+
+        // Panggil validasi selisih tanggal sterilisasi
+        checkSterilisasiDate();
+    }
+
     function checkSterilisasiDate() {
         const sel = document.getElementById('sterilisasi_id');
         const tglInokulasi = document.getElementById('tanggal').value;
@@ -141,5 +179,3 @@ Berikut adalah kode lengkap berkas Blade yang sudah diperbarui dan dibersihkan d
     window.addEventListener('DOMContentLoaded', checkSterilisasiDate);
     </script>
 </x-app-layout>
-
-
