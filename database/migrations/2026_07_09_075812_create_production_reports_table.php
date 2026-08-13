@@ -14,9 +14,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->date('tanggal');
             $table->integer('siklus_panen')->default(1);
-            $table->double('berat_grade_a')->default(0);
-            $table->double('berat_grade_b')->default(0);
-            $table->double('jumlah_panen')->default(0); // sum of A and B
+            $table->decimal('berat_grade_a', 5, 2)->default(0);
+            $table->decimal('berat_grade_b', 5, 2)->default(0);
+            $table->decimal('jumlah_panen', 5, 2)->default(0); // sum of A and B
             $table->enum('status_validasi', ['pending', 'valid', 'invalid'])->default('pending');
             $table->text('catatan')->nullable();
             $table->foreignId('validated_by')->nullable()->constrained('users')->onDelete('set null');

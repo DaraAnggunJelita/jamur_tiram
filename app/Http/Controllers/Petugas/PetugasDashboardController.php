@@ -28,10 +28,44 @@ class PetugasDashboardController extends Controller
         $persentaseA = $totalBerat > 0 ? round(($totalGradeA / $totalBerat) * 100) : 0;
         $persentaseB = $totalBerat > 0 ? round(($totalGradeB / $totalBerat) * 100) : 0;
 
-        $recentReports = ProductionReport::with('user')
-            ->orderBy('tanggal', 'desc')
-            ->take(10)
+        // --- STATS PERSONAL PETUGAS (UNTUK CARD & DIAGRAM PERSONAL) ---
+        // Keseluruhan berat panen milik petugas yang login (laporan valid)
+        $totalBeratPanenSaya = ProductionReport::where('user_id', auth()->id())
+            ->where('status_validasi', 'valid')
+            ->sum('jumlah_panen');
+
+        // Berat panen personal bulan ini
+        $totalBeratPanenSayaBulanIni = ProductionReport::where('user_id', auth()->id())
+            ->whereMonth('tanggal', now()->month)
+            ->whereYear('tanggal', now()->year)
+            ->where('status_validasi', 'valid')
+            ->sum('jumlah_panen');
+
+        // Jumlah laporan panen personal bulan ini
+        $totalLaporanSayaBulanIni = ProductionReport::where('user_id', auth()->id())
+            ->whereMonth('tanggal', now()->month)
+            ->whereYear('tanggal', now()->year)
+            ->where('status_validasi', 'valid')
+            ->count();
+
+        // Rasio Kualitas Panen personal untuk bulan ini
+        $myReportsBulanIni = ProductionReport::where('user_id', auth()->id())
+            ->whereMonth('tanggal', now()->month)
+            ->whereYear('tanggal', now()->year)
+            ->where('status_validasi', 'valid')
             ->get();
+        $totalGradeASaya = $myReportsBulanIni->sum('berat_grade_a');
+        $totalGradeBSaya = $myReportsBulanIni->sum('berat_grade_b');
+        $totalBeratSaya = $totalGradeASaya + $totalGradeBSaya;
+        $persentaseASaya = $totalBeratSaya > 0 ? round(($totalGradeASaya / $totalBeratSaya) * 100) : 0;
+        $persentaseBSaya = $totalBeratSaya > 0 ? round(($totalGradeBSaya / $totalBeratSaya) * 100) : 0;
+        // --------------------------------------------------------------
+
+        // Aktivitas panen terbaru (dengan pagination 5 per halaman)
+        $recentReports = ProductionReport::with('user')
+            ->where('user_id', auth()->id())
+            ->orderBy('tanggal', 'desc')
+            ->paginate(5, ['*'], 'recent_page');
 
 
 
@@ -132,7 +166,12 @@ class PetugasDashboardController extends Controller
             'sterilisasiBerisiko',
             'bibitAlokasi',
             'totalBibitDiterima',
-            'totalBibitSisa'
+            'totalBibitSisa',
+            'totalBeratPanenSaya',
+            'totalBeratPanenSayaBulanIni',
+            'totalLaporanSayaBulanIni',
+            'persentaseASaya',
+            'persentaseBSaya'
         ));
     }
 

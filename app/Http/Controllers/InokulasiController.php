@@ -55,8 +55,9 @@ class InokulasiController extends Controller
         $tanggalInokulasi = \Carbon\Carbon::parse($request->tanggal)->startOfDay();
         $jarakHari = $tanggalSterilisasi->diffInDays($tanggalInokulasi, false);
 
-        if ($jarakHari < 1) {
-            return back()->withErrors(['error' => 'Gagal! Baglog belum layak disuntikkan bibit hari ini karena suhu masih panas. Minimal tunggu 1 hari setelah sterilisasi.'])->withInput();
+        if ($jarakHari < 2) {
+            $sisaHari = 2 - $jarakHari;
+            return back()->withErrors(['error' => "Gagal! Baglog belum layak disuntikkan bibit. Baglog harus didinginkan minimal 2 hari setelah sterilisasi (tanggal sterilisasi: " . \Carbon\Carbon::parse($sterilisasi->tanggal)->format('d/m/Y') . ", paling cepat inokulasi: " . \Carbon\Carbon::parse($sterilisasi->tanggal)->addDays(2)->format('d/m/Y') . "). Sisa {$sisaHari} hari pendinginan."])->withInput();
         }
 
         $jumlah_baglog_awal = $sterilisasi->bibit->banyak_baglog ?? 0;

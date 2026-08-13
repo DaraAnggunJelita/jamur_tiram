@@ -151,9 +151,7 @@
                 <td>{{ optional($r->user)->name ?: '-' }}</td>
                 <td class="center">{{ number_format($r->berat_grade_a, 1) }}</td>
                 <td class="center">{{ number_format($r->berat_grade_b, 1) }}</td>
-                <td class="center">
-                    <span class="badge badge-valid">Tervalidasi</span>
-                </td>
+                <td class="center">Tervalidasi</td>
             </tr>
             @empty
             <tr>

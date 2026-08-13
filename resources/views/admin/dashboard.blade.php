@@ -29,7 +29,7 @@
  @endif
 
  {{-- === SECTION 1: METRIC DASHBOARD CARDS === --}}
- <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+ <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
  <!-- Card Antrian Tertunda -->
  <div class="bg-[#FFFFFF] rounded-2xl border border-[#E5E7EB]/60 p-5 flex items-center space-x-3 hover:shadow-lg hover:shadow-[#047857]/5 hover:border-[#6B7280] transition duration-300">
  <div class="w-10 h-10 rounded-xl bg-[#F59E0B] text-white flex items-center justify-center shadow-md shadow-[#F59E0B]/20 text-base">
@@ -59,6 +59,17 @@
  </div>
  <div>
  <p class="text-[10px] text-[#047857] font-bold">Selesai Diverifikasi</p> <h4 class="text-xl font-bold text-[#064E3B] mt-0.5">{{ \App\Models\ProductionReport::whereIn('status_validasi', ['valid','invalid','dibatalkan'])->count() }} <span class="text-xs font-bold text-[#6B7280]/70 font-sans">Laporan</span></h4>
+ </div>
+ </div>
+
+ <!-- Card Keseluruhan Berat Panen -->
+ <div class="bg-[#FFFFFF] rounded-2xl border border-[#E5E7EB]/60 p-5 flex items-center space-x-3 hover:shadow-lg hover:shadow-[#059669]/5 hover:border-[#059669] transition duration-300">
+ <div class="w-10 h-10 rounded-xl bg-gradient-to-r from-[#047857] to-[#059669] text-white flex items-center justify-center shadow-md shadow-[#059669]/20 text-base">
+ <svg class="w-5 h-5 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+ </div>
+ <div>
+ <p class="text-[10px] text-[#059669] font-bold">Total Panen (Seluruh Petugas)</p>
+ <h4 class="text-xl font-bold text-[#064E3B] mt-0.5">{{ number_format($totalBeratPanenSemua, 1) }} <span class="text-xs font-bold text-[#6B7280]/70 font-sans">Kg</span></h4>
  </div>
  </div>
  </div>
@@ -224,10 +235,14 @@
  </div>
  @empty
  <div class="text-center py-16 text-[#6B7280]">
- <p class="text-2xl block mb-1"><svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4'/></svg></p>
+ <p class="text-2xl block mb-1"><svg class='w-6 h-6' fill='none' stroke='currentColor' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-width='2' d='M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4'/></svg></p>
  <p class="text-xs font-bold text-[#047857]">Belum ada riwayat terekam.</p>
  </div>
  @endforelse
+ </div>
+ 
+ <div class="mt-4 px-1">
+ {{ $processedReports->appends(request()->except('audit_page'))->links() }}
  </div>
  </div>
  </div>
@@ -237,7 +252,7 @@
  <div class="flex items-center justify-between pb-3 border-b border-[#E5E7EB]/20 mb-3">
  <div class="flex items-center space-x-2">
  <div class="w-6 h-6 bg-[#047857]/10 rounded-md flex items-center justify-center text-[#047857]">
- <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+ <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z'/></svg>
  </div>
  <h3 class="text-xs font-bold text-[#064E3B]">Aktivitas Panen Terbaru</h3>
  </div>
@@ -267,11 +282,6 @@
  <p class="text-[10px] font-bold text-[#047857]">Belum ada aktivitas panen tercatat.</p>
  </div>
  @endforelse
- </div>
- </div>
-
- </div>
-
  </div>
  </div>
 </x-app-layout>

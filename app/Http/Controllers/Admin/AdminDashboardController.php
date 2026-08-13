@@ -23,12 +23,11 @@ class AdminDashboardController extends Controller
             ->latest()
             ->get();
 
-        // Riwayat laporan yang sudah diproses atau dibatalkan
+        // Riwayat laporan yang sudah diproses atau dibatalkan (dengan pagination 5 per halaman)
         $processedReports = ProductionReport::with(['user', 'validator'])
             ->whereIn('status_validasi', ['valid', 'invalid', 'dibatalkan'])
             ->orderBy('updated_at', 'desc')
-            ->take(10)
-            ->get();
+            ->paginate(5, ['*'], 'audit_page');
 
         // Data untuk Rasio Kualitas dan Aktivitas Panen Terbaru
         $reportsBulanIni = ProductionReport::whereMonth('tanggal', now()->month)
@@ -41,12 +40,24 @@ class AdminDashboardController extends Controller
         $persentaseA = $totalBerat > 0 ? round(($totalGradeA / $totalBerat) * 100) : 0;
         $persentaseB = $totalBerat > 0 ? round(($totalGradeB / $totalBerat) * 100) : 0;
 
+        // Aktivitas panen terbaru (dengan pagination 5 per halaman)
         $recentReports = ProductionReport::with('user')
             ->latest()
-            ->take(5)
-            ->get();
+            ->paginate(5, ['*'], 'recent_page');
 
-        return view('admin.dashboard', compact('pendingReports', 'processedReports', 'reportsBulanIni', 'persentaseA', 'persentaseB', 'recentReports'));
+        // Keseluruhan berat panen dari seluruh petugas (laporan valid)
+        $totalBeratPanenSemua = ProductionReport::where('status_validasi', 'valid')
+            ->sum('jumlah_panen');
+
+        return view('admin.dashboard', compact(
+            'pendingReports',
+            'processedReports',
+            'reportsBulanIni',
+            'persentaseA',
+            'persentaseB',
+            'recentReports',
+            'totalBeratPanenSemua'
+        ));
     }
 
     /**

@@ -17,8 +17,6 @@
     <div class="py-8 bg-[#F3F5F4] min-h-screen text-[#374151]">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-
-
             {{-- 1. PUSAT PERINGATAN DINI (EWS) --}}
             @if(isset($peringatanAktif) && $peringatanAktif->count() > 0)
             <div class="bg-red-50 border-l-4 border-red-500 rounded-r-xl shadow-xs p-4 border border-red-200">
@@ -84,6 +82,25 @@
             @endforeach
             @endif
 
+            {{-- Hitung Rekap Stok Real-Time untuk Header Stok --}}
+            @php
+                $grandTotalDiterima = 0;
+                $grandTotalSisaReal = 0;
+
+                if(isset($bibitAlokasi) && $bibitAlokasi->count() > 0) {
+                    foreach($bibitAlokasi as $al) {
+                        $grandTotalDiterima += $al->jumlah;
+
+                        // Hitung pemakaian bibit pada sterilisasi
+                        $terpakaiSteril = $al->sterilisasis->sum('jumlah_bibit_terpakai')
+                            ?? $al->sterilisasis->sum('banyak_baglog'); // fallback jika pakai banyak_baglog
+
+                        $sisa = max(0, $al->jumlah - $terpakaiSteril);
+                        $grandTotalSisaReal += $sisa;
+                    }
+                }
+            @endphp
+
             {{-- 1.3 STOK BIBIT SAYA (ALOKASI DARI ADMIN) --}}
             <div class="bg-white border border-[#E5E7EB]/60 rounded-2xl p-4 shadow-xs">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3.5 pb-3 border-b border-[#E5E7EB]/40">
@@ -103,12 +120,12 @@
                     <div class="flex items-center gap-3 bg-[#F9FAFB] px-3.5 py-1.5 rounded-xl border border-[#E5E7EB] shrink-0">
                         <div class="text-center sm:text-left">
                             <span class="block text-[9px] font-bold text-[#6B7280] uppercase tracking-wider">Diterima</span>
-                            <span class="text-xs font-extrabold text-[#064E3B]">{{ (float)($totalBibitDiterima ?? 0) }} <span class="text-[10px] font-normal text-gray-500">Bungkus</span></span>
+                            <span class="text-xs font-extrabold text-[#064E3B]">{{ (float)($grandTotalDiterima) }} <span class="text-[10px] font-normal text-gray-500">Bungkus</span></span>
                         </div>
                         <div class="w-px h-6 bg-gray-200"></div>
                         <div class="text-center sm:text-left">
-                            <span class="block text-[9px] font-bold text-amber-600 uppercase tracking-wider">Sisa Siap Pakai</span>
-                            <span class="text-xs font-black text-amber-600">{{ (float)($totalBibitSisa ?? 0) }} <span class="text-[10px] font-normal text-gray-500">Bungkus</span></span>
+                            <span class="block text-[9px] font-bold uppercase tracking-wider {{ $grandTotalSisaReal > 0 ? 'text-amber-600' : 'text-red-600' }}">Sisa Siap Pakai</span>
+                            <span class="text-xs font-black {{ $grandTotalSisaReal > 0 ? 'text-amber-600' : 'text-red-600' }}">{{ (float)($grandTotalSisaReal) }} <span class="text-[10px] font-normal text-gray-500">Bungkus</span></span>
                         </div>
                     </div>
                 </div>
@@ -119,6 +136,13 @@
                     @php
                         $hasInokulasi = $alokasi->inokulasis->count() > 0 || $alokasi->sterilisasis->filter(fn($s) => $s->inokulasis->count() > 0)->count() > 0;
                         $hasSterilisasi = $alokasi->sterilisasis->count() > 0;
+
+                        // Perhitungan Sisa Stok Real di Blade:
+                        // Kurangi jumlah pemberian bibit dengan bibit yang sudah terpakai di Sterilisasi
+                        $terpakaiInSteril = $alokasi->sterilisasis->sum('jumlah_bibit_terpakai')
+                            ?? $alokasi->sterilisasis->sum('banyak_baglog');
+
+                        $sisaStokItem = max(0, $alokasi->jumlah - $terpakaiInSteril);
                     @endphp
                     <div class="bg-[#F9FAFB] hover:bg-white hover:shadow-xs rounded-xl p-3 border border-[#E5E7EB] transition flex flex-col justify-between">
                         <div>
@@ -160,8 +184,9 @@
                                 </span>
                             @endif
 
-                            <span class="px-2 py-0.5 rounded-md font-bold text-[11px] {{ $alokasi->sisa_stok > 0 ? 'bg-[#34D399]/20 text-[#047857]' : 'bg-red-100 text-red-700' }}">
-                                Sisa: {{ (float)($alokasi->sisa_stok) }} Bungkus
+                            {{-- Indikator Sisa Stok (Akan berubah jadi MERAH & 0 saat disterilisasi) --}}
+                            <span class="px-2 py-0.5 rounded-md font-bold text-[11px] {{ $sisaStokItem > 0 ? 'bg-[#34D399]/20 text-[#047857]' : 'bg-red-100 text-red-700' }}">
+                                Sisa: {{ (float)$sisaStokItem }} Bungkus
                             </span>
                         </div>
                     </div>
@@ -296,24 +321,26 @@
             {{-- 2. STATISTIK PANEN & GRAFIK RASIO KUALITAS --}}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {{-- Card Stat 1 --}}
-                <div class="bg-white border border-[#E5E7EB]/60 rounded-xl p-4 shadow-2xs flex items-center gap-3.5">
+                <div class="bg-white border border-[#E5E7EB]/60 rounded-xl p-4 shadow-2xs flex items-center gap-3.5 hover:shadow-xs hover:border-[#059669] transition duration-300">
                     <div class="w-11 h-11 bg-emerald-50 rounded-xl flex items-center justify-center text-[#059669] shrink-0 border border-emerald-100">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
                     </div>
                     <div>
-                        <p class="text-[11px] text-[#6B7280] font-bold uppercase">Total Panen (Bulan Ini)</p>
-                        <p class="text-xl font-extrabold text-[#064E3B]">{{ (float)($reportsBulanIni->sum('jumlah_panen')) }} <span class="text-xs font-bold text-[#6B7280]">Kg</span></p>
+                        <p class="text-[11px] text-[#6B7280] font-bold uppercase">Total Panen Saya (Bulan Ini)</p>
+                        <p class="text-xl font-extrabold text-[#064E3B]">{{ (float)($totalBeratPanenSayaBulanIni) }} <span class="text-xs font-bold text-[#6B7280]">Kg</span></p>
+                        <p class="text-[10px] text-gray-500 font-medium mt-0.5">Keseluruhan: <span class="font-bold text-[#059669]">{{ (float)($totalBeratPanenSaya) }} Kg</span></p>
                     </div>
                 </div>
 
                 {{-- Card Stat 2 --}}
-                <div class="bg-white border border-[#E5E7EB]/60 rounded-xl p-4 shadow-2xs flex items-center gap-3.5">
+                <div class="bg-white border border-[#E5E7EB]/60 rounded-xl p-4 shadow-2xs flex items-center gap-3.5 hover:shadow-xs hover:border-[#F59E0B] transition duration-300">
                     <div class="w-11 h-11 bg-amber-50 rounded-xl flex items-center justify-center text-[#F59E0B] shrink-0 border border-amber-100">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                     </div>
                     <div>
-                        <p class="text-[11px] text-[#6B7280] font-bold uppercase">Laporan Panen Bulan Ini</p>
-                        <p class="text-xl font-extrabold text-[#064E3B]">{{ $reportsBulanIni->count() }} <span class="text-xs font-bold text-[#6B7280]">Batch</span></p>
+                        <p class="text-[11px] text-[#6B7280] font-bold uppercase">Laporan Panen Saya (Bulan Ini)</p>
+                        <p class="text-xl font-extrabold text-[#064E3B]">{{ $totalLaporanSayaBulanIni }} <span class="text-xs font-bold text-[#6B7280]">Batch</span></p>
+                        <p class="text-[10px] text-gray-500 font-medium mt-0.5">Tervalidasi &amp; aktif</p>
                     </div>
                 </div>
 
@@ -321,22 +348,22 @@
                 <div class="bg-white border border-[#E5E7EB]/60 rounded-xl p-5 shadow-2xs md:row-span-2 flex flex-col justify-between">
                     <div>
                         <h3 class="text-xs font-extrabold text-[#064E3B] uppercase tracking-wider mb-0.5">Rasio Kualitas Panen</h3>
-                        <p class="text-[11px] text-[#6B7280]">Perbandingan Grade A vs Grade B (Bulan Ini).</p>
+                        <p class="text-[11px] text-[#6B7280]">Perbandingan Grade A vs Grade B Saya (Bulan Ini).</p>
                     </div>
 
                     <div class="flex flex-col items-center justify-center my-4">
-                        @if($persentaseA > 0 || $persentaseB > 0)
-                        <div class="relative w-36 h-36 rounded-full shadow-inner flex items-center justify-center" style="background: conic-gradient(#059669 0% {{ $persentaseA }}%, #F59E0B {{ $persentaseA }}% 100%);">
+                        @if($persentaseASaya > 0 || $persentaseBSaya > 0)
+                        <div class="relative w-36 h-36 rounded-full shadow-inner flex items-center justify-center" style="background: conic-gradient(#059669 0% {{ $persentaseASaya }}%, #F59E0B {{ $persentaseASaya }}% 100%);">
                             <div class="w-24 h-24 rounded-full bg-white flex items-center justify-center shadow-xs">
                                 <div class="text-center">
                                     <span class="text-[10px] font-bold text-gray-400 block">Dominan</span>
-                                    <span class="text-base font-black {{ $persentaseA >= $persentaseB ? 'text-[#059669]' : 'text-[#F59E0B]' }}">{{ $persentaseA >= $persentaseB ? "A ($persentaseA%)" : "B ($persentaseB%)" }}</span>
+                                    <span class="text-base font-black {{ $persentaseASaya >= $persentaseBSaya ? 'text-[#059669]' : 'text-[#F59E0B]' }}">{{ $persentaseASaya >= $persentaseBSaya ? "A ($persentaseASaya%)" : "B ($persentaseBSaya%)" }}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="mt-5 flex items-center justify-center gap-4 text-xs font-bold">
-                            <span class="flex items-center text-gray-700"><span class="w-2.5 h-2.5 bg-[#059669] rounded-full mr-1.5"></span>Grade A: {{ $persentaseA }}%</span>
-                            <span class="flex items-center text-gray-700"><span class="w-2.5 h-2.5 bg-[#F59E0B] rounded-full mr-1.5"></span>Grade B: {{ $persentaseB }}%</span>
+                            <span class="flex items-center text-gray-700"><span class="w-2.5 h-2.5 bg-[#059669] rounded-full mr-1.5"></span>Grade A: {{ $persentaseASaya }}%</span>
+                            <span class="flex items-center text-gray-700"><span class="w-2.5 h-2.5 bg-[#F59E0B] rounded-full mr-1.5"></span>Grade B: {{ $persentaseBSaya }}%</span>
                         </div>
                         @else
                         <div class="text-center text-gray-400 text-xs italic w-full h-36 flex flex-col items-center justify-center border-2 border-dashed border-[#E5E7EB] rounded-xl bg-gray-50/50">
@@ -364,7 +391,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-[#E5E7EB]/30">
-                                    @forelse($recentReports->take(4) as $report)
+                                    @forelse($recentReports as $report)
                                     <tr class="hover:bg-gray-50 transition">
                                         <td class="py-2.5 px-2 font-bold text-gray-800">
                                             {{ \Carbon\Carbon::parse($report->tanggal)->format('d M Y') }}
@@ -401,6 +428,9 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="mt-4">
+                            {{ $recentReports->appends(request()->except('recent_page'))->links() }}
                         </div>
                     </div>
                 </div>

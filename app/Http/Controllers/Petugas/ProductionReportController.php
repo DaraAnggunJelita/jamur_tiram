@@ -60,10 +60,14 @@ class ProductionReportController extends Controller
      */
     public function create(): View
     {
-        $query = \App\Models\Inokulasi::with(['user', 'bibit', 'sterilisasi.bibit'])
+        $query = \App\Models\Inokulasi::with(['user', 'bibit', 'sterilisasi.bibit', 'logInkubasis'])
             ->withCount(['productionReports' => function($q) {
                 $q->where('status_validasi', '!=', 'dibatalkan');
             }])
+            // SYARAT 1: Hanya tampilkan batch yang memiliki log inkubasi 100%
+            ->whereHas('logInkubasis', function($q) {
+                $q->where('persentase_tumbuh', 100);
+            })
             ->having('production_reports_count', '<', 7);
 
         if (!auth()->user()->isAdmin()) {
@@ -88,7 +92,15 @@ class ProductionReportController extends Controller
             'catatan'       => 'nullable|string',
         ]);
 
-        $inokulasi = \App\Models\Inokulasi::findOrFail($request->inokulasi_id);
+        $inokulasi = \App\Models\Inokulasi::with('logInkubasis')->findOrFail($request->inokulasi_id);
+
+        // SYARAT 2 (Validasi Backend): Cek persentase inkubasi tertinggi batch ini
+        $maxProgres = $inokulasi->logInkubasis->max('persentase_tumbuh') ?? 0;
+        if ($maxProgres < 100) {
+            return back()->withErrors(['error' => "Gagal! Batch ini belum dapat dipanen karena progres inkubasi/miselium baru mencapai {$maxProgres}% (Wajib 100%)."])->withInput();
+        }
+
+        // Validasi Selisih Usia Minimal 50 Hari
         $tanggalInokulasi = \Carbon\Carbon::parse($inokulasi->tanggal)->startOfDay();
         $tanggalPanen = \Carbon\Carbon::parse($request->tanggal)->startOfDay();
 
@@ -138,11 +150,13 @@ class ProductionReportController extends Controller
                 ->with('error', 'Laporan yang sudah divalidasi tidak dapat diedit.');
         }
 
-        // Tambahkan inokulasi_id yang sedang diedit agar tetap muncul meskipun sudah 7 kali, atau biarkan semua yang < 7 milik petugas ini
-        $query = \App\Models\Inokulasi::with(['user', 'bibit', 'sterilisasi.bibit'])
+        $query = \App\Models\Inokulasi::with(['user', 'bibit', 'sterilisasi.bibit', 'logInkubasis'])
             ->withCount(['productionReports' => function($q) {
                 $q->where('status_validasi', '!=', 'dibatalkan');
             }])
+            ->whereHas('logInkubasis', function($q) {
+                $q->where('persentase_tumbuh', 100);
+            })
             ->having('production_reports_count', '<', 7);
 
         if (!auth()->user()->isAdmin()) {

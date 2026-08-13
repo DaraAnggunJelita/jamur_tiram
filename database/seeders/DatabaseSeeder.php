@@ -27,14 +27,14 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $petugas = User::create([
-            'name'     => 'Budi Santoso (Petugas)',
+            'name'     => 'Iwil (Petugas)',
             'email'    => 'petugas@kups.com',
             'password' => Hash::make('password123'),
             'role'     => 'petugas',
         ]);
 
         $ketua = User::create([
-            'name'     => 'H. Slamet (Ketua KUPS)',
+            'name'     => 'Lita Purnama Sari (Ketua KUPS)',
             'email'    => 'ketua@kups.com',
             'password' => Hash::make('password123'),
             'role'     => 'ketua',

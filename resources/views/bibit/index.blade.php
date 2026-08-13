@@ -134,6 +134,7 @@
                                 </td>
                                 <td class="py-3.5 px-4 text-right whitespace-nowrap">
                                     @if($bibit->sisa_stok == $bibit->jumlah)
+                                    {{-- Bibit belum dipakai sama sekali: tampilkan Edit & Hapus --}}
                                     <div class="flex items-center justify-end gap-1.5">
                                         <a href="{{ route('bibit.edit', $bibit->id) }}"
                                             class="inline-flex items-center px-2.5 py-1.5 bg-[#F3F4F6] hover:bg-[#E5E7EB] text-[#374151] text-xs font-semibold rounded-lg border border-[#D1D5DB] transition cursor-pointer">
@@ -148,7 +149,23 @@
                                             </button>
                                         </form>
                                     </div>
+                                    @elseif($bibit->sisa_stok == 0)
+                                    {{-- Bibit sudah habis terpakai: tampilkan tombol Hapus saja --}}
+                                    <div class="flex items-center justify-end gap-1.5">
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-semibold bg-gray-100 text-gray-500 border border-gray-200">
+                                            Stok Habis
+                                        </span>
+                                        <form method="POST" action="{{ route('bibit.destroy', $bibit->id) }}" class="inline" onsubmit="return confirm('Bibit ini sudah habis terpakai. Yakin ingin menghapus data ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="inline-flex items-center px-2.5 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-semibold rounded-lg border border-red-200 transition cursor-pointer">
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </div>
                                     @else
+                                    {{-- Sebagian terpakai, belum habis: dikunci --}}
                                     <span class="text-[11px] text-[#9CA3AF] font-medium italic">Terkunci (Terpakai)</span>
                                     @endif
                                 </td>
