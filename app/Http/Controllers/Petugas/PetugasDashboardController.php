@@ -34,17 +34,15 @@ class PetugasDashboardController extends Controller
             ->where('status_validasi', 'valid')
             ->sum('jumlah_panen');
 
-        // Berat panen personal bulan ini
+        // Berat panen personal 6 bulan ini
         $totalBeratPanenSayaBulanIni = ProductionReport::where('user_id', auth()->id())
-            ->whereMonth('tanggal', now()->month)
-            ->whereYear('tanggal', now()->year)
+            ->where('tanggal', '>=', now()->subMonths(5)->startOfMonth())
             ->where('status_validasi', 'valid')
             ->sum('jumlah_panen');
 
-        // Jumlah laporan panen personal bulan ini
+        // Jumlah laporan panen personal 6 bulan ini
         $totalLaporanSayaBulanIni = ProductionReport::where('user_id', auth()->id())
-            ->whereMonth('tanggal', now()->month)
-            ->whereYear('tanggal', now()->year)
+            ->where('tanggal', '>=', now()->subMonths(5)->startOfMonth())
             ->where('status_validasi', 'valid')
             ->count();
 
@@ -85,46 +83,7 @@ class PetugasDashboardController extends Controller
             })->orWhere('tanggal', '<=', now()->subDays(40));
         })->orderBy('created_at', 'asc')->get();
 
-        // ---------------------------------------------------------
-        // EWS LOGIC: MAKSIMAL HARI PANEN
-        // ---------------------------------------------------------
-        $ewsSetting = \App\Models\EwsSetting::first();
-        $maksHariPanen = $ewsSetting ? $ewsSetting->maks_hari_panen : 4;
 
-        foreach ($pipelineSiapPanen as $inokulasi) {
-            $lastPanen = \App\Models\ProductionReport::where('inokulasi_id', $inokulasi->id)
-                ->where('status_validasi', '!=', 'dibatalkan')
-                ->orderBy('tanggal', 'desc')
-                ->first();
-            
-            if ($lastPanen) {
-                $lastDate = \Carbon\Carbon::parse($lastPanen->tanggal);
-            } else {
-                // If never harvested, start counting from the estimated ready date (40 days after inokulasi)
-                $lastDate = \Carbon\Carbon::parse($inokulasi->tanggal)->addDays(40);
-            }
-
-            $hariTelat = (int) $lastDate->diffInDays(now());
-
-            if ($hariTelat > $maksHariPanen && now()->startOfDay()->greaterThan($lastDate)) {
-                $existingWarning = \App\Models\Peringatan::where('kategori', 'Panen')
-                    ->where('referensi_id', $inokulasi->id)
-                    ->where('is_read', false)
-                    ->exists();
-
-                if (!$existingWarning) {
-                    $kode = $inokulasi->sterilisasi->bibit->kode_bibit ?? $inokulasi->id;
-                    \App\Models\Peringatan::create([
-                        'kategori' => 'Panen',
-                        'referensi_id' => $inokulasi->id,
-                        'level' => 'Kritis',
-                        'pesan' => "Batch Bibit F2 #{$kode} sudah {$hariTelat} hari tidak dipanen (Batas EWS: {$maksHariPanen} hari). Segera panen sebelum layu!",
-                        'is_read' => false,
-                    ]);
-                }
-            }
-        }
-        // ---------------------------------------------------------
 
         // Mengambil data Peringatan Aktif (is_read = false) untuk dikirim ke Dashboard (Hanya Milik Petugas yang Login)
         // Dipanggil di sini agar mencakup peringatan EWS baru yang digenerate di atas

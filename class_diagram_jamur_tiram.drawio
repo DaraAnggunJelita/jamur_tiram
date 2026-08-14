@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram id="class_diagram_terbaru" name="Class Diagram KUPS Jamur Tiram">
-    <mxGraphModel dx="1624" dy="902" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+    <mxGraphModel dx="1804" dy="1002" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -94,17 +94,8 @@
         <mxCell id="ProfileKups_methods" parent="ProfileKups" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="+ getProfile(): ProfileKups&#xa;+ updateProfile(data: Array): Boolean" vertex="1">
           <mxGeometry height="40" width="300" y="280" as="geometry" />
         </mxCell>
-        <mxCell id="EwsSetting" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;rounded=1;" value="EwsSetting" vertex="1">
-          <mxGeometry height="180" width="300" x="1220" y="700" as="geometry" />
-        </mxCell>
-        <mxCell id="EwsSetting_attrs" parent="EwsSetting" style="text;strokeColor=#000000;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="- id: BigInt&#xa;- maks_hari_panen: Integer&#xa;- kondisi_udara_kritis: String&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" vertex="1">
-          <mxGeometry height="104" width="300" y="26" as="geometry" />
-        </mxCell>
-        <mxCell id="EwsSetting_methods" parent="EwsSetting" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="+ getActiveConfig(): EwsSetting&#xa;+ isCritical(temp: Float, rh: Float): Boolean" vertex="1">
-          <mxGeometry height="50" width="300" y="130" as="geometry" />
-        </mxCell>
         <mxCell id="Peringatan" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;rounded=1;" value="Peringatan" vertex="1">
-          <mxGeometry height="240" width="300" x="1220" y="980" as="geometry" />
+          <mxGeometry height="240" width="300" x="1220" y="730" as="geometry" />
         </mxCell>
         <mxCell id="Peringatan_attrs" parent="Peringatan" style="text;strokeColor=#000000;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="- id: BigInt&#xa;- kategori: String&#xa;- referensi_id: BigInt&#xa;- level: String&#xa;- pesan: String&#xa;- is_read: Boolean&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" vertex="1">
           <mxGeometry height="154" width="300" y="26" as="geometry" />
@@ -275,9 +266,6 @@
           <mxGeometry relative="1" x="0.85" as="geometry">
             <mxPoint x="10" y="-15" as="offset" />
           </mxGeometry>
-        </mxCell>
-        <mxCell id="e_ews_triggers" edge="1" parent="1" source="EwsSetting" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;dashed=1;strokeColor=#000000;strokeWidth=1.5;" target="Peringatan" value="&lt;&lt;triggers&gt;&gt;">
-          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

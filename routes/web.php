@@ -132,9 +132,7 @@ Route::middleware(['auth'])->group(function () {
         return view('petugas.rendang.index', compact('panenBuruk'));
     })->name('rendang.index');
 
-    // RUTE SETTINGS EWS ADMIN
-    Route::get('/admin/ews-settings', [\App\Http\Controllers\Admin\EwsSettingController::class, 'index'])->name('admin.ews.settings');
-    Route::post('/admin/ews-settings', [\App\Http\Controllers\Admin\EwsSettingController::class, 'update'])->name('admin.ews.settings.update');
+
 });
 
 

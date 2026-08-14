@@ -40,8 +40,16 @@ class MonitoringKumbungController extends Controller
     public function create(Request $request)
     {
         // Hanya tampilkan batch inokulasi yang masih aktif (belum afkir / jumlah_berhasil > 0)
-        // Jika petugas: hanya tampilkan inokulasi milik sendiri; Admin: tampilkan semua
-        $inokulasisQuery = Inokulasi::where('jumlah_berhasil', '>', 0);
+        // dan belum menyelesaikan masa panen (memiliki kurang dari 7 siklus laporan panen)
+        $inokulasisQuery = Inokulasi::where('jumlah_berhasil', '>', 0)
+            ->where(function($query) {
+                $query->whereDoesntHave('productionReports', function($q) {
+                    $q->where('status_validasi', '!=', 'dibatalkan');
+                })->orWhereHas('productionReports', function($q) {
+                    $q->where('status_validasi', '!=', 'dibatalkan');
+                }, '<', 7);
+            });
+
         if (Auth::user()->role === 'petugas') {
             $inokulasisQuery->where('user_id', Auth::id());
         }

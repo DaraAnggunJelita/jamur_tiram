@@ -17,7 +17,7 @@
     <div class="py-8 bg-[#F3F5F4] min-h-screen text-[#374151]">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-            {{-- 1. PUSAT PERINGATAN DINI (EWS) --}}
+            {{-- 1. PUSAT PERINGATAN --}}
             @if(isset($peringatanAktif) && $peringatanAktif->count() > 0)
             <div class="bg-red-50 border-l-4 border-red-500 rounded-r-xl shadow-xs p-4 border border-red-200">
                 <div class="flex items-start gap-3">
@@ -27,7 +27,7 @@
                         </svg>
                     </div>
                     <div class="w-full">
-                        <h3 class="text-xs font-extrabold text-red-800">Pusat Peringatan Dini (EWS) Aktif ({{ $peringatanAktif->count() }} Peringatan)</h3>
+                        <h3 class="text-xs font-extrabold text-red-800">Pusat Peringatan Aktif ({{ $peringatanAktif->count() }} Peringatan)</h3>
                         <div class="mt-2 space-y-2">
                             @foreach($peringatanAktif as $peringatan)
                             <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border border-red-100 shadow-2xs text-xs">
@@ -52,13 +52,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            @else
-            <div class="bg-white border border-[#E5E7EB]/60 rounded-xl p-3.5 flex items-center gap-3 shadow-2xs">
-                <div class="w-8 h-8 rounded-lg bg-emerald-50 text-[#059669] flex items-center justify-center shrink-0 border border-emerald-100">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                </div>
-                <p class="text-xs font-bold text-[#064E3B]">EWS Aman. <span class="font-normal text-gray-500">Tidak ada peringatan kritis pada parameter kumbung ataupun produksi saat ini.</span></p>
             </div>
             @endif
 
@@ -346,7 +339,7 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
                     </div>
                     <div>
-                        <p class="text-[11px] text-[#6B7280] font-bold uppercase">Total Panen Saya (Bulan Ini)</p>
+                        <p class="text-[11px] text-[#6B7280] font-bold uppercase">Total Panen Saya (6 Bulan Ini)</p>
                         <p class="text-xl font-extrabold text-[#064E3B]">{{ (float)($totalBeratPanenSayaBulanIni) }} <span class="text-xs font-bold text-[#6B7280]">Kg</span></p>
                         <p class="text-[10px] text-gray-500 font-medium mt-0.5">Keseluruhan: <span class="font-bold text-[#059669]">{{ (float)($totalBeratPanenSaya) }} Kg</span></p>
                     </div>
@@ -358,7 +351,7 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
                     </div>
                     <div>
-                        <p class="text-[11px] text-[#6B7280] font-bold uppercase">Laporan Panen Saya (Bulan Ini)</p>
+                        <p class="text-[11px] text-[#6B7280] font-bold uppercase">Laporan Panen Saya (6 Bulan Ini)</p>
                         <p class="text-xl font-extrabold text-[#064E3B]">{{ $totalLaporanSayaBulanIni }} <span class="text-xs font-bold text-[#6B7280]">Batch</span></p>
                         <p class="text-[10px] text-gray-500 font-medium mt-0.5">Tervalidasi &amp; aktif</p>
                     </div>

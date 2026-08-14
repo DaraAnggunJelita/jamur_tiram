@@ -1,10 +1,10 @@
 <mxfile host="app.diagrams.net" pages="2">
   <diagram id="usecase_diagram" name="Usecase Diagram">
-    <mxGraphModel dx="8357" dy="2689" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1400" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+    <mxGraphModel dx="8860" dy="3655" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1400" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="boundary" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=30;labelBackgroundColor=none;fontSize=50;strokeWidth=6;" value="&lt;font&gt;Usecase Jamur Tiram&lt;/font&gt;" vertex="1">
+        <mxCell id="boundary" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=30;labelBackgroundColor=none;fontSize=50;strokeWidth=6;" value="&lt;font style=&quot;font-size: 70px;&quot;&gt;Usecase Jamur Tiram&lt;/font&gt;" vertex="1">
           <mxGeometry height="5822.5" width="5540" x="-3430" y="-100" as="geometry" />
         </mxCell>
         <mxCell id="uc_umum_1" parent="boundary" style="ellipse;whiteSpace=wrap;html=1;fontSize=50;strokeWidth=6;" value="Lihat Katalog Produk" vertex="1">
@@ -61,12 +61,6 @@
             <mxPoint x="750" y="660" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="uc_admin_6" parent="boundary" style="ellipse;whiteSpace=wrap;html=1;fontSize=50;strokeWidth=6;" value="Kelola Pengaturan EWS" vertex="1">
-          <mxGeometry height="405" width="610" x="1430" y="1370" as="geometry" />
-        </mxCell>
-        <mxCell id="inc_admin_6" edge="1" parent="boundary" source="uc_admin_6" style="edgeStyle=none;endArrow=open;html=1;dashed=1;endFill=0;fontSize=50;strokeWidth=6;" target="uc_login" value="«include»">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
         <mxCell id="uc_admin_2" parent="boundary" style="ellipse;whiteSpace=wrap;html=1;fontSize=50;strokeWidth=6;" value="Kelola Katalog Produk" vertex="1">
           <mxGeometry height="380" width="573.5" x="-10" y="120" as="geometry" />
         </mxCell>
@@ -95,10 +89,10 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="6N7l533I9R0SJGm1QKDM-2" parent="boundary" style="ellipse;whiteSpace=wrap;html=1;fontSize=50;strokeWidth=6;" value="Kelola Sterilisasi" vertex="1">
-          <mxGeometry height="425" width="680" x="1835" y="1710" as="geometry" />
+          <mxGeometry height="425" width="680" x="1550" y="1400" as="geometry" />
         </mxCell>
         <mxCell id="6N7l533I9R0SJGm1QKDM-3" parent="boundary" style="ellipse;whiteSpace=wrap;html=1;fontSize=50;strokeWidth=6;" value="Kelola Inokulasi" vertex="1">
-          <mxGeometry height="380" width="640" x="2270" y="2090" as="geometry" />
+          <mxGeometry height="380" width="640" x="2030" y="1850" as="geometry" />
         </mxCell>
         <mxCell id="6N7l533I9R0SJGm1QKDM-5" parent="boundary" style="ellipse;whiteSpace=wrap;html=1;fontSize=50;strokeWidth=6;" value="Pencatatan Panen&amp;nbsp;" vertex="1">
           <mxGeometry height="425" width="600" x="3150" y="1390" as="geometry" />
@@ -164,7 +158,7 @@
           <mxGeometry height="385" width="660" x="4030" y="720" as="geometry" />
         </mxCell>
         <mxCell id="6N7l533I9R0SJGm1QKDM-4" parent="boundary" style="ellipse;whiteSpace=wrap;html=1;fontSize=50;strokeWidth=6;" value="Monitoring Kumbung" vertex="1">
-          <mxGeometry height="365" width="680" x="2660" y="1710" as="geometry" />
+          <mxGeometry height="365" width="680" x="2720" y="1890" as="geometry" />
         </mxCell>
         <mxCell id="uc_admin_1" parent="boundary" style="ellipse;whiteSpace=wrap;html=1;fontSize=50;strokeWidth=6;" value="Kelola Akun Pengguna" vertex="1">
           <mxGeometry height="405" width="620" x="680" y="720" as="geometry" />
@@ -227,9 +221,6 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e_admin_3" edge="1" parent="1" source="a_admin" style="edgeStyle=none;endArrow=none;html=1;fontSize=50;strokeWidth=6;" target="uc_admin_3" value="">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e_admin_6" edge="1" parent="1" source="a_admin" style="edgeStyle=none;endArrow=none;html=1;fontSize=50;strokeWidth=6;" target="uc_admin_6" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e_ketua_2" edge="1" parent="1" source="a_ketua" style="edgeStyle=none;endArrow=none;html=1;fontSize=50;strokeWidth=6;" target="uc_ketua_2" value="">

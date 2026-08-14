@@ -95,15 +95,7 @@
         <mxCell id="ProfileKups_methods" parent="ProfileKups" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="+ getProfile(): ProfileKups&#xa;+ updateProfile(data: Array): Boolean" vertex="1">
           <mxGeometry height="40" width="300" y="280" as="geometry" />
         </mxCell>
-        <mxCell id="EwsSetting" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;rounded=1;" value="EwsSetting" vertex="1">
-          <mxGeometry height="180" width="300" x="1220" y="700" as="geometry" />
-        </mxCell>
-        <mxCell id="EwsSetting_attrs" parent="EwsSetting" style="text;strokeColor=#000000;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="- id: BigInt&#xa;- maks_hari_panen: Integer&#xa;- kondisi_udara_kritis: String&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" vertex="1">
-          <mxGeometry height="104" width="300" y="26" as="geometry" />
-        </mxCell>
-        <mxCell id="EwsSetting_methods" parent="EwsSetting" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="+ getActiveConfig(): EwsSetting&#xa;+ isCritical(temp: Float, rh: Float): Boolean" vertex="1">
-          <mxGeometry height="50" width="300" y="130" as="geometry" />
-        </mxCell>
+
         <mxCell id="Peringatan" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;rounded=1;" value="Peringatan" vertex="1">
           <mxGeometry height="240" width="300" x="1220" y="980" as="geometry" />
         </mxCell>
@@ -277,9 +269,7 @@
             <mxPoint x="10" y="-15" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e_ews_triggers" edge="1" parent="1" source="EwsSetting" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;dashed=1;strokeColor=#000000;strokeWidth=1.5;" target="Peringatan" value="&lt;&lt;triggers&gt;&gt;">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
+
       </root>
     </mxGraphModel>
   </diagram>
