@@ -70,41 +70,33 @@
                     {{-- Inokulasi Batch --}}
                     <div>
                         <label for="inokulasi_id" class="block text-xs font-bold text-[#047857] mb-1.5">Batch Inokulasi (Wajib Inkubasi 100%)</label>
-                        @if(request()->has('inokulasi_id') && $inokulasis->contains('id', request('inokulasi_id')))
-                            @php $selected = $inokulasis->firstWhere('id', request('inokulasi_id')); @endphp
-                            <div class="block w-full rounded-xl border border-[#E5E7EB]/60 bg-[#E5E7EB]/40 shadow-inner text-sm py-2.5 px-4 text-[#374151] font-bold cursor-not-allowed">
-                                Inokulasi {{ $selected->id }} - Inkubasi Terakhir: {{ \Carbon\Carbon::parse($selected->tanggal)->addDays(40)->format('d M Y') }}
-                            </div>
-                            <input type="hidden" id="inokulasi_id" name="inokulasi_id" value="{{ $selected->id }}" data-tanggal="{{ $selected->tanggal }}" data-used-cycles="{{ $selected->productionReports->pluck('siklus_panen')->implode(',') }}">
-                        @else
-                            <select id="inokulasi_id" name="inokulasi_id"
-                            class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-2.5 text-[#374151] font-medium @error('inokulasi_id') border-[#F59E0B] @enderror" required>
-                                <option value="">-- Pilih Batch Inokulasi (Miselium 100%) --</option>
-                                @foreach($inokulasis as $ino)
-                                    @php
-                                        $rawNama = $ino->user->name ?? 'Petugas';
-                                        $namaPetugas = trim(str_replace('(Petugas)', '', $rawNama));
-                                        $jenisBibit = ucwords($ino->bibit->asal_bibit ?? $ino->bibit->kode_bibit ?? $ino->sterilisasi->bibit->asal_bibit ?? 'Bibit F2');
-                                        $jumlahBaglog = $ino->jumlah_berhasil > 0 ? $ino->jumlah_berhasil : ($ino->sterilisasi->bibit->banyak_baglog ?? 0);
-                                        $tglInkubasiTerakhir = \Carbon\Carbon::parse($ino->tanggal)->addDays(40)->format('d M Y');
+                        <select id="inokulasi_id" name="inokulasi_id"
+                        class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white shadow-2xs focus:border-[#059669] focus:ring-[#059669] text-sm py-2.5 text-[#374151] font-medium @error('inokulasi_id') border-[#F59E0B] @enderror" required>
+                            <option value="">-- Pilih Batch Inokulasi (Miselium 100%) --</option>
+                            @foreach($inokulasis as $ino)
+                                @php
+                                    $rawNama = $ino->user->name ?? 'Petugas';
+                                    $namaPetugas = trim(str_replace('(Petugas)', '', $rawNama));
+                                    $jenisBibit = ucwords($ino->bibit->asal_bibit ?? $ino->bibit->kode_bibit ?? $ino->sterilisasi->bibit->asal_bibit ?? 'Bibit F2');
+                                    $jumlahBaglog = $ino->jumlah_berhasil > 0 ? $ino->jumlah_berhasil : ($ino->sterilisasi->bibit->banyak_baglog ?? 0);
+                                    $tglInkubasiTerakhir = \Carbon\Carbon::parse($ino->tanggal)->addDays(40)->format('d M Y');
 
-                                        // Cek progres inkubasi tertinggi
-                                        $maxProgres = $ino->logInkubasis->max('persentase_tumbuh') ?? 0;
-                                        $isSiapPanen = $maxProgres == 100;
-                                    @endphp
+                                    // Cek progres inkubasi tertinggi
+                                    $maxProgres = $ino->logInkubasis->max('persentase_tumbuh') ?? 0;
+                                    $isSiapPanen = $maxProgres == 100;
+                                @endphp
 
-                                    <option value="{{ $ino->id }}"
-                                        {{ !$isSiapPanen ? 'disabled' : '' }}
-                                        {{ old('inokulasi_id', request('inokulasi_id')) == $ino->id ? 'selected' : '' }}
-                                        data-tanggal="{{ $ino->tanggal }}"
-                                        data-used-cycles="{{ $ino->productionReports->pluck('siklus_panen')->implode(',') }}"
-                                        class="{{ !$isSiapPanen ? 'bg-gray-100 text-gray-400' : 'text-gray-800 font-semibold' }}">
+                                <option value="{{ $ino->id }}"
+                                    {{ !$isSiapPanen ? 'disabled' : '' }}
+                                    {{ old('inokulasi_id', request('inokulasi_id')) == $ino->id ? 'selected' : '' }}
+                                    data-tanggal="{{ $ino->tanggal }}"
+                                    data-used-cycles="{{ $ino->productionReports->where('status_validasi', '!=', 'dibatalkan')->pluck('siklus_panen')->implode(',') }}"
+                                    class="{{ !$isSiapPanen ? 'bg-gray-100 text-gray-400' : 'text-gray-800 font-semibold' }}">
 
-                                        Inokulasi #{{ $ino->id }} — Progres: {{ $maxProgres }}% {{ !$isSiapPanen ? '[BELUM SIAP PANEN]' : '[SIAP PANEN]' }} | {{ $namaPetugas }} | Bibit: {{ $jenisBibit }} ({{ number_format($jumlahBaglog) }} Baglog)
-                                    </option>
-                                @endforeach
-                            </select>
-                        @endif
+                                    Inokulasi #{{ $ino->id }} — Progres: {{ $maxProgres }}% {{ !$isSiapPanen ? '[BELUM SIAP PANEN]' : '[SIAP PANEN]' }} | {{ $namaPetugas }} | Bibit: {{ $jenisBibit }} ({{ number_format($jumlahBaglog) }} Baglog)
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     {{-- Siklus Panen & Tanggal Panen (Grid) --}}

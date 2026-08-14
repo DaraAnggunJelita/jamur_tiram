@@ -76,6 +76,10 @@ class BibitController extends Controller
 
     public function edit($id)
     {
+        if (Auth::user()->role === 'ketua') {
+            abort(403, 'Ketua tidak memiliki akses untuk mengubah data bibit.');
+        }
+
         $bibit = Bibit::findOrFail($id);
         
         // Cek apakah stok bibit sudah mulai terpakai
@@ -90,6 +94,10 @@ class BibitController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (Auth::user()->role === 'ketua') {
+            abort(403, 'Ketua tidak memiliki akses untuk mengubah data bibit.');
+        }
+
         $bibit = Bibit::findOrFail($id);
 
         if ($bibit->sisa_stok != $bibit->jumlah) {
@@ -123,6 +131,10 @@ class BibitController extends Controller
 
     public function destroy($id)
     {
+        if (Auth::user()->role === 'ketua') {
+            abort(403, 'Ketua tidak memiliki akses untuk menghapus data bibit.');
+        }
+
         $bibit = Bibit::findOrFail($id);
 
         if ($bibit->sisa_stok != $bibit->jumlah) {

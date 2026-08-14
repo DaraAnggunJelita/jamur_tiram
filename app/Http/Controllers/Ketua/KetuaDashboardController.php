@@ -48,7 +48,7 @@ class KetuaDashboardController extends Controller
         // 4. Log laporan terbaru (semua status)
         $recentReports = ProductionReport::with('user')
             ->orderBy('tanggal', 'desc')
-            ->take(10)
+            ->take(5)
             ->get();
 
         // Pipeline Production Indicators
@@ -67,6 +67,12 @@ class KetuaDashboardController extends Controller
             })->orWhere('tanggal', '<=', now()->subDays(50));
         })->count();
 
+        // 5. Rekapitulasi Statistik Bibit Global untuk Ketua
+        $totalBibitGlobal = \App\Models\Bibit::sum('jumlah');
+        $sisaBibitGlobal = \App\Models\Bibit::sum('sisa_stok');
+        $terpakaiBibitGlobal = max(0, $totalBibitGlobal - $sisaBibitGlobal);
+        $persentaseTerpakaiBibit = $totalBibitGlobal > 0 ? round(($terpakaiBibitGlobal / $totalBibitGlobal) * 100) : 0;
+ 
         return view('ketua.dashboard', compact(
             'totalProduksi',
             'totalPanenGagal',
@@ -80,7 +86,11 @@ class KetuaDashboardController extends Controller
             'pipelinePendinginan',
             'pipelineSiapInokulasi',
             'pipelineInkubasi',
-            'pipelineSiapPanen'
+            'pipelineSiapPanen',
+            'totalBibitGlobal',
+            'sisaBibitGlobal',
+            'terpakaiBibitGlobal',
+            'persentaseTerpakaiBibit'
         ));
     }
 
@@ -311,7 +321,9 @@ class KetuaDashboardController extends Controller
         $bulan = $request->get('bulan', now()->month);
         $minggu = $request->get('minggu', 1);
 
-        return view('ketua.reports.index', compact('reports', 'totalValid', 'totalPending', 'totalPanen', 'judulPeriode', 'tipe', 'tahun', 'bulan', 'minggu'));
+        $petugasList = \App\Models\User::where('role', 'petugas')->get();
+
+        return view('ketua.reports.index', compact('reports', 'totalValid', 'totalPending', 'totalPanen', 'judulPeriode', 'tipe', 'tahun', 'bulan', 'minggu', 'petugasList'));
     }
 
     /**

@@ -150,13 +150,14 @@
 
                                         @if($hasPanen)
                                         <span class="inline-flex items-center px-2.5 py-1.5 bg-[#F3F4F6] text-[#9CA3AF] text-xs font-medium rounded-lg border border-[#E5E7EB] italic">
-                                            Selesai (Panen)
+                                            Selesai
                                         </span>
                                         @else
                                         <button type="button" @click="showInputModal = {{ $inok->id }}"
                                             class="inline-flex items-center px-2.5 py-1.5 bg-[#059669] hover:bg-[#047857] text-white text-xs font-semibold rounded-lg transition cursor-pointer">
                                             Pantau
                                         </button>
+                                        @if($maxProgres == 0)
                                         <form method="POST" action="{{ route('inokulasi.destroy', $inok->id) }}" class="inline" onsubmit="return confirm('Yakin ingin menghapus data inokulasi ini?');">
                                             @csrf
                                             @method('DELETE')
@@ -165,6 +166,7 @@
                                                 Hapus
                                             </button>
                                         </form>
+                                        @endif
                                         @endif
                                     </div>
                                 </td>
@@ -212,8 +214,8 @@
 
                         <form action="{{ route('inokulasi.store-log', $inok->id) }}" method="POST" class="space-y-4">
                             @csrf
-                            @php 
-                                $maxProgres = $inok->logInkubasis->max('persentase_tumbuh') ?? 0; 
+                            @php
+                                $maxProgres = $inok->logInkubasis->max('persentase_tumbuh') ?? 0;
                                 $nextTarget = $maxProgres + 25;
                                 $daysToAdd = match((int)$nextTarget) {
                                     25 => 10,

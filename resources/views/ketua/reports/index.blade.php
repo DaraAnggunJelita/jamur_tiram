@@ -16,14 +16,6 @@
             </div>
             {{-- Download Buttons (Sejajar dalam 1 Baris Horizontal) --}}
             <div class="flex flex-row flex-nowrap items-center gap-2 shrink-0 overflow-x-auto pb-1 md:pb-0">
-                {{-- Preview Button --}}
-                <a href="{{ route('ketua.reports.print', request()->query()) }}" target="_blank"
-                    class="inline-flex items-center gap-1.5 px-3 py-2 bg-[#FFFFFF] hover:bg-gray-50 text-[#047857] text-xs font-bold rounded-xl border border-[#E5E7EB] shadow-2xs transition duration-150 shrink-0 whitespace-nowrap">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
-                    </svg>
-                    Preview
-                </a>
                 {{-- Excel Button --}}
                 <a href="{{ route('ketua.reports.export.excel', request()->query()) }}"
                     id="btn-download-excel"
@@ -56,8 +48,13 @@
                 {{-- Pencarian --}}
                 <div id="wrapper_search">
                     <label class="block text-xs font-bold text-gray-700 mb-1">Cari Petugas</label>
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Ketik nama..."
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Pilih/ketik nama..." list="petugas-list" autocomplete="off"
                            class="w-full text-xs font-bold rounded-xl border-gray-300 shadow-2xs focus:border-[#059669] focus:ring focus:ring-[#059669]/20" />
+                    <datalist id="petugas-list">
+                        @foreach($petugasList as $p)
+                            <option value="{{ $p->name }}"></option>
+                        @endforeach
+                    </datalist>
                 </div>
 
                 {{-- Pilihan Periode --}}

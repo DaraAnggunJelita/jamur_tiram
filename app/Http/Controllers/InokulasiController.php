@@ -173,6 +173,11 @@ class InokulasiController extends Controller
             return redirect()->route('inokulasi.index')->with('error', 'Data inokulasi ini tidak dapat dihapus karena sudah mulai masuk masa panen.');
         }
 
+        // Cek apakah sudah ada progres inkubasi
+        if ($inokulasi->logInkubasis()->exists()) {
+            return redirect()->route('inokulasi.index')->with('error', 'Data inokulasi ini tidak dapat dihapus karena sudah memiliki progres inkubasi yang tercatat.');
+        }
+
         // Kembalikan stok bibit yang dipakai
         if ($inokulasi->bibit_id && $inokulasi->bibit) {
             $inokulasi->bibit->sisa_stok += $inokulasi->jumlah_bibit_terpakai;

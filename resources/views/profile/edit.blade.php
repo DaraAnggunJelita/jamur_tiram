@@ -27,13 +27,6 @@
  </div>
  </div>
 
- {{-- Form Hapus Akun --}}
- <div class="p-6 sm:p-8 bg-[#FFFFFF] shadow-xs rounded-2xl border border-[#E5E7EB]/40">
- <div class="max-w-xl font-sans">
- @include('profile.partials.delete-user-form')
- </div>
- </div>
-
  </div>
  </div>
 </x-app-layout>

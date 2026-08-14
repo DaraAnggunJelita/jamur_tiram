@@ -87,7 +87,9 @@
  <th class="py-3 px-4 text-center">Jumlah Terpakai</th>
  <th class="py-3 px-4 text-center">Sisa Stok Saat Ini</th>
  <th class="py-3 px-4 text-center">Status</th>
- <th class="py-3 px-4 text-center">Aksi</th>
+  @if(auth()->user()->role !== 'ketua')
+  <th class="py-3 px-4 text-center">Aksi</th>
+  @endif
  </tr>
  </thead>
  <tbody class="divide-y divide-[#E5E7EB]/20 text-[#374151]">
@@ -112,32 +114,34 @@
  {{ $bibit->status }}
  </span>
  </td>
- <td class="py-3.5 px-4 text-center whitespace-nowrap">
- <div class="flex items-center justify-center space-x-2">
- @if($bibit->sisa_stok == $bibit->jumlah)
- <a href="{{ route('bibit.edit', $bibit->id) }}"
- class="p-1.5 bg-[#E6DAC2]/40 text-[#047857] hover:bg-[#E6DAC2]/80 border border-[#E5E7EB]/60 rounded-lg transition duration-150 shadow-2xs"
- title="Edit Bibit">
- <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
- <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2.828 2.828 0 114 4L11.828 15H8v-3.828l9.282-9.282z"/>
- </svg>
- </a>
- <form action="{{ route('bibit.destroy', $bibit->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus stok bibit ini?');" class="inline">
- @csrf
- @method('DELETE')
- <button type="submit"
- class="p-1.5 bg-red-100 text-red-600 hover:bg-red-200 border border-red-200 rounded-lg transition duration-150 shadow-2xs cursor-pointer"
- title="Hapus Bibit">
- <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
- <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-4v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
- </svg>
- </button>
- </form>
- @else
- <span class="text-[10px] italic text-[#6B7280] font-medium">Terkunci (Terpakai)</span>
- @endif
- </div>
- </td>
+  @if(auth()->user()->role !== 'ketua')
+  <td class="py-3.5 px-4 text-center whitespace-nowrap">
+  <div class="flex items-center justify-center space-x-2">
+  @if($bibit->sisa_stok == $bibit->jumlah)
+  <a href="{{ route('bibit.edit', $bibit->id) }}"
+  class="p-1.5 bg-[#E6DAC2]/40 text-[#047857] hover:bg-[#E6DAC2]/80 border border-[#E5E7EB]/60 rounded-lg transition duration-150 shadow-2xs"
+  title="Edit Bibit">
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2.828 2.828 0 114 4L11.828 15H8v-3.828l9.282-9.282z"/>
+  </svg>
+  </a>
+  <form action="{{ route('bibit.destroy', $bibit->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus stok bibit ini?');" class="inline">
+  @csrf
+  @method('DELETE')
+  <button type="submit"
+  class="p-1.5 bg-red-100 text-red-600 hover:bg-red-200 border border-red-200 rounded-lg transition duration-150 shadow-2xs cursor-pointer"
+  title="Hapus Bibit">
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-4v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+  </svg>
+  </button>
+  </form>
+  @else
+  <span class="text-[10px] italic text-[#6B7280] font-medium">Terkunci (Terpakai)</span>
+  @endif
+  </div>
+  </td>
+  @endif
  </tr>
  @empty
  <tr>

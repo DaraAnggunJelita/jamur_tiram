@@ -137,7 +137,6 @@
                                         <th class="py-2.5 px-4 text-center">Grade A</th>
                                         <th class="py-2.5 px-4 text-center">Grade B</th>
                                         <th class="py-2.5 px-4 text-center">Total Berat</th>
-                                        <th class="py-2.5 px-4 text-center">Status Validasi</th>
                                         <th class="py-2.5 px-4 text-right">Aksi</th>
                                     </tr>
                                 </thead>
@@ -159,34 +158,6 @@
                                         <td class="py-3 px-4 text-center font-bold text-[#1F2937] whitespace-nowrap">
                                             {{ number_format($report->jumlah_panen, 1) }} <span class="text-[10px] font-normal text-[#6B7280]">Kg</span>
                                         </td>
-                                        <td class="py-3 px-4 text-center">
-                                            <div class="flex flex-col items-center justify-center">
-                                                @if ($report->status_validasi === 'pending')
-                                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold bg-amber-100 text-amber-800">
-                                                    ● Menunggu Validasi
-                                                </span>
-                                                @elseif ($report->status_validasi === 'valid')
-                                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold bg-[#D1FAE5] text-[#065F46]">
-                                                    ● Valid / Disetujui
-                                                </span>
-                                                @elseif ($report->status_validasi === 'dibatalkan')
-                                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold bg-gray-100 text-gray-600">
-                                                    ● Dibatalkan
-                                                </span>
-                                                @else
-                                                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-semibold bg-red-100 text-red-700">
-                                                    ● Invalid / Ditolak
-                                                </span>
-                                                @endif
-                                                
-                                                @if($report->catatan)
-                                                <div class="mt-1.5 text-[10px] text-[#6B7280] font-normal flex items-center gap-1 max-w-[150px]" title="{{ $report->catatan }}">
-                                                    <svg class="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                                    <span class="truncate italic">"{{ $report->catatan }}"</span>
-                                                </div>
-                                                @endif
-                                            </div>
-                                        </td>
                                         <td class="py-3 px-4 text-right whitespace-nowrap">
                                             @if ($report->status_validasi === 'pending')
                                             <div class="flex items-center justify-end gap-1.5">
@@ -195,12 +166,12 @@
                                                     Edit
                                                 </a>
                                                 <form action="{{ route('petugas.laporan-panen.destroy', $report->id) }}" method="POST"
-                                                    onsubmit="return confirm('Batalkan laporan hasil panen ini?');" class="inline">
+                                                    onsubmit="return confirm('Hapus laporan hasil panen ini?');" class="inline">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
                                                         class="inline-flex items-center px-2.5 py-1.5 bg-red-50 hover:bg-red-100 text-red-600 text-xs font-semibold rounded-lg border border-red-200 transition cursor-pointer">
-                                                        Batalkan
+                                                        Hapus
                                                     </button>
                                                 </form>
                                             </div>

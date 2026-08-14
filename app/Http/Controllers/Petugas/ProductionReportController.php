@@ -260,12 +260,12 @@ class ProductionReportController extends Controller
 
         if ($report->status_validasi !== 'pending') {
             return redirect()->route('petugas.laporan-panen.index')
-                ->with('error', 'Laporan yang sudah divalidasi tidak dapat dibatalkan.');
+                ->with('error', 'Laporan yang sudah divalidasi tidak dapat dihapus.');
         }
 
-        $report->update(['status_validasi' => 'dibatalkan']);
-
+        $report->delete();
+ 
         return redirect()->route('petugas.laporan-panen.index')
-            ->with('success', 'Laporan panen berhasil dibatalkan (Log Audit tersimpan).');
+            ->with('success', 'Laporan panen berhasil dihapus secara permanen.');
     }
 }

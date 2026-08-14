@@ -77,63 +77,66 @@
             </div>
         </div>
 
-        {{-- === STATUS ALUR PRODUKSI BAGLOG (PIPELINE) === --}}
-        <div class="bg-white rounded-xl border border-gray-200/80 p-4 shadow-2xs">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 mb-3 border-b border-gray-100 gap-1">
-                <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    <h3 class="text-xs font-black text-[#064E3B] uppercase tracking-wider">Status Alur Produksi Baglog (Pipeline)</h3>
+        {{-- === REKAPITULASI STATISTIK STOK BIBIT GLOBAL === --}}
+        <div class="bg-white rounded-xl border border-gray-200/80 p-5 shadow-2xs">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3.5 mb-5 border-b border-gray-100 gap-2">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-[#059669]/10 text-[#059669] flex items-center justify-center shrink-0">
+                        <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-black text-[#064E3B] uppercase tracking-wider">Statistik &amp; Alokasi Stok Bibit</h3>
+                        <p class="text-[10px] text-gray-400 font-medium">Rekapitulasi persediaan bibit F2 secara global di tangan seluruh petugas</p>
+                    </div>
                 </div>
-                <span class="text-[11px] text-gray-400 font-semibold">Pantau pergerakan stok dari mentah hingga siap panen di kubung</span>
+                <a href="{{ route('ketua.bibit.pantau') }}" class="text-[11px] text-[#059669] hover:underline font-bold self-start sm:self-center">Pantau Detail Stok →</a>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-                {{-- 1: Stok Mentah --}}
-                <div class="p-3 rounded-xl bg-gray-50 border border-gray-200/60 flex flex-col justify-between hover:bg-gray-100/60 transition duration-150">
-                    <div>
-                        <span class="text-[10px] font-extrabold text-gray-500 uppercase tracking-wide block">1. Stok Mentah</span>
-                        <span class="text-lg font-black text-gray-800 mt-1 block">{{ $pipelineStokBaglog }} <span class="text-[11px] font-semibold text-gray-500">Bungkus</span></span>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {{-- Card 1: Total Pasokan --}}
+                <div class="p-4 rounded-xl bg-gray-50/70 border border-gray-200/80 hover:bg-gray-100/50 transition">
+                    <span class="text-[10px] font-extrabold text-gray-500 uppercase tracking-wide block">Total Distribusi</span>
+                    <div class="text-xl font-black text-gray-800 mt-1.5 flex items-baseline gap-1">
+                        {{ number_format($totalBibitGlobal, 1) }}
+                        <span class="text-[10px] font-bold text-gray-400 font-sans">Bungkus</span>
                     </div>
-                    <span class="text-[10px] text-gray-400 mt-2 block font-medium">Belum diserilisasi</span>
+                    <span class="text-[10px] text-gray-400 font-medium mt-1 block">Total bibit diakumulasi dari seluruh petugas</span>
                 </div>
 
-                {{-- 2: Pendinginan --}}
-                <div class="p-3 rounded-xl bg-amber-50/70 border border-amber-200/70 flex flex-col justify-between hover:bg-amber-100/60 transition duration-150">
-                    <div>
-                        <span class="text-[10px] font-extrabold text-amber-700 uppercase tracking-wide block">2. Pendinginan</span>
-                        <span class="text-lg font-black text-amber-900 mt-1 block">{{ $pipelinePendinginan }} <span class="text-[11px] font-semibold text-amber-700">Batch</span></span>
+                {{-- Card 2: Terpakai --}}
+                <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-100 hover:bg-emerald-50 transition">
+                    <span class="text-[10px] font-extrabold text-emerald-700 uppercase tracking-wide block">Telah Terpakai</span>
+                    <div class="text-xl font-black text-emerald-800 mt-1.5 flex items-baseline gap-1">
+                        {{ number_format($terpakaiBibitGlobal, 1) }}
+                        <span class="text-[10px] font-bold text-emerald-600 font-sans">Bungkus</span>
                     </div>
-                    <span class="text-[10px] text-amber-700 mt-2 font-bold block">⏳ Masih proses diam</span>
+                    <span class="text-[10px] text-emerald-600 font-medium mt-1 block">{{ $persentaseTerpakaiBibit }}% bibit telah digunakan inokulasi</span>
                 </div>
 
-                {{-- 3: Siap Inokulasi --}}
-                <div class="p-3 rounded-xl bg-blue-50/70 border border-blue-200/70 flex flex-col justify-between hover:bg-blue-100/60 transition duration-150">
-                    <div>
-                        <span class="text-[10px] font-extrabold text-blue-700 uppercase tracking-wide block">3. Siap Inokulasi</span>
-                        <span class="text-lg font-black text-blue-900 mt-1 block">{{ $pipelineSiapInokulasi }} <span class="text-[11px] font-semibold text-blue-700">Batch</span></span>
+                {{-- Card 3: Sisa Stok --}}
+                <div class="p-4 rounded-xl bg-amber-50/60 border border-amber-100 hover:bg-amber-50 transition">
+                    <span class="text-[10px] font-extrabold text-amber-700 uppercase tracking-wide block">Sisa Stok Aktif</span>
+                    <div class="text-xl font-black text-amber-800 mt-1.5 flex items-baseline gap-1">
+                        {{ number_format($sisaBibitGlobal, 1) }}
+                        <span class="text-[10px] font-bold text-amber-600 font-sans">Bungkus</span>
                     </div>
-                    <span class="text-[10px] text-blue-600 mt-2 block font-bold">✓ Siap suntik bibit</span>
+                    <span class="text-[10px] text-amber-600 font-medium mt-1 block">Sisa bibit yang belum disuntikkan ke baglog</span>
                 </div>
+            </div>
 
-                {{-- 4: Masa Inkubasi --}}
-                <div class="p-3 rounded-xl bg-indigo-50/70 border border-indigo-200/70 flex flex-col justify-between hover:bg-indigo-100/60 transition duration-150">
-                    <div>
-                        <span class="text-[10px] font-extrabold text-indigo-700 uppercase tracking-wide block">4. Masa Inkubasi</span>
-                        <span class="text-lg font-black text-indigo-900 mt-1 block">{{ $pipelineInkubasi }} <span class="text-[11px] font-semibold text-indigo-700">Batch</span></span>
-                    </div>
-                    <span class="text-[10px] text-indigo-600 mt-2 block font-bold">🔍 Dalam pemantauan</span>
+            {{-- Progress Bar Visual --}}
+            <div class="mt-5 pt-4 border-t border-gray-100">
+                <div class="flex justify-between text-[10px] font-bold text-gray-500 mb-1.5">
+                    <span>Rasio Pemakaian Stok Bibit</span>
+                    <span>{{ $persentaseTerpakaiBibit }}% Terpakai</span>
                 </div>
-
-                {{-- 5: Siap Panen --}}
-                <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200/90 flex flex-col justify-between hover:bg-emerald-100/60 transition duration-150 col-span-2 sm:col-span-1">
-                    <div>
-                        <span class="text-[10px] font-extrabold text-emerald-800 uppercase tracking-wide flex items-center gap-1">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-ping"></span>
-                            5. Siap Panen
-                        </span>
-                        <span class="text-lg font-black text-emerald-950 mt-1 block">{{ $pipelineSiapPanen }} <span class="text-[11px] font-semibold text-emerald-700">Batch</span></span>
-                    </div>
-                    <span class="text-[10px] text-emerald-700 mt-2 font-black block">🍄 Pertumbuhan 100%</span>
+                <div class="w-full h-3 bg-gray-100 rounded-full overflow-hidden flex">
+                    <div class="bg-[#059669] h-full transition-all duration-500" style="width: {{ $persentaseTerpakaiBibit }}%;"></div>
+                    <div class="bg-[#F59E0B] h-full flex-1"></div>
+                </div>
+                <div class="flex items-center gap-4 mt-2.5 text-[10px] font-semibold text-gray-400">
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#059669]"></span> Terpakai (Inokulasi)</span>
+                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#F59E0B]"></span> Sisa Stok</span>
                 </div>
             </div>
         </div>
