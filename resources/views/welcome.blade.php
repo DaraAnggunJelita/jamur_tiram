@@ -570,7 +570,7 @@
                             Foto Belum Ada
                         </div>
                     @endif
-                    <span class="catalog-badge">Organik</span>
+                    {{-- <span class="catalog-badge">Organik</span> --}}
                 </div>
                 <div class="catalog-body">
                     <h3 class="catalog-name">{{ $catalog->name }}</h3>

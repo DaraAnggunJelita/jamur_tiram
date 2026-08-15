@@ -43,7 +43,6 @@ Route::get('/dashboard', function () {
 */
 Route::middleware(['auth', 'role:petugas,admin'])->prefix('petugas')->name('petugas.')->group(function () {
     Route::get('/dashboard', [PetugasDashboardController::class, 'index'])->name('dashboard');
-    Route::post('/peringatan/{id}/resolve', [PetugasDashboardController::class, 'resolvePeringatan'])->name('peringatan.resolve');
     Route::resource('laporan-panen', ProductionReportController::class);
 });
 

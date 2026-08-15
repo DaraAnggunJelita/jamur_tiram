@@ -150,11 +150,7 @@ class ProductionReportController extends Controller
 
         $jumlah_panen = $request->berat_grade_a + $request->berat_grade_b;
 
-        // Auto-resolve peringatan Panen untuk batch ini
-        \App\Models\Peringatan::where('kategori', 'Panen')
-            ->where('referensi_id', $request->inokulasi_id)
-            ->where('is_read', false)
-            ->update(['is_read' => true]);
+
 
         ProductionReport::create([
             'inokulasi_id'      => $request->inokulasi_id,

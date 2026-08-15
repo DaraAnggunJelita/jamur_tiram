@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Inokulasi;
 use App\Models\MonitoringKumbung;
-use App\Models\Peringatan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -104,12 +103,7 @@ class MonitoringKumbungController extends Controller
             'jumlah_penyiraman' => $request->jumlah_penyiraman,
         ]);
 
-        // Auto-resolve peringatan kumbung sebelumnya untuk batch ini jika ada
-        $existingMonitoringIds = MonitoringKumbung::where('inokulasi_id', $request->inokulasi_id)->pluck('id');
-        Peringatan::where('kategori', 'Kumbung')
-            ->whereIn('referensi_id', $existingMonitoringIds)
-            ->where('is_read', false)
-            ->update(['is_read' => true]);
+
 
         return redirect()->route('monitoring.index')->with('success', 'Data monitoring kumbung berhasil disimpan.');
     }

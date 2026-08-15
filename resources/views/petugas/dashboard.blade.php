@@ -17,43 +17,6 @@
     <div class="py-8 bg-[#F3F5F4] min-h-screen text-[#374151]">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-            {{-- 1. PUSAT PERINGATAN --}}
-            @if(isset($peringatanAktif) && $peringatanAktif->count() > 0)
-            <div class="bg-red-50 border-l-4 border-red-500 rounded-r-xl shadow-xs p-4 border border-red-200">
-                <div class="flex items-start gap-3">
-                    <div class="w-9 h-9 bg-red-500/10 rounded-lg flex items-center justify-center text-red-600 shrink-0">
-                        <svg class="h-5 w-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-                        </svg>
-                    </div>
-                    <div class="w-full">
-                        <h3 class="text-xs font-extrabold text-red-800">Pusat Peringatan Aktif ({{ $peringatanAktif->count() }} Peringatan)</h3>
-                        <div class="mt-2 space-y-2">
-                            @foreach($peringatanAktif as $peringatan)
-                            <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border border-red-100 shadow-2xs text-xs">
-                                <p class="font-bold text-red-700">{{ $peringatan->pesan }}</p>
-                                @php
-                                    $targetRoute = '#';
-                                    if ($peringatan->kategori === 'Sterilisasi') {
-                                        $targetRoute = route('sterilisasi.edit', $peringatan->referensi_id);
-                                    } elseif ($peringatan->kategori === 'Kumbung') {
-                                        $monitoring = $peringatan->referensi;
-                                        $inokulasiId = $monitoring ? $monitoring->inokulasi_id : '';
-                                        $targetRoute = route('monitoring.create', ['inokulasi_id' => $inokulasiId]);
-                                    } elseif ($peringatan->kategori === 'Panen') {
-                                        $targetRoute = route('petugas.laporan-panen.create', ['inokulasi_id' => $peringatan->referensi_id]);
-                                    }
-                                @endphp
-                                <a href="{{ $targetRoute }}" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white font-bold rounded-md shadow-2xs transition shrink-0 ml-4">
-                                    Tindak Lanjuti
-                                </a>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
 
             {{-- 1.1 NOTIFIKASI BATCH STERILISASI BERISIKO --}}
             @if(isset($sterilisasiBerisiko) && $sterilisasiBerisiko->count() > 0)

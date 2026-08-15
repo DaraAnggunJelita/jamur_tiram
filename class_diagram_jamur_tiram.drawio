@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram id="class_diagram_terbaru" name="Class Diagram KUPS Jamur Tiram">
-    <mxGraphModel dx="1804" dy="1002" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
+    <mxGraphModel dx="2030" dy="1128" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="1800" background="light-dark(#ffffff, #121212)" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -59,7 +59,7 @@
           <mxGeometry height="100" width="300" y="260" as="geometry" />
         </mxCell>
         <mxCell id="LogInkubasi" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;rounded=1;" value="LogInkubasi" vertex="1">
-          <mxGeometry height="240" width="300" x="840" y="40" as="geometry" />
+          <mxGeometry height="240" width="300" x="830" y="140" as="geometry" />
         </mxCell>
         <mxCell id="LogInkubasi_attrs" parent="LogInkubasi" style="text;strokeColor=#000000;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="- id: BigInt&#xa;- inokulasi_id: BigInt&#xa;- user_id: BigInt&#xa;- persentase_tumbuh: Float&#xa;- catatan: String&#xa;- tanggal_catat: Date&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" vertex="1">
           <mxGeometry height="154" width="300" y="26" as="geometry" />
@@ -77,7 +77,7 @@
           <mxGeometry height="70" width="300" y="190" as="geometry" />
         </mxCell>
         <mxCell id="Catalog" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;rounded=1;" value="Catalog" vertex="1">
-          <mxGeometry height="220" width="300" x="1220" y="40" as="geometry" />
+          <mxGeometry height="220" width="300" x="1240" y="140" as="geometry" />
         </mxCell>
         <mxCell id="Catalog_attrs" parent="Catalog" style="text;strokeColor=#000000;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="- id: BigInt&#xa;- name: String&#xa;- description: String&#xa;- price: Float&#xa;- image: String&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" vertex="1">
           <mxGeometry height="134" width="300" y="26" as="geometry" />
@@ -86,22 +86,13 @@
           <mxGeometry height="60" width="300" y="160" as="geometry" />
         </mxCell>
         <mxCell id="ProfileKups" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;rounded=1;" value="ProfileKups" vertex="1">
-          <mxGeometry height="320" width="300" x="1220" y="320" as="geometry" />
+          <mxGeometry height="320" width="300" x="1210" y="530" as="geometry" />
         </mxCell>
         <mxCell id="ProfileKups_attrs" parent="ProfileKups" style="text;strokeColor=#000000;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="- id: BigInt&#xa;- nama_kups: String&#xa;- sub_judul: String&#xa;- deskripsi_singkat: String&#xa;- tentang_kami: String&#xa;- visi: String&#xa;- misi: String&#xa;- jumlah_anggota: Integer&#xa;- siklus_panen: Integer&#xa;- tahun_berdiri: Integer&#xa;- alamat: String&#xa;- nomor_telepon: String&#xa;- email: String&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" vertex="1">
           <mxGeometry height="254" width="300" y="26" as="geometry" />
         </mxCell>
         <mxCell id="ProfileKups_methods" parent="ProfileKups" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="+ getProfile(): ProfileKups&#xa;+ updateProfile(data: Array): Boolean" vertex="1">
           <mxGeometry height="40" width="300" y="280" as="geometry" />
-        </mxCell>
-        <mxCell id="Peringatan" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;rounded=1;" value="Peringatan" vertex="1">
-          <mxGeometry height="240" width="300" x="1220" y="730" as="geometry" />
-        </mxCell>
-        <mxCell id="Peringatan_attrs" parent="Peringatan" style="text;strokeColor=#000000;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="- id: BigInt&#xa;- kategori: String&#xa;- referensi_id: BigInt&#xa;- level: String&#xa;- pesan: String&#xa;- is_read: Boolean&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" vertex="1">
-          <mxGeometry height="154" width="300" y="26" as="geometry" />
-        </mxCell>
-        <mxCell id="Peringatan_methods" parent="Peringatan" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="+ markAsRead(): Boolean&#xa;+ sendNotification(): Void&#xa;+ getUnreadAlerts(): Array" vertex="1">
-          <mxGeometry height="60" width="300" y="180" as="geometry" />
         </mxCell>
         <mxCell id="e_user_bibit" edge="1" parent="1" source="User" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;strokeWidth=1.5;" target="Bibit" value="">
           <mxGeometry relative="1" as="geometry" />
@@ -163,7 +154,7 @@
         </mxCell>
         <mxCell id="e_user_inokulasi_tgt" connectable="0" parent="e_user_inokulasi" style="edgeLabel;html=1;align=right;verticalAlign=bottom;resizable=0;points=[];fontStyle=1;" value="0..*" vertex="1">
           <mxGeometry relative="1" x="0.85" as="geometry">
-            <mxPoint x="15" y="-15" as="offset" />
+            <mxPoint x="40" y="-15" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="e_bibit_sterilisasi" edge="1" parent="1" source="Bibit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;strokeWidth=1.5;" target="Sterilisasi" value="">

@@ -85,25 +85,7 @@ class PetugasDashboardController extends Controller
 
 
 
-        // Mengambil data Peringatan Aktif (is_read = false) untuk dikirim ke Dashboard (Hanya Milik Petugas yang Login)
-        // Dipanggil di sini agar mencakup peringatan EWS baru yang digenerate di atas
-        $peringatanAktif = \App\Models\Peringatan::where('is_read', false)
-            ->where(function($q) {
-                $q->where(function($sq) {
-                    $sq->where('kategori', 'Sterilisasi')
-                       ->whereIn('referensi_id', function($sub) {
-                           $sub->select('id')->from('bibits')->where('user_id', auth()->id());
-                       });
-                })
-                ->orWhere(function($iq) {
-                    $iq->whereIn('kategori', ['Kumbung', 'Panen'])
-                       ->whereIn('referensi_id', function($sub) {
-                           $sub->select('id')->from('inokulasis')->where('user_id', auth()->id());
-                       });
-                });
-            })
-            ->orderBy('created_at', 'desc')
-            ->get();
+
 
         // Ambil data sterilisasi yang berisiko untuk notifikasi (Hanya Milik Petugas yang Login)
         $sterilisasiBerisiko = \App\Models\Sterilisasi::where('user_id', auth()->id())
@@ -128,7 +110,6 @@ class PetugasDashboardController extends Controller
         return view('petugas.dashboard', compact(
             'reportsBulanIni',
             'recentReports', 
-            'peringatanAktif', 
             'persentaseA',
             'persentaseB',
             'pipelineStokBaglog',
@@ -149,11 +130,5 @@ class PetugasDashboardController extends Controller
         ));
     }
 
-    public function resolvePeringatan($id): RedirectResponse
-    {
-        $peringatan = \App\Models\Peringatan::findOrFail($id);
-        $peringatan->update(['is_read' => true]);
 
-        return back()->with('success', 'Peringatan EWS berhasil ditandai selesai.');
-    }
 }

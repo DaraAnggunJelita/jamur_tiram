@@ -96,15 +96,7 @@
           <mxGeometry height="40" width="300" y="280" as="geometry" />
         </mxCell>
 
-        <mxCell id="Peringatan" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=1.5;rounded=1;" value="Peringatan" vertex="1">
-          <mxGeometry height="240" width="300" x="1220" y="980" as="geometry" />
-        </mxCell>
-        <mxCell id="Peringatan_attrs" parent="Peringatan" style="text;strokeColor=#000000;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="- id: BigInt&#xa;- kategori: String&#xa;- referensi_id: BigInt&#xa;- level: String&#xa;- pesan: String&#xa;- is_read: Boolean&#xa;- created_at: Timestamp&#xa;- updated_at: Timestamp" vertex="1">
-          <mxGeometry height="154" width="300" y="26" as="geometry" />
-        </mxCell>
-        <mxCell id="Peringatan_methods" parent="Peringatan" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=6;spacingRight=6;overflow=hidden;rotatable=0;portConstraint=eastwest;html=1;" value="+ markAsRead(): Boolean&#xa;+ sendNotification(): Void&#xa;+ getUnreadAlerts(): Array" vertex="1">
-          <mxGeometry height="60" width="300" y="180" as="geometry" />
-        </mxCell>
+
         <mxCell id="e_user_bibit" edge="1" parent="1" source="User" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;strokeColor=#000000;strokeWidth=1.5;" target="Bibit" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
