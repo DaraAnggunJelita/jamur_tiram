@@ -67,7 +67,7 @@
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </div>
                         <input type="text" name="search" value="{{ request('search') }}"
-                            placeholder="Cari kode bibit, petugas..."
+                            placeholder="{{ auth()->user()->role === 'admin' ? 'Cari ref. sterilisasi, kode bibit, petugas...' : 'Cari ref. sterilisasi, kode bibit...' }}"
                             class="w-full pl-9 pr-3.5 py-2 bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl text-xs font-medium text-[#1F2937] placeholder-[#9CA3AF] focus:bg-white focus:border-[#059669] focus:ring-[#059669]">
                     </div>
 

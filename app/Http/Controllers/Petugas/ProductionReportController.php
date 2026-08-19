@@ -15,12 +15,21 @@ class ProductionReportController extends Controller
      */
     public function index(Request $request): View
     {
-        $query = \App\Models\Inokulasi::with(['user', 'productionReports.user', 'productionReports' => function($q) {
-            if (!auth()->user()->isAdmin()) {
-                $q->where('user_id', auth()->id());
+        $date = $request->filled('date') ? $request->date : null;
+
+        $query = \App\Models\Inokulasi::with(['user', 'sterilisasi.bibit',
+            'productionReports.user',
+            'productionReports' => function($q) use ($date) {
+                if (!auth()->user()->isAdmin()) {
+                    $q->where('user_id', auth()->id());
+                }
+                // Jika ada filter tanggal, hanya muat laporan di tanggal tsb
+                if ($date) {
+                    $q->whereDate('tanggal', $date);
+                }
+                $q->orderBy('siklus_panen', 'asc');
             }
-            $q->orderBy('siklus_panen', 'asc');
-        }, 'sterilisasi.bibit']);
+        ]);
 
         if (!auth()->user()->isAdmin()) {
             $query->whereHas('productionReports', function($q) {
@@ -30,45 +39,45 @@ class ProductionReportController extends Controller
             $query->whereHas('productionReports');
         }
 
-        // Filter per batch inokulasi (Default: Tampilkan batch terbaru saja jika belum dipilih)
+        // Filter per batch inokulasi
         if ($request->filled('inokulasi_id')) {
+            // Batch dipilih manual → berlaku untuk semua role
             $query->where('id', $request->inokulasi_id);
-        } else {
-            $latestBatchQuery = \App\Models\Inokulasi::whereHas('productionReports', function($q) {
-                if (!auth()->user()->isAdmin()) {
+        } elseif (!auth()->user()->isAdmin() && !$date) {
+            // Petugas tanpa filter tanggal → default tampilkan batch terbaru milik sendiri
+            $latestBatchId = \App\Models\Inokulasi::whereHas('productionReports', function($q) {
                     $q->where('user_id', auth()->id());
-                }
-            });
-            if (!auth()->user()->isAdmin()) {
-                $latestBatchQuery->where('user_id', auth()->id());
-            }
-            $latestBatchId = $latestBatchQuery->latest('id')->value('id');
+                })
+                ->where('user_id', auth()->id())
+                ->latest('id')
+                ->value('id');
             if ($latestBatchId) {
                 $query->where('id', $latestBatchId);
             }
         }
+        // Admin tanpa filter → tampilkan SEMUA batch (tidak ada pembatasan)
 
-        if ($request->filled('search')) {
-            $search = $request->search;
-            $query->where(function($q) use ($search) {
-                $q->whereHas('user', function($qu) use ($search) {
-                    $qu->where('name', 'LIKE', '%' . $search . '%');
-                })->orWhereHas('productionReports.user', function($qu) use ($search) {
-                    $qu->where('name', 'LIKE', '%' . $search . '%');
-                })->orWhereHas('sterilisasi.bibit', function($qb) use ($search) {
-                    $qb->where('kode_bibit', 'LIKE', '%' . $search . '%');
-                });
-            });
-        }
 
-        if ($request->filled('date')) {
-            $date = $request->date;
+        // Filter tanggal: hanya tampilkan batch yang PUNYA laporan di tanggal tsb
+        if ($date) {
             $query->whereHas('productionReports', function($q) use ($date) {
+                if (!auth()->user()->isAdmin()) {
+                    $q->where('user_id', auth()->id());
+                }
                 $q->whereDate('tanggal', $date);
             });
         }
 
-        $inokulasis = $query->latest()->paginate(5)->withQueryString();
+        // Filter nama petugas: hanya tersedia untuk admin/ketua
+        if (auth()->user()->isAdmin() && $request->filled('search')) {
+            $search = $request->search;
+            $query->whereHas('productionReports.user', function($q) use ($search) {
+                $q->where('name', 'LIKE', '%' . $search . '%');
+            });
+        }
+
+        $inokulasis = $query->latest()->paginate(10)->withQueryString();
+
 
         // Ambil semua batch untuk pilihan filter dropdown
         $batchesQuery = \App\Models\Inokulasi::whereHas('productionReports', function($q) {
@@ -82,7 +91,12 @@ class ProductionReportController extends Controller
         }
         $allBatches = $batchesQuery->get();
 
-        return view('petugas.laporan_panen.index', compact('inokulasis', 'allBatches'));
+        // Daftar nama petugas untuk autocomplete (hanya untuk admin)
+        $petugasList = auth()->user()->isAdmin()
+            ? \App\Models\User::where('role', 'petugas')->orderBy('name')->pluck('name')
+            : collect();
+
+        return view('petugas.laporan_panen.index', compact('inokulasis', 'allBatches', 'petugasList'));
     }
 
     /**

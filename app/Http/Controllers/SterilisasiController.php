@@ -24,13 +24,22 @@ class SterilisasiController extends Controller
             $query->where(function($q) use ($search) {
                 $q->whereHas('bibit', function($bibitQuery) use ($search) {
                       $bibitQuery->where('kode_bibit', 'LIKE', '%' . $search . '%')
-                                 ->orWhereHas('user', function($u) use ($search) {
-                                     $u->where('name', 'LIKE', '%' . $search . '%');
-                                 });
-                  })
-                  ->orWhereHas('user', function($userQuery) use ($search) {
-                      $userQuery->where('name', 'LIKE', '%' . $search . '%');
+                                 ->orWhere('banyak_baglog', 'LIKE', '%' . $search . '%');
+                      
+                      // Pencarian berdasarkan nama petugas pembuat bibit (Hanya Admin)
+                      if (Auth::user()->role === 'admin') {
+                          $bibitQuery->orWhereHas('user', function($u) use ($search) {
+                              $u->where('name', 'LIKE', '%' . $search . '%');
+                          });
+                      }
                   });
+                  
+                  // Pencarian berdasarkan nama petugas sterilisasi (Hanya Admin)
+                  if (Auth::user()->role === 'admin') {
+                      $q->orWhereHas('user', function($userQuery) use ($search) {
+                          $userQuery->where('name', 'LIKE', '%' . $search . '%');
+                      });
+                  }
             });
         }
 
@@ -56,7 +65,7 @@ class SterilisasiController extends Controller
     public function create()
     {
         // Tampilkan alokasi bibit yang belum pernah disterilisasi
-        $query = Bibit::whereDoesntHave('sterilisasis')->orderBy('created_at', 'desc');
+        $query = Bibit::whereDoesntHave('sterilisasis')->orderBy('created_at', 'asc');
         if (Auth::user()->role === 'petugas') {
             $query->where('user_id', Auth::id());
         }

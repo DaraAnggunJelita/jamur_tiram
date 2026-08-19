@@ -38,9 +38,14 @@ class MonitoringKumbungController extends Controller
 
     public function create(Request $request)
     {
-        // Hanya tampilkan batch inokulasi yang masih aktif (belum afkir / jumlah_berhasil > 0)
+        // Hanya tampilkan batch inokulasi yang masih aktif (belum afkir / jumlah_berhasil > 0),
+        // sudah menyelesaikan inkubasi 100%,
         // dan belum menyelesaikan masa panen (memiliki kurang dari 7 siklus laporan panen)
-        $inokulasisQuery = Inokulasi::where('jumlah_berhasil', '>', 0)
+        $inokulasisQuery = Inokulasi::with(['user', 'sterilisasi'])
+            ->where('jumlah_berhasil', '>', 0)
+            ->whereHas('logInkubasis', function ($q) {
+                $q->where('persentase_tumbuh', 100);
+            })
             ->where(function($query) {
                 $query->whereDoesntHave('productionReports', function($q) {
                     $q->where('status_validasi', '!=', 'dibatalkan');

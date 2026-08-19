@@ -41,7 +41,7 @@
               $selectedVal = old('inokulasi_id', request('inokulasi_id'));
           @endphp
           <option value="{{ $ino->id }}" {{ $selectedVal == $ino->id ? 'selected' : '' }}>
-              Inokulasi {{ $ino->id }} ({{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }}) - Petugas: {{ $ino->user->name ?? 'Tidak diketahui' }}
+              Inokulasi {{ $ino->sterilisasi_id }} ({{ \Carbon\Carbon::parse($ino->tanggal)->format('d M Y') }}) - Petugas: {{ $ino->user->name ?? 'Tidak diketahui' }}
           </option>
       @endforeach
   </select>

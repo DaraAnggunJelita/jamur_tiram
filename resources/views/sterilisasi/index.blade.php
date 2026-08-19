@@ -77,7 +77,10 @@
  {{-- Form Filter & Pencarian --}}
  <form method="GET" action="{{ route('sterilisasi.index') }}" class="flex flex-col sm:flex-row items-center gap-4 mb-6">
  <div class="w-full sm:w-1/2">
- <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari berdasarkan kode bibit, petugas..." class="w-full rounded-xl border-[#E5E7EB] text-sm focus:border-[#059669] focus:ring-[#059669]" oninput="clearTimeout(this.delay); this.delay = setTimeout(() => this.form.submit(), 500);">
+ <input type="text" name="search" value="{{ request('search') }}" 
+     placeholder="{{ auth()->user()->role === 'admin' ? 'Cari kode bibit, jumlah baglog, petugas...' : 'Cari jumlah baglog, kode bibit...' }}" 
+     class="w-full rounded-xl border-[#E5E7EB] text-sm focus:border-[#059669] focus:ring-[#059669]" 
+     oninput="clearTimeout(this.delay); this.delay = setTimeout(() => this.form.submit(), 500);">
  </div>
  <div class="w-full sm:w-1/3">
  <input type="date" name="date" value="{{ request('date') }}" class="w-full rounded-xl border-[#E5E7EB] text-sm focus:border-[#059669] focus:ring-[#059669]" title="Pilih Tanggal" onchange="this.form.submit()">

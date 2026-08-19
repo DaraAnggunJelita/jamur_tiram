@@ -143,6 +143,12 @@ class KetuaDashboardController extends Controller
     {
         $query = ProductionReport::with('user')->where('status_validasi', 'valid');
         $judulPeriode = '';
+        // Apply search filter if provided (same as reports page)
+        if ($search = $request->get('search')) {
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+            });
+        }
         $this->applyReportFilter($request, $query, $judulPeriode);
 
         $reports = $query->orderBy('tanggal', 'asc')->get();
@@ -170,6 +176,12 @@ class KetuaDashboardController extends Controller
     {
         $query = ProductionReport::with('user')->where('status_validasi', 'valid');
         $judulPeriode = '';
+        // Apply search filter if provided (same as PDF export)
+        if ($search = $request->get('search')) {
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%");
+            });
+        }
         $this->applyReportFilter($request, $query, $judulPeriode);
 
         $reports = $query->orderBy('tanggal', 'asc')->get();

@@ -21,12 +21,19 @@ class InokulasiController extends Controller
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
-                $q->whereHas('sterilisasi.bibit', function($bibitQuery) use ($search) {
+                // Pencarian berdasarkan ID sterilisasi (Ref Batch)
+                $q->where('sterilisasi_id', 'LIKE', '%' . $search . '%')
+                  // Atau berdasarkan kode bibit yang disterilisasi
+                  ->orWhereHas('sterilisasi.bibit', function($bibitQuery) use ($search) {
                       $bibitQuery->where('kode_bibit', 'LIKE', '%' . $search . '%');
-                  })
-                  ->orWhereHas('user', function($userQuery) use ($search) {
-                      $userQuery->where('name', 'LIKE', '%' . $search . '%');
                   });
+                
+                // Pencarian nama petugas hanya jika role = admin
+                if (Auth::user()->role === 'admin') {
+                    $q->orWhereHas('user', function($userQuery) use ($search) {
+                        $userQuery->where('name', 'LIKE', '%' . $search . '%');
+                    });
+                }
             });
         }
 

@@ -18,20 +18,22 @@
  @csrf
  <div>
   <label class="block text-xs font-bold text-[#047857] mb-1">Stok Bibit & Alokasi Baglog</label>
-  @php 
-      $selected = (request()->has('bibit_id') && $bibits->contains('id', request('bibit_id'))) 
-                  ? $bibits->firstWhere('id', request('bibit_id')) 
-                  : $bibits->first(); 
-  @endphp
-  @if($selected)
-      <input type="text" value="Bibit {{ $selected->kode_bibit ?? 'F2' }} ({{ (float)($selected->banyak_baglog ?? 0) }} Baglog - {{ $selected->user->name ?? 'Tanpa Petugas' }})" readonly class="block w-full rounded-xl border-[#E5E7EB]/60 bg-gray-100 py-2.5 px-4 text-[#374151] font-bold shadow-sm focus:outline-none cursor-not-allowed">
-      <input type="hidden" name="bibit_id" value="{{ $selected->id }}">
-  @else
-      <input type="text" value="Belum ada alokasi baglog yang siap disterilisasi" readonly class="block w-full rounded-xl border-red-300 bg-red-50 text-red-700 py-2.5 px-4 font-bold shadow-sm cursor-not-allowed">
-  @endif
+  <select name="bibit_id" class="block w-full rounded-xl border-[#E5E7EB]/60 bg-white py-2.5 shadow-sm focus:border-[#059669] focus:ring-[#059669]">
+    @foreach($bibits as $bibit)
+      <option value="{{ $bibit->id }}" {{ old('bibit_id', $bibits->first()->id ?? '') == $bibit->id ? 'selected' : '' }}>
+        Bibit {{ $bibit->kode_bibit ?? 'F2' }} ({{ (float)($bibit->banyak_baglog ?? 0) }} Baglog - {{ $bibit->user->name ?? 'Tanpa Petugas' }})
+      </option>
+    @endforeach
+  </select>
+  @error('bibit_id')
+    <p class="text-red-500 text-xs font-bold mt-1">{{ $message }}</p>
+  @enderror
   </div>
 
   {{-- Peringatan Keterlambatan Sterilisasi --}}
+  @php 
+      $selected = $bibits->firstWhere('id', old('bibit_id', request('bibit_id')));
+  @endphp
   @if($selected)
   @php
       $tglAlokasiSelected = \Carbon\Carbon::parse($selected->tanggal_masuk ?? $selected->created_at);

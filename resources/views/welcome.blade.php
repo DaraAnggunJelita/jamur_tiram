@@ -535,7 +535,7 @@
             <div class="step step-last">
                 <div class="step-num">4</div>
                 <div class="step-label">Monitoring</div>
-                <div class="step-desc">Suhu dan kelembaban kumbung dipantau harian oleh sistem EWS</div>
+                <div class="step-desc">Suhu dan kelembaban kumbung dipantau harian </div>
             </div>
             <div class="step step-last">
                 <div class="step-num">5</div>
